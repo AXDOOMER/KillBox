@@ -1,0 +1,28 @@
+public class Sound
+{
+    final int SFX_VOICES = 32;
+    boolean Preload_ = false;
+
+    public Sound(boolean Preload)
+    {
+        System.out.print("SFX initialisation");
+
+        Preload_ = Preload;
+        if(Preload_)
+        {
+            // Load sound effects in memory
+            System.out.print(" (with precache)");
+        }
+
+        System.out.println(". ");
+    }
+
+    public Boolean PlaySound(Player Source)
+    {
+        // Get the sound from a Player and the source will be at its X,Y,Z.
+
+
+        // If the sound was not found, return false:
+        return false;
+    }
+}
