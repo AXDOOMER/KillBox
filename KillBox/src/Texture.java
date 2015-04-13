@@ -30,7 +30,8 @@ public class Texture {
     private String Name = "DOOR9_1.png";
 
     private int id;
-    private int Width, Height;
+    private int Width;
+    private int Height;
 
     public Texture(String Path, int Filter) //GL_NEAREST GL_LINEAR
     {
