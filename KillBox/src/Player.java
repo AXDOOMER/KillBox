@@ -74,7 +74,7 @@ public class Player
         /*PosX += Speed * Math.cos(GetRadianAngle());
         PosY += Speed * Math.sin(GetRadianAngle());*/
 
-        float AdjustedAngle = GetRadianAngle() + (float) Math.PI / 2;
+        float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
         PosX += Speed * Math.cos(AdjustedAngle);
         PosY += Speed * Math.sin(AdjustedAngle);
@@ -93,7 +93,7 @@ public class Player
 
     public float GetDegreeAngle()
     {
-        return Angle * 360 / 32768;
+        return Angle * 360f / 32768;
     }
 
     public void AngleTurn(short AngleChange)

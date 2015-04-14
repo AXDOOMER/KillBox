@@ -140,11 +140,11 @@ public class Game
 				}
 				if (Keyboard.isKeyDown(Keyboard.KEY_A))
 				{
-					Players.get(0).LateralMove(1);
+					Players.get(0).LateralMove(-1);
 				}
 				if (Keyboard.isKeyDown(Keyboard.KEY_D))
 				{
-					Players.get(0).LateralMove(-1);
+					Players.get(0).LateralMove(1);
 				}
 				if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
 				{
