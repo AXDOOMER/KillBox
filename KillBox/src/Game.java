@@ -124,12 +124,22 @@ public class Game
 				Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
 
 				// Print DEBUG stats
-				System.out.println("    X: " + (int) Players.get(0).PosX + "  Y: " + (int) Players.get(0).PosY + "   Z: " + (int) Players.get(0).PosZ
-						+ " Ra: " + Players.get(0).GetRadianAngle() + " Cam: " + HeadCamera.RotY() +
-						"   mX: " + Mouse.getX() + "   mY: " + Mouse.getY() + "   dX: " + MouseTurnH + " dY: " + Mouse.getDY());
+				System.out.println("X: " + (int) Players.get(0).PosX + "	Y: " + (int) Players.get(0).PosY + "	Z: " + (int) Players.get(0).PosZ
+						+ "	Ra: " + Players.get(0).GetRadianAngle() + "	Cam: " + HeadCamera.RotY() 
+						+ "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
 				Players.get(0).AngleTurn( (short)-(MouseTurnH * 20));
 
-
+				if (Keyboard.isKeyDown(Keyboard.KEY_F5))
+				{
+					Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);	// Only to test
+					Door.Bind();
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_F6))
+				{
+					Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
+					Door.Bind();
+				}
+				
 				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 				{
 					Players.get(0).ForwardMove(1);
