@@ -190,7 +190,7 @@ public class Game
 						glPushMatrix();
 						{
 							// Apply color to polygons
-							glColor3f(0.5f, 0.5f, 0.5f);
+							glColor3f(1.0f, 1.0f, 1.0f);
 							// Draw polygons according to the camera position
 							glTranslatef(HeadCamera.PosX(), HeadCamera.PosY(), HeadCamera.PosZ());
 							glBegin(GL_QUADS);
