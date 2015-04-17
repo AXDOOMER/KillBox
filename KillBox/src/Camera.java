@@ -55,7 +55,7 @@ public class Camera
 	private void glPerspective(float FOV, float Aspect, float Near, float Far)
 	{
 		// This replaces 'gluPerspective'. 
-		float FH = Math.tan(FOV / 360 * Math.PI) * Near;
+		float FH = (float)Math.tan(FOV / 360 * Math.PI) * Near;
 		float FW = FH * Aspect;
 	
 		// Sets the Frustum to perspective mode. 
