@@ -36,13 +36,16 @@ public class Texture {
     public Texture(String Path, int Filter) //GL_NEAREST GL_LINEAR
     {
         int[] Pixels = null;
-        try {
+        try
+        {
             BufferedImage Image = ImageIO.read(new File(Path));
             Width = Image.getWidth();
             Height = Image.getHeight();
             Pixels = new int[Width * Height];
             Image.getRGB(0, 0, Width, Height, Pixels, 0, Width);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
 

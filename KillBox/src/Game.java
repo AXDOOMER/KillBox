@@ -18,8 +18,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.image.*;
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.*;
+import javax.imageio.ImageIO;
 
 public class Game
 {
@@ -29,14 +32,14 @@ public class Game
 		System.out.println("			======================");
 		int Ticks = 0;
 
-		// Sound (SFX)
-		Sound SndDriver = new Sound(CheckParm(args, "-pcs") >= 0);
-
 		// Create players list
 		ArrayList<Player> Players = new ArrayList<>();
 		int Nodes = 4;
 		String Demo = null;
 		Level Lvl = null;
+
+		// Sound (SFX)
+		Sound SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Players);
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
@@ -71,7 +74,7 @@ public class Game
 			}
 
 			for (int i = 1; i <= Nodes; i++) {
-				Players.add(new Player(Lvl));
+				Players.add(new Player(Lvl, SndDriver));
 			}
 
 			// The game is all setted up. Open the window.

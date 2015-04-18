@@ -19,7 +19,6 @@ public class Player
     float PosY;	// Vertical position
     float PosZ;	// Height, do not mix with Y.
     short Angle = 8192;	// Angles, from -16384 to 16383.
-    String Sound;	// The object keeps its noise so that the according sound can be played
 
     final int MaxOwnedWeapons = 10;
     Boolean[] OwnedWeapons_ = new Boolean[MaxOwnedWeapons];
@@ -43,8 +42,12 @@ public class Player
     int Kills = 0;
     int Deaths = 0;
 
-    public Player(Level Lvl)
+    Sound Emitter = null;   // Must get the already initialized SndDriver
+
+    public Player(Level Lvl, Sound Output)
     {
+        Emitter = Output;
+
         for (int i = 0; i < MaxOwnedWeapons; i++)
         {
             OwnedWeapons_[i] = false;
@@ -224,11 +227,6 @@ public class Player
 
     public void MakesNoise(String Sound)
     {
-        this.Sound = Sound;
-    }
-
-    public String Noise()
-    {
-        return Sound;
+        Emitter.PlaySound(this);
     }
 }
