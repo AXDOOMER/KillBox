@@ -18,11 +18,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.image.*;
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.util.*;
-import javax.imageio.ImageIO;
 
 public class Game
 {
