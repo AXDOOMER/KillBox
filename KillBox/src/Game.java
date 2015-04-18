@@ -14,14 +14,11 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 public class Game
@@ -95,135 +92,12 @@ public class Game
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
-			Texture Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
-			Door.Bind();
 
-			int[] TextXcoords = {0, 1, 1 ,0};
-			int[] TextYcoords = {0, 0, 1 ,1};
 
 			while (!Display.isCloseRequested())
 			{
-				if (Display.wasResized())
-				{
-					// Doesn't work
-					HeadCamera.ChangeProperties(90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 1000f);
-
-					glViewport(0, 0, Display.getWidth(), Display.getHeight());
-				}
-
-				glClearColor(0.0f, 0.0f, 0.5f, 0.0f);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-				glLoadIdentity();
-				HeadCamera.UseView();
-
-				if (!Mouse.isGrabbed())
-				{
-					Mouse.setGrabbed(true); // Hide mouse
-				}
-				short MouseTurnH = (short)Mouse.getDX();
-				Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
-
-				// Print DEBUG stats
-				System.out.println("X: " + (int) Players.get(0).PosX + "	Y: " + (int) Players.get(0).PosY + "	Z: " + (int) Players.get(0).PosZ
-						+ "	Ra: " + Players.get(0).GetRadianAngle() + "	Cam: " + HeadCamera.RotY() 
-						+ "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
-				Players.get(0).AngleTurn( (short)-(MouseTurnH * 20));
-
-				if (Keyboard.isKeyDown(Keyboard.KEY_F5))
-				{
-					Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);	// Only to test
-					Door.Bind();
-				}
-				else if (Keyboard.isKeyDown(Keyboard.KEY_F6))
-				{
-					Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
-					Door.Bind();
-				}
-				
-				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
-				{
-					Players.get(0).ForwardMove(1);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
-				{
-					Players.get(0).ForwardMove(-1);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_A))
-				{
-					Players.get(0).LateralMove(-1);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_D))
-				{
-					Players.get(0).LateralMove(1);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
-				{
-					Players.get(0).AngleTurn((short) 500);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-				{
-					Players.get(0).AngleTurn((short)-500);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-				{
-					Players.get(0).MoveUp();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-				{
-					Players.get(0).MoveDown();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-				{
-					System.exit(0);
-				}
-				HeadCamera.UpdateCamera();
-
-				if (Lvl != null)
-				{
-					for (int i = 0; i < Lvl.Planes.size(); i++)
-					{
-						if (Lvl.Planes.get(i).TwoSided_)
-						{
-							glDisable(GL_CULL_FACE);
-						}
-
-						glPushMatrix();
-						{
-							// Apply color to polygons
-							glColor3f(1.0f, 1.0f, 1.0f);
-							// Draw polygons according to the camera position
-							glTranslatef(HeadCamera.PosX(), HeadCamera.PosY(), HeadCamera.PosZ());
-							glBegin(GL_QUADS);
-							{
-								for (int j = 0; j < Lvl.Planes.get(i).Vertices.size(); j += 3)
-								{
-									glTexCoord2f(TextXcoords[j/3], TextYcoords[j/3]);
-									// (Ypos, Zpos, Xpos)
-									glVertex3f(-Lvl.Planes.get(i).Vertices.get(j + 1),   // There a minus here to flip the Y axis
-											Lvl.Planes.get(i).Vertices.get(j + 2),
-											-Lvl.Planes.get(i).Vertices.get(j));    // There a minus here to flip the X axis
-
-									/*
-									glVertex3f(Lvl.Planes.get(i).Vertices.get(j) *64,
-											Lvl.Planes.get(i).Vertices.get(j + 2)*64,
-											Lvl.Planes.get(i).Vertices.get(j + 1)*64);
-									 */
-								}
-							}
-							glEnd();
-						}
-						glPopMatrix();
-
-						if (Lvl.Planes.get(i).TwoSided_)
-						{
-							glEnable(GL_CULL_FACE);
-						}
-
-						//glPopMatrix();
-					}
-				}
-
-				Display.update();
+				// Draw the screen
+				HeadCamera.Render(Lvl);
 
 				try
 				{

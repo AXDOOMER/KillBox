@@ -82,8 +82,8 @@ public class Player
 
     public void Throw(int Thrust)
     {
-        //PosX += Thrust * Math.cos(GetRadianAngle());
-        //PosY += Thrust * Math.sin(GetRadianAngle());
+        PosX += Thrust * Math.cos(GetRadianAngle());
+        PosY += Thrust * Math.sin(GetRadianAngle());
     }
 
     public float GetRadianAngle()
@@ -177,37 +177,37 @@ public class Player
     }
 
     // Set X Position
-    public void X(float X)
+    public void PosX(float X)
     {
         PosX = X;
     }
 
     // Get X position
-    public float X()
+    public float PosX()
     {
         return PosX;
     }
 
     // Set Y Position
-    public void Y(float Y)
+    public void PosY(float Y)
     {
         PosY = Y;
     }
 
     // Get Y Position
-    public float Y()
+    public float PosY()
     {
         return PosY;
     }
 
     // Set Z Position
-    public void Z(float Z)
+    public void PosZ(float Z)
     {
         PosZ = Z;
     }
 
     // Get Z Position
-    public float Z()
+    public float PosZ()
     {
         return PosZ;
     }

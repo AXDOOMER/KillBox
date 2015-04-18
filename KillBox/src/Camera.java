@@ -13,6 +13,10 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Camera
@@ -33,6 +37,10 @@ public class Camera
 	private float Near;
 	private float Far;
 
+    public Texture Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
+    public int[] TextXcoords = {0, 1, 1 ,0};    // CLEAN ME
+    public int[] TextYcoords = {0, 0, 1 ,1};    // CLEAN ME
+
 	public Camera(Player Plyr, float FOV, float Aspect, float Near, float Far)
 	{
 		this.Plyr = Plyr;
@@ -49,6 +57,8 @@ public class Camera
 		this.Near = Near;
 		this.Far = Far;
 		InitProjection();
+
+        Door.Bind();    // CLEAN ME
 	}
 
 	// Sets the perspective without glu, so let's call it glPerspective. 
@@ -59,7 +69,7 @@ public class Camera
 		float FW = FH * Aspect;
 	
 		// Sets the Frustum to perspective mode. 
-		glFrustum( -FW, FW, -FH, FH, Near, Far );
+		glFrustum(-FW, FW, -FH, FH, Near, Far);
 	}
 
 	private void InitProjection()
@@ -93,6 +103,136 @@ public class Camera
 		this.Near = Near;
 		this.Far = Far;
 	}
+
+    public Player CurrentPlayer()
+    {
+        return Plyr;
+    }
+
+    public void Render(Level Lvl)
+    {
+        if (Display.wasResized())
+        {
+            // Set the camera's properties
+            this.ChangeProperties(90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 1000f);
+            // Set the view's canvas
+            glViewport(0, 0, Display.getWidth(), Display.getHeight());
+        }
+
+        glClearColor(0.0f, 0.0f, 0.5f, 0.0f);   // RGBA background color
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer and the depth buffer
+        glLoadIdentity();
+        this.UseView(); // Rotation matrices for the view
+
+        if (!Mouse.isGrabbed())
+        {
+            Mouse.setGrabbed(true); // Hide mouse
+        }
+        short MouseTurnH = (short)Mouse.getDX();
+        Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
+
+        // Print DEBUG stats
+        System.out.println("X: " + (int)CurrentPlayer().PosX() + "	Y: " + (int)CurrentPlayer().PosY() + "	Z: " + (int)CurrentPlayer().PosZ()
+                + "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
+                + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
+        CurrentPlayer().AngleTurn((short)-(MouseTurnH * 20));
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_F5))
+        {
+            Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);	// Only to test
+            Door.Bind();
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_F6))
+        {
+            Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
+            Door.Bind();
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+        {
+            CurrentPlayer().ForwardMove(1);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+        {
+            CurrentPlayer().ForwardMove(-1);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_A))
+        {
+            CurrentPlayer().LateralMove(-1);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_D))
+        {
+            CurrentPlayer().LateralMove(1);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+        {
+            CurrentPlayer().AngleTurn((short) 500);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+        {
+            CurrentPlayer().AngleTurn((short)-500);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+        {
+            CurrentPlayer().MoveUp();
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
+        {
+            CurrentPlayer().MoveDown();
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+        {
+            System.exit(0);
+        }
+        this.UpdateCamera();
+
+        if (Lvl != null)
+        {
+            for (int i = 0; i < Lvl.Planes.size(); i++)
+            {
+                if (Lvl.Planes.get(i).TwoSided_)
+                {
+                    glDisable(GL_CULL_FACE);
+                }
+
+                glPushMatrix();
+                {
+                    // Apply color to polygons
+                    glColor3f(1.0f, 1.0f, 1.0f);
+                    // Draw polygons according to the camera position
+                    glTranslatef(this.PosX(), this.PosY(), this.PosZ());
+                    glBegin(GL_QUADS);
+                    {
+                        for (int j = 0; j < Lvl.Planes.get(i).Vertices.size(); j += 3)
+                        {
+                            glTexCoord2f(TextXcoords[j/3], TextYcoords[j/3]);
+                            // (Ypos, Zpos, Xpos)
+                            glVertex3f(-Lvl.Planes.get(i).Vertices.get(j + 1),   // There a minus here to flip the Y axis
+                                    Lvl.Planes.get(i).Vertices.get(j + 2),
+                                    -Lvl.Planes.get(i).Vertices.get(j));    // There a minus here to flip the X axis
+
+									/*
+									glVertex3f(Lvl.Planes.get(i).Vertices.get(j) *64,
+											Lvl.Planes.get(i).Vertices.get(j + 2)*64,
+											Lvl.Planes.get(i).Vertices.get(j + 1)*64);
+									 */
+                        }
+                    }
+                    glEnd();
+                }
+                glPopMatrix();
+
+                if (Lvl.Planes.get(i).TwoSided_)
+                {
+                    glEnable(GL_CULL_FACE);
+                }
+
+                //glPopMatrix();
+            }
+        }
+
+        Display.update();
+    }
 
 	public float PosX()
 	{
