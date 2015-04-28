@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Plane
 {
-    ArrayList<Float> Vertices = new ArrayList<>();
+    ArrayList<Float> Vertices = new ArrayList<Float>();
 
     String TextureName;
     Boolean TwoSided_ = true;

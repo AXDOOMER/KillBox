@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labontï¿½-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
@@ -23,17 +24,19 @@ import java.util.*;
 
 public class Game
 {
+    static int TicksCount = 0;
+
 	public static void main(String[] args)
 	{
 		System.out.println("			KillBox v2.??? (alpha)");
 		System.out.println("			======================");
-		int Ticks = 0;
 
 		// Create players list
-		ArrayList<Player> Players = new ArrayList<>();
+		ArrayList<Player> Players = new ArrayList<Player>();
 		int Nodes = 4;
 		String Demo = null;
 		Level Lvl = null;
+        int View = 0;
 
 		// Sound (SFX)
 		Sound SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Players);
@@ -98,6 +101,27 @@ public class Game
 			{
 				// Draw the screen
 				HeadCamera.Render(Lvl);
+
+                // player 2 turns in circles
+                Players.get(1).ForwardMove(1);
+                Players.get(1).AngleTurn((short) -200);
+
+                // player 3 turns in circles
+                Players.get(2).ForwardMove(-1);
+                Players.get(2).LateralMove(1);
+                Players.get(2).AngleTurn((short) 500);
+
+                if (Keyboard.isKeyDown(Keyboard.KEY_F12))
+                {
+                    do
+                    {
+                        View = (View + 1) % Players.size();
+                    }
+                    while (Players.get(View) == null);
+
+                    System.out.println("Spying view " + View);
+                    HeadCamera.ChangePlayer(Players.get(View));
+                }
 
 				try
 				{

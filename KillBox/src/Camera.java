@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labontï¿½-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -95,6 +95,11 @@ public class Camera
 		PosZ = Plyr.PosX;
 		RotY = Plyr.GetDegreeAngle();
 	}
+
+    public void ChangePlayer(Player Plyr)
+    {
+        this.Plyr = Plyr;
+    }
 
 	public void ChangeProperties(float FOV, float Aspect, float Near, float Far)
 	{

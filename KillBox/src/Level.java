@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labontï¿½-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ public class Level
     String Fog_ = "black";
     int Visibility = 0;
 
-    ArrayList<Plane> Planes = new ArrayList<>();
+    ArrayList<Plane> Planes = new ArrayList<Plane>();
 
     public Level(String LvlName)
     {
