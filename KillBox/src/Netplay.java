@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier LabontÃ©-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ public class Netplay
     ServerSocket Server = null;
     ArrayList<Socket> Connections = new ArrayList<Socket>();
 
-    public Netplay(Boolean IamServer, int Nodes)
+    public Netplay(boolean IamServer, int Nodes)
     {
         if (IamServer)
         {

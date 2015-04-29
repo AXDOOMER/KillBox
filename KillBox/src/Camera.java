@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labont�-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+
+import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -40,6 +42,16 @@ public class Camera
     public Texture Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
     public int[] TextXcoords = {0, 1, 1 ,0};    // CLEAN ME
     public int[] TextYcoords = {0, 0, 1 ,1};    // CLEAN ME
+    public boolean TextureFiltered = false;
+
+    private boolean HasControl = false;
+
+    // Key presses
+    private boolean JustPressedFilterKey = false;
+    private boolean JustPressedMouseGrabKey = false;
+
+    // Mouse movement
+    private short MouseTurnH;
 
 	public Camera(Player Plyr, float FOV, float Aspect, float Near, float Far)
 	{
@@ -96,9 +108,10 @@ public class Camera
 		RotY = Plyr.GetDegreeAngle();
 	}
 
-    public void ChangePlayer(Player Plyr)
+    public void ChangePlayer(Player Plyr, boolean CanControl)
     {
         this.Plyr = Plyr;
+        HasControl = CanControl;
     }
 
 	public void ChangeProperties(float FOV, float Aspect, float Near, float Far)
@@ -114,12 +127,12 @@ public class Camera
         return Plyr;
     }
 
-    public void Render(Level Lvl)
+    public void Render(Level Lvl, ArrayList<Player> Players)
     {
         if (Display.wasResized())
         {
             // Set the camera's properties
-            this.ChangeProperties(90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 1000f);
+            this.ChangeProperties(this.FOV, (float) Display.getWidth() / (float) Display.getHeight(), this.Near, this.Far);
             // Set the view's canvas
             glViewport(0, 0, Display.getWidth(), Display.getHeight());
         }
@@ -129,67 +142,111 @@ public class Camera
         glLoadIdentity();
         this.UseView(); // Rotation matrices for the view
 
-        if (!Mouse.isGrabbed())
+        if (Keyboard.isKeyDown(Keyboard.KEY_F1) && !JustPressedMouseGrabKey)
         {
-            Mouse.setGrabbed(true); // Hide mouse
+            JustPressedMouseGrabKey = true;
+
+            if (!Mouse.isGrabbed())
+            {
+                Mouse.setGrabbed(true); // Hide mouse
+            }
+            else
+            {
+                Mouse.setGrabbed(false);
+            }
+
+            Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
         }
-        short MouseTurnH = (short)Mouse.getDX();
-        Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
-
-        // Print DEBUG stats
-        System.out.println("X: " + (int)CurrentPlayer().PosX() + "	Y: " + (int)CurrentPlayer().PosY() + "	Z: " + (int)CurrentPlayer().PosZ()
-                + "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
-                + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
-        CurrentPlayer().AngleTurn((short)-(MouseTurnH * 20));
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_F5))
+        else if (Keyboard.isKeyDown(Keyboard.KEY_F1))
         {
-            Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);	// Only to test
+            JustPressedMouseGrabKey = true;
+        }
+        else
+        {
+            JustPressedMouseGrabKey = false;
+        }
+
+        if (Mouse.isGrabbed())
+        {
+            MouseTurnH = (short) Mouse.getDX();
+        }
+        else
+        {
+            MouseTurnH = 0;
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_F5) && !JustPressedFilterKey)
+        {
+            if (TextureFiltered)
+            {
+                Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);    // Only to test
+                TextureFiltered = false;
+            } else
+            {
+                Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);    // Only to test
+                TextureFiltered = true;
+            }
+
             Door.Bind();
+            JustPressedFilterKey = true;
         }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_F6))
+        else if (Keyboard.isKeyDown(Keyboard.KEY_F5))
         {
-            Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
-            Door.Bind();
+
+            JustPressedFilterKey = true;
+        }
+        else
+        {
+            JustPressedFilterKey = false;
         }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+        if (HasControl)    // If I am this player
         {
-            CurrentPlayer().ForwardMove(1);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
-        {
-            CurrentPlayer().ForwardMove(-1);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A))
-        {
-            CurrentPlayer().LateralMove(-1);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D))
-        {
-            CurrentPlayer().LateralMove(1);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
-        {
-            CurrentPlayer().AngleTurn((short) 500);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-        {
-            CurrentPlayer().AngleTurn((short)-500);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-        {
-            CurrentPlayer().MoveUp();
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-        {
-            CurrentPlayer().MoveDown();
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-        {
-            System.exit(0);
+            CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+            {
+                CurrentPlayer().ForwardMove(1);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+            {
+                CurrentPlayer().ForwardMove(-1);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_A))
+            {
+                CurrentPlayer().LateralMove(-1);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_D))
+            {
+                CurrentPlayer().LateralMove(1);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+            {
+                CurrentPlayer().AngleTurn((short) 500);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+            {
+                CurrentPlayer().AngleTurn((short) -500);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+            {
+                CurrentPlayer().MoveUp();
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
+            {
+                CurrentPlayer().MoveDown();
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+            {
+                System.exit(0);
+            }
         }
         this.UpdateCamera();
+
+        // Print DEBUG stats
+        System.out.println("X: " + (int) CurrentPlayer().PosX() + "	Y: " + (int) CurrentPlayer().PosY() + "	Z: " + (int) CurrentPlayer().PosZ()
+                + "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
+                + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
 
         if (Lvl != null)
         {

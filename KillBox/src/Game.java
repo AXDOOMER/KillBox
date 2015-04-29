@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labont�-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
@@ -92,15 +93,20 @@ public class Game
 			}
 
 			Camera HeadCamera = new Camera(Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 1000f);
+            HeadCamera.ChangePlayer(Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
 
+            // Key presses
+            boolean JustPressedSpyKey = false;
+
+            //Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen
-				HeadCamera.Render(Lvl);
+				HeadCamera.Render(Lvl, Players);
 
                 // player 2 turns in circles
                 Players.get(1).ForwardMove(1);
@@ -111,16 +117,37 @@ public class Game
                 Players.get(2).LateralMove(1);
                 Players.get(2).AngleTurn((short) 500);
 
-                if (Keyboard.isKeyDown(Keyboard.KEY_F12))
+                if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
                 {
+                    boolean Control = false;
+
                     do
                     {
                         View = (View + 1) % Players.size();
+
+                        if (View == 0)
+                        {
+                            Control = true;
+                        }
+                        else
+                        {
+                            Control = false;
+                        }
                     }
                     while (Players.get(View) == null);
 
                     System.out.println("Spying view " + View);
-                    HeadCamera.ChangePlayer(Players.get(View));
+                    HeadCamera.ChangePlayer(Players.get(View), Control);
+
+                    JustPressedSpyKey = true;
+                }
+                else if (Keyboard.isKeyDown(Keyboard.KEY_F12))
+                {
+                    JustPressedSpyKey = true;
+                }
+                else
+                {
+                    JustPressedSpyKey = false;
                 }
 
 				try
