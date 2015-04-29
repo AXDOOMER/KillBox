@@ -13,107 +13,110 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.util.ArrayList;
+
 public class Thing
 {
-    float PosX_;	// Horizontal position
-    float PosY_;	// Vertical position
-    float PosZ_;	// Height, do not mix with Y.
-    float MoX_ = 0;
-    float MoY_ = 0;
-    float MoZ_ = 0;
-    int Height_ = 24;
-    int Health_ = 0;
-    int Radius_;
-    String Type_;
-    String Sound_;	// A thing can make a sound
-    String Picture_;	// What does it looks like?
+    float PosX;	// Horizontal position
+    float PosY;	// Vertical position
+    float PosZ;	// Height, do not mix with Y.
+    float MoX = 0;
+    float MoY = 0;
+    float MoZ = 0;
+    int Height = 24;
+    int Health = 0;
+    int Radius;
+    String Type;
+    String Sound;	// A thing can make a sound
+    String Sprite;	// What does it looks like?
+	int Die = 0;
 
     public Thing(String Type, float X, float Y, float Z)
     {
-        Type_ = Type;
-
         try
         {
+			this.Type = Type;
+
             switch(Type)
             {
                 case "Barrel":
-                    Radius_ = 16;
-                    Health_ = 25;
-                    Height_ = 24;
-                    Picture_ = "Barrel.png";
+                    Radius = 16;
+                    Health = 25;
+                    Height = 24;
+					Sprite = "Barrel.png";
                     break;
                 case "StimPack":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "StimPack.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "StimPack.png";
                     break;
                 case "MediPack":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "MediPack.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "MediPack.png";
                     break;
                 case "Chaingun":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "Chaingun.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "Chaingun.png";
                     break;
                 case "Pistol":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "Pistol.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "Pistol.png";
                     break;
                 case "AmmoClip":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "AmmoClip.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "AmmoClip.png";
                     break;
                 case "AmmoBox":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "AmmoBox.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "AmmoBox.png";
                     break;
                 case "Shells":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "Shells.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "Shells.png";
                     break;
                 case "ShellBox":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "ShellBox.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "ShellBox.png";
                     break;
                 case "Rocket":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "Rocket.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "Rocket.png";
                     break;
                 case "RocketBox":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "RocketBox.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "RocketBox.png";
                     break;
                 case "Cells":
-                    Radius_ = 16;
-                    Height_ = 24;
-                    Picture_ = "Cells.png";
+                    Radius = 16;
+                    Height = 24;
+					Sprite = "Cells.png";
                     break;
                 case "Bullet":
-                    Radius_ = 8;
-                    Height_ = 24;
-                    Picture_ = "Bullet.png";
+                    Radius = 8;
+                    Height = 24;
+					Sprite = "Bullet.png";
                     break;
                 case "Plasma":
-                    Radius_ = 12;
-                    Height_ = 24;
-                    Picture_ = "Plasma.png";
+                    Radius = 12;
+                    Height = 24;
+					Sprite = "Plasma.png";
                     break;
 
                 default: throw new Exception(Type);
             }
 
-            PosX_ = X;
-            PosY_ = Y;
-            PosZ_ = Z;
+            PosX = X;
+            PosY = Y;
+            PosZ = Z;
 
         }
         catch(Exception e)
@@ -124,9 +127,9 @@ public class Thing
         }
     }
 
-    public void Update()
+    public void Update(ArrayList<Plane> Planes, ArrayList<Thing> Things)
     {
-        switch(Type_)
+        switch(Type)
         {
             case "Barrel":
                 UpdateBarrel();
@@ -146,13 +149,13 @@ public class Thing
         // Finds the ground under it and hold to it.
         // If there is no floor, then fall.
 
-        if (MoZ_ == 0)
+        if (MoZ == 0)
         {
-            MoZ_ = 2;
+            MoZ = 2;
         }
         else
         {
-            MoZ_ = MoZ_ * 2;
+            MoZ = MoZ * 2;
         }
 
     }
@@ -174,54 +177,54 @@ public class Thing
 
     public void Place(float X, float Y, float Z, byte Angle)
     {
-        PosX_ = X;
-        PosY_ = Y;
-        PosZ_ = Z;
+        PosX = X;
+        PosY = Y;
+        PosZ = Z;
     }
 
     // Set X Position
     public void X(float X)
     {
-        PosX_ = X;
+        PosX = X;
     }
 
     // Get X position
     public float X()
     {
-        return PosX_;
+        return PosX;
     }
 
     // Set Y Position
     public void Y(float Y)
     {
-        PosY_ = Y;
+        PosY = Y;
     }
 
     // Get Y Position
     public float Y()
     {
-        return PosY_;
+        return PosY;
     }
 
     // Set Z Position
     public void Z(float Z)
     {
-        PosZ_ = Z;
+        PosZ = Z;
     }
 
     // Get Z Position
     public float Z()
     {
-        return PosZ_;
+        return PosZ;
     }
 
     public void MakesNoise(String Sound)
     {
-        Sound_ = Sound;
+        this.Sound = Sound;
     }
 
     public String Noise()
     {
-        return Sound_;
+        return Sound;
     }
 }

@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labont�-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ public class Level
     int Visibility = 0;
 
     ArrayList<Plane> Planes = new ArrayList<Plane>();
+    ArrayList<Thing> Things = new ArrayList<Thing>();
 
     public Level(String LvlName)
     {
@@ -134,7 +135,16 @@ public class Level
         {
             System.err.println("The specified level cannot be found: " + LvlName);
         }
+    }
 
-
+    // Multi-thing cooperative system
+    public void UpdateLevel(ArrayList<Plane> Planes, ArrayList<Thing> Things)
+    {
+        // Nice article:  http://blog.noctua-software.com/entity-references.html
+        for (int i = 0; i < Things.size(); i++)
+        {
+			// Give a change to every thing to update itself
+			Things.get(i).Update(Planes, Things);
+        }
     }
 }

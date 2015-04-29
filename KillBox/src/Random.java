@@ -37,7 +37,7 @@ public class Random
             81, 25, 46, 188, 148, 75, 88, 210, 172, 26, 162, 237, 251, 221, 186, 171
     };
 
-    public int Gimme()
+    public int GiveNumber()
     {
         // Check if the index doesn't overflow
         Index = Index % 256;
