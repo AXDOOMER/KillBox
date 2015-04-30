@@ -32,15 +32,11 @@ public class Game
 		System.out.println("			KillBox v2.??? (alpha)");
 		System.out.println("			======================");
 
-		// Create players list
-		ArrayList<Player> Players = new ArrayList<Player>();
+		// Nodes are computers where there is a player
 		int Nodes = 4;
 		String Demo = null;
 		Level Lvl = null;
         int View = 0;
-
-		// Sound (SFX)
-		Sound SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Players);
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
@@ -74,9 +70,13 @@ public class Game
 				System.out.println("Up to " + Nodes + " nodes can join.");
 			}
 
+			// Sound (SFX)
+			Sound SndDriver = null;
+			// Whoa! That's an ugly way to do things...
 			for (int i = 1; i <= Nodes; i++) {
-				Players.add(new Player(Lvl, SndDriver));
+				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
+			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players);
 
 			// The game is all setted up. Open the window.
 			try
@@ -92,8 +92,8 @@ public class Game
 				System.out.println("Error while creating the Display: " + ex.getMessage());
 			}
 
-			Camera HeadCamera = new Camera(Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 1000f);
-            HeadCamera.ChangePlayer(Players.get(View), true);   // Gives the control over the player
+			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 1000f);
+            HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
@@ -106,16 +106,16 @@ public class Game
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen
-				HeadCamera.Render(Lvl, Players);
+				HeadCamera.Render(Lvl, Lvl.Players);
 
                 // player 2 turns in circles
-                Players.get(1).ForwardMove(1);
-                Players.get(1).AngleTurn((short) -200);
+				Lvl.Players.get(1).ForwardMove(1);
+				Lvl.Players.get(1).AngleTurn((short) -200);
 
                 // player 3 turns in circles
-                Players.get(2).ForwardMove(-1);
-                Players.get(2).LateralMove(1);
-                Players.get(2).AngleTurn((short) 500);
+				Lvl.Players.get(2).ForwardMove(-1);
+				Lvl.Players.get(2).LateralMove(1);
+				Lvl.Players.get(2).AngleTurn((short) 500);
 
                 if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
                 {
@@ -123,7 +123,7 @@ public class Game
 
                     do
                     {
-                        View = (View + 1) % Players.size();
+                        View = (View + 1) % Lvl.Players.size();
 
                         if (View == 0)
                         {
@@ -134,10 +134,10 @@ public class Game
                             Control = false;
                         }
                     }
-                    while (Players.get(View) == null);
+                    while (Lvl.Players.get(View) == null);
 
                     System.out.println("Spying view " + View);
-                    HeadCamera.ChangePlayer(Players.get(View), Control);
+                    HeadCamera.ChangePlayer(Lvl.Players.get(View), Control);
 
                     JustPressedSpyKey = true;
                 }

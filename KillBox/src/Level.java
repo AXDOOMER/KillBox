@@ -25,6 +25,7 @@ public class Level
 
     ArrayList<Plane> Planes = new ArrayList<Plane>();
     ArrayList<Thing> Things = new ArrayList<Thing>();
+	ArrayList<Player> Players = new ArrayList<Player>();
 
     public Level(String LvlName)
     {
