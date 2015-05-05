@@ -13,6 +13,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import static org.lwjgl.opengl.GL11.*;
 import java.util.ArrayList;
 
 public class Thing
@@ -20,98 +21,124 @@ public class Thing
     float PosX;	// Horizontal position
     float PosY;	// Vertical position
     float PosZ;	// Height, do not mix with Y.
-    float MoX = 0;
-    float MoY = 0;
-    float MoZ = 0;
+    float MoX = 0;	// Like DirX
+    float MoY = 0;	// Like DirY
+    float MoZ = 0;	// Like DirZ
     int Height = 24;
     int Health = 0;
-    int Radius;
-    String Type;
+    int Radius = 16;
     String Sound;	// A thing can make a sound
-    String Sprite;	// What does it looks like?
-	int Die = 0;
+	Texture Sprite;	// What does it looks like?
+	int Frame = 0;	// Object state
+
+	public enum Names
+	{
+		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox,
+		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma,
+		Unknown
+	}
+	Names Type;
 
     public Thing(String Type, float X, float Y, float Z)
     {
         try
         {
-			this.Type = Type;
+			Names Value = Names.valueOf(Type);
 
-            switch(Type)
+            switch(Value)
             {
-                case "Barrel":
+				case Barrel:
                     Radius = 16;
                     Health = 25;
                     Height = 24;
-					Sprite = "Barrel.png";
+					Sprite = new Texture("Barrel.png", GL_NEAREST);
                     break;
-                case "StimPack":
+                case StimPack:
                     Radius = 16;
                     Height = 24;
-					Sprite = "StimPack.png";
+					Health = 10;
+					Sprite = new Texture("StimPack.png", GL_NEAREST);
                     break;
-                case "MediPack":
+                case MediPack:
                     Radius = 16;
                     Height = 24;
-					Sprite = "MediPack.png";
+					Health = 10;
+					Sprite = new Texture("MediPack.png", GL_NEAREST);
                     break;
-                case "Chaingun":
+                case Chaingun:
+					Health = 10;
                     Radius = 16;
                     Height = 24;
-					Sprite = "Chaingun.png";
+					Sprite = new Texture("Chaingun.png", GL_NEAREST);
                     break;
-                case "Pistol":
+                case Pistol:
+					Health = 10;
                     Radius = 16;
                     Height = 24;
-					Sprite = "Pistol.png";
+					Sprite = new Texture("Pistol.png", GL_NEAREST);
                     break;
-                case "AmmoClip":
+                case AmmoClip:
                     Radius = 16;
                     Height = 24;
-					Sprite = "AmmoClip.png";
+					Health = 10;
+					Sprite = new Texture("AmmoClip.png", GL_NEAREST);
                     break;
-                case "AmmoBox":
+                case AmmoBox:
                     Radius = 16;
                     Height = 24;
-					Sprite = "AmmoBox.png";
+					Health = 10;
+					Sprite = new Texture("AmmoBox.png", GL_NEAREST);
                     break;
-                case "Shells":
+                case Shells:
                     Radius = 16;
                     Height = 24;
-					Sprite = "Shells.png";
+					Health = 10;
+					Sprite = new Texture("Shells.png", GL_NEAREST);
                     break;
-                case "ShellBox":
+                case ShellBox:
                     Radius = 16;
                     Height = 24;
-					Sprite = "ShellBox.png";
+					Health = 10;
+					Sprite = new Texture("ShellBox.png", GL_NEAREST);
                     break;
-                case "Rocket":
+                case Rocket:
                     Radius = 16;
                     Height = 24;
-					Sprite = "Rocket.png";
+					Health = 10;
+					Sprite = new Texture("Rocket.png", GL_NEAREST);
                     break;
-                case "RocketBox":
+                case RocketBox:
                     Radius = 16;
                     Height = 24;
-					Sprite = "RocketBox.png";
+					Health = 10;
+					Sprite = new Texture("RocketBox.png", GL_NEAREST);
                     break;
-                case "Cells":
+                case Cells:
                     Radius = 16;
                     Height = 24;
-					Sprite = "Cells.png";
+					Health = 10;
+					Sprite = new Texture("Cells.png", GL_NEAREST);
                     break;
-                case "Bullet":
+                case Bullet:
                     Radius = 8;
                     Height = 24;
-					Sprite = "Bullet.png";
+					Health = 10;
+					Sprite = new Texture("Bullet.png", GL_NEAREST);
                     break;
-                case "Plasma":
+                case Plasma:
                     Radius = 12;
                     Height = 24;
-					Sprite = "Plasma.png";
+					Health = 10;
+					Sprite = new Texture("Plasma.png", GL_NEAREST);
                     break;
 
-                default: throw new Exception(Type);
+                default:
+					Radius = 0;
+					Height = 0;
+					Health = 0;
+					Sprite = null;
+					this.Type = Names.Unknown;	// Don't know its type, so set it to 'Unknown'.
+					break;
             }
 
             PosX = X;
@@ -119,9 +146,12 @@ public class Thing
             PosZ = Z;
 
         }
+		catch(IllegalArgumentException iae)
+		{
+			System.err.println("Map thing has a bad type: " + Type);
+		}
         catch(Exception e)
         {
-            // Devrait se faire avant qu'on crée l'objet
             // Should be done before we create the object
             System.err.println("Map thing failed to be determined over its type: " + e.toString()/*getMessage*/);
         }
@@ -131,13 +161,13 @@ public class Thing
     {
         switch(Type)
         {
-            case "Barrel":
+            case Barrel:
                 UpdateBarrel();
                 break;
-            case "Bullet":
+            case Bullet:
                 UpdateBullet();
                 break;
-            case "Plasma":
+            case Plasma:
                 UpdatePlasma();
                 break;
 

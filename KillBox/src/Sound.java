@@ -21,7 +21,7 @@ public class Sound
         System.out.println(". ");
     }
 
-    public Boolean PlaySound(Player Source)
+    public Boolean PlaySound(Player Source, String Name)
     {
         // Get the sound from a Player and the source will be at its X,Y,Z.
 

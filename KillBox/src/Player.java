@@ -42,6 +42,7 @@ public class Player
     int Kills = 0;
     int Deaths = 0;
 
+	int Frame = 0;
     Sound Emitter = null;   // Must get the already initialized SndDriver
 
     public Player(Level Lvl, Sound Output)
@@ -227,6 +228,6 @@ public class Player
 
     public void MakesNoise(String Sound)
     {
-        Emitter.PlaySound(this);
+        Emitter.PlaySound(this, Sound);
     }
 }
