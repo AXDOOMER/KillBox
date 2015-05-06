@@ -26,13 +26,14 @@ public class Player
     float MoX = 0;
     float MoY = 0;
     float MoZ = 0;
+	boolean HasMoved = false;
 
     final int MaxWalkSpeed = 40;
     final int MaxRunSpeed = 70;
     final int ViewZ = 42;
     byte Damages = 0;	// Damage location indicator: 0=none, 1=both, 2=left, 3=right
 
-    final int Acceleration = 2;
+    final int Acceleration = 5;
     final int Radius = 16;
     final int Height = 56;
     int Health = 100;	// The player's life condition
@@ -62,27 +63,95 @@ public class Player
         return Command;
     }
 
-    public void ForwardMove(int Speed)
-    {
-        /*float AdjustedAngle = GetRadianAngle() + (float) Math.PI / 2;
+	public void ForwardMove(int Direction)
+	{
+		if (Direction > 0)
+		{
+			MoX += Acceleration * Math.cos(GetRadianAngle());
+			MoY += Acceleration * Math.sin(GetRadianAngle());
+		}
+		else if (Direction < 0)
+		{
+			MoX -= Acceleration * Math.cos(GetRadianAngle());
+			MoY -= Acceleration * Math.sin(GetRadianAngle());
+		}
+		// Don't do anything when 'Direction' is equal to zero
 
-        PosX += Speed * Math.cos(AdjustedAngle);
-        PosY += Speed * Math.sin(AdjustedAngle);*/
+		HasMoved = true;
+	}
 
-        PosX += Speed * Math.cos(GetRadianAngle());
-        PosY += Speed * Math.sin(GetRadianAngle());
-    }
+	public void LateralMove(int Direction)
+	{
+		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
-    public void LateralMove(int Speed)
-    {
-        /*PosX += Speed * Math.cos(GetRadianAngle());
-        PosY += Speed * Math.sin(GetRadianAngle());*/
+		if (Direction > 0)
+		{
+			MoX += Acceleration * Math.cos(AdjustedAngle);
+			MoY += Acceleration * Math.sin(AdjustedAngle);
+		}
+		else if (Direction < 0)
+		{
+			MoX -= Acceleration * Math.cos(AdjustedAngle);
+			MoY -= Acceleration * Math.sin(AdjustedAngle);
+		}
+		// Don't do anything when 'Direction' is equal to zero
 
-        float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
+		// Flag so it is known that the player wants to move
+		HasMoved = true;
+	}
 
-        PosX += Speed * Math.cos(AdjustedAngle);
-        PosY += Speed * Math.sin(AdjustedAngle);
-    }
+	public void Move()
+	{
+		// Change the postion according to the direction of the movement
+		PosX += MoX;
+		PosY += MoY;
+
+		if (!HasMoved)
+		{
+			if (MoX > 0)
+			{
+				MoX /= 2;
+
+				// Avoid balancing between two coordinates after the adjustment
+				if (MoX < 0)
+				{
+					MoX = 0;
+				}
+			}
+			if (MoX < 0)
+			{
+				MoX /= 2;
+
+				// Avoid balancing between two coordinates after the adjustment
+				if (MoX > 0)
+				{
+					MoX = 0;
+				}
+			}
+			if (MoY > 0)
+			{
+				MoY /= 2;
+
+				// Avoid balancing between two coordinates after the adjustment
+				if (MoY < 0)
+				{
+					MoY = 0;
+				}
+			}
+			if (MoY < 0)
+			{
+				MoY /= 2;
+
+				if (MoY > 0)
+				{
+					MoY = 0;
+				}
+			}
+		}
+
+		// Reset
+		HasMoved = false;
+	}
 
     public void Throw(int Thrust)
     {
@@ -230,4 +299,14 @@ public class Player
     {
         Emitter.PlaySound(this, Sound);
     }
+
+	public float MoX()
+	{
+		return MoX;
+	}
+	public float MoY()
+	{
+		return MoY;
+	}
+
 }

@@ -206,19 +206,19 @@ public class Camera
 
             if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
             {
-                CurrentPlayer().ForwardMove(64);
+                CurrentPlayer().ForwardMove(1);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
             {
-                CurrentPlayer().ForwardMove(-64);
+                CurrentPlayer().ForwardMove(-1);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_A))
             {
-                CurrentPlayer().LateralMove(-64);
+                CurrentPlayer().LateralMove(-1);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_D))
             {
-                CurrentPlayer().LateralMove(64);
+                CurrentPlayer().LateralMove(1);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
             {
@@ -240,13 +240,14 @@ public class Camera
             {
                 System.exit(0);
             }
+			CurrentPlayer().Move();
         }
         this.UpdateCamera();
 
         // Print DEBUG stats
         System.out.println("X: " + (int) CurrentPlayer().PosX() + "	Y: " + (int) CurrentPlayer().PosY() + "	Z: " + (int) CurrentPlayer().PosZ()
                 + "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
-                + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY());
+                + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY() + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY);
 
         if (Lvl != null)
         {

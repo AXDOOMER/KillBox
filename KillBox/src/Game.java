@@ -99,7 +99,7 @@ public class Game
 				System.out.println("Error while creating the Display: " + ex.getMessage());
 			}
 
-			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 8192f);
+			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 65536f);
             HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);
