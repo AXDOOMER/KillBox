@@ -29,7 +29,7 @@ public class Player
 
     final int MaxWalkSpeed = 40;
     final int MaxRunSpeed = 70;
-    final int ViewZ = 2;
+    final int ViewZ = 42;
     byte Damages = 0;	// Damage location indicator: 0=none, 1=both, 2=left, 3=right
 
     final int Acceleration = 2;
@@ -137,7 +137,7 @@ public class Player
     private int View()
     {
         // Gives the view's height
-        return Height * 4 / 2;
+        return Height * 3 / 4;
     }
 
     private void HealthChange(int Change)
@@ -218,12 +218,12 @@ public class Player
 
     public void MoveUp()
     {
-        PosZ++;
+        PosZ = PosZ + 64;
     }
 
     public void MoveDown()
     {
-        PosZ--;
+        PosZ = PosZ - 64;
     }
 
     public void MakesNoise(String Sound)

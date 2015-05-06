@@ -45,10 +45,12 @@ public class Game
 			Lvl = new Level(/*Reader.readLine()*/ "Stuff/test.txt");
 
 			// Continues here if a the level is found and loaded (no exception)
-			if (CheckParm(args, "-playdemo") >= 0) {
+			if (CheckParm(args, "-playdemo") >= 0)
+			{
 				Demo = args[CheckParm(args, "-playdemo") + 1];
 
-				if (Demo.charAt(0) == '-') {
+				if (Demo.charAt(0) == '-')
+				{
 					// It's just another parameter...
 					Demo = null;
 				}
@@ -56,14 +58,19 @@ public class Game
 			}
 
 			// Check if we specify the number of players. It will be a normal game.
-			if (CheckParm(args, "-nodes") >= 0 && Demo == null) {
-				try {
+			if (CheckParm(args, "-nodes") >= 0 && Demo == null)
+			{
+				try
+				{
 					Nodes = Integer.parseInt(args[CheckParm(args, "-nodes") + 1]);
 
-					if (Nodes < 1 || Nodes > 16) {
+					if (Nodes < 1 || Nodes > 16)
+					{
 						Nodes = 2;
 					}
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					Nodes = 2;
 				}
 
@@ -92,7 +99,7 @@ public class Game
 				System.out.println("Error while creating the Display: " + ex.getMessage());
 			}
 
-			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 1000f);
+			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 8192f);
             HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);

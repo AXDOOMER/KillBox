@@ -206,19 +206,19 @@ public class Camera
 
             if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
             {
-                CurrentPlayer().ForwardMove(1);
+                CurrentPlayer().ForwardMove(64);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
             {
-                CurrentPlayer().ForwardMove(-1);
+                CurrentPlayer().ForwardMove(-64);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_A))
             {
-                CurrentPlayer().LateralMove(-1);
+                CurrentPlayer().LateralMove(-64);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_D))
             {
-                CurrentPlayer().LateralMove(1);
+                CurrentPlayer().LateralMove(64);
             }
             if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
             {

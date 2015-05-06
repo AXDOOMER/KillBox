@@ -1,8 +1,8 @@
 level:
 {
 	name: LvlExample;
-	skycolor: 0066CC;
-	cloudcolor: FFFFFF;
+	skycolor: #0066CC;
+	cloudcolor: #FFFFFF;
 	background: 0099CC;
 	fog: 2000;
 	defaultmusic: ARYX.s3m;
@@ -54,17 +54,17 @@ wall000:
 
 wall004:
 {
-	x: 2432;
-	y: 1600;
-	z: 768;
-	x: 3264;
-	y: 1600;
-	z: 768;
-	x: 3264;
-	y: 1600;
+	x: 38;
+	y: 25;
+	z: 12;
+	x: 51;
+	y: 25;
+	z: 12;
+	x: 51;
+	y: 25;
 	z: 0;
-	x: 2432;
-	y: 1600;
+	x: 38;
+	y: 25;
 	z: 0;
 }
 
@@ -74,16 +74,16 @@ wall001:
 	impassable: true;
 	x: 0;
 	y: 0;
-	z: 256;
+	z: 4;
 	x: 0;
-	y: 256;
+	y: 4;
 	z: 0;
-	x: 256;
-	y: 256;
+	x: 4;
+	y: 4;
 	z: 0;
-	x: 256;
+	x: 4;
 	y: 0;
-	z: 256;
+	z: 4;
 
 	OffX: 0;
 	OffY: 0;
@@ -96,16 +96,16 @@ wall002:
 	impassable: true;
 	x: 0;
 	y: 0;
-	z: 256;
+	z: 4;
 	x: 0;
-	y: -256;
+	y: -4;
 	z: 0;
-	x: 256;
-	y: -256;
+	x: 4;
+	y: -4;
 	z: 0;
-	x: 256;
+	x: 4;
 	y: 0;
-	z: 256;
+	z: 4;
 
 	OffX: 0;
 	OffY: 0;
@@ -117,18 +117,18 @@ wall003:
 #flèche qui pointe vers les X positifs
 	2sided: true;
 	impassable: true;
-	x: 192;
-	y: -64;
-	z: 64;
-	x: 448;
+	x: 3;
+	y: -1;
+	z: 1;
+	x: 7;
 	y: 0;
-	z: 64;
-	x: 448;
+	z: 1;
+	x: 7;
 	y: 0;
-	z: 64;
-	x: 192;
-	y: 64;
-	z: 64;
+	z: 1;
+	x: 3;
+	y: 1;
+	z: 1;
 
 	OffX: 0;
 	OffY: 0;
@@ -143,16 +143,16 @@ wall005:
 	#les murs doivent être dessinés dans le sens anti-horaire
 	#PLANCHER
 	x: 0;
-	y: 3200;
+	y: 50;
 	z: 0;
 	x: 0;
-	y: 3840;
+	y: 60;
 	z: 0;
-	x: 640;
-	y: 3840;
+	x: 10;
+	y: 60;
 	z: 0;
-	x: 640;
-	y: 3200;
+	x: 10;
+	y: 50;
 	z: 0;
 }
 
@@ -163,17 +163,17 @@ wall006:
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# MUR 1
 	x: 0;
-	y: 3840;
+	y: 60;
 	z: 0;
 	x: 0;
-	y: 3200;
+	y: 50;
 	z: 0;
 	x: 0;
-	y: 3200;
-	z: 320;
+	y: 50;
+	z: 5;
 	x: 0;
-	y: 3840;
-	z: 320;
+	y: 60;
+	z: 5;
 }
 
 wall007:
@@ -182,18 +182,18 @@ wall007:
 	impassable: true;
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# MUR 2
-	x: 640;
-	y: 3840;
+	x: 10;
+	y: 60;
 	z: 0;
-	x: 640;
-	y: 3200;
+	x: 10;
+	y: 50;
 	z: 0;
-	x: 640;
-	y: 3200;
-	z: 320;
-	x: 640;
-	y: 3840;
-	z: 320;
+	x: 10;
+	y: 50;
+	z: 5;
+	x: 10;
+	y: 60;
+	z: 5;
 }
 
 wall008:
@@ -203,20 +203,20 @@ wall008:
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# MUR 3
 	x: 0;
-	y: 3840;
+	y: 60;
 	z: 0;
 
-	x: 640;
-	y: 3840;
+	x: 10;
+	y: 60;
 	z: 0;
 
-	x: 640;
-	y: 3840;
-	z: 320;
+	x: 10;
+	y: 60;
+	z: 5;
 
 	x: 0;
-	y: 3840;
-	z: 320;
+	y: 60;
+	z: 5;
 }
 
 wall009:
@@ -226,20 +226,20 @@ wall009:
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# MUR 4
 	x: 0;
-	y: 3200;
+	y: 50;
 	z: 0;
 
-	x: 640;
-	y: 3200;
+	x: 10;
+	y: 50;
 	z: 0;
 
-	x: 640;
-	y: 3200;
-	z: 320;
+	x: 10;
+	y: 50;
+	z: 5;
 
 	x: 0;
-	y: 3200;
-	z: 320;
+	y: 50;
+	z: 5;
 }
 
 wall010:
@@ -249,20 +249,20 @@ wall010:
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# TOIT 1
 	x: 0;
-	y: 3200;
-	z: 320;
+	y: 50;
+	z: 5;
 
 	x: 0;
-	y: 3840;
-	z: 320;
+	y: 60;
+	z: 5;
 
-	x: 320;
-	y: 3840;
-	z: 448;
+	x: 5;
+	y: 60;
+	z: 7;
 
-	x: 320;
-	y: 3200;
-	z: 448;
+	x: 5;
+	y: 50;
+	z: 7;
 }
 
 
@@ -272,21 +272,21 @@ wall011:
 	impassable: true;
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# TOIT 2
-	x: 640;
-	y: 3200;
-	z: 320;
+	x: 10;
+	y: 50;
+	z: 5;
 
-	x: 640;
-	y: 3840;
-	z: 320;
+	x: 10;
+	y: 60;
+	z: 5;
 
-	x: 320;
-	y: 3840;
-	z: 448;
+	x: 5;
+	y: 60;
+	z: 7;
 
-	x: 320;
-	y: 3200;
-	z: 448;
+	x: 5;
+	y: 50;
+	z: 7;
 }
 
 wall012:
@@ -295,21 +295,21 @@ wall012:
 	impassable: false;
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# PORTE
-	x: 256;
-	y: 2944;
+	x: 4;
+	y: 49;
 	z: 0;
 
-	x: 384;
-	y: 2944;
+	x: 6;
+	y: 49;
 	z: 0;
 
-	x: 384;
-	y: 2944;
-	z: 192;
+	x: 6;
+	y: 49;
+	z: 3;
 
-	x: 256;
-	y: 2944;
-	z: 192;
+	x: 4;
+	y: 49;
+	z: 3;
 }
 
 wall012:
@@ -318,21 +318,21 @@ wall012:
 	impassable: false;
 	#les murs doivent être dessinés dans le sens anti-horaire
 	# spirale?
-	x: 640;
-	y: 640;
+	x: 10;
+	y: 10;
 	z: 0;
 
-	x: 640;
-	y: 786;
-	z: 192;
+	x: 10;
+	y: 12;
+	z: 3;
 
-	x: 768;
-	y: 768;
-	z: 384;
+	x: 12;
+	y: 12;
+	z: 6;
 
-	x: 768;
-	y: 640;
-	z: 576;
+	x: 12;
+	y: 10;
+	z: 9;
 }
 
 floor001:
@@ -374,24 +374,24 @@ plane0003:
 
 thing_lamp:
 {
-	x: 704;
-	y: 1408;
-	z: 2112;
+	x: 11;
+	y: 22;
+	z: 33;
 	angle: 0;
 }
 
 thing_poolofblood:
 {
-	x: 2816;
-	y: 3520;
-	z: 4224;
+	x: 44;
+	y: 55;
+	z: 66;
 	angle: 0;
 }
 
 thing_barrel:
 {
-	x: 4928;
-	y: 5632;
-	z: 6336;
+	x: 77;
+	y: 88;
+	z: 99;
 	angle: 0;
 }
