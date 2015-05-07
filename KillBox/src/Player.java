@@ -33,7 +33,8 @@ public class Player
     final int ViewZ = 42;
     byte Damages = 0;	// Damage location indicator: 0=none, 1=both, 2=left, 3=right
 
-    final int Acceleration = 5;
+    final int Acceleration = 50;
+	final int Deceleration = 2;
     final int Radius = 16;
     final int Height = 56;
     int Health = 100;	// The player's life condition
@@ -77,6 +78,7 @@ public class Player
 		}
 		// Don't do anything when 'Direction' is equal to zero
 
+		// Flag so it is known that the player wants to move
 		HasMoved = true;
 	}
 
@@ -102,15 +104,41 @@ public class Player
 
 	public void Move()
 	{
+		// Constant deceleration
+		MoX /= Deceleration;
+		MoY /= Deceleration;
+
+
+		if (MoX > 0 && MoX > MaxRunSpeed)
+		{
+			// Positive X movement limit
+			MoX = MaxRunSpeed;
+		}
+		if (MoY > 0 && MoY > MaxRunSpeed)
+		{
+			// Positive Y movement limit
+			MoY = MaxRunSpeed;
+		}
+		if (MoX < 0 && MoX < -MaxRunSpeed)
+		{
+			// Negative X movement limit
+			MoX = -MaxRunSpeed;
+		}
+		if (MoY < 0 && MoY < -MaxRunSpeed)
+		{
+			// Positive Y movement limit
+			MoY = -MaxRunSpeed;
+		}
+
 		// Change the postion according to the direction of the movement
 		PosX += MoX;
 		PosY += MoY;
 
-		if (!HasMoved)
+		/*if (!HasMoved)
 		{
 			if (MoX > 0)
 			{
-				MoX /= 2;
+				MoX /= Deceleration;
 
 				// Avoid balancing between two coordinates after the adjustment
 				if (MoX < 0)
@@ -120,7 +148,7 @@ public class Player
 			}
 			if (MoX < 0)
 			{
-				MoX /= 2;
+				MoX /= Deceleration;
 
 				// Avoid balancing between two coordinates after the adjustment
 				if (MoX > 0)
@@ -130,7 +158,7 @@ public class Player
 			}
 			if (MoY > 0)
 			{
-				MoY /= 2;
+				MoY /= Deceleration;
 
 				// Avoid balancing between two coordinates after the adjustment
 				if (MoY < 0)
@@ -140,23 +168,34 @@ public class Player
 			}
 			if (MoY < 0)
 			{
-				MoY /= 2;
+				MoY /= Deceleration;
 
+				// Avoid balancing between two coordinates after the adjustment
 				if (MoY > 0)
 				{
 					MoY = 0;
 				}
+			}*/
+
+			// Fix innacuracies
+			if (MoX > 0 && MoX < 1)
+			{
+				MoX = 0;
 			}
-		}
+			if (MoY > 0 && MoY < 1)
+			{
+				MoY = 0;
+			}
+		/*}*/
 
 		// Reset
 		HasMoved = false;
 	}
 
-    public void Throw(int Thrust)
+    public void Throw(int Thrust, short Direction)
     {
-        PosX += Thrust * Math.cos(GetRadianAngle());
-        PosY += Thrust * Math.sin(GetRadianAngle());
+        MoX += Thrust * Math.cos(Direction * (float)Math.PI * 2 / 32768);
+        MoY += Thrust * Math.sin(Direction * (float)Math.PI * 2 / 32768);
     }
 
     public float GetRadianAngle()
