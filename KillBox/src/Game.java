@@ -114,16 +114,24 @@ public class Game
 			{
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
-/*
+
                 // player 2 turns in circles
 				Lvl.Players.get(1).ForwardMove(1);
 				Lvl.Players.get(1).AngleTurn((short) -200);
+				Lvl.Players.get(1).Move();
 
                 // player 3 turns in circles
 				Lvl.Players.get(2).ForwardMove(-1);
 				Lvl.Players.get(2).LateralMove(1);
 				Lvl.Players.get(2).AngleTurn((short) 500);
-*/
+				Lvl.Players.get(2).Move();
+
+				// player 4 turns in circles
+				Lvl.Players.get(3).ForwardMove(1);
+				Lvl.Players.get(3).LateralMove(-1);
+				Lvl.Players.get(3).AngleTurn((short) -500);
+				Lvl.Players.get(3).Move();
+
                 if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
                 {
                     boolean Control = false;
