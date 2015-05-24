@@ -42,7 +42,7 @@ public class Game
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
 		//try
 		//{
-			Lvl = new Level(/*Reader.readLine()*/ "Stuff/test.txt");
+			Lvl = new Level(/*Reader.readLine()*/ /*"Stuff/test.txt"*/);
 
 			// Continues here if a the level is found and loaded (no exception)
 			if (CheckParm(args, "-playdemo") >= 0)
@@ -110,6 +110,8 @@ public class Game
 
             //Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
+            Lvl.LoadLevel("Stuff/test.txt");
+
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen
@@ -173,7 +175,6 @@ public class Game
 				{
 					System.out.print("The game failed to sleep: " + ie.getMessage());
 				}
-
 			}
 
 			// Close the display

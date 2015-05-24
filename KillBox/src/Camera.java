@@ -39,7 +39,7 @@ public class Camera
 	private float Near;
 	private float Far;
 
-    public Texture Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
+    public Texture CurrentTexture = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);	// Only to test
     public int[] TextXcoords = {0, 1, 1 ,0};    // CLEAN ME
     public int[] TextYcoords = {0, 0, 1 ,1};    // CLEAN ME
     public boolean TextureFiltered = false;
@@ -70,7 +70,7 @@ public class Camera
 		this.Far = Far;
 		InitProjection();
 
-        Door.Bind();    // CLEAN ME
+        //Door.Bind();    // CLEAN ME
 	}
 
 	// Sets the perspective without glu, so let's call it glPerspective. 
@@ -175,19 +175,20 @@ public class Camera
             MouseTurnH = 0;
         }
 
+        // This will only be changed the next time a level will load
         if (Keyboard.isKeyDown(Keyboard.KEY_F5) && !JustPressedFilterKey)
         {
             if (TextureFiltered)
             {
-                Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);    // Only to test
+                //Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);    // Only to test
                 TextureFiltered = false;
             } else
             {
-                Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);    // Only to test
+                //Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);    // Only to test
                 TextureFiltered = true;
             }
 
-            Door.Bind();
+            //Door.Bind();
             JustPressedFilterKey = true;
         }
         else if (Keyboard.isKeyDown(Keyboard.KEY_F5))
@@ -248,13 +249,22 @@ public class Camera
         System.out.println("X: " + (int) CurrentPlayer().PosX() + "	Y: " + (int) CurrentPlayer().PosY() + "	Z: " + (int) CurrentPlayer().PosZ()
                 + "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
                 + "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY() + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY
-				+ "	MoA: " + (float)Math.atan2(CurrentPlayer().MoY(), CurrentPlayer().MoX()));
+                + "	MoA: " + (float) Math.atan2(CurrentPlayer().MoY(), CurrentPlayer().MoX()));
 
         if (Lvl != null)
         {
-            for (int i = 0; i < Lvl.Planes.size(); i++)
+            for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
             {
-                if (Lvl.Planes.get(i).TwoSided_)
+                //CurrentTexture = new Texture("Stuff/" + Lvl.Planes.get(Plane).TextureName, GL_NEAREST);
+                //CurrentTexture.Bind();
+                Lvl.Planes.get(Plane).Bind();
+
+                if (Lvl.Planes.get(Plane).Reference != null)
+                {
+                    Lvl.Planes.get(Plane).Reference.Bind();
+                }
+
+                if (Lvl.Planes.get(Plane).TwoSided())
                 {
                     glDisable(GL_CULL_FACE);
                 }
@@ -267,26 +277,20 @@ public class Camera
                     glTranslatef(this.PosX(), this.PosY(), this.PosZ());
                     glBegin(GL_QUADS);
                     {
-                        for (int j = 0; j < Lvl.Planes.get(i).Vertices.size(); j += 3)
+                        for (int Vertices = 0; Vertices < Lvl.Planes.get(Plane).Vertices.size(); Vertices += 3)
                         {
-                            glTexCoord2f(TextXcoords[j/3], TextYcoords[j/3]);
+                            glTexCoord2f(TextXcoords[Vertices/3], TextYcoords[Vertices/3]);
                             // (Ypos, Zpos, Xpos)
-                            glVertex3f(-Lvl.Planes.get(i).Vertices.get(j + 1),   // There a minus here to flip the Y axis
-                                    Lvl.Planes.get(i).Vertices.get(j + 2),
-                                    -Lvl.Planes.get(i).Vertices.get(j));    // There a minus here to flip the X axis
-
-									/*
-									glVertex3f(Lvl.Planes.get(i).Vertices.get(j) *64,
-											Lvl.Planes.get(i).Vertices.get(j + 2)*64,
-											Lvl.Planes.get(i).Vertices.get(j + 1)*64);
-									 */
+                            glVertex3f(-Lvl.Planes.get(Plane).Vertices.get(Vertices + 1),   // There a minus here to flip the Y axis
+                                    Lvl.Planes.get(Plane).Vertices.get(Vertices + 2),
+                                    -Lvl.Planes.get(Plane).Vertices.get(Vertices));    // There a minus here to flip the X axis
                         }
                     }
                     glEnd();
                 }
                 glPopMatrix();
 
-                if (Lvl.Planes.get(i).TwoSided_)
+                if (Lvl.Planes.get(Plane).TwoSided())
                 {
                     glEnable(GL_CULL_FACE);
                 }

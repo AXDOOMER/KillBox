@@ -114,7 +114,7 @@ wall002:
 
 wall003:
 {
-#flèche qui pointe vers les X positifs
+#flï¿½che qui pointe vers les X positifs
 	2sided: true;
 	impassable: true;
 	x: 192;
@@ -140,7 +140,7 @@ wall005:
 {
 	2sided: false;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	#PLANCHER
 	x: 0;
 	y: 3200;
@@ -160,7 +160,7 @@ wall006:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# MUR 1
 	x: 0;
 	y: 3840;
@@ -180,7 +180,7 @@ wall007:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# MUR 2
 	x: 640;
 	y: 3840;
@@ -200,7 +200,7 @@ wall008:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# MUR 3
 	x: 0;
 	y: 3840;
@@ -223,7 +223,7 @@ wall009:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# MUR 4
 	x: 0;
 	y: 3200;
@@ -246,7 +246,7 @@ wall010:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# TOIT 1
 	x: 0;
 	y: 3200;
@@ -270,7 +270,7 @@ wall011:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# TOIT 2
 	x: 640;
 	y: 3200;
@@ -291,32 +291,34 @@ wall011:
 
 wall012:
 {
+	texture: default.jpg;
 	2sided: true;
 	impassable: false;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# PORTE
+
 	x: 256;
 	y: 2944;
-	z: 0;
-
-	x: 384;
-	y: 2944;
-	z: 0;
+	z: 192;
 
 	x: 384;
 	y: 2944;
 	z: 192;
 
-	x: 256;
-	y: 2944;
-	z: 192;
+    x: 384;
+    y: 2944;
+    z: 0;
+
+    x: 256;
+    y: 2944;
+    z: 0;
 }
 
 wall012:
 {
 	2sided: true;
 	impassable: false;
-	#les murs doivent être dessinés dans le sens anti-horaire
+	#les murs doivent ï¿½tre dessinï¿½s dans le sens anti-horaire
 	# spirale?
 	x: 640;
 	y: 640;

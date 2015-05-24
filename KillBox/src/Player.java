@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier LabontÃ©-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -105,26 +105,31 @@ public class Player
 	public void Move()
 	{
 		// Constant deceleration
-		MoX /= Deceleration;
-		MoY /= Deceleration;
+        if (MoX != 0)
+        {
+            MoX /= Deceleration;
+        }
+		if (MoY != 0)
+        {
+            MoY /= Deceleration;
+        }
 
-
-		if (MoX > 0 && MoX > MaxRunSpeed)
+		if (MoX > MaxRunSpeed)
 		{
 			// Positive X movement limit
 			MoX = MaxRunSpeed;
 		}
-		if (MoY > 0 && MoY > MaxRunSpeed)
+		if (MoY > MaxRunSpeed)
 		{
 			// Positive Y movement limit
 			MoY = MaxRunSpeed;
 		}
-		if (MoX < 0 && MoX < -MaxRunSpeed)
+		if (MoX < -MaxRunSpeed)
 		{
 			// Negative X movement limit
 			MoX = -MaxRunSpeed;
 		}
-		if (MoY < 0 && MoY < -MaxRunSpeed)
+		if (MoY < -MaxRunSpeed)
 		{
 			// Positive Y movement limit
 			MoY = -MaxRunSpeed;
@@ -134,59 +139,15 @@ public class Player
 		PosX += MoX;
 		PosY += MoY;
 
-		/*if (!HasMoved)
-		{
-			if (MoX > 0)
-			{
-				MoX /= Deceleration;
-
-				// Avoid balancing between two coordinates after the adjustment
-				if (MoX < 0)
-				{
-					MoX = 0;
-				}
-			}
-			if (MoX < 0)
-			{
-				MoX /= Deceleration;
-
-				// Avoid balancing between two coordinates after the adjustment
-				if (MoX > 0)
-				{
-					MoX = 0;
-				}
-			}
-			if (MoY > 0)
-			{
-				MoY /= Deceleration;
-
-				// Avoid balancing between two coordinates after the adjustment
-				if (MoY < 0)
-				{
-					MoY = 0;
-				}
-			}
-			if (MoY < 0)
-			{
-				MoY /= Deceleration;
-
-				// Avoid balancing between two coordinates after the adjustment
-				if (MoY > 0)
-				{
-					MoY = 0;
-				}
-			}*/
-
-			// Fix innacuracies
-			if (MoX > 0 && MoX < 1)
-			{
-				MoX = 0;
-			}
-			if (MoY > 0 && MoY < 1)
-			{
-				MoY = 0;
-			}
-		/*}*/
+        // Fix innacuracies
+        if (MoX > 0 && MoX < 1 || MoX < 0 && MoX > -1)
+        {
+            MoX = 0;
+        }
+        if (MoY > 0 && MoY < 1 || MoY < 0 && MoY > -1)
+        {
+            MoY = 0;
+        }
 
 		// Reset
 		HasMoved = false;

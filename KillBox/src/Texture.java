@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2015 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2015 Alexandre-Xavier LabontÃ©-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -24,16 +24,17 @@ import java.io.*;   // File Object
 
 import org.lwjgl.BufferUtils;
 
-public class Texture {
+public class Texture
+{
     //public static Texture MyTexture = new Texture("DOOR9_1.png", GL_NEAREST);   // temp for test
 
-    private String Name = "DOOR9_1.png";
+    private String Name = "Stuff/DOOR9_1.png";
 
-    private int id;
+    private int Id;
     private int Width;
     private int Height;
 
-    public Texture(String Path, int Filter) //GL_NEAREST GL_LINEAR
+    public Texture(String Path, int Filter)
     {
         int[] Pixels = null;
         try
@@ -50,7 +51,8 @@ public class Texture {
         }
 
         int[] Data = new int[Pixels.length];
-        for (int i = 0; i < Pixels.length; i++) {
+        for (int i = 0; i < Pixels.length; i++)
+        {
             int A = (Pixels[i] & 0xff000000) >> 24;
             int R = (Pixels[i] & 0xff0000) >> 16;
             int G = (Pixels[i] & 0xff00) >> 8;
@@ -59,10 +61,10 @@ public class Texture {
             Data[i] = A << 24 | B << 16 | G << 8 | R;
         }
 
-        int id = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, id);
+        int Id = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, Id);
 
-        // Gives the filter to the texture
+        // Gives the filter to the texture (Can be GL_NEAREST or GL_LINEAR)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Filter);
 
@@ -73,7 +75,14 @@ public class Texture {
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Buffer);
 
-        this.id = id;
+        this.Id = Id;
+        this.Name = Path.substring(Path.lastIndexOf('/') + 1);
+    }
+
+    public String Name()
+    {
+        // Return the texture's name
+        return this.Name;
     }
 
     public int Width()
@@ -88,6 +97,6 @@ public class Texture {
 
     public void Bind()
     {
-        glBindTexture(GL_TEXTURE_2D, id);
+        glBindTexture(GL_TEXTURE_2D, Id);
     }
 }
