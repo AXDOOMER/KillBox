@@ -69,8 +69,6 @@ public class Camera
 		this.Near = Near;
 		this.Far = Far;
 		InitProjection();
-
-		//Door.Bind();    // CLEAN ME
 	}
 
 	// Sets the perspective without glu, so let's call it glPerspective. 
@@ -257,8 +255,6 @@ public class Camera
 			// Draw world geometry (planes)
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
-				Lvl.Planes.get(Plane).Bind();
-
 				if (Lvl.Planes.get(Plane).Reference != null)
 				{
 					Lvl.Planes.get(Plane).Reference.Bind();
@@ -294,15 +290,11 @@ public class Camera
 				{
 					glEnable(GL_CULL_FACE);
 				}
-
-				//glPopMatrix();
 			}
 
 			// Draw sprites (things)
 			for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
 			{
-				Lvl.Things.get(Thing).Sprite.Bind();
-
 				if (Lvl.Things.get(Thing).Sprite != null)
 				{
 					Lvl.Things.get(Thing).Sprite.Bind();
@@ -316,7 +308,8 @@ public class Camera
 					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 					glBegin(GL_QUADS);
 					{
-						float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
+						//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
+						float LookAt = this.RotY * (float) Math.PI * 2 / 360;
 						float Divergent = LookAt - (float) Math.PI / 2;
 
 						float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
