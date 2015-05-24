@@ -72,6 +72,15 @@ public class Plane
 
 	public void Lightning(int Light)
 	{
+		if (Light > 255)
+		{
+			Light = 255;
+		}
+		if (Light < 0)
+		{
+			Light = 0;
+		}
+
 		this.Light = (byte) (Light - 128);
 	}
 

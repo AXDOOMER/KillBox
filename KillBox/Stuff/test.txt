@@ -337,7 +337,7 @@ wall012:
 	z: 576;
 }
 
-floor001:
+floor013:
 {
 	p1(0,0,0);
 	p2(0,512,0);
@@ -348,7 +348,7 @@ floor001:
 	Light: 128;
 }
 
-slope002:
+slope014:
 {
 	p1(0,0,0);
 	p2(0,64,0);
@@ -361,8 +361,7 @@ slope002:
 	Light: 255;
 }
 
-
-plane0003:
+plane0015:
 {
 	p1(0,0,16);
 	p2(0,32,32);
@@ -373,6 +372,51 @@ plane0003:
 	OffY: 0;
 	Light: 255;
 }
+
+plane0016
+{
+	texture: grass2.jpg;
+
+	2sided: false;
+	impassable: true;
+
+	#on doit déssinner dans le sens anti-horaire
+	x: -1024;
+	y: 0;
+	z: 0;
+
+	x: -512;
+	y: 0;
+	z: 0;
+
+	x: -512;
+	y: 512;
+	z: 0;
+
+	x: -1024;
+	y: 512;
+	z: 0;
+}
+
+palmtree
+{
+	sprite: nyar40.png;
+	light: 255;
+	x: -896;
+	y: 386;
+	z: 0;
+}
+
+smallpalmtree
+{
+	texture: palm_tree_PNG2494.png;
+	light: 255;
+	x: -640;
+	y: 128;
+	z: 0;
+}
+
+
 
 thing_lamp:
 {

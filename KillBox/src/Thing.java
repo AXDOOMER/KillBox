@@ -25,21 +25,47 @@ public class Thing
 	float MoX = 0;    // Like DirX
 	float MoY = 0;    // Like DirY
 	float MoZ = 0;    // Like DirZ
-	int Height = 24;
+	byte Light = 127;
+	int Height = 96;
 	int Health = 0;
 	int Radius = 16;
 	String Sound;    // A thing can make a sound
 	Texture Sprite;    // What does it looks like?
 	int Frame = 0;    // Object state
+	boolean Impassable = false;
 
 	public enum Names
 	{
 		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma,
-		Unknown
+		Unknown, Custom
 	}
 
 	Names Type;
+
+	public Thing(String Sprite, float PosX, float PosY, float PosZ, int Light, int Radius, int Height, int Health)
+	{
+		Type = Names.Custom;
+		this.Sprite = new Texture(Sprite, GL_NEAREST);
+
+		this.PosX = PosX;
+		this.PosY = PosY;
+		this.PosZ = PosZ;
+
+		if (Light > 255)
+		{
+			Light = 255;
+		}
+		if (Light < 0)
+		{
+			Light = 0;
+		}
+
+		this.Light = (byte) (Light - 128);
+		this.Radius = Radius;
+		this.Height = Height;
+		this.Health = Health;
+	}
 
 	public Thing(String Type, float X, float Y, float Z)
 	{
@@ -215,37 +241,37 @@ public class Thing
 	}
 
 	// Set X Position
-	public void X(float X)
+	public void PosX(float X)
 	{
 		PosX = X;
 	}
 
 	// Get X position
-	public float X()
+	public float PosX()
 	{
 		return PosX;
 	}
 
 	// Set Y Position
-	public void Y(float Y)
+	public void PosY(float Y)
 	{
 		PosY = Y;
 	}
 
 	// Get Y Position
-	public float Y()
+	public float PosY()
 	{
 		return PosY;
 	}
 
 	// Set Z Position
-	public void Z(float Z)
+	public void PosZ(float Z)
 	{
 		PosZ = Z;
 	}
 
 	// Get Z Position
-	public float Z()
+	public float PosZ()
 	{
 		return PosZ;
 	}
@@ -258,5 +284,15 @@ public class Thing
 	public String Noise()
 	{
 		return Sound;
+	}
+
+	public int Height()
+	{
+		return Height;
+	}
+
+	public int Radius()
+	{
+		return Radius;
 	}
 }

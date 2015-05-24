@@ -152,6 +152,73 @@ public class Level
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("DOOR9_1.bmp"));
 						}
 					}
+					else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))
+					{
+						String Sprite = "";
+						int PosX = 0;
+						int PosY = 0;
+						int PosZ = 0;
+						int Light = 0;
+						int Radius = 16;
+						int Height = 96;
+						int Health = 100;
+
+						while (!Line.contains("}"))
+						{
+							Line = LevelFile.readLine();
+
+							if (Line.contains("{"))
+							{
+								continue;
+							}
+							else if (Line.contains("texture: "))
+							{
+								Sprite = Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";"));
+							}
+							else if (Line.contains("sprite: "))
+							{
+								Sprite = Line.substring(Line.indexOf("sprite: ") + 8, Line.indexOf(";"));
+							}
+							else if (Line.contains("x: "))
+							{
+								PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("y: "))
+							{
+								PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("z: "))
+							{
+								PosZ = Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("light: "))
+							{
+								Light = Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";")));
+							}
+							else if (Line.contains("radius: "))
+							{
+								Radius = Integer.parseInt(Line.substring(Line.indexOf("radius: ") + 8, Line.indexOf(";")));
+							}
+							else if (Line.contains("height: "))
+							{
+								Height = Integer.parseInt(Line.substring(Line.indexOf("height: ") + 8, Line.indexOf(";")));
+							}
+							else if (Line.contains("health: "))
+							{
+								Health = Integer.parseInt(Line.substring(Line.indexOf("health: ") + 8, Line.indexOf(";")));
+							}
+							else if (Line.contains("}"))
+							{
+								break;
+							}
+							else
+							{
+								System.out.println("Invalid property: " + Line);
+							}
+						}
+
+						Things.add(new Thing("Stuff/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
+					}
 					else
 					{
 						System.out.println("Unknown data: " + Line);

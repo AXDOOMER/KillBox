@@ -40,8 +40,8 @@ public class Camera
 	private float Far;
 
 	public Texture CurrentTexture = null;
-	public int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
-	public int[] TextYcoords = {0, 0, 1, 1};    // CLEAN ME
+	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
+	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
 
 	private boolean HasControl = false;
@@ -254,10 +254,9 @@ public class Camera
 
 		if (Lvl != null)
 		{
+			// Draw world geometry (planes)
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
-				//CurrentTexture = new Texture("Stuff/" + Lvl.Planes.get(Plane).TextureName, GL_NEAREST);
-				//CurrentTexture.Bind();
 				Lvl.Planes.get(Plane).Bind();
 
 				if (Lvl.Planes.get(Plane).Reference != null)
@@ -297,6 +296,54 @@ public class Camera
 				}
 
 				//glPopMatrix();
+			}
+
+			// Draw sprites (things)
+			for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
+			{
+				Lvl.Things.get(Thing).Sprite.Bind();
+
+				if (Lvl.Things.get(Thing).Sprite != null)
+				{
+					Lvl.Things.get(Thing).Sprite.Bind();
+				}
+
+				glPushMatrix();
+				{
+					// Apply color to polygons
+					glColor3f(1.0f, 1.0f, 1.0f);
+					// Draw polygons according to the camera position
+					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
+					glBegin(GL_QUADS);
+					{
+						float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
+						float Divergent = LookAt - (float) Math.PI / 2;
+
+						float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+
+						float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+											Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+
+						float[] SpriteZ = {	Lvl.Things.get(Thing).PosZ(),
+											Lvl.Things.get(Thing).PosZ(),
+											Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height(),
+											Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height() };
+
+						for (int Corner = 0; Corner < 4; Corner++)
+						{
+							glTexCoord2f(TextXcoords[Corner], TextYcoords[Corner]);
+							// (Ypos, Zpos, Xpos)
+							glVertex3f(-SpriteY[Corner], SpriteZ[Corner], -SpriteX[Corner]);
+						}
+					}
+					glEnd();
+				}
+				glPopMatrix();
 			}
 		}
 
