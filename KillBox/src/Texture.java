@@ -26,77 +26,79 @@ import org.lwjgl.BufferUtils;
 
 public class Texture
 {
-    //public static Texture MyTexture = new Texture("DOOR9_1.png", GL_NEAREST);   // temp for test
+	//public static Texture MyTexture = new Texture("DOOR9_1.png", GL_NEAREST);   // temp for test
 
-    private String Name = "Stuff/DOOR9_1.png";
+	private String Name = "Stuff/DOOR9_1.png";
 
-    private int Id;
-    private int Width;
-    private int Height;
+	private int Id;
+	private int Width;
+	private int Height;
 
-    public Texture(String Path, int Filter)
-    {
-        int[] Pixels = null;
-        try
-        {
-            BufferedImage Image = ImageIO.read(new File(Path));
-            Width = Image.getWidth();
-            Height = Image.getHeight();
-            Pixels = new int[Width * Height];
-            Image.getRGB(0, 0, Width, Height, Pixels, 0, Width);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+	public Texture(String Path, int Filter)
+	{
+		int[] Pixels = null;
+		try
+		{
+			BufferedImage Image = ImageIO.read(new File(Path));
+			Width = Image.getWidth();
+			Height = Image.getHeight();
+			Pixels = new int[Width * Height];
+			Image.getRGB(0, 0, Width, Height, Pixels, 0, Width);
+		}
+		catch (IOException e)
+		{
+			System.out.println("ERROR! Couldn't find '" + Path + "' when tried to load a texture.");
+			e.printStackTrace();
+			System.exit(1);
+		}
 
-        int[] Data = new int[Pixels.length];
-        for (int i = 0; i < Pixels.length; i++)
-        {
-            int A = (Pixels[i] & 0xff000000) >> 24;
-            int R = (Pixels[i] & 0xff0000) >> 16;
-            int G = (Pixels[i] & 0xff00) >> 8;
-            int B = (Pixels[i] & 0xff);
+		int[] Data = new int[Pixels.length];
+		for (int i = 0; i < Pixels.length; i++)
+		{
+			int A = (Pixels[i] & 0xff000000) >> 24;
+			int R = (Pixels[i] & 0xff0000) >> 16;
+			int G = (Pixels[i] & 0xff00) >> 8;
+			int B = (Pixels[i] & 0xff);
 
-            Data[i] = A << 24 | B << 16 | G << 8 | R;
-        }
+			Data[i] = A << 24 | B << 16 | G << 8 | R;
+		}
 
-        int Id = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, Id);
+		int Id = glGenTextures();
+		glBindTexture(GL_TEXTURE_2D, Id);
 
-        // Gives the filter to the texture (Can be GL_NEAREST or GL_LINEAR)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Filter);
+		// Gives the filter to the texture (Can be GL_NEAREST or GL_LINEAR)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, Filter);
 
 
-        IntBuffer Buffer = BufferUtils.createIntBuffer(Data.length);
-        Buffer.put(Data);
-        Buffer.flip();
+		IntBuffer Buffer = BufferUtils.createIntBuffer(Data.length);
+		Buffer.put(Data);
+		Buffer.flip();
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Buffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Buffer);
 
-        this.Id = Id;
-        this.Name = Path.substring(Path.lastIndexOf('/') + 1);
-    }
+		this.Id = Id;
+		this.Name = Path.substring(Path.lastIndexOf('/') + 1);
+	}
 
-    public String Name()
-    {
-        // Return the texture's name
-        return this.Name;
-    }
+	public String Name()
+	{
+		// Return the texture's name
+		return this.Name;
+	}
 
-    public int Width()
-    {
-        return Width;
-    }
+	public int Width()
+	{
+		return Width;
+	}
 
-    public int Height()
-    {
-        return Height;
-    }
+	public int Height()
+	{
+		return Height;
+	}
 
-    public void Bind()
-    {
-        glBindTexture(GL_TEXTURE_2D, Id);
-    }
+	public void Bind()
+	{
+		glBindTexture(GL_TEXTURE_2D, Id);
+	}
 }

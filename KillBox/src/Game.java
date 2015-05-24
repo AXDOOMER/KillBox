@@ -18,6 +18,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
@@ -25,7 +26,7 @@ import java.util.*;
 
 public class Game
 {
-    static int TicksCount = 0;
+	static int TicksCount = 0;
 
 	public static void main(String[] args)
 	{
@@ -36,12 +37,12 @@ public class Game
 		int Nodes = 4;
 		String Demo = null;
 		Level Lvl = null;
-        int View = 0;
+		int View = 0;
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
-		//try
-		//{
+		try
+		{
 			Lvl = new Level(/*Reader.readLine()*/ /*"Stuff/test.txt"*/);
 
 			// Continues here if a the level is found and loaded (no exception)
@@ -80,7 +81,8 @@ public class Game
 			// Sound (SFX)
 			Sound SndDriver = null;
 			// Whoa! That's an ugly way to do things...
-			for (int i = 1; i <= Nodes; i++) {
+			for (int i = 1; i <= Nodes; i++)
+			{
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players);
@@ -99,30 +101,30 @@ public class Game
 				System.out.println("Error while creating the Display: " + ex.getMessage());
 			}
 
-			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float)Display.getWidth() / (float)Display.getHeight(), 0.1f, 65536f);
-            HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
+			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
+			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
 
-            // Key presses
-            boolean JustPressedSpyKey = false;
+			// Key presses
+			boolean JustPressedSpyKey = false;
 
-            //Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
+			//Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
-            Lvl.LoadLevel("Stuff/test.txt");
+			Lvl.LoadLevel("Stuff/test.txt", GL_NEAREST);
 
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
 
-                // player 2 turns in circles
+				// player 2 turns in circles
 				Lvl.Players.get(1).ForwardMove(1);
 				Lvl.Players.get(1).AngleTurn((short) -200);
 				Lvl.Players.get(1).Move();
 
-                // player 3 turns in circles
+				// player 3 turns in circles
 				Lvl.Players.get(2).ForwardMove(-1);
 				Lvl.Players.get(2).LateralMove(1);
 				Lvl.Players.get(2).AngleTurn((short) 500);
@@ -134,38 +136,38 @@ public class Game
 				Lvl.Players.get(3).AngleTurn((short) -500);
 				Lvl.Players.get(3).Move();
 
-                if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
-                {
-                    boolean Control = false;
+				if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
+				{
+					boolean Control = false;
 
-                    do
-                    {
-                        View = (View + 1) % Lvl.Players.size();
+					do
+					{
+						View = (View + 1) % Lvl.Players.size();
 
-                        if (View == 0)
-                        {
-                            Control = true;
-                        }
-                        else
-                        {
-                            Control = false;
-                        }
-                    }
-                    while (Lvl.Players.get(View) == null);
+						if (View == 0)
+						{
+							Control = true;
+						}
+						else
+						{
+							Control = false;
+						}
+					}
+					while (Lvl.Players.get(View) == null);
 
-                    System.out.println("Spying view " + View);
-                    HeadCamera.ChangePlayer(Lvl.Players.get(View), Control);
+					System.out.println("Spying view " + View);
+					HeadCamera.ChangePlayer(Lvl.Players.get(View), Control);
 
-                    JustPressedSpyKey = true;
-                }
-                else if (Keyboard.isKeyDown(Keyboard.KEY_F12))
-                {
-                    JustPressedSpyKey = true;
-                }
-                else
-                {
-                    JustPressedSpyKey = false;
-                }
+					JustPressedSpyKey = true;
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_F12))
+				{
+					JustPressedSpyKey = true;
+				}
+				else
+				{
+					JustPressedSpyKey = false;
+				}
 
 				try
 				{
@@ -179,12 +181,12 @@ public class Game
 
 			// Close the display
 			Display.destroy();
-		/*}
-		catch (IOException ioe)
+		}
+		catch (/*IO*/Exception ioe)
 		{
 			System.err.println(ioe.getMessage());
 			System.exit(1);
-		}*/
+		}
 	}
 
 	public void Error(String Message)
@@ -195,9 +197,9 @@ public class Game
 
 	public static int CheckParm(String[] ArgsList, String Arg)
 	{
-		for(int i = 0; i < ArgsList.length; i++)
+		for (int i = 0; i < ArgsList.length; i++)
 		{
-			if(ArgsList[i].equals(Arg))
+			if (ArgsList[i].equals(Arg))
 			{
 				return i;
 			}
