@@ -114,7 +114,7 @@ wall002:
 
 wall003:
 {
-#fl�che qui pointe vers les X positifs
+#flèche qui pointe vers les X positifs
 	2sided: true;
 	impassable: true;
 	x: 192;
@@ -140,7 +140,6 @@ wall005:
 {
 	2sided: false;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	#PLANCHER
 	x: 0;
 	y: 3200;
@@ -160,7 +159,6 @@ wall006:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# MUR 1
 	x: 0;
 	y: 3840;
@@ -180,7 +178,6 @@ wall007:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# MUR 2
 	x: 640;
 	y: 3840;
@@ -200,7 +197,6 @@ wall008:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# MUR 3
 	x: 0;
 	y: 3840;
@@ -223,7 +219,6 @@ wall009:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# MUR 4
 	x: 0;
 	y: 3200;
@@ -246,7 +241,6 @@ wall010:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# TOIT 1
 	x: 0;
 	y: 3200;
@@ -270,7 +264,6 @@ wall011:
 {
 	2sided: true;
 	impassable: true;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# TOIT 2
 	x: 640;
 	y: 3200;
@@ -294,31 +287,33 @@ wall012:
 	texture: default.jpg;
 	2sided: true;
 	impassable: false;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
-	# PORTE
+	# c'est l'affiche
 
-	x: 256;
-	y: 2944;
-	z: 192;
+#en bas a gauche
+    x: 256;
+    y: 2944;
+    z: 0;
 
-	x: 384;
-	y: 2944;
-	z: 192;
-
+#en bas a droite
     x: 384;
     y: 2944;
     z: 0;
 
-    x: 256;
-    y: 2944;
-    z: 0;
+#en haut a droite
+	x: 384;
+	y: 2944;
+	z: 192;
+
+#en haut a gauche
+	x: 256;
+	y: 2944;
+	z: 192;
 }
 
-wall012:
+wall013:
 {
 	2sided: true;
 	impassable: false;
-	#les murs doivent �tre dessin�s dans le sens anti-horaire
 	# spirale?
 	x: 640;
 	y: 640;
@@ -337,7 +332,7 @@ wall012:
 	z: 576;
 }
 
-floor013:
+floor014:
 {
 	p1(0,0,0);
 	p2(0,512,0);
@@ -348,7 +343,7 @@ floor013:
 	Light: 128;
 }
 
-slope014:
+slope015:
 {
 	p1(0,0,0);
 	p2(0,64,0);
@@ -361,7 +356,7 @@ slope014:
 	Light: 255;
 }
 
-plane0015:
+plane0016:
 {
 	p1(0,0,16);
 	p2(0,32,32);
@@ -373,7 +368,7 @@ plane0015:
 	Light: 255;
 }
 
-plane0016
+plane0017
 {
 	texture: grass2.jpg;
 
@@ -400,6 +395,7 @@ plane0016
 
 palmtree
 {
+	impassable: true;
 	sprite: nyar40.png;
 	light: 255;
 	x: -896;
@@ -414,6 +410,7 @@ smallpalmtree
 	x: -640;
 	y: 128;
 	z: 0;
+	impassable: true;
 }
 
 

@@ -242,11 +242,10 @@ public class Camera
 			}
 			CurrentPlayer().Move();
 		}
-		this.UpdateCamera();
 
 		// Print DEBUG stats
 		System.out.println("X: " + (int) CurrentPlayer().PosX() + "	Y: " + (int) CurrentPlayer().PosY() + "	Z: " + (int) CurrentPlayer().PosZ()
-				+ "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()
+				+ "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()/* * (float) Math.PI * 2 / 360*/
 				+ "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY() + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY
 				+ "	MoA: " + (float) Math.atan2(CurrentPlayer().MoY(), CurrentPlayer().MoX()));
 
@@ -339,6 +338,8 @@ public class Camera
 				glPopMatrix();
 			}
 		}
+
+		this.UpdateCamera();	// Don't know why, but this must be at the end or the sprite will be innacurate when the player turns.
 
 		Display.update();
 	}
