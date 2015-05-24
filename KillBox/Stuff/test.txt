@@ -5,7 +5,7 @@ level:
 	cloudcolor: FFFFFF;
 	background: 0099CC;
 	fog: 2000;
-	defaultmusic: ARYX.s3m;
+	music: ARYX.s3m;
 }
 
 dm_spawn:
@@ -291,23 +291,23 @@ wall012:
 
 #en bas a gauche
     x: 256;
-    y: 2944;
-    z: 0;
+    y: 3190;
+    z: 8;
 
 #en bas a droite
     x: 384;
-    y: 2944;
-    z: 0;
+    y: 3190;
+    z: 8;
 
 #en haut a droite
 	x: 384;
-	y: 2944;
-	z: 192;
+	y: 3190;
+	z: 200;
 
 #en haut a gauche
 	x: 256;
-	y: 2944;
-	z: 192;
+	y: 3190;
+	z: 200;
 }
 
 wall013:

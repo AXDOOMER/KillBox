@@ -52,6 +52,7 @@ public class Camera
 
 	// Mouse movement
 	private short MouseTurnH;
+	private short MouseVertical;
 
 	public Camera(Player Plyr, float FOV, float Aspect, float Near, float Far)
 	{
@@ -167,10 +168,12 @@ public class Camera
 		if (Mouse.isGrabbed())
 		{
 			MouseTurnH = (short) Mouse.getDX();
+			MouseVertical = (short) Mouse.getDY();
 		}
 		else
 		{
 			MouseTurnH = 0;
+			MouseVertical = 0;
 		}
 
 		// This will only be changed the next time a level will load
@@ -203,6 +206,7 @@ public class Camera
 		if (HasControl)    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
+			CurrentPlayer().ForwardMove(MouseVertical/5);
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 			{
@@ -246,7 +250,7 @@ public class Camera
 		// Print DEBUG stats
 		System.out.println("X: " + (int) CurrentPlayer().PosX() + "	Y: " + (int) CurrentPlayer().PosY() + "	Z: " + (int) CurrentPlayer().PosZ()
 				+ "	Ra: " + CurrentPlayer().GetRadianAngle() + "	Cam: " + this.RotY()/* * (float) Math.PI * 2 / 360*/
-				+ "	dX: " + MouseTurnH + "	dY: " + Mouse.getDY() + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY
+				+ "	dX: " + MouseTurnH + "	dY: " + MouseVertical + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY
 				+ "	MoA: " + (float) Math.atan2(CurrentPlayer().MoY(), CurrentPlayer().MoX()));
 
 		if (Lvl != null)
