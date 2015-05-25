@@ -303,6 +303,9 @@ public class Camera
 					Lvl.Things.get(Thing).Sprite.Bind();
 				}
 
+				glEnable(GL_BLEND);	// Enable OpenGL's blending functionality
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
+
 				glPushMatrix();
 				{
 					// Apply color to polygons
