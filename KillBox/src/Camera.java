@@ -253,6 +253,10 @@ public class Camera
 				+ "	dX: " + MouseTurnH + "	dY: " + MouseVertical + "	MoX: " + CurrentPlayer().MoX() + "	MoY: " + CurrentPlayer().MoY
 				+ "	MoA: " + (float) Math.atan2(CurrentPlayer().MoY(), CurrentPlayer().MoX()));
 
+		// Enable translucidity before it starts drawing stuff
+		glEnable(GL_BLEND);	// Enable OpenGL's blending functionality
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
+
 		if (Lvl != null)
 		{
 			// Draw world geometry (planes)
@@ -302,9 +306,6 @@ public class Camera
 				{
 					Lvl.Things.get(Thing).Sprite.Bind();
 				}
-
-				glEnable(GL_BLEND);	// Enable OpenGL's blending functionality
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
 
 				glPushMatrix();
 				{

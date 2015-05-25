@@ -310,6 +310,166 @@ wall012:
 	z: 200;
 }
 
+plane019:
+{
+	# bas du mur
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#arrière
+	x: -1024;
+	y: 0;
+	z: 84;
+
+	#avant
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#avant en bas
+	x: -512;
+	y: 0;
+	z: 0;
+		
+	#arrière en bas
+	x: -1024;
+	y: 0;
+	z: 0;
+}
+
+plane020:
+{
+	#mur du top
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#droite bas
+	x: -1024;
+	y: 0;
+	z: 84;
+	
+	#droite haut
+	x: -1024;
+	y: -72;
+	z: 112;
+	
+	#gauche haut
+	x: -512;
+	y: -72;
+	z: 84;
+}
+
+plane021:
+{
+	#bouchon à l'avant
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: -72;
+	z: 0;
+	
+	#droite bas
+	x: -512;
+	y: 0;
+	z: 0;
+	
+	#droite haut
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#gauche haut
+	x: -512;
+	y: -72;
+	z: 84;
+}
+
+plane022:
+{
+	#côte à l'arrière
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -1024;
+	y: 0;
+	z: 0;
+	
+	#droite bas
+	x: -1024;
+	y: 512;
+	z: 0;
+	
+	#droite haut
+	x: -1218;
+	y: 512;
+	z: 152;
+	
+	#gauche haut
+	x: -1218;
+	y: -128;
+	z: 152;
+}
+
+plane023:
+{
+	#croche dans la section gauche
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	x: -1218;
+	y: -128;
+	z: 152;
+		
+	x: -1024;
+	y: -72;
+	z: 112;
+	
+	x: -1024;
+	y: 0;
+	z: 84;
+	
+	x: -1024;
+	y: 0;
+	z: 0;
+}
+
+wall024:
+{
+	#genre de ciel de back
+	texture: Painting.jpg;
+	2sided: false;
+	impassable: true;
+	
+	x: -1300;
+	y: -768;
+	z: 0;
+		
+	x: -1300;
+	y: 1024;
+	z: 0;
+	
+	x: -1300;
+	y: 1024;
+	z: 960;
+	
+	x: -1300;
+	y: -768;
+	z: 960;
+}
+
 wall013:
 {
 	2sided: true;
@@ -397,6 +557,7 @@ palmtree
 {
 	impassable: true;
 	sprite: nyar40.png;
+	radius: 24;
 	light: 255;
 	x: -896;
 	y: 386;
@@ -407,6 +568,7 @@ smallpalmtree
 {
 	texture: palm_tree_PNG2494.png;
 	light: 255;
+	radius: 32;
 	x: -640;
 	y: 128;
 	z: 0;
