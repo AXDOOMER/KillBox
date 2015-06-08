@@ -15,14 +15,14 @@
 
 public class Player
 {
-	float PosX;    // Horizontal position
-	float PosY;    // Vertical position
-	float PosZ;    // Height, do not mix with Y.
-	short Angle = 8192;    // Angles, from -16384 to 16383.
+	float PosX;	// Horizontal position
+	float PosY;	// Vertical position
+	float PosZ;	// Height, do not mix with Y.
+	short Angle = 8192;	// Angles, from -16384 to 16383.
 
 	final int MaxOwnedWeapons = 10;
 	Boolean[] OwnedWeapons_ = new Boolean[MaxOwnedWeapons];
-
+        
 	float MoX = 0;
 	float MoY = 0;
 	float MoZ = 0;
@@ -31,21 +31,26 @@ public class Player
 	final int MaxWalkSpeed = 40;
 	final int MaxRunSpeed = 70;
 	final int ViewZ = 42;
-	byte Damages = 0;    // Damage location indicator: 0=none, 1=both, 2=left, 3=right
+	
+	public enum DamageIndicatorDirection
+	{
+		None, Front, Both, Left, Right, Back
+	}
+	DamageIndicatorDirection Damages = DamageIndicatorDirection.None;
 
 	final int Acceleration = 50;
 	final int Deceleration = 2;
 	final int Radius = 16;
 	final int Height = 56;
-	int Health = 100;    // The player's life condition
-	int Armor = 100;    // Recharging Energy Shield
+	int Health = 100;	// The player's life condition
+	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
 
 	int Kills = 0;
 	int Deaths = 0;
 
 	int Frame = 0;
-	Sound Emitter = null;   // Must get the already initialized SndDriver
+	Sound Emitter = null;	// Must get the already initialized SndDriver
 
 	public Player(Level Lvl, Sound Output)
 	{
@@ -62,6 +67,37 @@ public class Player
 		String Command = "";        //#!*/
 		Command = Command + (char) ((int) Angle + 32768);
 		return Command;
+	}
+	
+	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
+	{
+		float Angle = (float) Math.atan2(DmgSrcX, DmgSrcY);
+		
+		if (Angle >= Math.PI / 4 && Angle >= -Math.PI / 4)
+		{
+			// It's at the player's right
+			Damages = DamageIndicatorDirection.Right;
+		}
+		else if (Angle >= Math.PI - Math.PI / 4 && Angle >= -Math.PI - Math.PI / 4)
+		{
+			// It's at the player's left
+			Damages = DamageIndicatorDirection.Left;
+		}
+		else if (Angle <= -Math.PI - Math.PI / 4 && Angle <= -Math.PI / 4)
+		{
+			// It's at the player's back
+			Damages = DamageIndicatorDirection.Back;
+		}
+		else if (Angle >= Math.PI / 4 && Angle <= Math.PI - Math.PI / 4)
+		{
+			// It's at the player's front
+			Damages = DamageIndicatorDirection.Front;
+		}
+		else
+		{
+			// Unknown
+			Damages = DamageIndicatorDirection.None;
+		}
 	}
 
 	public void ForwardMove(int Direction)

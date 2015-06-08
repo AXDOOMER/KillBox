@@ -19,19 +19,19 @@ import java.util.ArrayList;
 
 public class Thing
 {
-	float PosX;    // Horizontal position
-	float PosY;    // Vertical position
-	float PosZ;    // Height, do not mix with Y.
-	float MoX = 0;    // Like DirX
-	float MoY = 0;    // Like DirY
-	float MoZ = 0;    // Like DirZ
+	float PosX;		// Horizontal position
+	float PosY;		// Vertical position
+	float PosZ;		// Height, do not mix with Y.
+	float MoX = 0;		// Like DirX
+	float MoY = 0;		// Like DirY
+	float MoZ = 0;		// Like DirZ
 	byte Light = 127;
 	int Height = 96;
 	int Health = 0;
 	int Radius = 16;
-	String Sound;    // A thing can make a sound
-	Texture Sprite;    // What does it looks like?
-	int Frame = 0;    // Object state
+	String Sound;		// A thing can make a sound
+	Texture Sprite;		// What does it looks like?
+	int Frame = 0;		// Object state
 	boolean Impassable = false;
 
 	public enum Names
