@@ -51,6 +51,7 @@ public class Player
 
 	int Frame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
+	Level Lvl = null;		// The player must know where he is
 
 	public Player(Level Lvl, Sound Output)
 	{
@@ -72,6 +73,8 @@ public class Player
 	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
 	{
 		float Angle = (float) Math.atan2(DmgSrcX, DmgSrcY);
+		
+		HealthChange(-Damage);
 		
 		if (Angle >= Math.PI / 4 && Angle >= -Math.PI / 4)
 		{
@@ -98,6 +101,67 @@ public class Player
 			// Unknown
 			Damages = DamageIndicatorDirection.None;
 		}
+	}
+	
+	// Check if this coordinate is inside a player then return this player
+	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
+	{
+		for (int Player = 0; Player < Lvl.Players().size(); Player++)
+		{
+			if (Lvl.Players().get(Player) == this)
+			{
+				// Next!
+				continue;
+			}
+			
+			// Check if the coordinate is inside the player on the Z axis
+			if (CoordZ >= Lvl.Players().get(Player).PosZ() && 
+				CoordZ <= Lvl.Players().get(Player).PosZ() + 
+				Lvl.Players().get(Player).Height)
+			{
+				// Now, check if it's inside the player's radius
+				float Distance = (float)Math.sqrt(
+						Math.pow(Lvl.Players().get(Player).PosX() - CoordX, 2) + 
+						Math.pow(Lvl.Players().get(Player).PosY() - CoordY, 2));
+				
+				if (Distance <= Lvl.Players().get(Player).Radius)
+				{
+					return Lvl.Players().get(Player);
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public void HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
+	{
+		float Step = 2;		// Incremental steps at which the bullet checks for collision
+		int MaxChecks = 2048;		// Max check for the reach of a bullet
+		
+		// Start scanning from the player's position
+		float TravelX = this.PosX();
+		float TravelY = this.PosY();
+		float TravelZ = this.PosZ();
+
+		// Move the bullet and check for collision
+		for (int Point = 0; Point < MaxChecks; Point++)
+		{
+			// Increment bullet position
+			TravelX = TravelX * Step * (float)Math.cos((float)HorizontalAngle);
+			TravelY = TravelY * Step * (float)Math.sin((float)HorizontalAngle);
+			TravelZ = TravelZ * Step * (float)Math.sin((float)VerticalAngle);
+			
+			Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+			
+			// Check if something was really hit
+			if (Hit != null)
+			{
+				// Damage him
+				Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+			}
+		}
+		
 	}
 
 	public void ForwardMove(int Direction)
@@ -251,21 +315,21 @@ public class Player
 		Health = Health + Change;
 	}
 
-	public void Place(float X, float Y, float Z, short Angle)
+	public void Place(float NewX, float NewY, float NewZ, short Angle)
 	{
-		PosX = X;
-		PosY = Y;
-		PosZ = Z;
+		PosX = NewX;
+		PosY = NewY;
+		PosZ = NewZ;
 		this.Angle = Angle;
 	}
 
-	public void Teleport(float X, float Y, float Z, short Angle)
+	public void Teleport(float NewX, float NewY, float NewZ, short NewAngle)
 	{
 		// Update the player to the new coordinates
-		PosX = X;
-		PosY = Y;
-		PosZ = Z;
-		this.Angle = Angle;
+		PosX = NewX;
+		PosY = NewY;
+		PosZ = NewZ;
+		this.Angle = NewAngle;
 
 		MoX = 0;
 		MoY = 0;

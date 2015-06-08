@@ -300,4 +300,10 @@ public class Level
 			Things.get(i).Update(Planes, Things);
 		}
 	}
+	
+	// Get the players list
+	public ArrayList<Player> Players()
+	{
+		return Players;
+	}
 }
