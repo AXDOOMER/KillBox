@@ -210,12 +210,6 @@ public class Game
 		}
 	}
 
-	public void Error(String Message)
-	{
-		System.out.println("I_Error: " + Message);
-		System.exit(1);
-	}
-
 	public static int CheckParm(String[] ArgsList, String Arg)
 	{
 		for (int i = 0; i < ArgsList.length; i++)
