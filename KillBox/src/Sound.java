@@ -20,7 +20,15 @@ public class Sound
     final int SFX_VOICES = 32;
     boolean Preload_ = false;
 
-    public Sound(boolean Preload, ArrayList<Player> Listeners)
+	// How sound directions get calculated
+	// 'Bi' is two-dimensionnal, 'Three' is 3D and 'Doppler' is 3D + Doppler effect
+	public enum SoundModes
+	{
+		Bi, Three, Duppler
+	}
+	SoundModes SndMode = SoundModes.Bi;
+
+    public Sound(boolean Preload, ArrayList<Player> Listeners, SoundModes Mode)
     {
         System.out.print("SFX initialisation");
 
@@ -34,6 +42,16 @@ public class Sound
         ArrayList<Player> Players = Listeners;
 
         System.out.println(". ");
+
+		if (Mode != null)
+		{
+			SndMode = Mode;
+		}
+		else
+		{
+			SndMode = SoundModes.Three;
+		}
+
     }
 
     public Boolean PlaySound(Player Source, String Name)

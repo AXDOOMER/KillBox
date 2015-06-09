@@ -78,6 +78,27 @@ public class Game
 				System.out.println("Up to " + Nodes + " nodes can join.");
 			}
 
+			// Select sound mode
+			Sound.SoundModes SoundMode = null;
+			if (CheckParm(args, "-sound") >= 0)
+			{
+				if(args[CheckParm(args, "-sound") + 1].equals("2d"))
+				{
+					// Sound will be bi-dimensional
+					SoundMode = Sound.SoundModes.Bi;
+				}
+				else if(args[CheckParm(args, "-sound") + 1].equals("3d"))
+				{
+					// Sound will be in 3D
+					SoundMode = Sound.SoundModes.Three;
+				}
+				else if(args[CheckParm(args, "-sound") + 1].equals("doppler"))
+				{
+					// Sound will be in 3D with the doppler effect
+					SoundMode = Sound.SoundModes.Duppler;
+				}
+			}
+
 			// Sound (SFX)
 			Sound SndDriver = null;
 			// Whoa! That's an ugly way to do things...
@@ -85,7 +106,7 @@ public class Game
 			{
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
-			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players);
+			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all setted up. Open the window.
 			try
