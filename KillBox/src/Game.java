@@ -82,17 +82,17 @@ public class Game
 			Sound.SoundModes SoundMode = null;
 			if (CheckParm(args, "-sound") >= 0)
 			{
-				if(args[CheckParm(args, "-sound") + 1].equals("2d"))
+				if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("2d"))
 				{
 					// Sound will be bi-dimensional
 					SoundMode = Sound.SoundModes.Bi;
 				}
-				else if(args[CheckParm(args, "-sound") + 1].equals("3d"))
+				else if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("3d"))
 				{
 					// Sound will be in 3D
 					SoundMode = Sound.SoundModes.Three;
 				}
-				else if(args[CheckParm(args, "-sound") + 1].equals("doppler"))
+				else if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("doppler"))
 				{
 					// Sound will be in 3D with the doppler effect
 					SoundMode = Sound.SoundModes.Duppler;
