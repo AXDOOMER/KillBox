@@ -220,7 +220,7 @@ public class Game
 	{
 		for (int i = 0; i < ArgsList.length; i++)
 		{
-			if (ArgsList[i].equals(Arg))
+			if (ArgsList[i].equalsIgnoreCase(Arg))
 			{
 				return i;
 			}
