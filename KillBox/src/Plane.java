@@ -93,6 +93,24 @@ public class Plane
 		this.Blue = (byte) (Blue - 128);
 	}
 
+	// Get the horizontal angle of the polygon
+	public float GetAngle()
+	{
+		if (Vertices.size() == 12)
+		{
+			//  If both vertices are not at the same position
+			if (Vertices.get(0) != Vertices.get(3) && Vertices.get(1) != Vertices.get(4))
+			{
+				float DiffX = Vertices.get(0) - Vertices.get(1);	// X - Y of the first vertex
+				float DiffY = Vertices.get(3) - Vertices.get(4);	// X - Y of the seconde vertex
+
+				return (float)Math.atan2(DiffY, DiffX);
+			}
+		}
+
+		return Float.NaN;
+	}
+
 	public void AddVertex(float Vertex)
 	{
 		Vertices.add(Vertex);
