@@ -72,7 +72,7 @@ public class Player
 	
 	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
 	{
-		float Angle = (float) Math.atan2(DmgSrcX, DmgSrcY);
+		float Angle = (float) Math.atan2(DmgSrcY, DmgSrcX);
 		
 		HealthChange(-Damage);
 		
