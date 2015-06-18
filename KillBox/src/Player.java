@@ -349,6 +349,47 @@ public class Player
 		}
 	}
 
+	public float FindClosestVertexZ()
+	{
+		float FoundZ = PosZ();
+		float SmallestDistance = -1;
+
+		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
+		{
+			for (int Vertex = 0; Vertex < Lvl.Planes.get(Plane).Vertices.size(); Vertex += 3)
+			{
+				float TempDistance = (float)Math.sqrt(
+						Math.pow(Math.abs(PosX() - Lvl.Planes.get(Plane).Vertices.get(Vertex)), 2) +
+						Math.pow(Math.abs(PosY() - Lvl.Planes.get(Plane).Vertices.get(Vertex + 1)), 2));
+
+				if (SmallestDistance < 0)
+				{
+					// When it's not set, set it to something.
+					SmallestDistance = TempDistance;
+					// Set new Z height
+					FoundZ = Lvl.Planes.get(Plane).Vertices.get(Vertex + 2);
+				}
+				else
+				{
+					if (TempDistance <= SmallestDistance)
+					{
+						SmallestDistance = TempDistance;
+
+						// Set it to the lowest height
+						if (FoundZ > Lvl.Planes.get(Plane).Vertices.get(Vertex + 2))
+						{
+							FoundZ = Lvl.Planes.get(Plane).Vertices.get(Vertex + 2);
+						}
+					}
+				}
+
+			}
+		}
+
+		// The function returns something, but nobody really cares.
+		return FoundZ;
+	}
+
 	// Set X Position
 	public void PosX(float X)
 	{

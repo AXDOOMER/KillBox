@@ -35,6 +35,12 @@ public class Plane
 		this.Reference = Reference;
 	}
 
+	// Get vertices
+	public ArrayList<Float> Vertices()
+	{
+		return Vertices;
+	}
+
 	public void Bind()
 	{
 		if (Reference != null)
