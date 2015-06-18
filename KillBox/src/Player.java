@@ -202,6 +202,37 @@ public class Player
 		HasMoved = true;
 	}
 
+	// Check collision against other players
+	public float CheckPlayerToPlayerCollision()
+	{
+
+		// If a collision is not detected, return the angle that
+		// signifies that the player is continuing in the same direction
+		return (float)Math.atan2(MoY(), MoX());
+	}
+
+	// Check for collision against walls
+	public float CheckWallCollision()
+	{
+
+		// The player doesn't deviate. Its movement is not divergeant.
+		return (float)Math.atan2(MoY(), MoX());
+	}
+
+	// Searches for the floor that is under the player
+	public float AdjustPlayerHeightToFloor()
+	{
+		// Check for floors
+
+		// When it is found, change the player's Z.
+
+		// Else, estimate.
+		PosZ(FindClosestVertexZ());
+
+		// Return the player's position. That's unnecessary.
+		return PosZ();
+	}
+
 	public void Move()
 	{
 		// Constant deceleration
