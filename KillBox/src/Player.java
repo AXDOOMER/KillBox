@@ -13,6 +13,9 @@
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.util.ArrayList;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+
 public class Player
 {
 	float PosX;	// Horizontal position
@@ -38,6 +41,9 @@ public class Player
 	}
 	DamageIndicatorDirection Damages = DamageIndicatorDirection.None;
 
+	final int Rotations = 8;
+	static ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
+
 	final int Acceleration = 50;
 	final int Deceleration = 2;
 	final int Radius = 16;
@@ -60,6 +66,16 @@ public class Player
 		for (int i = 0; i < MaxOwnedWeapons; i++)
 		{
 			OwnedWeapons_[i] = false;
+		}
+	}
+
+	public void LoadSprites()
+	{
+		// Load Sprites for the Players
+		for (int Rotation = 1; Rotation <= Rotations; Rotation++)
+		{
+			Texture NextFrame = new Texture("Stuff/player/PLAY" + "A" + Rotation + ".png", GL_NEAREST);
+			WalkFrames.add(NextFrame);
 		}
 	}
 
