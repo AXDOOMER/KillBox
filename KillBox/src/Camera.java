@@ -346,6 +346,10 @@ public class Camera
 				glPopMatrix();
 			}
 
+			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
+			// It must be updated before the players are drawn else the camera will be late to the player's position.
+			this.UpdateCamera();
+
 			// Draw the Players
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
 			{
@@ -393,8 +397,6 @@ public class Camera
 				glPopMatrix();
 			}
 		}
-
-		this.UpdateCamera();	// Don't know why, but this must be at the end or the sprite will be innacurate when the player turns.
 
 		Display.update();
 	}
