@@ -42,7 +42,7 @@ public class Player
 	DamageIndicatorDirection Damages = DamageIndicatorDirection.None;
 
 	final int Rotations = 8;
-	static ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
+	static public ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
 
 	final int Acceleration = 50;
 	final int Deceleration = 2;
@@ -338,7 +338,7 @@ public class Player
 		}
 	}
 
-	private int Height()
+	public int Height()
 	{
 		// Gives the height of the player
 		return Height;
@@ -498,4 +498,8 @@ public class Player
 		return MoY;
 	}
 
+	public int Radius()
+	{
+		return Radius;
+	}
 }

@@ -135,6 +135,10 @@ public class Game
 
 			Lvl.LoadLevel("Stuff/test.txt", GL_NEAREST);
 
+			// Load the texture "sprites" that will be used to represent the players in the game
+			Lvl.Players.get(0).LoadSprites();
+
+			// The main game loop
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen

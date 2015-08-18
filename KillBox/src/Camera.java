@@ -345,6 +345,53 @@ public class Camera
 				}
 				glPopMatrix();
 			}
+
+			// Draw the Players
+			for (int Player = 0; Player < Lvl.Players.size(); Player++)
+			{
+				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
+				{
+					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+				}
+
+				glPushMatrix();
+				{
+					// Apply color to polygons
+					glColor3f(1.0f, 1.0f, 1.0f);
+					// Draw polygons according to the camera position
+					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
+					glBegin(GL_QUADS);
+					{
+						//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
+						float LookAt = this.RotY * (float) Math.PI * 2 / 360;
+						float Divergent = LookAt - (float) Math.PI / 2;
+
+						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+
+						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+
+						float[] SpriteZ = {	Lvl.Players.get(Player).PosZ(),
+								Lvl.Players.get(Player).PosZ(),
+								Lvl.Players.get(Player).PosZ() + Lvl.Players.get(Player).Height(),
+								Lvl.Players.get(Player).PosZ() + Lvl.Players.get(Player).Height() };
+
+						for (int Corner = 0; Corner < 4; Corner++)
+						{
+							glTexCoord2f(TextXcoords[Corner], TextYcoords[Corner]);
+							// (Ypos, Zpos, Xpos)
+							glVertex3f(-SpriteY[Corner], SpriteZ[Corner], -SpriteX[Corner]);
+						}
+					}
+					glEnd();
+				}
+				glPopMatrix();
+			}
 		}
 
 		this.UpdateCamera();	// Don't know why, but this must be at the end or the sprite will be innacurate when the player turns.
