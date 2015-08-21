@@ -272,15 +272,31 @@ public class Player
 
 				float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY, Lvl.Players().get(Player).PosX() - PosX);
 
-				// Only for frontal collsion?
-				if (Glide > Math.PI / 2)
+				// Frontal collision
+				if (Glide >= 0)
 				{
-					return Glide - (float)Math.PI;
+					if (Glide > Math.PI / 2)
+					{
+						return Glide - (float)Math.PI;
+					}
+					else if (Glide < Math.PI / 2)
+					{
+						return Glide + (float)Math.PI;
+					}
 				}
-				else if (Glide < Math.PI / 2)
+				else
 				{
-					return Glide + (float)Math.PI;
+					// Rear collision
+					if (Glide > -Math.PI / 2)
+					{
+						return Glide - (float)Math.PI;
+					}
+					else if (Glide < -Math.PI / 2)
+					{
+						return Glide + (float)Math.PI;
+					}
 				}
+
 
 				return (float)Math.atan2(MoY(), MoX());
 			}
