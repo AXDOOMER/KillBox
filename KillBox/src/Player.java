@@ -31,8 +31,8 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40/2;
-	final int MaxRunSpeed = 70/2;
+	final int MaxWalkSpeed = 40;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
+	final int MaxRunSpeed = 70;
 	final int ViewZ = 42;
 	
 	public enum DamageIndicatorDirection
@@ -221,6 +221,37 @@ public class Player
 	// Check collision against other players
 	public float CheckPlayerToPlayerCollision()
 	{
+		for (int Player = 0; Player < Lvl.Players().size(); Player++)
+		{
+			if (Lvl.Players().get(Player) == this)
+			{
+				// Next!
+				continue;
+			}
+
+			float Distance = (float)Math.sqrt(
+					Math.pow(this.PosX() - Lvl.Players().get(Player).PosX(), 2) +
+							Math.pow(this.PosY() - Lvl.Players().get(Player).PosY(), 2));
+
+			if (Distance <= this.Radius() + Lvl.Players().get(Player).Radius())
+			{
+				// Collision!
+				// Return the angle on which the player should glide
+
+				float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY, Lvl.Players().get(Player).PosX() - PosX);
+
+				if (Glide > Math.PI / 2)
+				{
+					return Glide - (float)Math.PI;
+				}
+				else if (Glide < Math.PI / 2)
+				{
+					return Glide + (float)Math.PI;
+				}
+
+				return (float)Math.atan2(MoY(), MoX());
+			}
+		}
 
 		// If a collision is not detected, return the angle that
 		// signifies that the player is continuing in the same direction
