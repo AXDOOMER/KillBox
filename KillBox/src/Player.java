@@ -31,8 +31,8 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40;
-	final int MaxRunSpeed = 70;
+	final int MaxWalkSpeed = 40/2;
+	final int MaxRunSpeed = 70/2;
 	final int ViewZ = 42;
 	
 	public enum DamageIndicatorDirection

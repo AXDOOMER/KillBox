@@ -102,13 +102,21 @@ public class Plane
 	// Get the horizontal angle of the polygon
 	public float GetAngle()
 	{
-		if (Vertices.size() == 12)
+		// Takes in account that the polygon is completly plane
+		if (Vertices.size() == 12 || Vertices.size() == 9)
 		{
-			//  If both vertices are not at the same position
+			// Check vertices if they are right above each other
 			if (Vertices.get(0) != Vertices.get(3) && Vertices.get(1) != Vertices.get(4))
 			{
-				float DiffX = Vertices.get(0) - Vertices.get(1);	// X - Y of the first vertex
-				float DiffY = Vertices.get(3) - Vertices.get(4);	// X - Y of the seconde vertex
+				float DiffX = Vertices.get(0) - Vertices.get(3);	// X1 - X2
+				float DiffY = Vertices.get(1) - Vertices.get(4);	// Y1 - Y2
+
+				return (float)Math.atan2(DiffY, DiffX);
+			}
+			else
+			{
+				float DiffX = Vertices.get(3) - Vertices.get(6);	// X1 - X2
+				float DiffY = Vertices.get(4) - Vertices.get(7);	// Y1 - Y2
 
 				return (float)Math.atan2(DiffY, DiffX);
 			}
