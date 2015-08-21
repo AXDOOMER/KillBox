@@ -61,6 +61,7 @@ public class Player
 
 	public Player(Level Lvl, Sound Output)
 	{
+		this.Lvl = Lvl;
 		Emitter = Output;
 
 		for (int i = 0; i < MaxOwnedWeapons; i++)
@@ -186,11 +187,29 @@ public class Player
 		{
 			MoX += Acceleration * Math.cos(GetRadianAngle());
 			MoY += Acceleration * Math.sin(GetRadianAngle());
+
+			if (TryMove() != (float)Math.atan2(MoY(), MoX()))
+			{
+				MoX -= Acceleration * Math.cos(GetRadianAngle());
+				MoY -= Acceleration * Math.sin(GetRadianAngle());
+
+				MoX += Acceleration * Math.cos(TryMove());
+				MoY += Acceleration * Math.sin(TryMove());
+			}
 		}
 		else if (Direction < 0)
 		{
 			MoX -= Acceleration * Math.cos(GetRadianAngle());
 			MoY -= Acceleration * Math.sin(GetRadianAngle());
+
+			if (TryMove() != (float)Math.atan2(MoY(), MoX()))
+			{
+				MoX += Acceleration * Math.cos(GetRadianAngle());
+				MoY += Acceleration * Math.sin(GetRadianAngle());
+
+				MoX -= Acceleration * Math.cos(TryMove());
+				MoY -= Acceleration * Math.sin(TryMove());
+			}
 		}
 		// Don't do anything when 'Direction' is equal to zero
 
@@ -218,6 +237,19 @@ public class Player
 		HasMoved = true;
 	}
 
+	// Try every type of collision.
+	public float TryMove()
+	{
+		float Current = (float)Math.atan2(MoY(), MoX());
+		// Should return the current angle if it's possible to move, else return another...
+		if (Current != CheckPlayerToPlayerCollision())
+		{
+			return CheckPlayerToPlayerCollision();
+		}
+
+		return Current;
+	}
+
 	// Check collision against other players
 	public float CheckPlayerToPlayerCollision()
 	{
@@ -240,6 +272,7 @@ public class Player
 
 				float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY, Lvl.Players().get(Player).PosX() - PosX);
 
+				// Only for frontal collsion?
 				if (Glide > Math.PI / 2)
 				{
 					return Glide - (float)Math.PI;
