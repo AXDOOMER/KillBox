@@ -31,8 +31,8 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
-	final int MaxRunSpeed = 70;
+	final int MaxWalkSpeed = 40/4;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
+	final int MaxRunSpeed = 70/4;
 	final int ViewZ = 42;
 	
 	public enum DamageIndicatorDirection
@@ -188,13 +188,15 @@ public class Player
 			MoX += Acceleration * Math.cos(GetRadianAngle());
 			MoY += Acceleration * Math.sin(GetRadianAngle());
 
-			if (TryMove() != (float)Math.atan2(MoY(), MoX()))
+			float TryMoveAngle = TryMove();
+
+			if (TryMoveAngle != (float)Math.atan2(MoY(), MoX()))
 			{
 				MoX -= Acceleration * Math.cos(GetRadianAngle());
 				MoY -= Acceleration * Math.sin(GetRadianAngle());
 
-				MoX += Acceleration * Math.cos(TryMove());
-				MoY += Acceleration * Math.sin(TryMove());
+				MoX += Acceleration * Math.cos(TryMoveAngle);
+				MoY += Acceleration * Math.sin(TryMoveAngle);
 			}
 		}
 		else if (Direction < 0)
@@ -202,13 +204,15 @@ public class Player
 			MoX -= Acceleration * Math.cos(GetRadianAngle());
 			MoY -= Acceleration * Math.sin(GetRadianAngle());
 
-			if (TryMove() != (float)Math.atan2(MoY(), MoX()))
+			float TryMoveAngle = TryMove();
+
+			if (TryMoveAngle != (float)Math.atan2(MoY(), MoX()))
 			{
 				MoX += Acceleration * Math.cos(GetRadianAngle());
 				MoY += Acceleration * Math.sin(GetRadianAngle());
 
-				MoX -= Acceleration * Math.cos(TryMove());
-				MoY -= Acceleration * Math.sin(TryMove());
+				MoX -= Acceleration * Math.cos(TryMoveAngle);
+				MoY -= Acceleration * Math.sin(TryMoveAngle);
 			}
 		}
 		// Don't do anything when 'Direction' is equal to zero
@@ -242,9 +246,10 @@ public class Player
 	{
 		float Current = (float)Math.atan2(MoY(), MoX());
 		// Should return the current angle if it's possible to move, else return another...
-		if (Current != CheckPlayerToPlayerCollision())
+		float CheckAngle = CheckPlayerToPlayerCollision();
+		if (Current != CheckAngle)
 		{
-			return CheckPlayerToPlayerCollision();
+			return CheckAngle;
 		}
 
 		return Current;
