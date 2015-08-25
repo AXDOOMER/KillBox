@@ -168,9 +168,9 @@ public class Player
 			TravelX = TravelX * Step * (float)Math.cos((float)HorizontalAngle);
 			TravelY = TravelY * Step * (float)Math.sin((float)HorizontalAngle);
 			TravelZ = TravelZ * Step * (float)Math.sin((float)VerticalAngle);
-			
+
 			Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
-			
+
 			// Check if something was really hit
 			if (Hit != null)
 			{
@@ -178,7 +178,6 @@ public class Player
 				Hit.DamageSelf(Damage, this.PosX(), this.PosY());
 			}
 		}
-		
 	}
 
 	public void ForwardMove(int Direction)
@@ -218,6 +217,8 @@ public class Player
 		{
 			float NewX = MoX - Acceleration * (float)Math.cos(AdjustedAngle);
 			float NewY = MoY - Acceleration * (float)Math.sin(AdjustedAngle);
+
+			TryMove(NewX, NewY);
 		}
 		// Don't do anything when 'Direction' is equal to zero
 
@@ -232,6 +233,7 @@ public class Player
 		// Should return the current angle if it's possible to move, else return another...
 
 		boolean Clear = false;	// Can move
+		float PushAngle = Float.NaN;
 
 		// Fuck it when the player repetitively can't move
 		int NumTests = 0;
@@ -240,8 +242,8 @@ public class Player
 		{
 			NumTests++;
 
-			// Player against player collision
-			if (CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY()) == (float)Math.atan2(MoY(), MoX()))
+			// Player against player collision. (Note: if(Float.NaN==Float.NaN){} doesn't work)
+			if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 			{
 				if (Clear == false)
 				{
@@ -274,6 +276,13 @@ public class Player
 			MoX = NewX;
 			MoY = NewY;
 		}
+		else
+		{
+			// Try to push the player
+			// If the player is alreay in another player, he's already fucked.
+			//MoX += (float)Math.cos(PushAngle);
+			//MoY += (float)Math.sin(PushAngle);
+		}
 
 		Move();
 
@@ -297,46 +306,47 @@ public class Player
 					Math.pow(NewX - Lvl.Players().get(Player).PosX(), 2) +
 							Math.pow(NewY - Lvl.Players().get(Player).PosY(), 2));
 
+			// Test 2D collision
 			if (Distance <= this.Radius() + Lvl.Players().get(Player).Radius())
 			{
-				// Collision!
-				// Return the angle on which the player should glide (deviation angle)
-
-				float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY, Lvl.Players().get(Player).PosX() - PosX);
-
-				// Frontal collision
-				if (Glide >= 0)
+				// Test the Z axis. Both players have the same height.
+				if (Math.abs(this.PosZ() - Lvl.Players().get(Player).PosZ()) <= Height())
 				{
-					if (Glide > Math.PI / 2)
-					{
-						return Glide - (float)Math.PI;
-					}
-					else if (Glide < Math.PI / 2)
-					{
-						return Glide + (float)Math.PI;
-					}
-				}
-				else
-				{
-					// Rear collision
-					if (Glide > -Math.PI / 2)
-					{
-						return Glide - (float)Math.PI;
-					}
-					else if (Glide < -Math.PI / 2)
-					{
-						return Glide + (float)Math.PI;
-					}
-				}
+					// Collision!
+					// Return the angle on which the player should glide (deviation angle)
 
+					float Glide = (float) Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY, Lvl.Players().get(Player).PosX() - PosX + NewX);
 
-				return (float)Math.atan2(MoY(), MoX());
+					// Frontal collision
+					if (Glide >= 0)
+					{
+						if (Glide > Math.PI / 2)
+						{
+							return Glide - (float) Math.PI;
+						} else if (Glide < Math.PI / 2)
+						{
+							return Glide + (float) Math.PI;
+						}
+					}
+					else
+					{
+						// Rear collision
+						if (Glide > -Math.PI / 2)
+						{
+							return Glide - (float) Math.PI;
+						} else if (Glide < -Math.PI / 2)
+						{
+							return Glide + (float) Math.PI;
+						}
+					}
+
+					return Glide;
+				}
 			}
 		}
 
-		// If a collision is not detected, return the angle that
-		// signifies that the player is continuing in the same direction
-		return (float)Math.atan2(MoY(), MoX());
+		// If there is no collision, don't return anything.
+		return Float.NaN;
 	}
 
 	// Check for collision against walls
