@@ -242,7 +242,7 @@ public class Player
 		{
 			NumTests++;
 
-			// Player against player collision. (Note: if(Float.NaN==Float.NaN){} doesn't work)
+			// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
 			if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 			{
 				if (Clear == false)
@@ -276,10 +276,13 @@ public class Player
 			MoX = NewX;
 			MoY = NewY;
 		}
-		else
+		else if (!Float.isNaN(PushAngle))
 		{
 			// Try to push the player
 			// If the player is alreay in another player, he's already fucked.
+
+			// TO-DO: Make the player slide against the other's sides [DEVIATE THE MOMENTUM!!!]
+
 			//MoX += (float)Math.cos(PushAngle);
 			//MoY += (float)Math.sin(PushAngle);
 		}
