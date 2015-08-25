@@ -31,8 +31,8 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40/4;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
-	final int MaxRunSpeed = 70/4;
+	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
+	final int MaxRunSpeed = 70/8;
 	final int ViewZ = 42;
 	
 	public enum DamageIndicatorDirection
@@ -44,7 +44,7 @@ public class Player
 	final int Rotations = 8;
 	static public ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
 
-	final int Acceleration = 50;
+	final int Acceleration = 50/8;
 	final int Deceleration = 2;
 	final int Radius = 16;
 	final int Height = 56;
@@ -185,35 +185,17 @@ public class Player
 	{
 		if (Direction > 0)
 		{
-			MoX += Acceleration * Math.cos(GetRadianAngle());
-			MoY += Acceleration * Math.sin(GetRadianAngle());
+			float NewX = MoX + Acceleration * (float)Math.cos(GetRadianAngle());
+			float NewY = MoY + Acceleration * (float)Math.sin(GetRadianAngle());
 
-			float TryMoveAngle = TryMove();
-
-			if (TryMoveAngle != (float)Math.atan2(MoY(), MoX()))
-			{
-				MoX -= Acceleration * Math.cos(GetRadianAngle());
-				MoY -= Acceleration * Math.sin(GetRadianAngle());
-
-				MoX += Acceleration * Math.cos(TryMoveAngle);
-				MoY += Acceleration * Math.sin(TryMoveAngle);
-			}
+			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			MoX -= Acceleration * Math.cos(GetRadianAngle());
-			MoY -= Acceleration * Math.sin(GetRadianAngle());
+			float NewX = MoX - Acceleration * (float)Math.cos(GetRadianAngle());
+			float NewY = MoY - Acceleration * (float)Math.sin(GetRadianAngle());
 
-			float TryMoveAngle = TryMove();
-
-			if (TryMoveAngle != (float)Math.atan2(MoY(), MoX()))
-			{
-				MoX += Acceleration * Math.cos(GetRadianAngle());
-				MoY += Acceleration * Math.sin(GetRadianAngle());
-
-				MoX -= Acceleration * Math.cos(TryMoveAngle);
-				MoY -= Acceleration * Math.sin(TryMoveAngle);
-			}
+			TryMove(NewX, NewY);
 		}
 		// Don't do anything when 'Direction' is equal to zero
 
@@ -227,13 +209,15 @@ public class Player
 
 		if (Direction > 0)
 		{
-			MoX += Acceleration * Math.cos(AdjustedAngle);
-			MoY += Acceleration * Math.sin(AdjustedAngle);
+			float NewX = MoX + Acceleration * (float)Math.cos(AdjustedAngle);
+			float NewY = MoY + Acceleration * (float)Math.sin(AdjustedAngle);
+
+			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			MoX -= Acceleration * Math.cos(AdjustedAngle);
-			MoY -= Acceleration * Math.sin(AdjustedAngle);
+			float NewX = MoX - Acceleration * (float)Math.cos(AdjustedAngle);
+			float NewY = MoY - Acceleration * (float)Math.sin(AdjustedAngle);
 		}
 		// Don't do anything when 'Direction' is equal to zero
 
@@ -242,21 +226,62 @@ public class Player
 	}
 
 	// Try every type of collision.
-	public float TryMove()
+	public float TryMove(float NewX, float NewY)
 	{
 		float Current = (float)Math.atan2(MoY(), MoX());
 		// Should return the current angle if it's possible to move, else return another...
-		float CheckAngle = CheckPlayerToPlayerCollision();
-		if (Current != CheckAngle)
+
+		boolean Clear = false;	// Can move
+
+		// Fuck it when the player repetitively can't move
+		int NumTests = 0;
+
+		while (!Clear && NumTests < 3)
 		{
-			return CheckAngle;
+			NumTests++;
+
+			// Player against player collision
+			if (CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY()) == (float)Math.atan2(MoY(), MoX()))
+			{
+				if (Clear == false)
+				{
+					Clear = true;
+				}
+			}
+			else
+			{
+				Clear = false;
+			}
+
+			// Player against thing collision
+
+
+			// Player against wall collision
+
+
+
+			if (!Clear)
+			{
+				// Devide movement, because we want to move less
+				NewX /= 2;
+				NewY /= 2;
+			}
 		}
 
-		return Current;
+		// Set corrected momentum that will be used to get the new possible position
+		if (Clear)
+		{
+			MoX = NewX;
+			MoY = NewY;
+		}
+
+		Move();
+
+		return GetRadianAngle();
 	}
 
 	// Check collision against other players
-	public float CheckPlayerToPlayerCollision()
+	public float CheckPlayerToPlayerCollision(float NewX, float NewY)
 	{
 		for (int Player = 0; Player < Lvl.Players().size(); Player++)
 		{
@@ -266,14 +291,16 @@ public class Player
 				continue;
 			}
 
+			//System.out.println("newX: " + NewX + "	newY: " + NewY);
+
 			float Distance = (float)Math.sqrt(
-					Math.pow(this.PosX() - Lvl.Players().get(Player).PosX(), 2) +
-							Math.pow(this.PosY() - Lvl.Players().get(Player).PosY(), 2));
+					Math.pow(NewX - Lvl.Players().get(Player).PosX(), 2) +
+							Math.pow(NewY - Lvl.Players().get(Player).PosY(), 2));
 
 			if (Distance <= this.Radius() + Lvl.Players().get(Player).Radius())
 			{
 				// Collision!
-				// Return the angle on which the player should glide
+				// Return the angle on which the player should glide (deviation angle)
 
 				float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY, Lvl.Players().get(Player).PosX() - PosX);
 
@@ -336,16 +363,6 @@ public class Player
 
 	public void Move()
 	{
-		// Constant deceleration
-		if (MoX != 0)
-		{
-			MoX /= Deceleration;
-		}
-		if (MoY != 0)
-		{
-			MoY /= Deceleration;
-		}
-
 		if (MoX > MaxRunSpeed)
 		{
 			// Positive X movement limit
@@ -370,6 +387,16 @@ public class Player
 		// Change the postion according to the direction of the movement
 		PosX += MoX;
 		PosY += MoY;
+
+		// Constant deceleration
+		if (MoX != 0)
+		{
+			MoX /= Deceleration;
+		}
+		if (MoY != 0)
+		{
+			MoY /= Deceleration;
+		}
 
 		// Fix innacuracies
 		if (MoX > 0 && MoX < 1 || MoX < 0 && MoX > -1)
