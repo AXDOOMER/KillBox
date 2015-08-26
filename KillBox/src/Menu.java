@@ -39,6 +39,14 @@ public class Menu
 	// Selected item
 	Strings Selected = Strings.None;	// 'None' means the menu is closed
 
+	// Colors (RGB)
+	int[] ColorBlackBorder = new int[3];
+	int[] ColorLightGrayBorder = new int[3];
+	int[] ColorGrayBorder = new int[3];
+	int[] ColorShadowBlack = new int[3];
+	int[] ColorBlueInside = new int[3];
+	int[] ColorBlueFill = new int[3];
+
 	// Screen coordinates are represented as a fixed resolution
 	int GridWidth = 640;
 	int GridHeight = 480;
@@ -56,6 +64,11 @@ public class Menu
 		BarItems[4] = Strings.Video;
 
 		// Populate other menus
+
+
+		// Populate color arrays
+
+
 
 	}
 
