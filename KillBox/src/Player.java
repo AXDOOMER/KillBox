@@ -303,8 +303,6 @@ public class Player
 				continue;
 			}
 
-			//System.out.println("newX: " + NewX + "	newY: " + NewY);
-
 			float Distance = (float)Math.sqrt(
 					Math.pow(NewX - Lvl.Players().get(Player).PosX(), 2) +
 							Math.pow(NewY - Lvl.Players().get(Player).PosY(), 2));
@@ -315,35 +313,28 @@ public class Player
 				// Test the Z axis. Both players have the same height.
 				if (Math.abs(this.PosZ() - Lvl.Players().get(Player).PosZ()) <= Height())
 				{
-					// Collision!
-					// Return the angle on which the player should glide (deviation angle)
+					// Collision! Return the angle toward the other player.
 
-					float Glide = (float) Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY, Lvl.Players().get(Player).PosX() - PosX + NewX);
+					float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY, Lvl.Players().get(Player).PosX() - PosX + NewX);
 
-					// Frontal collision
-					if (Glide >= 0)
+					return Glide - GetRadianAngle();
+
+/*
+					// To the right
+					if (Diff > 0)
 					{
-						if (Glide > Math.PI / 2)
-						{
-							return Glide - (float) Math.PI;
-						} else if (Glide < Math.PI / 2)
-						{
-							return Glide + (float) Math.PI;
-						}
+						Glide += Math.PI / 2;
+						return Glide;
 					}
-					else
+					else if (Diff < 0)	// To the right
 					{
-						// Rear collision
-						if (Glide > -Math.PI / 2)
-						{
-							return Glide - (float) Math.PI;
-						} else if (Glide < -Math.PI / 2)
-						{
-							return Glide + (float) Math.PI;
-						}
+						Glide -= Math.PI / 2;
+						return Glide;
 					}
 
-					return Glide;
+					// Don't do anything
+					return Float.NaN;
+*/
 				}
 			}
 		}
