@@ -133,7 +133,21 @@ public class Game
 
 			//Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
-			Lvl.LoadLevel("Stuff/test.txt", GL_NEAREST);
+			int WallsFilter = GL_NEAREST;
+
+			// Change the texture filter for the walls and other types of surface
+			if (CheckParm(args, "-near") >= 0)
+			{
+				// Doesn't do anything, but is here in case the default is changed.
+				WallsFilter = GL_NEAREST;
+			}
+			else if (CheckParm(args, "-bi") >= 0)
+			{
+				// This is bilinear filtering
+				WallsFilter = GL_LINEAR;
+			}
+
+			Lvl.LoadLevel("Stuff/test.txt", WallsFilter);
 
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
