@@ -441,14 +441,14 @@ public class Player
 		PosY += MoY();
 
 		// Constant deceleration
-		/*if (MoX != 0)
+		if (MoX != 0)
 		{
 			MoX /= Deceleration;
 		}
 		if (MoY != 0)
 		{
 			MoY /= Deceleration;
-		}*/
+		}
 
 		// Reset
 		HasMoved = false;
