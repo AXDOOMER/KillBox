@@ -287,6 +287,7 @@ public class Player
 			//MoY += (float)Math.sin(PushAngle);
 		}
 
+		// Move to the new position
 		Move();
 
 		return GetRadianAngle();
@@ -365,52 +366,89 @@ public class Player
 		return PosZ();
 	}
 
+	public float LimitPlayerSpeedX(float DirX)
+	{
+		// Test if the player is moving too fast
+		float Velocity = 0;
+		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
+		{
+			//float MovementDirection = (float) Math.atan2(MoY(), MoX());
+
+			//float X = Math.abs((float) Math.sin(MovementDirection));
+
+			float Factor = Velocity / MaxRunSpeed;
+
+			return MoX / Factor;    // X factor
+		}
+
+		return DirX;
+	}
+
+	public float LimitPlayerSpeedY(float DirY)
+	{
+		// Test if the player is moving too fast
+		float Velocity = 0;
+		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
+		{
+			//float MovementDirection = (float) Math.atan2(MoY(), MoX());
+
+			//float Y = Math.abs((float) Math.cos(MovementDirection));
+
+			float Factor = Velocity / MaxRunSpeed;
+
+			return MoY / Factor;    // Y factor
+		}
+
+		return DirY;
+	}
+
+	public void LimitPlayerSpeed()
+	{
+		// Test if the player is moving too fast
+		float Velocity = 0;
+		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
+		{
+			float MovementDirection = (float)Math.atan2(MoY(), MoX());
+
+			// Fix movement direction so we use a system that is compatible with our other angles
+			/*if (MovementDirection < 0)
+			{
+				 MovementDirection += Math.PI * 2;
+			}*/
+
+			// Fraction du mouvement qui appartient à chaques directions
+
+			//float X = Math.abs((float)Math.sin(MovementDirection));
+			//float Y = Math.abs((float)Math.cos(MovementDirection));
+
+			float Factor = Velocity / MaxRunSpeed;
+
+			float MaxX = MoX / Factor;	// X factor
+			float MaxY = MoY / Factor;	// Y factor
+
+			MoX = MaxX;
+			MoY = MaxY;
+		}
+	}
+
 	public void Move()
 	{
-		if (MoX > MaxRunSpeed)
-		{
-			// Positive X movement limit
-			MoX = MaxRunSpeed;
-		}
-		if (MoY > MaxRunSpeed)
-		{
-			// Positive Y movement limit
-			MoY = MaxRunSpeed;
-		}
-		if (MoX < -MaxRunSpeed)
-		{
-			// Negative X movement limit
-			MoX = -MaxRunSpeed;
-		}
-		if (MoY < -MaxRunSpeed)
-		{
-			// Positive Y movement limit
-			MoY = -MaxRunSpeed;
-		}
+		// Max sure the player's speed is not bigger than the maximum allowed
+		LimitPlayerSpeed();
 
 		// Change the postion according to the direction of the movement
-		PosX += MoX;
-		PosY += MoY;
+		PosX += MoX();
+		PosY += MoY();
 
 		// Constant deceleration
-		if (MoX != 0)
+		/*if (MoX != 0)
 		{
 			MoX /= Deceleration;
 		}
 		if (MoY != 0)
 		{
 			MoY /= Deceleration;
-		}
-
-		// Fix innacuracies
-		if (MoX > 0 && MoX < 1 || MoX < 0 && MoX > -1)
-		{
-			MoX = 0;
-		}
-		if (MoY > 0 && MoY < 1 || MoY < 0 && MoY > -1)
-		{
-			MoY = 0;
-		}
+		}*/
 
 		// Reset
 		HasMoved = false;
