@@ -346,13 +346,15 @@ public class Camera
 				glPopMatrix();
 			}
 
-			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
-			// It must be updated before the players are drawn else the camera will be late to the player's position.
-			this.UpdateCamera();	// BUG: PLAYER SPRITE BENDS WHEN THE CAMERA TURNS
-
 			// Draw the Players
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
 			{
+				if (Lvl.Players.get(Player) == Plyr)
+				{
+					// Don't draw the player's own sprite in his own screen
+					continue;
+				}
+
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
@@ -396,6 +398,9 @@ public class Camera
 				}
 				glPopMatrix();
 			}
+
+			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
+			this.UpdateCamera();
 		}
 
 		Display.update();
