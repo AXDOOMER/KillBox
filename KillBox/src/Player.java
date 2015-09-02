@@ -232,20 +232,20 @@ public class Player
 		float Current = (float)Math.atan2(MoY(), MoX());
 		// Should return the current angle if it's possible to move, else return another...
 
-		boolean Clear = false;	// Can move
+		boolean Clear = true;	// Can move
 		float PushAngle = Float.NaN;
 
 		// Fuck it when the player repetitively can't move
 		int NumTests = 0;
 
-		while (!Clear && NumTests < 3)
+		while (Clear && NumTests < this.Radius() * 2)
 		{
 			NumTests++;
 
 			// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
 			if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 			{
-				if (Clear == false)
+				if (Clear)
 				{
 					Clear = true;
 				}
@@ -256,7 +256,17 @@ public class Player
 			}
 
 			// Player against thing collision
-
+			if (Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
+			{
+				if (Clear)
+				{
+					Clear = true;
+				}
+			}
+			else
+			{
+				Clear = false;
+			}
 
 			// Player against wall collision
 
@@ -267,6 +277,7 @@ public class Player
 				// Devide movement, because we want to move less
 				NewX /= 2;
 				NewY /= 2;
+				Clear = true;
 			}
 		}
 
@@ -291,6 +302,34 @@ public class Player
 		Move();
 
 		return GetRadianAngle();
+	}
+
+	// Check collision against things
+	public float CheckPlayerToThingsCollision(float NewX, float NewY)
+	{
+		for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
+		{
+			float Distance = (float)Math.sqrt(
+					Math.pow(NewX - Lvl.Things.get(Thing).PosX(), 2) +
+							Math.pow(NewY - Lvl.Things.get(Thing).PosY(), 2));
+
+			// Test 2D collision
+			if (Distance <= this.Radius() + Lvl.Things.get(Thing).Radius())
+			{
+				// Test the Z axis. Both players have the same height.
+				if (Math.abs(this.PosZ() - Lvl.Things.get(Thing).PosZ()) <= Height())
+				{
+					// Collision! Return the angle toward the other player.
+
+					float Glide = (float) Math.atan2(Lvl.Things.get(Thing).PosY() - PosY + NewY, Lvl.Things.get(Thing).PosX() - PosX + NewX);
+
+					return Glide - GetRadianAngle();
+				}
+			}
+		}
+
+		// If there is no collision, don't return anything.
+		return Float.NaN;
 	}
 
 	// Check collision against other players
