@@ -269,7 +269,17 @@ public class Player
 			}
 
 			// Player against wall collision
-
+			if (Float.isNaN(PushAngle = CheckWallCollision(NewX + PosX(), NewY + PosY())))
+			{
+				if (Clear)
+				{
+					Clear = true;
+				}
+			}
+			else
+			{
+				Clear = false;
+			}
 
 
 			if (!Clear)
@@ -384,11 +394,84 @@ public class Player
 	}
 
 	// Check for collision against walls
-	public float CheckWallCollision()
+	public float CheckWallCollision(float NewX, float NewY)
 	{
+		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
+		{
+			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 && Lvl.Planes.get(Plane).GetAngle() != Float.NaN)
+			{
+				// Find how the plane is placed in the environment
+				float StartX = Lvl.Planes.get(Plane).Vertices().get(0);
+				float StartY = Lvl.Planes.get(Plane).Vertices().get(1);
+				float StartZ = Lvl.Planes.get(Plane).Vertices().get(2);
+
+				float EndX = Lvl.Planes.get(Plane).Vertices().get(3);
+				float EndY = Lvl.Planes.get(Plane).Vertices().get(4);
+				float EndZ = Lvl.Planes.get(Plane).Vertices().get(5);
+
+				// Find another point. Can't find the direction of a wall if poinnts are above each other.
+				if (StartX == EndX && StartY == EndY)
+				{
+					EndX = Lvl.Planes.get(Plane).Vertices().get(6);
+					EndY = Lvl.Planes.get(Plane).Vertices().get(7);
+					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
+				}
+
+				// Find the linear function of the wall
+				float WallAngle = (float)Math.atan2(EndY - StartY, EndX - StartX);
+				float WallA = (EndY-StartY)/(EndX-StartX);
+				float WallB = StartY - WallA * StartX;
+
+				// Find the angles toward each vectex of the wall
+				float AngleFirst = (float)Math.atan2(StartY - PosY, StartX - PosX);
+				float AngleSecond = (float)Math.atan2(EndY - PosY, EndX - PosX);
+
+				// Find the orthogonal vector (Invert X and Y, then set a negative Y)
+				float OrthAngle = (float)Math.atan2(EndX - StartX, EndY + StartY);
+				float OrthA = (EndX-StartX)/(EndY+StartY);
+				float OrthB = StartX - WallA * -StartY;
+/*
+				// Find side to use for the orthogonal vector
+				if (AngleFirst <= OrthAngle && OrthAngle <= AngleSecond)
+				{
+
+				}
+				else if (AngleFirst >= OrthAngle && OrthAngle >= AngleSecond)
+				{
+
+				}
+				else
+				{
+					System.err.println("Function went into an unexpected route... Code failed!");
+				}
+*/
+				// Point X de collision
+				float CollX = (OrthB - WallB) / -(WallA - OrthA);
+				// Trouver le point Y
+				float CollY = WallA * CollX + WallB;
+
+				float Distance = (float)Math.sqrt(Math.pow(PosX - CollX, 2) + Math.pow(PosY-CollY, 2));
+
+				if (Distance <= 32)
+				{
+					System.out.println("COLLISION!!!: " + Distance);
+					return Distance;
+				}
+
+				System.out.println("COLLX: " + CollX + "	COLLY: " + CollY + "	DIST: " + Distance);
+
+				return Float.NaN;
+
+				//float OrthoAngle = (float)
+
+
+				//return Lvl.Planes.get(Plane).GetAngle();
+			}
+		}
 
 		// The player doesn't deviate. Its movement is not divergeant.
-		return (float)Math.atan2(MoY(), MoX());
+		//return (float)Math.atan2(MoY(), MoX());
+		return Float.NaN;
 	}
 
 	// Searches for the floor that is under the player

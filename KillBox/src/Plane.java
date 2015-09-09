@@ -41,6 +41,16 @@ public class Plane
 		return Vertices;
 	}
 
+	public int NumberOfVertices()
+	{
+		if (Vertices.size() % 3 != 0)
+		{
+			System.err.println("A plane's number of vertices is not a multiple of three. (" + Reference + ")");
+		}
+
+		return Vertices.size() / 3;
+	}
+
 	public void Bind()
 	{
 		if (Reference != null)
@@ -122,6 +132,7 @@ public class Plane
 			}
 		}
 
+		// Can't calculate the wall's orentation
 		return Float.NaN;
 	}
 
