@@ -396,6 +396,7 @@ public class Player
 	// Check for collision against walls
 	public float CheckWallCollision(float NewX, float NewY)
 	{
+		if (PosX > 10 || PosY > 10)
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
 			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 && Lvl.Planes.get(Plane).GetAngle() != Float.NaN)
@@ -450,17 +451,15 @@ public class Player
 				// Trouver le point Y
 				float CollY = WallA * CollX + WallB;
 
-				float Distance = (float)Math.sqrt(Math.pow(PosX - CollX, 2) + Math.pow(PosY-CollY, 2));
+				float Distance = (float)Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY-CollY, 2));
 
 				if (Distance <= 32)
 				{
-					System.out.println("COLLISION!!!: " + Distance);
+					System.out.println("COLLISION!!!: " + Distance + "	PLANE#: " + Plane);
 					return Distance;
 				}
 
-				System.out.println("COLLX: " + CollX + "	COLLY: " + CollY + "	DIST: " + Distance);
-
-				return Float.NaN;
+				System.out.println(Plane + "	COLLX: " + CollX + "	COLLY: " + CollY + "	DIST: " + Distance);
 
 				//float OrthoAngle = (float)
 
