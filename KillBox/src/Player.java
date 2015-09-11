@@ -18,8 +18,8 @@ import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
 {
-	float PosX;	// Horizontal position
-	float PosY;	// Vertical position
+	float PosX = -100;	// Horizontal position
+	float PosY = -100;	// Vertical position
 	float PosZ;	// Height, do not mix with Y.
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
@@ -396,9 +396,9 @@ public class Player
 	// Check for collision against walls
 	public float CheckWallCollision(float NewX, float NewY)
 	{
-		if (PosX > 10 || PosY > 10)
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
+			// Add a function to the plane to see if it is valid instead
 			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 && Lvl.Planes.get(Plane).GetAngle() != Float.NaN)
 			{
 				// Find how the plane is placed in the environment
@@ -415,56 +415,68 @@ public class Player
 				{
 					EndX = Lvl.Planes.get(Plane).Vertices().get(6);
 					EndY = Lvl.Planes.get(Plane).Vertices().get(7);
+				}
+
+				// We'd like to have the opposite Z so we know the height of the wall
+				if (StartZ == EndZ)
+				{
 					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
 				}
 
-				// Find the linear function of the wall
-				float WallAngle = (float)Math.atan2(EndY - StartY, EndX - StartX);
-				float WallA = (EndY-StartY)/(EndX-StartX);
-				float WallB = StartY - WallA * StartX;
-
-				// Find the angles toward each vectex of the wall
-				float AngleFirst = (float)Math.atan2(StartY - PosY, StartX - PosX);
-				float AngleSecond = (float)Math.atan2(EndY - PosY, EndX - PosX);
-
 				// Find the orthogonal vector (Invert X and Y, then set a negative Y)
-				float OrthAngle = (float)Math.atan2(EndX - StartX, EndY + StartY);
-				float OrthA = (EndX-StartX)/(EndY+StartY);
-				float OrthB = StartX - WallA * -StartY;
-/*
-				// Find side to use for the orthogonal vector
-				if (AngleFirst <= OrthAngle && OrthAngle <= AngleSecond)
-				{
+				float OrthX = EndY;		// The opposite is 'StartX'
+				float OrthY = -EndX;	// The opposite is 'StartY'
+				float OrthAngle = (float)Math.atan2(StartY - OrthY, StartX - OrthX);
 
+				float OrthPlayerStartX = NewX - (float)Math.cos(OrthAngle) * (float)Radius();
+				float OrthPlayerStartY = NewY - (float)Math.sin(OrthAngle) * (float)Radius();
+
+				float OrthPlayerEndX = NewX + (float)Math.sin(OrthAngle) * (float)Radius();
+				float OrthPlayerEndY = NewY + (float)Math.cos(OrthAngle) * (float)Radius();
+
+				// Cramer's rule
+				// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+				float WallDiffX = EndX - StartX;	// Vector's X from (0,0)
+				float WallDiffY = EndY - StartY;	// Vector's Y from (0,0)
+				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;	// Vector's X orthogonal to the wall for the player from (0,0)
+				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;	// Vector's Y orthogonal to the wall for the player from (0,0)
+
+				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+				float PointPlayerOrth = ( PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+
+				// Check if a collision is detected
+				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
+				{
+					// Collision detected
+					float CollX = StartX + (PointPlayerOrth * WallDiffX);
+					float CollY = StartY + (PointPlayerOrth * WallDiffY);
+
+					float Distance = (float)Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
+
+					if (Distance <= Radius())
+					{
+						System.err.println(Distance);
+
+						return Lvl.Planes.get(Plane).GetAngle();
+					}
 				}
-				else if (AngleFirst >= OrthAngle && OrthAngle >= AngleSecond)
-				{
 
+				// Check for a collision on the edge of a wall
+				float Distance = (float)Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
+				if (Distance <= Radius())
+				{
+					return Lvl.Planes.get(Plane).GetAngle();
 				}
 				else
 				{
-					System.err.println("Function went into an unexpected route... Code failed!");
-				}
-*/
-				// Point X de collision
-				float CollX = (OrthB - WallB) / -(WallA - OrthA);
-				// Trouver le point Y
-				float CollY = WallA * CollX + WallB;
+					Distance = (float)Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
 
-				float Distance = (float)Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY-CollY, 2));
-
-				if (Distance <= 32)
-				{
-					System.out.println("COLLISION!!!: " + Distance + "	PLANE#: " + Plane);
-					return Distance;
+					if (Distance <= Radius())
+					{
+						return Lvl.Planes.get(Plane).GetAngle();
+					}
 				}
 
-				System.out.println(Plane + "	COLLX: " + CollX + "	COLLY: " + CollY + "	DIST: " + Distance);
-
-				//float OrthoAngle = (float)
-
-
-				//return Lvl.Planes.get(Plane).GetAngle();
 			}
 		}
 

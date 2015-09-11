@@ -1,4 +1,4 @@
-level:
+﻿level:
 {
 	name: LvlExample;
 	skycolor: 0066CC;
@@ -599,4 +599,80 @@ thing_barrel:
 	y: 5632;
 	z: 6336;
 	angle: 0;
+}
+
+wall014:
+{
+	2sided: true;
+	impassable: true;
+	x: 1024;
+	y: 300;
+	z: 256;
+
+	x: 1024;
+	y: 300;
+	z: 0;
+
+	x: 1224;
+	y: 0;
+	z: 0;
+
+	x: 1224;
+	y: 0;
+	z: 256;
+
+	OffX: 0;
+	OffY: 0;
+	Light: 160;
+}
+
+wall015:
+{
+	2sided: true;
+	impassable: true;
+	x: 768;
+	y: 128;
+	z: 64;
+
+	x: 768;
+	y: 128;
+	z: 0;
+
+	x: 768;
+	y: 0;
+	z: 0;
+
+	x: 768;
+	y: 0;
+	z: 64;
+
+	OffX: 0;
+	OffY: 0;
+	Light: 160;
+}
+
+wall016:
+{
+	2sided: true;
+	impassable: true;
+
+	x: 768;
+	y: 256;
+	z: 0;
+
+	x: 768;
+	y: 192;
+	z: 0;
+
+	x: 768;
+	y: 192;
+	z: 64;
+
+	x: 768;
+	y: 256;
+	z: 64;
+
+	OffX: 0;
+	OffY: 0;
+	Light: 160;
 }
