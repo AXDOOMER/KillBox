@@ -431,8 +431,8 @@ public class Player
 				float OrthPlayerStartX = NewX - (float)Math.cos(OrthAngle) * (float)Radius();
 				float OrthPlayerStartY = NewY - (float)Math.sin(OrthAngle) * (float)Radius();
 
-				float OrthPlayerEndX = NewX + (float)Math.sin(OrthAngle) * (float)Radius();
-				float OrthPlayerEndY = NewY + (float)Math.cos(OrthAngle) * (float)Radius();
+				float OrthPlayerEndX = NewX + (float)Math.cos(OrthAngle) * (float)Radius();
+				float OrthPlayerEndY = NewY + (float)Math.sin(OrthAngle) * (float)Radius();
 
 				// Cramer's rule
 				// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
@@ -442,7 +442,7 @@ public class Player
 				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;	// Vector's Y orthogonal to the wall for the player from (0,0)
 
 				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-				float PointPlayerOrth = ( PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
 
 				// Check if a collision is detected
 				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
