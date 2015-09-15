@@ -234,6 +234,7 @@ public class Player
 
 		boolean Clear = true;	// Can move
 		float PushAngle = Float.NaN;
+		Plane HitWall = null;
 
 		// Fuck it when the player repetitively can't move
 		int NumTests = 0;
@@ -269,7 +270,7 @@ public class Player
 			}
 
 			// Player against wall collision
-			if (Float.isNaN(PushAngle = CheckWallCollision(NewX + PosX(), NewY + PosY())))
+			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY())))
 			{
 				if (Clear)
 				{
@@ -278,6 +279,8 @@ public class Player
 			}
 			else
 			{
+				System.out.println("ANGLE: " + HitWall.GetAngle());
+
 				Clear = false;
 			}
 
@@ -309,7 +312,14 @@ public class Player
 		}
 
 		// Move to the new position
-		Move();
+		if (HitWall == null)
+		{
+			Move(Float.NaN);
+		}
+		else
+		{
+			Move(HitWall.GetAngle());
+		}
 
 		return GetRadianAngle();
 	}
@@ -394,12 +404,12 @@ public class Player
 	}
 
 	// Check for collision against walls
-	public float CheckWallCollision(float NewX, float NewY)
+	public Plane CheckWallCollision(float NewX, float NewY)
 	{
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
 			// Add a function to the plane to see if it is valid instead
-			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 && Lvl.Planes.get(Plane).GetAngle() != Float.NaN)
+			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 /*&& Lvl.Planes.get(Plane).GetAngle() != Float.NaN*/)
 			{
 				// Find how the plane is placed in the environment
 				float StartX = Lvl.Planes.get(Plane).Vertices().get(0);
@@ -455,9 +465,9 @@ public class Player
 
 					if (Distance <= Radius())
 					{
-						System.err.println(Distance);
+						//System.err.println(Distance);
 
-						return Lvl.Planes.get(Plane).GetAngle();
+						return Lvl.Planes.get(Plane);
 					}
 				}
 
@@ -465,7 +475,7 @@ public class Player
 				float Distance = (float)Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
 				if (Distance <= Radius())
 				{
-					return Lvl.Planes.get(Plane).GetAngle();
+					return Lvl.Planes.get(Plane);
 				}
 				else
 				{
@@ -473,16 +483,15 @@ public class Player
 
 					if (Distance <= Radius())
 					{
-						return Lvl.Planes.get(Plane).GetAngle();
+						return Lvl.Planes.get(Plane);
 					}
 				}
 
 			}
 		}
 
-		// The player doesn't deviate. Its movement is not divergeant.
-		//return (float)Math.atan2(MoY(), MoX());
-		return Float.NaN;
+		// The player doesn't deviate. Its movement is not divergeant. Return nothing.
+		return null;
 	}
 
 	// Searches for the floor that is under the player
@@ -564,23 +573,51 @@ public class Player
 		}
 	}
 
-	public void Move()
+	public void Move(float Angle)
 	{
 		// Max sure the player's speed is not bigger than the maximum allowed
 		LimitPlayerSpeed();
 
-		// Change the postion according to the direction of the movement
-		PosX += MoX();
-		PosY += MoY();
+		if (Float.isNaN(Angle))
+		{
+			PosX += MoX();
+			PosY += MoY();
 
-		// Constant deceleration
-		if (MoX != 0)
-		{
-			MoX /= Deceleration;
+			// Constant deceleration
+			if (MoX != 0)
+			{
+				MoX /= Deceleration;
+			}
+			if (MoY != 0)
+			{
+				MoY /= Deceleration;
+			}
 		}
-		if (MoY != 0)
+		else
 		{
-			MoY /= Deceleration;
+			// Change the postion according to the direction of the movement, because a wall was hit.
+			/*float PlayerAngle = this.GetRadianAngle();
+
+			// Make the angle positive if it is negative
+			if (PlayerAngle < 0)
+			{
+				PlayerAngle = PlayerAngle + (float)Math.PI * 2;
+			}
+
+			if ((Angle - PlayerAngle < Math.PI / 2 || Angle - PlayerAngle < 3 * Math.PI / 2) &&
+					(Angle - PlayerAngle > -Math.PI / 2 || Angle - PlayerAngle > 3 * Math.PI / 2))
+			{
+				PosX += Math.cos(Angle);
+				PosY += Math.sin(Angle);
+			}
+			else
+			{
+				PosX += Math.cos(Angle + Math.PI);
+				PosY += Math.sin(Angle + Math.PI);
+			}
+
+			System.out.println("ANGLE SHARED: " + Angle + "	PLAYER ANGLE: " + PlayerAngle + "	CALC: " + (Angle - PlayerAngle));
+			*/
 		}
 
 		// Reset

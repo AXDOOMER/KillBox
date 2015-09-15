@@ -244,7 +244,7 @@ public class Camera
 			{
 				System.exit(0);
 			}
-			CurrentPlayer().Move();
+			CurrentPlayer().Move(Float.NaN);
 		}
 
 		// Print DEBUG stats
