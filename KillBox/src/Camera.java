@@ -51,6 +51,7 @@ public class Camera
 	// Key presses
 	private boolean JustPressedFilterKey = false;
 	private boolean JustPressedMouseGrabKey = false;
+	private boolean JustPressedMenuKey = false;
 
 	// Mouse movement
 	private short MouseTurnH;
@@ -275,10 +276,20 @@ public class Camera
 		}
 
 		// Show/Hide menu
-		if(Keyboard.isKeyDown(Keyboard.KEY_F10))
+		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey)
 		{
 			// Remove control to player
 			MenuHasControl = !MenuHasControl;
+
+			JustPressedMenuKey = true;
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_F10))
+		{
+			JustPressedMenuKey = true;
+		}
+		else
+		{
+			JustPressedMenuKey = false;
 		}
 
 		// Print DEBUG stats
