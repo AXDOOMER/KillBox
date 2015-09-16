@@ -23,7 +23,9 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Camera
 {
+	// Attribute
 	Player Plyr;
+	Menu Menu = new Menu();
 
 	// Postions inside the camera are as represented in OpenGL
 	// The axis are inverted, thus a positive value is a negative value
@@ -44,7 +46,7 @@ public class Camera
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
 
-	private boolean HasControl = false;
+	private boolean MenuHasControl = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -110,7 +112,7 @@ public class Camera
 	public void ChangePlayer(Player Plyr, boolean CanControl)
 	{
 		this.Plyr = Plyr;
-		HasControl = CanControl;
+		MenuHasControl = CanControl;
 	}
 
 	public void ChangeProperties(float FOV, float Aspect, float Near, float Far)
@@ -203,7 +205,7 @@ public class Camera
 			JustPressedFilterKey = false;
 		}
 
-		if (HasControl)    // If I am this player
+		if (MenuHasControl)    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
 			CurrentPlayer().ForwardMove(MouseVertical/5);
@@ -245,6 +247,38 @@ public class Camera
 				System.exit(0);
 			}
 			CurrentPlayer().Move(Float.NaN);
+		}
+
+		// If menu is active
+		if(!MenuHasControl)
+		{
+			// Up Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
+			{
+				Menu.CursorUp();
+			}
+			// Down Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+			{
+				Menu.CursorDown();
+			}
+			// Left Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+			{
+				Menu.CursorLeft();
+			}
+			// Right Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+			{
+				Menu.CursorRight();
+			}
+		}
+
+		// Show/Hide menu
+		if(Keyboard.isKeyDown(Keyboard.KEY_F10))
+		{
+			// Remove control to player
+			MenuHasControl = !MenuHasControl;
 		}
 
 		// Print DEBUG stats
@@ -399,6 +433,32 @@ public class Camera
 				glPopMatrix();
 			}
 
+			// If menu is Show
+			if(!MenuHasControl)
+			{
+				// Test
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+
+				glDisable(GL_DEPTH_TEST);
+				// Set Draw cursor to Top-Left
+				glTranslatef(-1f, 1f, 0.0f);
+
+				// Draw menu
+				Menu.GridWidth(Display.getWidth());
+				Menu.GridHeight(Display.getHeight());
+				glDisable(GL_TEXTURE_2D);
+				Menu.DrawMenu();
+
+				glFlush();
+
+				glEnable(GL_DEPTH_TEST);
+				InitProjection();
+				glEnable(GL_TEXTURE_2D);
+			}
 			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
 			this.UpdateCamera();
 		}
