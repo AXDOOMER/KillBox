@@ -402,7 +402,42 @@ public class Camera
 
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
+					float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
+
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+
+					if (LookAngleDiff <= -315)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+					}
+					else if (LookAngleDiff <= -225)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
+					}
+					else if (LookAngleDiff <= -135)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+					}
+					else if (LookAngleDiff <= -45)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
+					}
+					else if (LookAngleDiff <= 45)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+					}
+					else if (LookAngleDiff <= 135)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
+					}
+					else if (LookAngleDiff <= 225)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+					}
+					else if (LookAngleDiff <= 315)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
+					}
 				}
 
 				glPushMatrix();

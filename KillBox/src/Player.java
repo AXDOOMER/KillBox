@@ -24,7 +24,7 @@ public class Player
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
 	final int MaxOwnedWeapons = 10;
-	Boolean[] OwnedWeapons_ = new Boolean[MaxOwnedWeapons];
+	Boolean[] OwnedWeapons = new Boolean[MaxOwnedWeapons];
         
 	float MoX = 0;
 	float MoY = 0;
@@ -66,7 +66,7 @@ public class Player
 
 		for (int i = 0; i < MaxOwnedWeapons; i++)
 		{
-			OwnedWeapons_[i] = false;
+			OwnedWeapons[i] = false;
 		}
 	}
 
