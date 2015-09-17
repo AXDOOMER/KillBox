@@ -34,10 +34,12 @@ public class Game
 		System.out.println("			======================");
 
 		// Nodes are computers where there is a player
-		int Nodes = 4;
+		int Nodes = 1;
 		String Demo = null;
 		Level Lvl = null;
 		int View = 0;
+
+		Netplay NetplayInfo = null;
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
@@ -76,6 +78,32 @@ public class Game
 				}
 
 				System.out.println("Up to " + Nodes + " nodes can join.");
+
+				NetplayInfo = new Netplay(true,Nodes);
+			}
+
+			// Check if the player sent an IP. He wants to join the game!
+			// IP : -connect 127.0.0.1
+			if(CheckParm(args, "-connect") >= 0)
+			{
+				try
+				{
+					String PlayerIp = args[CheckParm(args, "-connect") + 1];
+					System.out.println("IP : " + PlayerIp);
+				}
+				catch (Exception e)
+				{
+					System.out.println("Mistake in IP argu");
+				}
+
+				NetplayInfo = new Netplay(false,Nodes/*useless*/);
+
+				// Changer le nombre de Nodes pour le joueur
+				Nodes = NetplayInfo.Nodes;
+
+				// Changer la view du joueur
+				View = NetplayInfo.View;
+
 			}
 
 			// Select sound mode
@@ -106,6 +134,34 @@ public class Game
 			{
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
+
+			// ENLEVER REMPLACER PAR LES SPAWM
+			// Modifier la position initial des joueurs
+			//--------------------------------------------------------------------------------------------------------------------------------------
+			if(Lvl.Players.size() > 0)
+			{
+				Lvl.Players.get(0).PosX(-50);
+				Lvl.Players.get(0).PosY(0);
+			}
+
+			if(Lvl.Players.size() > 1)
+			{
+				Lvl.Players.get(1).PosX(-100);
+				Lvl.Players.get(1).PosY(-100);
+			}
+
+			if(Lvl.Players.size() > 2)
+			{
+				Lvl.Players.get(2).PosX(50);
+				Lvl.Players.get(2).PosY(50);
+			}
+
+			if(Lvl.Players.size() > 3)
+			{
+				Lvl.Players.get(3).PosX(0);
+				Lvl.Players.get(3).PosY(50);
+			}
+
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all setted up. Open the window.
@@ -122,7 +178,7 @@ public class Game
 				System.out.println("Error while creating the Display: " + ex.getMessage());
 			}
 
-			Camera HeadCamera = new Camera(Lvl.Players.get(0), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
+			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 
 			glEnable(GL_TEXTURE_2D);
@@ -152,11 +208,56 @@ public class Game
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
 
+			if(NetplayInfo != null)
+			{
+				if (NetplayInfo.Server != null)
+				{
+					Display.setTitle("KillBox (Server)");
+				}
+				else
+				{
+					Display.setTitle("KillBox (Client)");
+				}
+			}
+
 			// The main game loop
 			while (!Display.isCloseRequested())
 			{
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
+
+				if (Nodes > 1)
+				{
+					NetplayInfo.PlayerCommand.Reset();
+					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
+					{
+						NetplayInfo.OtherPlayersCommand.get(Player).Reset();
+					}
+
+					NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
+					NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
+					NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+
+					NetplayInfo.Update();
+
+					// Print the number of command sent
+					// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
+					// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
+
+					// Update the other player movements
+					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
+					{
+						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+					}
+
+					for(int Player = 0; Player < Lvl.Players.size(); Player++)
+					{
+						// BUG: Cheap fix player strafing not reset. FUCK!
+						Lvl.Players.get(Player).SideMove = 0;
+					}
+				}
 /*
 				// player 2 turns in circles
 				Lvl.Players.get(1).ForwardMove(1);
