@@ -55,6 +55,10 @@ public class Player
 	int Kills = 0;
 	int Deaths = 0;
 
+	byte FrontMove = 0;
+	byte SideMove = 0;
+	short AngleDiff = 0;
+
 	int Frame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
@@ -180,8 +184,18 @@ public class Player
 		}
 	}
 
-	public void ForwardMove(int Direction)
+	public void ForwardMove(byte Direction)
 	{
+		// Cancels the opposite direction when both keys are held
+		if(FrontMove == -Direction)
+		{
+			FrontMove = 0;
+		}
+		else
+		{
+			FrontMove = Direction;
+		}
+
 		if (Direction > 0)
 		{
 			float NewX = MoX + Acceleration * (float)Math.cos(GetRadianAngle());
@@ -202,8 +216,18 @@ public class Player
 		HasMoved = true;
 	}
 
-	public void LateralMove(int Direction)
+	public void LateralMove(byte Direction)
 	{
+		// Cancels the opposite direction
+		if(SideMove == -Direction)
+		{
+			SideMove = 0;
+		}
+		else
+		{
+			SideMove = Direction;
+		}
+
 		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
 		if (Direction > 0)
@@ -642,6 +666,7 @@ public class Player
 
 	public void AngleTurn(short AngleChange)
 	{
+		AngleDiff = AngleChange;
 		// Our internal representation of angles goes from -16384 to 16383,
 		// so there are 32768 different angles possible.
 

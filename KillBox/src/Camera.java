@@ -209,23 +209,23 @@ public class Camera
 		if (MenuHasControl)    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
-			CurrentPlayer().ForwardMove(MouseVertical/5);
+			CurrentPlayer().ForwardMove((byte)(MouseVertical/5));
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 			{
-				CurrentPlayer().ForwardMove(1);
+				CurrentPlayer().ForwardMove((byte)1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
 			{
-				CurrentPlayer().ForwardMove(-1);
+				CurrentPlayer().ForwardMove((byte)-1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_A))
 			{
-				CurrentPlayer().LateralMove(-1);
+				CurrentPlayer().LateralMove((byte)-1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_D))
 			{
-				CurrentPlayer().LateralMove(1);
+				CurrentPlayer().LateralMove((byte)1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
 			{
