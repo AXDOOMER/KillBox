@@ -789,12 +789,28 @@ public class Player
 		return FoundZ;
 	}
 
-	public void Spawn(float X, float Y, float Z, short Angle)
+	public boolean Spawn(float X, float Y, float Z, short Angle)
 	{
-		this.Angle = (short)(Angle * 128);
-		PosX = X;
-		PosY = Y;
-		PosZ = Z;
+		boolean FreeSpace = true;
+		for (int Player = 0; Player < Lvl.Players.size(); Player++)
+		{
+			float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
+
+			if (Distance <= this.Radius() * 2 || Math.abs(Lvl.Players.get(Player).PosY() - Z) <= this.Height())
+			{
+				FreeSpace = false;
+			}
+		}
+
+		if (FreeSpace == true)
+		{
+			this.Angle = Angle;
+			PosX = X;
+			PosY = Y;
+			PosZ = Z;
+		}
+
+		return FreeSpace;
 	}
 
 	// Set X Position

@@ -184,32 +184,48 @@ public class Game
 			{
 				int RandomNumber = Rand.GiveNumber();
 				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-				Lvl.Players.get(0).PosX(SomeSpawn.PosX());
-				Lvl.Players.get(0).PosY(SomeSpawn.PosY());
+
+				while (!Lvl.Players.get(0).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				}
 			}
 
 			if(Lvl.Players.size() > 1)
 			{
 				int RandomNumber = Rand.GiveNumber();
 				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-				Lvl.Players.get(1).PosX(SomeSpawn.PosX());
-				Lvl.Players.get(1).PosY(SomeSpawn.PosY());
+
+				while (!Lvl.Players.get(1).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				}
 			}
 
 			if(Lvl.Players.size() > 2)
 			{
 				int RandomNumber = Rand.GiveNumber();
 				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-				Lvl.Players.get(2).PosX(SomeSpawn.PosX());
-				Lvl.Players.get(2).PosY(SomeSpawn.PosY());
+
+				while (!Lvl.Players.get(2).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				}
 			}
 
 			if(Lvl.Players.size() > 3)
 			{
 				int RandomNumber = Rand.GiveNumber();
 				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-				Lvl.Players.get(3).PosX(SomeSpawn.PosX());
-				Lvl.Players.get(3).PosY(SomeSpawn.PosY());
+
+				while (!Lvl.Players.get(3).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				}
 			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game

@@ -696,15 +696,15 @@ spawn:
 
 spawn:
 {
-	x: 50;
-	y: 50;
+	x: -50;
+	y: -50;
 	z: 0;
 	angle: 90;
 }
 
 spawn:
 {
-	x: 0;
+	x: -150;
 	y: 50;
 	z: 0;
 	angle: 90;
