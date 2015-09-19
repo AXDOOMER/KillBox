@@ -353,21 +353,24 @@ public class Player
 	{
 		for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
 		{
-			float Distance = (float)Math.sqrt(
-					Math.pow(NewX - Lvl.Things.get(Thing).PosX(), 2) +
-							Math.pow(NewY - Lvl.Things.get(Thing).PosY(), 2));
-
-			// Test 2D collision
-			if (Distance <= this.Radius() + Lvl.Things.get(Thing).Radius())
+			if (Lvl.Things.get(Thing).Sprite != null)
 			{
-				// Test the Z axis. Both players have the same height.
-				if (Math.abs(this.PosZ() - Lvl.Things.get(Thing).PosZ()) <= Height())
+				float Distance = (float) Math.sqrt(
+						Math.pow(NewX - Lvl.Things.get(Thing).PosX(), 2) +
+								Math.pow(NewY - Lvl.Things.get(Thing).PosY(), 2));
+
+				// Test 2D collision
+				if (Distance <= this.Radius() + Lvl.Things.get(Thing).Radius())
 				{
-					// Collision! Return the angle toward the other player.
+					// Test the Z axis. Both players have the same height.
+					if (Math.abs(this.PosZ() - Lvl.Things.get(Thing).PosZ()) <= Height())
+					{
+						// Collision! Return the angle toward the other player.
 
-					float Glide = (float) Math.atan2(Lvl.Things.get(Thing).PosY() - PosY + NewY, Lvl.Things.get(Thing).PosX() - PosX + NewX);
+						float Glide = (float) Math.atan2(Lvl.Things.get(Thing).PosY() - PosY + NewY, Lvl.Things.get(Thing).PosX() - PosX + NewX);
 
-					return Glide - GetRadianAngle();
+						return Glide - GetRadianAngle();
+					}
 				}
 			}
 		}
@@ -784,6 +787,14 @@ public class Player
 
 		// The function returns something, but nobody really cares.
 		return FoundZ;
+	}
+
+	public void Spawn(float X, float Y, float Z, short Angle)
+	{
+		this.Angle = (short)(Angle * 128);
+		PosX = X;
+		PosY = Y;
+		PosZ = Z;
 	}
 
 	// Set X Position

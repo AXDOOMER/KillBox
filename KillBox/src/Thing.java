@@ -14,7 +14,6 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import static org.lwjgl.opengl.GL11.*;
-
 import java.util.ArrayList;
 
 public class Thing
@@ -29,6 +28,7 @@ public class Thing
 	int Height = 96;
 	int Health = 0;
 	int Radius = 16;
+	short Angle = 0;
 	String Sound;		// A thing can make a sound
 	Texture Sprite;		// What does it looks like?
 	int Frame = 0;		// Object state
@@ -37,7 +37,7 @@ public class Thing
 	public enum Names
 	{
 		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox,
-		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma,
+		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
 		Unknown, Custom
 	}
 
@@ -65,6 +65,48 @@ public class Thing
 		this.Radius = Radius;
 		this.Height = Height;
 		this.Health = Health;
+	}
+
+	// A special thing that takes an angle
+	public Thing(String Type, float X, float Y, float Z, short Angle)
+	{
+		try
+		{
+			Names Value = Names.valueOf(Type);
+
+			switch (Value)
+			{
+				case Spawn:
+					Radius = 16;
+					Health = 1000;
+					Height = 56;
+					Sprite = null; //new Texture("Stuff/spawn/spawn1.png", GL_NEAREST);
+					break;
+
+				default:
+					Radius = 0;
+					Height = 0;
+					Health = 0;
+					Sprite = null;
+					this.Type = Names.Unknown;    // Don't know its type, so set it to 'Unknown'.
+					break;
+			}
+
+			PosX = X;
+			PosY = Y;
+			PosZ = Z;
+			this.Angle = (short)((float)Angle * 91.022222222222222222222222222222);//(byte)(Angle * 1.40625);
+
+		}
+		catch (IllegalArgumentException iae)
+		{
+			System.err.println("Map thing has a bad type: " + Type);
+		}
+		catch (Exception e)
+		{
+			// Should be done before we create the object
+			System.err.println("Map thing failed to be determined over its type: " + e.toString()/*getMessage*/);
+		}
 	}
 
 	public Thing(String Type, float X, float Y, float Z)

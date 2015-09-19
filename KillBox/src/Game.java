@@ -135,33 +135,6 @@ public class Game
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
 
-			// ENLEVER REMPLACER PAR LES SPAWM
-			// Modifier la position initial des joueurs
-			//--------------------------------------------------------------------------------------------------------------------------------------
-			if(Lvl.Players.size() > 0)
-			{
-				Lvl.Players.get(0).PosX(-50);
-				Lvl.Players.get(0).PosY(0);
-			}
-
-			if(Lvl.Players.size() > 1)
-			{
-				Lvl.Players.get(1).PosX(-100);
-				Lvl.Players.get(1).PosY(-100);
-			}
-
-			if(Lvl.Players.size() > 2)
-			{
-				Lvl.Players.get(2).PosX(50);
-				Lvl.Players.get(2).PosY(50);
-			}
-
-			if(Lvl.Players.size() > 3)
-			{
-				Lvl.Players.get(3).PosX(0);
-				Lvl.Players.get(3).PosY(50);
-			}
-
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all setted up. Open the window.
@@ -204,6 +177,40 @@ public class Game
 			}
 
 			Lvl.LoadLevel("Stuff/test.txt", WallsFilter);
+
+			// Players will spawn at random locations
+			Random Rand = new Random();
+			if(Lvl.Players.size() > 0)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				Lvl.Players.get(0).PosX(SomeSpawn.PosX());
+				Lvl.Players.get(0).PosY(SomeSpawn.PosY());
+			}
+
+			if(Lvl.Players.size() > 1)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				Lvl.Players.get(1).PosX(SomeSpawn.PosX());
+				Lvl.Players.get(1).PosY(SomeSpawn.PosY());
+			}
+
+			if(Lvl.Players.size() > 2)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				Lvl.Players.get(2).PosX(SomeSpawn.PosX());
+				Lvl.Players.get(2).PosY(SomeSpawn.PosY());
+			}
+
+			if(Lvl.Players.size() > 3)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+				Lvl.Players.get(3).PosX(SomeSpawn.PosX());
+				Lvl.Players.get(3).PosY(SomeSpawn.PosY());
+			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
