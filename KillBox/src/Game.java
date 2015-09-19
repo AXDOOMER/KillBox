@@ -288,34 +288,38 @@ public class Game
 
 				if (Nodes > 1)
 				{
-					NetplayInfo.PlayerCommand.Reset();
-					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
+					if (CheckParm(args, "-fakenet") >= 0)
 					{
-						NetplayInfo.OtherPlayersCommand.get(Player).Reset();
-					}
 
-					NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
-					NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
-					NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+						NetplayInfo.PlayerCommand.Reset();
+						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+						{
+							NetplayInfo.OtherPlayersCommand.get(Player).Reset();
+						}
 
-					NetplayInfo.Update();
+						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
+						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
+						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
 
-					// Print the number of command sent
-					// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
-					// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
+						NetplayInfo.Update();
 
-					// Update the other player movements
-					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
-					{
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
-					}
+						// Print the number of command sent
+						// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
+						// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
 
-					for(int Player = 0; Player < Lvl.Players.size(); Player++)
-					{
-						// BUG: Cheap fix player strafing not reset. FUCK!
-						Lvl.Players.get(Player).SideMove = 0;
+						// Update the other player movements
+						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+						{
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+						}
+
+						for (int Player = 0; Player < Lvl.Players.size(); Player++)
+						{
+							// BUG: Cheap fix player strafing not reset. FUCK!
+							Lvl.Players.get(Player).SideMove = 0;
+						}
 					}
 				}
 /*
