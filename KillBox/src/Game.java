@@ -180,6 +180,7 @@ public class Game
 
 			// Players will spawn at random locations
 			Random Rand = new Random();
+			int TiresBeforeFreeSpawnIsFound = 0;
 			if(Lvl.Players.size() > 0)
 			{
 				int RandomNumber = Rand.GiveNumber();
@@ -189,7 +190,16 @@ public class Game
 				{
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
 				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 1)
@@ -201,7 +211,16 @@ public class Game
 				{
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
 				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 2)
@@ -213,7 +232,16 @@ public class Game
 				{
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
 				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 3)
@@ -225,7 +253,16 @@ public class Game
 				{
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
 				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
 			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game
