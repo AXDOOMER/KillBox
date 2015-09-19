@@ -14,6 +14,7 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
@@ -796,7 +797,7 @@ public class Player
 		{
 			float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
 
-			if (Distance <= this.Radius() * 2 || Math.abs(Lvl.Players.get(Player).PosY() - Z) <= this.Height())
+			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosY() - Z) <= this.Height())
 			{
 				FreeSpace = false;
 			}
