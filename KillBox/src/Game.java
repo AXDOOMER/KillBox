@@ -288,7 +288,7 @@ public class Game
 
 				if (Nodes > 1)
 				{
-					if (CheckParm(args, "-fakenet") >= 0)
+					if (CheckParm(args, "-fakenet") < 0)
 					{
 
 						NetplayInfo.PlayerCommand.Reset();
