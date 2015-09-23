@@ -46,7 +46,7 @@ public class Camera
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
 
-	private boolean MenuHasControl = false;
+	private boolean HasControl = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -113,7 +113,7 @@ public class Camera
 	public void ChangePlayer(Player Plyr, boolean CanControl)
 	{
 		this.Plyr = Plyr;
-		MenuHasControl = CanControl;
+		HasControl = CanControl;
 	}
 
 	public void ChangeProperties(float FOV, float Aspect, float Near, float Far)
@@ -206,7 +206,7 @@ public class Camera
 			JustPressedFilterKey = false;
 		}
 
-		if (MenuHasControl)    // If I am this player
+		if (HasControl && !Menu.Active())    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
 			CurrentPlayer().ForwardMove((byte)(MouseVertical/5));
@@ -251,7 +251,7 @@ public class Camera
 		}
 
 		// If menu is active
-		if(!MenuHasControl)
+		if(Menu.Active())
 		{
 			// Up Key
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
@@ -279,7 +279,7 @@ public class Camera
 		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey)
 		{
 			// Remove control to player
-			MenuHasControl = !MenuHasControl;
+			Menu.Active = !Menu.Active();
 
 			JustPressedMenuKey = true;
 		}
@@ -512,7 +512,7 @@ public class Camera
 			}
 
 			// If menu is Show
-			if(!MenuHasControl)
+			if(Menu.Active())
 			{
 				// Test
 				glMatrixMode(GL_PROJECTION);

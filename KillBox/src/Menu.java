@@ -495,7 +495,7 @@ public class Menu
 		// Draw menu bar on the top of the screen
 		DrawMenuBar();
 		// Draw all menu items
-		for(int MenuIndex = 0; MenuIndex < Items.size(); MenuIndex++)
+		for (int MenuIndex = 0; MenuIndex < Items.size(); MenuIndex++)
 		{
 			for(int SubMenuIndex = 0; SubMenuIndex < Items.get(MenuIndex).size(); SubMenuIndex++)
 			{
