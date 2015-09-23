@@ -30,6 +30,9 @@ public class Level
 	ArrayList<Thing> Things = new ArrayList<Thing>();
 	ArrayList<Player> Players = new ArrayList<Player>();
 
+	// Small list that keeps references on spawns only
+	ArrayList<Thing> Spawns = new ArrayList<Thing>();
+
 	// Keep an ordered list of textures that have been loaded previously for the level
 	private static ArrayList<Texture> Textures = new ArrayList<Texture>();
 
@@ -151,6 +154,50 @@ public class Level
 						{
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("DOOR9_1.bmp"));
 						}
+					}
+					else if (Line.contains("spawn"))
+					{
+						int PosX = 0;
+						int PosY = 0;
+						int PosZ = 0;
+						short Angle = 0;
+
+						while (!Line.contains("}"))
+						{
+							Line = LevelFile.readLine();
+
+							if (Line.contains("{"))
+							{
+								continue;
+							}
+							else if (Line.contains("x: "))
+							{
+								PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("y: "))
+							{
+								PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("z: "))
+							{
+								PosZ = Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("angle: "))
+							{
+								Angle = Short.parseShort(Line.substring(Line.indexOf("angle: ") + 7, Line.indexOf(";")));
+							}
+							else if (Line.contains("}"))
+							{
+								break;
+							}
+							else
+							{
+								System.out.println("Invalid property: " + Line);
+							}
+						}
+
+						Things.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
+						Spawns.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 					}
 					else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))
 					{

@@ -350,45 +350,45 @@ public class Camera
 				if (Lvl.Things.get(Thing).Sprite != null)
 				{
 					Lvl.Things.get(Thing).Sprite.Bind();
-				}
 
-				glPushMatrix();
-				{
-					// Apply color to polygons
-					glColor3f(1.0f, 1.0f, 1.0f);
-					// Draw polygons according to the camera position
-					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
-					glBegin(GL_QUADS);
+					glPushMatrix();
 					{
-						//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
-						float LookAt = this.RotY * (float) Math.PI * 2 / 360;
-						float Divergent = LookAt - (float) Math.PI / 2;
-
-						float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
-
-						float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-											Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
-
-						float[] SpriteZ = {	Lvl.Things.get(Thing).PosZ(),
-											Lvl.Things.get(Thing).PosZ(),
-											Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height(),
-											Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height() };
-
-						for (int Corner = 0; Corner < 4; Corner++)
+						// Apply color to polygons
+						glColor3f(1.0f, 1.0f, 1.0f);
+						// Draw polygons according to the camera position
+						glTranslatef(this.PosX(), this.PosY(), this.PosZ());
+						glBegin(GL_QUADS);
 						{
-							glTexCoord2f(TextXcoords[Corner], TextYcoords[Corner]);
-							// (Ypos, Zpos, Xpos)
-							glVertex3f(-SpriteY[Corner], SpriteZ[Corner], -SpriteX[Corner]);
+							//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
+							float LookAt = this.RotY * (float) Math.PI * 2 / 360;
+							float Divergent = LookAt - (float) Math.PI / 2;
+
+							float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+
+							float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+
+							float[] SpriteZ = {	Lvl.Things.get(Thing).PosZ(),
+									Lvl.Things.get(Thing).PosZ(),
+									Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height(),
+									Lvl.Things.get(Thing).PosZ() + Lvl.Things.get(Thing).Height() };
+
+							for (int Corner = 0; Corner < 4; Corner++)
+							{
+								glTexCoord2f(TextXcoords[Corner], TextYcoords[Corner]);
+								// (Ypos, Zpos, Xpos)
+								glVertex3f(-SpriteY[Corner], SpriteZ[Corner], -SpriteX[Corner]);
+							}
 						}
+						glEnd();
 					}
-					glEnd();
+					glPopMatrix();
 				}
-				glPopMatrix();
 			}
 
 			// Draw the Players
@@ -406,37 +406,69 @@ public class Camera
 
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 
-					if (LookAngleDiff <= -315)
+					if (LookAngleDiff <= -337.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
 					}
-					else if (LookAngleDiff <= -225)
+					else if (LookAngleDiff <= -292.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(5).Bind();
+					}
+					else if (LookAngleDiff <= -247.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
 					}
-					else if (LookAngleDiff <= -135)
+					else if (LookAngleDiff <= -202.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(7).Bind();
+					}
+					else if (LookAngleDiff <= -157.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 					}
-					else if (LookAngleDiff <= -45)
+					else if (LookAngleDiff <= -112.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(1).Bind();
+					}
+					else if (LookAngleDiff <= -67.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
 					}
-					else if (LookAngleDiff <= 45)
+					else if (LookAngleDiff <= -22.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
+					}
+					else if (LookAngleDiff <= 22.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
 					}
-					else if (LookAngleDiff <= 135)
+					else if (LookAngleDiff <= 67.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(5).Bind();
+					}
+					else if (LookAngleDiff <= 112.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
 					}
-					else if (LookAngleDiff <= 225)
+					else if (LookAngleDiff <= 157.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(7).Bind();
+					}
+					else if (LookAngleDiff <= 202.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 					}
-					else if (LookAngleDiff <= 315)
+					else if (LookAngleDiff <= 247.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(1).Bind();
+					}
+					else if (LookAngleDiff <= 292.5)
 					{
 						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
+					}
+					else if (LookAngleDiff <= 337.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
 					}
 				}
 

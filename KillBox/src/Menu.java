@@ -104,7 +104,7 @@ public class Menu
 
 			if(Highlight)
 			{
-				glColor3f(255,255,0);
+				glColor3f(0,183,0);
 			}
 			else
 			{
@@ -170,7 +170,7 @@ public class Menu
 		final double BoxSizeHeight = 3.2083333333333333333333333333333d; // Value in %, must be converted to GL unit
 		final int BorderX = 2; // Size of border for the box
 		final int BorderY = BorderX + (BorderX * 2 / 3); // Size of border for the box
-		final Color BoxColorChecked = new Color(255,255,0,255); // Yellow color
+		final Color BoxColorChecked = new Color(255, 183, 0, 255); // Orange color
 		final Color BoxColorUnchecked = new Color(0,0,0,255); // Black
 
 		// Default constructor
@@ -227,7 +227,7 @@ public class Menu
 			// Change color to the color of the checkbox
 			if(IsChecked())
 			{
-				glColor4f(BoxColorChecked.getRed(), BoxColorChecked.getGreen(), BoxColorChecked.getBlue(), BoxColorChecked.getAlpha());
+				glColor4f(BoxColorChecked.getRed() / 255.0f, BoxColorChecked.getGreen() / 255.0f, BoxColorChecked.getBlue() / 255.0f, BoxColorChecked.getAlpha() / 255.0f);
 			}
 
 			// Draw rectangle
@@ -256,7 +256,7 @@ public class Menu
 		final double SquareHeight = 3; // % value, must be converted to either px or gl
 		final double BorderX = 2; // Size of border for the box
 		final double BorderY = BorderX + (BorderX * 2 / 3); // Size of border for the box
-		final Color SquareColor = new Color(255,255,0,255); // Yellow color
+		final Color SquareColor = new Color(0, 142, 221,255); // Blue color
 		final Color DarkSquareColor = new Color(0,0,0,255); // Black color
 
 		// Parametered constructor

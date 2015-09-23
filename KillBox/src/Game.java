@@ -135,33 +135,6 @@ public class Game
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
 
-			// ENLEVER REMPLACER PAR LES SPAWM
-			// Modifier la position initial des joueurs
-			//--------------------------------------------------------------------------------------------------------------------------------------
-			if(Lvl.Players.size() > 0)
-			{
-				Lvl.Players.get(0).PosX(-50);
-				Lvl.Players.get(0).PosY(0);
-			}
-
-			if(Lvl.Players.size() > 1)
-			{
-				Lvl.Players.get(1).PosX(-100);
-				Lvl.Players.get(1).PosY(-100);
-			}
-
-			if(Lvl.Players.size() > 2)
-			{
-				Lvl.Players.get(2).PosX(50);
-				Lvl.Players.get(2).PosY(50);
-			}
-
-			if(Lvl.Players.size() > 3)
-			{
-				Lvl.Players.get(3).PosX(0);
-				Lvl.Players.get(3).PosY(50);
-			}
-
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all setted up. Open the window.
@@ -205,6 +178,93 @@ public class Game
 
 			Lvl.LoadLevel("Stuff/test.txt", WallsFilter);
 
+			// Players will spawn at random locations
+			Random Rand = new Random();
+			int TiresBeforeFreeSpawnIsFound = 0;
+			if(Lvl.Players.size() > 0)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+				while (!Lvl.Players.get(0).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
+				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
+			}
+
+			if(Lvl.Players.size() > 1)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+				while (!Lvl.Players.get(1).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
+				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
+			}
+
+			if(Lvl.Players.size() > 2)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+				while (!Lvl.Players.get(2).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
+				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
+			}
+
+			if(Lvl.Players.size() > 3)
+			{
+				int RandomNumber = Rand.GiveNumber();
+				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+				while (!Lvl.Players.get(3).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				{
+					RandomNumber = Rand.GiveNumber();
+					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+					if (TiresBeforeFreeSpawnIsFound > 30)
+					{
+						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
+						System.exit(1);
+					}
+					TiresBeforeFreeSpawnIsFound++;
+				}
+
+				TiresBeforeFreeSpawnIsFound = 0;
+			}
+
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
 
@@ -228,34 +288,38 @@ public class Game
 
 				if (Nodes > 1)
 				{
-					NetplayInfo.PlayerCommand.Reset();
-					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
+					if (CheckParm(args, "-fakenet") >= 0)
 					{
-						NetplayInfo.OtherPlayersCommand.get(Player).Reset();
-					}
 
-					NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
-					NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
-					NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+						NetplayInfo.PlayerCommand.Reset();
+						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+						{
+							NetplayInfo.OtherPlayersCommand.get(Player).Reset();
+						}
 
-					NetplayInfo.Update();
+						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
+						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
+						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
 
-					// Print the number of command sent
-					// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
-					// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
+						NetplayInfo.Update();
 
-					// Update the other player movements
-					for(int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size();Player++)
-					{
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-						Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
-					}
+						// Print the number of command sent
+						// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
+						// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
 
-					for(int Player = 0; Player < Lvl.Players.size(); Player++)
-					{
-						// BUG: Cheap fix player strafing not reset. FUCK!
-						Lvl.Players.get(Player).SideMove = 0;
+						// Update the other player movements
+						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+						{
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+						}
+
+						for (int Player = 0; Player < Lvl.Players.size(); Player++)
+						{
+							// BUG: Cheap fix player strafing not reset. FUCK!
+							Lvl.Players.get(Player).SideMove = 0;
+						}
 					}
 				}
 /*
