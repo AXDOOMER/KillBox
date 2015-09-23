@@ -105,32 +105,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="44" column="28" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#21738#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#1565#1574#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Sound.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Sound.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7824497">
+            <state vertical-scroll-proportion="2.11883">
               <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
-                <element signature="e#0#2325#0" expanded="true" />
+                <element signature="e#0#2344#0" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="e#1148#1156#0" expanded="true" />
                 <element signature="e#1208#1217#0" expanded="true" />
-                <element signature="e#2187#2188#0" expanded="true" />
-                <element signature="e#2208#2209#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -183,7 +167,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="115" />
+    <option name="x" value="176" />
+    <option name="y" value="14" />
     <option name="width" value="1083" />
     <option name="height" value="709" />
   </component>
@@ -230,6 +215,8 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -264,8 +251,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -473,7 +458,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="115" y="0" width="1083" height="709" extended-state="0" />
+    <frame x="176" y="14" width="1083" height="709" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -500,7 +485,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28" sideWeight="0.4966443" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933104" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869565" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -538,6 +523,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -573,6 +560,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -585,6 +574,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -650,6 +641,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -707,6 +700,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -771,6 +766,8 @@
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -907,18 +904,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10544#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <marker date="1442628624649" expanded="true" signature="10453:10454" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Camera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -941,33 +926,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3107861">
           <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="28" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.33519554">
+          <caret line="864" column="16" selection-start-line="864" selection-start-column="16" selection-end-line="864" selection-end-column="16" />
           <folding>
             <element signature="e#0#21738#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1565#1574#0" expanded="true" />
+            <element signature="e#21570#21571#0" expanded="true" />
+            <element signature="e#21607#21608#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10544#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <marker date="1442628624649" expanded="true" signature="10453:10454" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Sound.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7824497">
+        <state vertical-scroll-proportion="2.11883">
           <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
-            <element signature="e#0#2325#0" expanded="true" />
+            <element signature="e#0#2344#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#1148#1156#0" expanded="true" />
             <element signature="e#1208#1217#0" expanded="true" />
-            <element signature="e#2187#2188#0" expanded="true" />
-            <element signature="e#2208#2209#0" expanded="true" />
           </folding>
         </state>
       </provider>

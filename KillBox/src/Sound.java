@@ -68,7 +68,7 @@ public class Sound
 
     public boolean PlaySound(Player Source, String Name)
     {
-        // Get the sound from a Player and the source will be at its X,Y,Z.
+        // Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 
 
         // If the sound was not found, return false:
