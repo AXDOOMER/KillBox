@@ -118,7 +118,7 @@ public class Netplay
     ArrayList<NetCommand> OtherPlayersCommand = new ArrayList<NetCommand>();
 
     int Nodes = 1;
-    final String ServerAddress = "127.0.0.1";
+    String ServerAddress = "127.0.0.1";
     final int Port = 8167;
     final int Wait = 120000;	// 2 minutes
 
@@ -135,109 +135,111 @@ public class Netplay
 
     private String Separator = ";";
 
-    public Netplay(boolean IamServer, int Nodes)
+	// Constructor for the clients
+	public Netplay(int Nodes, String IpAddress)
+	{
+		ServerAddress = IpAddress;
+
+		// Connect to a server, because I'm not a server. I'm a client.
+		InetSocketAddress AdressSocket = null;
+		int NombreJoueurRestant, NombreJoueur, NumeroJoueur = 0;
+
+		try
+		{
+			AdressSocket = new InetSocketAddress(IpAddress, Port);
+			// Add his socket to his array lsit
+			Connections.add(new Socket());
+			// Connect to the server
+			Connections.get(0).connect(AdressSocket);
+
+			Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
+			Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
+
+			// The player receive a string which is the number of player in the game
+			// and the number of player we need to start the game.
+			String Message = Reader.readLine();
+			String[] strings = Message.split(Separator);
+
+			NombreJoueur = Integer.parseInt(strings[0]);
+			NombreJoueurRestant = Integer.parseInt(strings[1]);
+			NumeroJoueur = Integer.parseInt(strings[2]);
+
+			// It gives the right view to the right player
+			View = NumeroJoueur;
+
+			this.Nodes = NombreJoueur;
+
+			System.out.println("Nombrejoueur: " + NombreJoueur);
+			System.out.println("NombreJoueurRestant: " + NombreJoueurRestant);
+		}
+		catch(IOException e)
+		{
+			System.err.println(e);
+			System.err.println("Problem to connect a client. Try to start a server!");
+		}
+
+		PlayerCommand = new NetCommand((byte)NumeroJoueur/*Player number*/);
+		OtherPlayersCommand.add(new NetCommand((byte)1));
+	}
+
+	// Constructor for the server
+    public Netplay(int Nodes)
     {
-        if (IamServer)
-        {
-            this.Nodes = Nodes;
+		this.Nodes = Nodes;
 
-            // Check if we are in a mutliplayer game
-            if (Nodes > 1)
-            {
-                try
-                {
-                    Server = new ServerSocket(Port);
-                }
-                catch (IOException ioe)
-                {
-                    System.err.println(ioe);
-                }
+		// Check if we are in a mutliplayer game
+		if (Nodes > 1)
+		{
+			try
+			{
+				Server = new ServerSocket(Port);
+			}
+			catch (IOException ioe)
+			{
+				System.err.println(ioe);
+			}
 
-                try
-                {
-                    // Wait for others to connect
-                    Server.setSoTimeout(Wait);
-                }
-                catch (SocketException se)
-                {
-                    System.err.println(se);
-                }
+			try
+			{
+				// Wait for others to connect
+				Server.setSoTimeout(Wait);
+			}
+			catch (SocketException se)
+			{
+				System.err.println(se);
+			}
 
-                try
-                {
-                    // Server is 0
-                    PlayerCommand = new NetCommand((byte)0/*Player number*/);
-                    // The other player is 1
-                    OtherPlayersCommand.add(new NetCommand((byte)1));
+			try
+			{
+				// Server is 0
+				PlayerCommand = new NetCommand((byte)0/*Player number*/);
+				// The other player is 1
+				OtherPlayersCommand.add(new NetCommand((byte)1));
 
-                    for (int Player = 1; Player < this.Nodes; Player++)
-                    {
+				for (int Player = 1; Player < this.Nodes; Player++)
+				{
 
-                        System.err.println("Waiting for " + (this.Nodes - Player) + " more nodes");
-                        Socket Client = Server.accept();
+					System.err.println("Waiting for " + (this.Nodes - Player) + " more nodes");
+					Socket Client = Server.accept();
 
 
-                        System.err.println("A client has connected");
-                        Connections.add(Client);
+					System.err.println("A client has connected");
+					Connections.add(Client);
 
-                        Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
-                        Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
+					Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
+					Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
 
-                        // After a player is connected, we send the number of connexion
-                        // This way, we can start all the players at the same time
-                        SendNodesToPlayer(this.Nodes - Player, this.Nodes,Player/*Player's number*/);
-                    }
-                }
-                catch (IOException ioe)
-                {
-                    System.err.println(ioe);
-                }
-            }
-        }
-        else
-        {
-            // Connect to a server, because I'm not a server. I'm a client.
-            InetSocketAddress AdressSocket = null;
-            int NombreJoueurRestant, NombreJoueur, NumeroJoueur = 0;
-
-            try
-            {
-                AdressSocket = new InetSocketAddress(ServerAddress, Port);
-                // Add his socket to his array lsit
-                Connections.add(new Socket());
-                // Connect to the server
-                Connections.get(0).connect(AdressSocket);
-
-                Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
-                Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
-
-                // The player receive a string which is the number of player in the game
-                // and the number of player we need to start the game
-                String Message = Reader.readLine();
-                String[] strings = Message.split(Separator);
-
-                NombreJoueur = Integer.parseInt(strings[0]);
-                NombreJoueurRestant = Integer.parseInt(strings[1]);
-                NumeroJoueur = Integer.parseInt(strings[2]);
-
-                // It gives the right view to the right player
-                View = NumeroJoueur;
-
-                this.Nodes = NombreJoueur;
-
-                System.out.println("Nombrejoueur: " + NombreJoueur);
-                System.out.println("NombreJoueurRestant: " + NombreJoueurRestant);
-            }
-            catch(IOException e)
-            {
-                System.err.println(e);
-                System.err.println("Problem to connect a client. Try to start a server!");
-            }
-
-            PlayerCommand = new NetCommand((byte)NumeroJoueur/*Player number*/);
-            OtherPlayersCommand.add(new NetCommand((byte)1));
-        }
-    }
+					// After a player is connected, we send the number of connections.
+					// This way, we can start all the players at the same time.
+					SendNodesToPlayer(this.Nodes - Player, this.Nodes,Player/*Player's number*/);
+				}
+			}
+			catch (IOException ioe)
+			{
+				System.err.println(ioe);
+			}
+		}
+	}
 
     public NetCommand GetReferenceNetCommand()
     {
@@ -309,7 +311,7 @@ public class Netplay
             {
                 if (player.isConnected())
                 {
-                    System.out.println("Sa rentre");
+                    System.out.println("It's comming!");
                     PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(player.getOutputStream()));
 
                     PlayerWriter.println(message);

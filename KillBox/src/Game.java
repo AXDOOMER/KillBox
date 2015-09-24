@@ -87,31 +87,31 @@ public class Game
 
 				System.out.println("Up to " + Nodes + " nodes can join.");
 
-				NetplayInfo = new Netplay(true,Nodes);
+				NetplayInfo = new Netplay(Nodes);
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
-			// IP : -connect 127.0.0.1
 			if(CheckParm(args, "-connect") >= 0)
 			{
+				String HostIP = null;
+
 				try
 				{
-					String PlayerIp = args[CheckParm(args, "-connect") + 1];
-					System.out.println("IP : " + PlayerIp);
+					HostIP = args[CheckParm(args, "-connect") + 1];
+					System.out.println("Host IP : " + HostIP);
 				}
 				catch (Exception e)
 				{
-					System.out.println("Mistake in IP argu");
+					System.out.println("Bad IP address specified to '-connect' argument.");
 				}
 
-				NetplayInfo = new Netplay(false,Nodes/*useless*/);
+				NetplayInfo = new Netplay(Nodes, HostIP);
 
 				// Changer le nombre de Nodes pour le joueur
 				Nodes = NetplayInfo.Nodes;
 
 				// Changer la view du joueur
 				View = NetplayInfo.View;
-
 			}
 
 			// Select sound mode
