@@ -39,10 +39,18 @@ public class Game
 		Level Lvl = null;
 		int View = 0;
 
+		// The frame rate and the time limit to execute a frame
+		final int FrameRate = 30;
+		final double TimeFrameLimit = (1 / (double)FrameRate) * 1000;
+
 		Netplay NetplayInfo = null;
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
+
+		long TimeStart = System.currentTimeMillis();
+		long TimeEnd = System.currentTimeMillis();
+
 		try
 		{
 			Lvl = new Level(/*Reader.readLine()*/ /*"Stuff/test.txt"*/);
@@ -283,6 +291,8 @@ public class Game
 			// The main game loop
 			while (!Display.isCloseRequested())
 			{
+				TimeStart = System.currentTimeMillis();
+
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
 
@@ -375,7 +385,24 @@ public class Game
 
 				try
 				{
-					Thread.sleep(30);
+					// Timer for sleep
+					TimeEnd = System.currentTimeMillis();
+					long DeltaTime = TimeEnd - TimeStart;
+
+					// Make sure the time is not negative
+					// We want to run the game as fast as possible
+					if (DeltaTime < 0)
+					{
+						DeltaTime = 0;
+					}
+					else if (DeltaTime > FrameRate)
+					{
+						DeltaTime = (long)FrameRate;
+					}
+
+					// Make the game sleep depending on how much time it took to execute one tick
+					Thread.sleep((long)FrameRate - DeltaTime);
+					TicksCount++;
 				}
 				catch (InterruptedException ie)
 				{
