@@ -145,7 +145,7 @@ public class Game
 
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
-			// The game is all setted up. Open the window.
+			// The game is all set up. Open the window.
 			try
 			{
 				Display.setDisplayMode(new DisplayMode(640, 480));
@@ -184,7 +184,7 @@ public class Game
 				WallsFilter = GL_LINEAR;
 			}
 
-			Lvl.LoadLevel("Stuff/test.txt", WallsFilter);
+			Lvl.LoadLevel("Stuff/" + Reader.readLine(), WallsFilter);
 
 			// Players will spawn at random locations
 			Random Rand = new Random();

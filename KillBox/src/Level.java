@@ -144,7 +144,7 @@ public class Level
 								Planes.get(Planes.size() - 1).SetReference(LoadTexture(Planes.get(Planes.size() - 1).TextureName));
 								NameIsSet = true;
 							}
-							else if (Line.contains("texture: "))
+							else if (Line.contains("light: "))
 							{
 								Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 9, Line.indexOf(";"))));
 							}
@@ -281,6 +281,7 @@ public class Level
 		catch (FileNotFoundException fnfe)
 		{
 			System.err.println("The specified level cannot be found: " + LvlName);
+			System.exit(1);
 		}
 	}
 
