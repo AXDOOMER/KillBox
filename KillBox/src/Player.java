@@ -852,12 +852,12 @@ public class Player
 
 	public void MoveUp()
 	{
-		PosZ = PosZ + 64;
+		PosZ = PosZ + 8;
 	}
 
 	public void MoveDown()
 	{
-		PosZ = PosZ - 64;
+		PosZ = PosZ - 8;
 	}
 
 	public void MakesNoise(String Sound)

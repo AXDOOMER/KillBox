@@ -184,7 +184,7 @@ public class Game
 				WallsFilter = GL_LINEAR;
 			}
 
-			Lvl.LoadLevel("Stuff/" + Reader.readLine(), WallsFilter);
+			Lvl.LoadLevel("Stuff/maps/" + Reader.readLine(), WallsFilter);
 
 			// Players will spawn at random locations
 			Random Rand = new Random();
