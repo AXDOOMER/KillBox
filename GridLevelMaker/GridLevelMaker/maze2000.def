@@ -1,0 +1,7 @@
+#: dungeon_wall.png
+&: 3x2grills1.png
+3: rough_rocks.png
+B: boring_wall.jpg
+t: brick-tile1.jpg
+
+@: spawn
