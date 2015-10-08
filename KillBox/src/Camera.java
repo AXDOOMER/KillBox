@@ -221,19 +221,23 @@ public class Camera
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_A))
 			{
-				CurrentPlayer().LateralMove((byte)-1);
+				CurrentPlayer().LateralMove((byte) -1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_D))
 			{
 				CurrentPlayer().LateralMove((byte)1);
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+			// If both keys are held at the same time, don't do anything.
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
 			{
-				CurrentPlayer().AngleTurn((short) 500);
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-			{
-				CurrentPlayer().AngleTurn((short) -500);
+				if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+				{
+					CurrentPlayer().AngleTurn((short) 500);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+				{
+					CurrentPlayer().AngleTurn((short) -500);
+				}
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			{
