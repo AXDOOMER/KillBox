@@ -448,7 +448,7 @@ public class Player
 				float EndY = Lvl.Planes.get(Plane).Vertices().get(4);
 				float EndZ = Lvl.Planes.get(Plane).Vertices().get(5);
 
-				// Find another point. Can't find the direction of a wall if poinnts are above each other.
+				// Find another point. Can't find the direction of a wall if points are above each other.
 				if (StartX == EndX && StartY == EndY)
 				{
 					EndX = Lvl.Planes.get(Plane).Vertices().get(6);
@@ -461,23 +461,84 @@ public class Player
 					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
 				}
 
+				// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
+				// Test for a vertical wall
+				if (StartX == EndX)
+				{
+					// Test if player is close enough for a collision
+					if (Math.abs(StartX - NewX) < Radius())
+					{
+						// Now test if the player stands within the wall's vertical range
+						if (StartY < EndY)
+						{
+							if (StartY <= NewY && EndY >= NewY)
+							{
+								// Collision!
+								return Lvl.Planes.get(Plane);
+							}
+						}
+						else if (StartY > EndY)
+						{
+							if (StartY >= NewY && EndY <= NewY)
+							{
+								// Collision!
+								return Lvl.Planes.get(Plane);
+							}
+						}
+						else
+						{
+							System.out.println("Collision with a 0-length wall!");
+						}
+					}
+				}
+				// Test for an horizontal wall
+				if (StartY == EndY)
+				{
+					// Test if player is close enough for a collision
+					if (Math.abs(StartY - NewY) < Radius())
+					{
+						// Now test if the player stands within the wall's horizontal range
+						if (StartX < EndX)
+						{
+							if (StartX <= NewX && EndX >= NewX)
+							{
+								// Collision!
+								return Lvl.Planes.get(Plane);
+							}
+						}
+						else if (StartX > EndX)
+						{
+							if (StartX >= NewX && EndX <= NewX)
+							{
+								// Collision!
+								return Lvl.Planes.get(Plane);
+							}
+						}
+						else
+						{
+							System.out.println("Collision with a 0-length wall!");
+						}
+					}
+				}
+
 				// Find the orthogonal vector (Invert X and Y, then set a negative Y)
-				float OrthX = EndY;		// The opposite is 'StartX'
-				float OrthY = -EndX;	// The opposite is 'StartY'
-				float OrthAngle = (float)Math.atan2(StartY - OrthY, StartX - OrthX);
+				float OrthX = EndY;        // The opposite is 'StartX'
+				float OrthY = -EndX;    // The opposite is 'StartY'
+				float OrthAngle = (float) Math.atan2(StartY - OrthY, StartX - OrthX);
 
-				float OrthPlayerStartX = NewX - (float)Math.cos(OrthAngle) * (float)Radius();
-				float OrthPlayerStartY = NewY - (float)Math.sin(OrthAngle) * (float)Radius();
+				float OrthPlayerStartX = NewX - (float) Math.cos(OrthAngle) * (float) Radius();
+				float OrthPlayerStartY = NewY - (float) Math.sin(OrthAngle) * (float) Radius();
 
-				float OrthPlayerEndX = NewX + (float)Math.cos(OrthAngle) * (float)Radius();
-				float OrthPlayerEndY = NewY + (float)Math.sin(OrthAngle) * (float)Radius();
+				float OrthPlayerEndX = NewX + (float) Math.cos(OrthAngle) * (float) Radius();
+				float OrthPlayerEndY = NewY + (float) Math.sin(OrthAngle) * (float) Radius();
 
-				// Cramer's rule
+				// Cramer's rule --> source: https://books.google.ca/books?id=lRUj-nhQRu8C&pg=PA844&lpg=PA844&dq=cramer%27s+rule+windows+game&source=bl&ots=7xD9_FJ72z&sig=GL9uIZvhbQX8buR6UZlxgtVOGYU&hl=en&sa=X&ved=0CB4Q6AEwAWoVChMIqeiE75SyyAIVAxceCh0E2Q-X#v=onepage&q=cramer's%20rule%20windows%20game&f=false
+				// https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1201356#1201356
 				// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
-				float WallDiffX = EndX - StartX;	// Vector's X from (0,0)
-				float WallDiffY = EndY - StartY;	// Vector's Y from (0,0)
-				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;	// Vector's X orthogonal to the wall for the player from (0,0)
-				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;	// Vector's Y orthogonal to the wall for the player from (0,0)
+				float WallDiffX = EndX - StartX;    // Vector's X from (0,0)
+				float WallDiffY = EndY - StartY;    // Vector's Y from (0,0)
+				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;    // Vector's X orthogonal to the wall for the player from (0,0)
+				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;    // Vector's Y orthogonal to the wall for the player from (0,0)
 
 				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
 				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
@@ -489,7 +550,7 @@ public class Player
 					float CollX = StartX + (PointPlayerOrth * WallDiffX);
 					float CollY = StartY + (PointPlayerOrth * WallDiffY);
 
-					float Distance = (float)Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
+					float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
 
 					if (Distance <= Radius())
 					{
@@ -500,21 +561,25 @@ public class Player
 				}
 
 				// Check for a collision on the edge of a wall
-				float Distance = (float)Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
+				float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
 				if (Distance <= Radius())
 				{
 					return Lvl.Planes.get(Plane);
 				}
 				else
 				{
-					Distance = (float)Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
+					Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
 
 					if (Distance <= Radius())
 					{
 						return Lvl.Planes.get(Plane);
 					}
 				}
-
+			}
+			else
+			{
+				System.out.println("Plane " + Plane + " does not have enough vertices to be a plane. (" + Lvl.Planes.get(Plane).Vertices().size() + ")");
+				System.exit(1);
 			}
 		}
 
