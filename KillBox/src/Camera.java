@@ -47,6 +47,7 @@ public class Camera
 	public boolean TextureFiltered = false;
 
 	private boolean HasControl = false;
+	private boolean MenuKeyPressed = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -254,8 +255,14 @@ public class Camera
 			CurrentPlayer().Move(Float.NaN);
 		}
 
+		// If menu is lock
+		if((Menu.Locked() || Menu.HaveWindowActive()))
+		{
+			// Send input to Action method
+			Menu.Action(MenuKeyPressed);
+		}
 		// If menu is active
-		if(Menu.Active())
+		if(Menu.Active() && !Menu.HaveWindowActive() && !MenuKeyPressed)
 		{
 			// Up Key
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
@@ -277,13 +284,20 @@ public class Camera
 			{
 				Menu.CursorRight();
 			}
+			// Enter Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_RETURN))
+			{
+				Menu.Locking();
+			}
 		}
 
 		// Show/Hide menu
-		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey)
+		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
 		{
 			// Remove control to player
-			Menu.Active = !Menu.Active();
+			HasControl = !HasControl;
+
+			Menu.Active(!Menu.Active());
 
 			JustPressedMenuKey = true;
 		}
@@ -294,6 +308,26 @@ public class Camera
 		else
 		{
 			JustPressedMenuKey = false;
+		}
+
+		// Check input for Menu
+		if(Menu.Active())
+		{
+			while (Keyboard.next())
+			{
+				MenuKeyPressed = Keyboard.getEventKeyState();
+			}
+
+			// Check if key been pressed on Loop 1
+			if(MenuKeyPressed)
+			{
+				MenuKeyPressed = true;
+			}
+			// No key pressed
+			else
+			{
+				MenuKeyPressed = false;
+			}
 		}
 
 		// Print DEBUG stats
@@ -518,13 +552,14 @@ public class Camera
 			// If menu is Show
 			if(Menu.Active())
 			{
-				// Test
+				// To 2d
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 
+				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 				// Set Draw cursor to Top-Left
 				glTranslatef(-1f, 1f, 0.0f);
@@ -532,7 +567,9 @@ public class Camera
 				// Draw menu
 				Menu.GridWidth(Display.getWidth());
 				Menu.GridHeight(Display.getHeight());
+
 				glDisable(GL_TEXTURE_2D);
+
 				Menu.DrawMenu();
 
 				glFlush();
@@ -540,6 +577,29 @@ public class Camera
 				glEnable(GL_DEPTH_TEST);
 				InitProjection();
 				glEnable(GL_TEXTURE_2D);
+			}
+			else // Draw 2D texture (weapon and HUD)
+			{
+				// To 2d
+				/*glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+
+				// Disable depth so that element are written on the same level
+				glDisable(GL_DEPTH_TEST);
+
+				// Draw texture here (Test to draw image at bottom left
+				Menu.DrawTexture((new Texture("Stuff/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
+
+				// Draw all element
+				glFlush();
+
+				// Enable for the 3D element
+				glEnable(GL_DEPTH_TEST);
+				InitProjection();
+				glEnable(GL_TEXTURE_2D);*/
 			}
 			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
 			this.UpdateCamera();
