@@ -251,9 +251,9 @@ public class Camera
 			{
 				CurrentPlayer().MoveDown();
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
 			{
-				System.exit(0);
+				Menu.UserWantsToExit = true;
 			}
 			CurrentPlayer().Move(Float.NaN);
 		}
@@ -295,7 +295,7 @@ public class Camera
 		}
 
 		// Show/Hide menu
-		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
 		{
 			// Remove control to player
 			HasControl = !HasControl;
@@ -304,7 +304,7 @@ public class Camera
 
 			JustPressedMenuKey = true;
 		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_F10))
+		else if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
 			JustPressedMenuKey = true;
 		}
