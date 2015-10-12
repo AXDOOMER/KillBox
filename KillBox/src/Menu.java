@@ -34,6 +34,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Menu
 {
+	public boolean UserWantsToExit = false;
+
 	// Inner class to have "pointer" of primitive type
 	class Menu_Boolean
 	{
@@ -3374,7 +3376,7 @@ public class Menu
 		ShowDebug.Bool(true);
 
 		GrabMouse = new Menu_Boolean();
-		GrabMouse.Bool(true);
+		GrabMouse.Bool(false);
 
 		EnableChat = new Menu_Boolean();
 		EnableChat.Bool(true);
@@ -4007,7 +4009,7 @@ public class Menu
 	// Close app
 	public void ExitGame()
 	{
-		System.exit(0);
+		UserWantsToExit = true;
 	}
 
 	// Convert pourcent to Px

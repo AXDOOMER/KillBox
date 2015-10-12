@@ -289,7 +289,7 @@ public class Game
 			}
 
 			// The main game loop
-			while (!Display.isCloseRequested())
+			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
 			{
 				TimeStart = System.currentTimeMillis();
 

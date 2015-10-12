@@ -145,6 +145,7 @@ public class Camera
 		glLoadIdentity();
 		this.UseView(); // Rotation matrices for the view
 
+		// Grab mouse is controller by F1
 		if (Keyboard.isKeyDown(Keyboard.KEY_F1) && !JustPressedMouseGrabKey)
 		{
 			JustPressedMouseGrabKey = true;
@@ -152,10 +153,12 @@ public class Camera
 			if (!Mouse.isGrabbed())
 			{
 				Mouse.setGrabbed(true); // Hide mouse
+				Menu.GrabMouse(true);
 			}
 			else
 			{
 				Mouse.setGrabbed(false);
+				Menu.GrabMouse(false);
 			}
 
 			Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
@@ -601,6 +604,17 @@ public class Camera
 				InitProjection();
 				glEnable(GL_TEXTURE_2D);*/
 			}
+
+			// Check if mouse should be grabbed at the end so the mouse input is not destroyed
+			if (Menu.GrabMouse() && !Mouse.isGrabbed())
+			{
+				Mouse.setGrabbed(true);
+			}
+			else if (!Menu.GrabMouse() && Mouse.isGrabbed())
+			{
+				Mouse.setGrabbed(false);
+			}
+
 			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
 			this.UpdateCamera();
 		}
