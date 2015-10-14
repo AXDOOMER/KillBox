@@ -513,6 +513,10 @@ public class Camera
 					{
 						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
 					}
+					else if (LookAngleDiff <= 382.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+					}
 				}
 
 				glPushMatrix();

@@ -578,7 +578,7 @@ public class Player
 			}
 			else
 			{
-				System.out.println("Plane " + Plane + " does not have enough vertices to be a plane. (" + Lvl.Planes.get(Plane).Vertices().size() + ")");
+				System.err.println("Plane " + Plane + " does not have enough vertices to be a plane. (" + Lvl.Planes.get(Plane).Vertices().size() + ")");
 				System.exit(1);
 			}
 		}
