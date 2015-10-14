@@ -379,18 +379,19 @@ public class Game
 					{
 						DeltaTime = 0;
 					}
-					else if (DeltaTime > FrameRate)
+					else if (DeltaTime > TimeFrameLimit)
 					{
-						DeltaTime = (long)FrameRate;
+						DeltaTime = (long)TimeFrameLimit;
 					}
 
 					// Make the game sleep depending on how much time it took to execute one tick
-					Thread.sleep((long)FrameRate - DeltaTime);
+					Thread.sleep((long)TimeFrameLimit - DeltaTime);
 					TicksCount++;
 				}
 				catch (InterruptedException ie)
 				{
-					System.out.print("The game failed to sleep: " + ie.getMessage());
+					System.err.print("The game failed to sleep: " + ie.getMessage());
+					System.exit(1);
 				}
 			}
 
