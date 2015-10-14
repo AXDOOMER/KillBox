@@ -315,10 +315,6 @@ public class Game
 						// Do the network communication through the socket
 						NetplayInfo.Update();
 
-						// Print the number of command sent
-						// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
-						// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
-
 						// Update the other player movements
 						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 						{
