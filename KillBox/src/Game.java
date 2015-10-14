@@ -38,6 +38,7 @@ public class Game
 		String Demo = null;
 		Level Lvl = null;
 		int View = 0;
+		String ConfigFileName = "default.cfg";
 
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
@@ -188,7 +189,7 @@ public class Game
 
 			// Players will spawn at random locations
 			Random Rand = new Random();
-			int TiresBeforeFreeSpawnIsFound = 0;
+			int TriesBeforeFreeSpawnIsFound = 0;
 			if(Lvl.Players.size() > 0)
 			{
 				int RandomNumber = Rand.GiveNumber();
@@ -199,15 +200,15 @@ public class Game
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-					if (TiresBeforeFreeSpawnIsFound > 30)
+					if (TriesBeforeFreeSpawnIsFound > 30)
 					{
 						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
 						System.exit(1);
 					}
-					TiresBeforeFreeSpawnIsFound++;
+					TriesBeforeFreeSpawnIsFound++;
 				}
 
-				TiresBeforeFreeSpawnIsFound = 0;
+				TriesBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 1)
@@ -220,15 +221,15 @@ public class Game
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-					if (TiresBeforeFreeSpawnIsFound > 30)
+					if (TriesBeforeFreeSpawnIsFound > 30)
 					{
 						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
 						System.exit(1);
 					}
-					TiresBeforeFreeSpawnIsFound++;
+					TriesBeforeFreeSpawnIsFound++;
 				}
 
-				TiresBeforeFreeSpawnIsFound = 0;
+				TriesBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 2)
@@ -241,15 +242,15 @@ public class Game
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-					if (TiresBeforeFreeSpawnIsFound > 30)
+					if (TriesBeforeFreeSpawnIsFound > 30)
 					{
 						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
 						System.exit(1);
 					}
-					TiresBeforeFreeSpawnIsFound++;
+					TriesBeforeFreeSpawnIsFound++;
 				}
 
-				TiresBeforeFreeSpawnIsFound = 0;
+				TriesBeforeFreeSpawnIsFound = 0;
 			}
 
 			if(Lvl.Players.size() > 3)
@@ -262,15 +263,15 @@ public class Game
 					RandomNumber = Rand.GiveNumber();
 					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-					if (TiresBeforeFreeSpawnIsFound > 30)
+					if (TriesBeforeFreeSpawnIsFound > 30)
 					{
 						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
 						System.exit(1);
 					}
-					TiresBeforeFreeSpawnIsFound++;
+					TriesBeforeFreeSpawnIsFound++;
 				}
 
-				TiresBeforeFreeSpawnIsFound = 0;
+				TriesBeforeFreeSpawnIsFound = 0;
 			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game
@@ -287,6 +288,9 @@ public class Game
 					Display.setTitle("KillBox (Client)");
 				}
 			}
+
+			// Load the configuration file
+			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// The main game loop
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
@@ -395,6 +399,9 @@ public class Game
 				}
 			}
 
+			// Save configs to file
+			SaveConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
+
 			// Close the display
 			Display.destroy();
 		}
@@ -416,6 +423,70 @@ public class Game
 		}
 
 		return -1;
+	}
+
+	public static void LoadConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
+	{
+		// Load the config file and assign every value to their respective variables
+
+		try
+		{
+			// Load the file
+			BufferedReader ConfigFile = new BufferedReader(new FileReader("Stuff/" + Name));
+
+			// Load the user's settings in the same order that they were saved.
+			ConfigFile.readLine();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			System.err.println("Cannot load your settings. Configuration file not found.");
+		}
+		catch (IOException ioe)
+		{
+			System.err.println("Error while reading from the configuration file.");
+		}
+
+	}
+
+	public static void SaveConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
+	{
+		// Save the configuration variables in a specific order in a config file
+
+		try
+		{
+			// Writer for the config file
+			PrintWriter ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("Stuff/" + Name)));
+
+			// Double tabs
+			final String Spacing = "\t\t";
+
+			ConfigFile.println("use_freelook" + Spacing + "true");
+			ConfigFile.println("show_messages" + Spacing + "true");
+			ConfigFile.println("show_hud" + Spacing + "true");
+			ConfigFile.println("show_debug" + Spacing + "true");
+
+			ConfigFile.println("grab_mouse" + Spacing + "false");
+			ConfigFile.println("enable_chat" + Spacing + "true");
+			ConfigFile.println("mouse_sensitivity" + Spacing + "3");
+
+			ConfigFile.println("sfx_volume" + Spacing + "3");
+			ConfigFile.println("sound_mode" + Spacing + "2d");	// Can be '2d', '3d' or '3d+'.
+
+			ConfigFile.println("fullscreen" + Spacing + "false");
+			ConfigFile.println("enable_filtering" + Spacing + "false");
+			ConfigFile.println("view_depth" + Spacing + "100");
+
+			ConfigFile.close();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			System.err.println("Could not save your settings to a configuration file.");
+			System.err.println(fnfe.getMessage());
+		}
+		catch (IOException ioe)
+		{
+			System.err.println("File error.");
+		}
 	}
 }
 

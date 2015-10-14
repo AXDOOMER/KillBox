@@ -3028,8 +3028,8 @@ public class Menu
 			// Column 2
 			List<MenuItem> Column2 = new ArrayList<MenuItem>();
 			Column2.add(new MenuItem("Alexandre Xavier Labonte Lamoureux",false,true));
-			Column2.add(new MenuItem("Francis Bourgault",false,true)); // Spacer
 			Column2.add(new MenuItem("Andy Sergerie",false,true)); // Spacer
+			Column2.add(new MenuItem("Francis Bourgault",false,true)); // Spacer
 			Column2.add(new MenuItem("Beta",false,true));
 			Column2.add(new MenuItem("2015 10 04",false,true));
 			Column2.add(new MenuItem("Close",true,true));
@@ -3302,7 +3302,7 @@ public class Menu
 	Menu_Integer SoundMode; // Define sound mode
 	// Slider
 	Menu_Integer SFXVolume; // Define sound volume
-	Menu_Integer MouseSensibility; // Define mouse sensibility
+	Menu_Integer MouseSensitivity; // Define mouse sensitivity
 	// NumericUpDown
 	Menu_Integer ViewDepth; // Define Depth of view
 
@@ -3390,8 +3390,8 @@ public class Menu
 		SFXVolume = new Menu_Integer();
 		SFXVolume.Int(60);
 
-		MouseSensibility = new Menu_Integer();
-		MouseSensibility.Int(60);
+		MouseSensitivity = new Menu_Integer();
+		MouseSensitivity.Int(60);
 
 		ViewDepth = new Menu_Integer();
 		ViewDepth.Int(100);
@@ -3453,7 +3453,7 @@ public class Menu
 		Control.add(new MenuItem("Control", true,false));
 		Control.add(new MenuItem_CheckBox("Grab mouse", true,false, GrabMouse));
 		Control.add(new MenuItem_CheckBox("Enable chat", true,false, EnableChat));
-		Control.add(new MenuItem_HorSlider("Mouse Sensibility", true,false, 0, 100, MouseSensibility));
+		Control.add(new MenuItem_HorSlider("Mouse Sensitivity", true,false, 0, 100, MouseSensitivity));
 
 		// Sound Array
 		List<MenuItem> Sound = new ArrayList<MenuItem>();
@@ -3648,7 +3648,7 @@ public class Menu
 	// Set MouseSensibility value
 	public void MouseSensibility(int Sensibility)
 	{
-		MouseSensibility.Int(Sensibility);
+		MouseSensitivity.Int(Sensibility);
 	}
 
 	// Set ViewDepth value
