@@ -217,11 +217,11 @@ public class Camera
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 			{
-				CurrentPlayer().ForwardMove((byte)1);
+				CurrentPlayer().ForwardMove((byte) 1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
 			{
-				CurrentPlayer().ForwardMove((byte)-1);
+				CurrentPlayer().ForwardMove((byte) -1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_A))
 			{
@@ -229,7 +229,7 @@ public class Camera
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_D))
 			{
-				CurrentPlayer().LateralMove((byte)1);
+				CurrentPlayer().LateralMove((byte) 1);
 			}
 			// If both keys are held at the same time, don't do anything.
 			if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
@@ -255,7 +255,9 @@ public class Camera
 			{
 				Menu.UserWantsToExit = true;
 			}
-			CurrentPlayer().Move(Float.NaN);
+
+			// Update player's position even if it hasn't moved
+			//CurrentPlayer().Move(Float.NaN);
 		}
 
 		// If menu is lock

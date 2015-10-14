@@ -300,17 +300,19 @@ public class Game
 				{
 					if (CheckParm(args, "-fakenet") < 0)
 					{
-
+						// Empty the command that's gonna be sent over the network
 						NetplayInfo.PlayerCommand.Reset();
 						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 						{
 							NetplayInfo.OtherPlayersCommand.get(Player).Reset();
 						}
 
+						// Put the players' move in a command
 						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
 						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
 						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
 
+						// Do the network communication through the socket
 						NetplayInfo.Update();
 
 						// Print the number of command sent
@@ -329,27 +331,13 @@ public class Game
 						{
 							// BUG: Cheap fix player strafing not reset. FUCK!
 							Lvl.Players.get(Player).SideMove = 0;
+							Lvl.Players.get(Player).FrontMove = 0;
+							Lvl.Players.get(Player).AngleDiff = 0;
 						}
 					}
 				}
-/*
-				// player 2 turns in circles
-				Lvl.Players.get(1).ForwardMove(1);
-				Lvl.Players.get(1).AngleTurn((short) -200);
-				Lvl.Players.get(1).Move();
 
-				// player 3 turns in circles
-				Lvl.Players.get(2).ForwardMove(-1);
-				Lvl.Players.get(2).LateralMove(1);
-				Lvl.Players.get(2).AngleTurn((short) 500);
-				Lvl.Players.get(2).Move();
-
-				// player 4 turns in circles
-				Lvl.Players.get(3).ForwardMove(1);
-				Lvl.Players.get(3).LateralMove(-1);
-				Lvl.Players.get(3).AngleTurn((short) -500);
-				Lvl.Players.get(3).Move();
-*/
+				// Spy view
 				if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
 				{
 					boolean Control = false;
@@ -358,7 +346,7 @@ public class Game
 					{
 						View = (View + 1) % Lvl.Players.size();
 
-						if (View == 0)
+						if (View == NetplayInfo.View)
 						{
 							Control = true;
 						}

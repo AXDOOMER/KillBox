@@ -255,7 +255,7 @@ public class Netplay
             Writer.println(PlayerCommand);
             Writer.flush();
 
-            // Read the server command
+            // Read the other player's command
             this.PlayerCommand.Number++;
             Line = Reader.readLine();
 

@@ -666,6 +666,7 @@ public class Player
 		}
 	}
 
+	// Bastard method
 	public void Move(float Angle)
 	{
 		// Max sure the player's speed is not bigger than the maximum allowed
