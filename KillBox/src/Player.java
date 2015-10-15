@@ -53,13 +53,16 @@ public class Player
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
 
+	// Scores
 	int Kills = 0;
 	int Deaths = 0;
+	int FlagTime = 0;
 
 	byte FrontMove = 0;
 	byte SideMove = 0;
 	short AngleDiff = 0;
 
+	boolean HasFlag = false;
 	int Frame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
