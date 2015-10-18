@@ -53,6 +53,7 @@ public class Camera
 	private boolean JustPressedFilterKey = false;
 	private boolean JustPressedMouseGrabKey = false;
 	private boolean JustPressedMenuKey = false;
+	private boolean JustPressedFireKey = false;
 
 	// Mouse movement
 	private short MouseTurnH;
@@ -213,7 +214,7 @@ public class Camera
 		if (HasControl && !Menu.Active())    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
-			CurrentPlayer().ForwardMove((byte)(MouseVertical/5));
+			CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 			{
@@ -251,6 +252,22 @@ public class Camera
 			{
 				CurrentPlayer().MoveDown();
 			}
+
+			// Right now, it can only shot like a pistol...
+			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) && !JustPressedFireKey)
+			{
+				JustPressedFireKey = true;
+				CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
+			{
+				JustPressedFireKey = true;
+			}
+			else
+			{
+				JustPressedFireKey = false;
+			}
+
 			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
 			{
 				Menu.UserWantsToExit = true;
@@ -440,6 +457,12 @@ public class Camera
 				if (Lvl.Players.get(Player) == Plyr)
 				{
 					// Don't draw the player's own sprite in his own screen
+					continue;
+				}
+
+				if (Lvl.Players.get(Player).Health <= 0)
+				{
+					// Don't draw dead players
 					continue;
 				}
 

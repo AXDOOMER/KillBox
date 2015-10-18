@@ -313,6 +313,7 @@ public class Game
 						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
 						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
 						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+						NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
 
 						// Do the network communication through the socket
 						NetplayInfo.Update();
@@ -320,9 +321,17 @@ public class Game
 						// Update the other player movements
 						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 						{
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+							int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
+
+							Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+							Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+							Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+
+							if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+							{
+								Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+								Lvl.Players.get(Number).Shot = false;
+							}
 						}
 
 						for (int Player = 0; Player < Lvl.Players.size(); Player++)

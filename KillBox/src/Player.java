@@ -61,6 +61,7 @@ public class Player
 	byte FrontMove = 0;
 	byte SideMove = 0;
 	short AngleDiff = 0;
+	boolean Shot = false;
 
 	boolean HasFlag = false;
 	int Frame = 0;
@@ -127,10 +128,28 @@ public class Player
 			Damages = DamageIndicatorDirection.None;
 		}
 	}
+
+	public int ActionIsHasShot()
+	{
+		// Check if player has shot
+		if (Shot)
+		{
+			// Reset the state of this action
+			Shot = false;
+
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 	
 	// Check if this coordinate is inside a player then return this player
 	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
 	{
+		Shot = true;
+
 		for (int Player = 0; Player < Lvl.Players().size(); Player++)
 		{
 			if (Lvl.Players().get(Player) == this)
@@ -159,7 +178,7 @@ public class Player
 		return null;
 	}
 	
-	public void HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
+	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
 	{
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
@@ -173,19 +192,31 @@ public class Player
 		for (int Point = 0; Point < MaxChecks; Point++)
 		{
 			// Increment bullet position
-			TravelX = TravelX * Step * (float)Math.cos(HorizontalAngle);
-			TravelY = TravelY * Step * (float)Math.sin(HorizontalAngle);
-			TravelZ = TravelZ * Step * (float)Math.sin(VerticalAngle);
+			TravelX = TravelX + Step * (float)Math.cos(HorizontalAngle);
+			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
+			TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
 			Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
 
 			// Check if something was really hit
 			if (Hit != null)
 			{
-				// Damage him
-				Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+				if (Hit.Health > 0)
+				{
+					// Damage him
+					Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+
+					if (Hit.Health <= 0)
+					{
+						Kills++;
+					}
+
+					return Hit;
+				}
 			}
 		}
+
+		return null;
 	}
 
 	public void ForwardMove(byte Direction)
@@ -391,6 +422,12 @@ public class Player
 			if (Lvl.Players().get(Player) == this)
 			{
 				// Next!
+				continue;
+			}
+
+			if (Lvl.Players().get(Player).Health <= 0)
+			{
+				// Player is dead, so don't collide with it.
 				continue;
 			}
 
