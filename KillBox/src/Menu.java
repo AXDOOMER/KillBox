@@ -197,14 +197,14 @@ public class Menu
 		}
 
 		// Draw text of MenuItem at position
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Get Item Text
 			String Text = ItemText();
 			// Convert pixel to GL
-			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowCoor);
-			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowColor);
+			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowColor);
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			if(!Enabled() && !KeepActiveColor)
@@ -269,8 +269,8 @@ public class Menu
 					FontArray.get(TextureIndex).Bind();
 
 					// Converting image height and widht
-					double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowCoor);
-					double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight,WindowCoor);
+					double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowColor);
+					double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight,WindowColor);
 					double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
 					glEnable(GL_DEPTH_TEST);
 					// Drawing image
@@ -364,7 +364,7 @@ public class Menu
 		}
 
 		// Draw Checkbox control and text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Disable Depth Test so that the border of the CheckBox is writen over rectangle. (The MenuBar and Alpha Rectangle)
 			glDisable(GL_DEPTH_TEST);
@@ -373,12 +373,12 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Convert point to GL unit
-			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight,WindowCoor);
-			double BoxWidthGL = ConvertPourcentToGL(BoxSizeWidth, true, GridWidth, GridHeight, WindowCoor);
-			double BoxHeightGL = ConvertPourcentToGL(BoxSizeHeight,false,GridWidth,GridHeight,WindowCoor);
-			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowCoor);
-			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
+			double BoxWidthGL = ConvertPourcentToGL(BoxSizeWidth, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPourcentToGL(BoxSizeHeight,false,GridWidth,GridHeight, WindowColor);
+			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
+			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 			double BoxWidthPixels = ConvertPourcentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
@@ -402,7 +402,7 @@ public class Menu
 			Occupied_Width(BoxWidthPixels + BorderX + MarginPixels);
 
 			// Draw Text next to Checkbox
-			super.Draw(PosX + BoxWidthPixels + BorderX + MarginPixels, PosY, GridWidth, GridHeight, Highlight,NotFirstItem,WindowCoor);
+			super.Draw(PosX + BoxWidthPixels + BorderX + MarginPixels, PosY, GridWidth, GridHeight, Highlight,NotFirstItem, WindowColor);
 
 		}
 
@@ -515,17 +515,17 @@ public class Menu
 		}
 
 		// Draw the horizontal slider and its text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Convert Px and Pourcent to GL unit
-			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowCoor);
-			double SquareWidthGL = ConvertPourcentToGL(SquareWidth, true, GridWidth, GridHeight,WindowCoor);
-			double SquareHeightGL = ConvertPourcentToGL(SquareHeight, false, GridWidth, GridHeight,WindowCoor);
-			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,WindowCoor);
-			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
+			double SquareWidthGL = ConvertPourcentToGL(SquareWidth, true, GridWidth, GridHeight, WindowColor);
+			double SquareHeightGL = ConvertPourcentToGL(SquareHeight, false, GridWidth, GridHeight, WindowColor);
+			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
+			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 			double SquareWidthPixels = ConvertPourcentToPx(SquareWidth, true, GridWidth, GridHeight);
-			double SquareMargin = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowCoor) + MargeX; // Margin between square
+			double SquareMargin = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor) + MargeX; // Margin between square
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			// Loop to draw all square of the slider
@@ -559,7 +559,7 @@ public class Menu
 			Occupied_Width((SquareWidthPixels + BorderX + MarginPixels) * NumberOfSquare);
 
 			// Draw Text next to Checkbox
-			super.Draw(PosX + (SquareWidthPixels + BorderX + MarginPixels) * NumberOfSquare,PosY,GridWidth,GridHeight,Highlight,NotFirstItem,WindowCoor);
+			super.Draw(PosX + (SquareWidthPixels + BorderX + MarginPixels) * NumberOfSquare,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowColor);
 		}
 
 		// Change Slider if right or left is pressed
@@ -711,18 +711,18 @@ public class Menu
 		}
 
 		// Draw RadioButton control and text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Initialize variable needed to draw circle Border
-			double CircleBorderRadiusGL = ConvertPourcentToGL(CircleRadius + BorderRadius,true,GridWidth,GridHeight,WindowCoor);
+			double CircleBorderRadiusGL = ConvertPourcentToGL(CircleRadius + BorderRadius,true,GridWidth,GridHeight, WindowColor);
 			double CircleBorderLineX = CircleBorderRadiusGL;
 			double CircleLineY = 0;
 
 			// Initialize variable needed to draw circle
-			double CircleRadiusGL = ConvertPourcentToGL(CircleRadius, true, GridWidth, GridHeight,WindowCoor);
+			double CircleRadiusGL = ConvertPourcentToGL(CircleRadius, true, GridWidth, GridHeight, WindowColor);
 			double CircleRadiusPixels = ConvertPourcentToPx(CircleRadius, true, GridWidth, GridHeight);
-			double CircleX = ConvertPxToGL(PosX + CircleRadiusPixels, true, GridWidth, GridHeight,WindowCoor); // Center of circle X
-			double CircleY = ConvertPxToGL(PosY + CircleRadiusPixels, false, GridWidth, GridHeight,WindowCoor); // Center of circle Y
+			double CircleX = ConvertPxToGL(PosX + CircleRadiusPixels, true, GridWidth, GridHeight, WindowColor); // Center of circle X
+			double CircleY = ConvertPxToGL(PosY + CircleRadiusPixels, false, GridWidth, GridHeight, WindowColor); // Center of circle Y
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			// Variable to rotate point
@@ -785,7 +785,7 @@ public class Menu
 			// Set occupied width
 			Occupied_Width(CircleRadiusPixels * 2 + MarginPixels); // Radius * 2 = Diameter
 			// Draw Text next to RadioButton
-			super.Draw(PosX + CircleRadiusPixels * 2 + MarginPixels, PosY, GridWidth, GridHeight, Highlight,NotFirstItem,WindowCoor);
+			super.Draw(PosX + CircleRadiusPixels * 2 + MarginPixels, PosY, GridWidth, GridHeight, Highlight,NotFirstItem, WindowColor);
 
 		}
 
@@ -939,7 +939,7 @@ public class Menu
 		}
 
 		// Draw NumberBox and text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Draw NumberBox
 			// Convert current value to string
@@ -947,17 +947,17 @@ public class Menu
 			int[] NumberImageIndex = new int[Value.length()];
 
 			// Initialize variable to draw border
-			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowCoor);
-			double BorderXGL = ConvertPourcentToGL(NumBoxBorderX, true, GridWidth, GridHeight,WindowCoor);
-			double BorderYGL = ConvertPourcentToGL(NumBoxBorderY, false, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
+			double BorderXGL = ConvertPourcentToGL(NumBoxBorderX, true, GridWidth, GridHeight, WindowColor);
+			double BorderYGL = ConvertPourcentToGL(NumBoxBorderY, false, GridWidth, GridHeight, WindowColor);
 			double BorderXPixels = ConvertPourcentToPx(NumBoxBorderX, true, GridWidth, GridHeight);
-			double ImageWidthGL = ConvertPourcentToGL(FontWidth, true, GridWidth, GridHeight,WindowCoor);
-			double ImageHeightGL = ConvertPourcentToGL(FontHeight, true, GridWidth, GridHeight,WindowCoor);
+			double ImageWidthGL = ConvertPourcentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+			double ImageHeightGL = ConvertPourcentToGL(FontHeight, true, GridWidth, GridHeight, WindowColor);
 			double TotalImageWidthGL = 0;
 			double TotalImageWidthPixels = 0;
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowCoor);
+			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
 
 			// Load texture for Value
 			for(int Textures = 0; Textures < Value.length();Textures++)
@@ -1019,7 +1019,7 @@ public class Menu
 			}
 
 			// Draw Text
-			super.Draw(PosX + BorderXPixels + MarginPixels + TotalImageWidthPixels, PosY,GridWidth,GridHeight,Highlight,NotFirstItem,WindowCoor);
+			super.Draw(PosX + BorderXPixels + MarginPixels + TotalImageWidthPixels, PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowColor);
 		}
 
 		// Increase if Right or Decrease left is pressed
@@ -1105,10 +1105,10 @@ public class Menu
 		}
 
 		// Draw the textbox and its text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Draw text before (MenuItem Text)
-			super.Draw(PosX,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowCoor);
+			super.Draw(PosX,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowColor);
 
 			// Disable Depth Test so that the border of the TextBox is writen over rectangle. (The MenuBar and Alpha Rectangle)
 			glDisable(GL_DEPTH_TEST);
@@ -1117,14 +1117,14 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Convert variable to Gl
-			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(),true,GridWidth,GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight,WindowCoor);
-			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,WindowCoor);
-			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,WindowCoor);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(),true,GridWidth,GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
+			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
+			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
+			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight,WindowCoor);
-			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight,WindowCoor);
+			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
 			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
@@ -1188,8 +1188,8 @@ public class Menu
 
 				//glBlendFunc(GL_ZERO,GL_ONE_MINUS_SRC_COLOR);
 				// Converting image height and widht
-				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowCoor);
-				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight,WindowCoor);
+				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
+				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight, WindowColor);
 				double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
 				glDisable(GL_DEPTH_TEST);
 				// Drawing image
@@ -1522,17 +1522,17 @@ public class Menu
 		}
 
 		// Draw image with border
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Initialize coordonate
-			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowCoor);
-			double ImageWidthGL = ConvertPourcentToGL(ImageWidth, true, GridWidth, GridHeight, WindowCoor);
-			double ImageHeightGL = ConvertPourcentToGL(ImageHeight, false, GridWidth, GridHeight, WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
+			double ImageWidthGL = ConvertPourcentToGL(ImageWidth, true, GridWidth, GridHeight, WindowColor);
+			double ImageHeightGL = ConvertPourcentToGL(ImageHeight, false, GridWidth, GridHeight, WindowColor);
 			double ImageWidthPixels = ConvertPourcentToPx(ImageWidth,true,GridWidth,GridHeight);
-			double BorderXGL = ConvertPourcentToGL(BorderX,true,GridWidth,GridHeight,WindowCoor);
+			double BorderXGL = ConvertPourcentToGL(BorderX,true,GridWidth,GridHeight, WindowColor);
 			double BorderXPixels = ConvertPourcentToPx(BorderX, true, GridWidth, GridHeight);
-			double BorderYGL = ConvertPourcentToGL(BorderY, false, GridWidth, GridHeight, WindowCoor);
+			double BorderYGL = ConvertPourcentToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 
 			// Draw border
 			glColor4f(BorderColor.getRed() / 255.0f,BorderColor.getGreen() / 255.0f,BorderColor.getBlue() / 255.0f,BorderColor.getAlpha() / 255.0f);
@@ -1631,10 +1631,10 @@ public class Menu
 		}
 
 		// Draw combo box
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Draw text before (MenuItem Text)
-			super.Draw(PosX,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowCoor);
+			super.Draw(PosX,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowColor);
 
 			// Disable Depth Test so that the border of the Combo Box is writen over background.
 			glDisable(GL_DEPTH_TEST);
@@ -1643,14 +1643,14 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Convert variable to Gl
-			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(),true,GridWidth,GridHeight,WindowCoor);
-			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight,WindowCoor);
-			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,WindowCoor);
-			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,WindowCoor);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowCoor);
+			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(),true,GridWidth,GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
+			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
+			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
+			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
 			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight,WindowCoor);
-			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight,WindowCoor);
+			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
 			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
@@ -1764,8 +1764,8 @@ public class Menu
 				FontArray.get(TextureIndex).Bind();
 
 				// Converting image height and widht
-				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowCoor);
-				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight,WindowCoor);
+				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
+				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight, WindowColor);
 				double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
 				glDisable(GL_DEPTH_TEST);
 				// Drawing image
@@ -1796,8 +1796,8 @@ public class Menu
 
 			// Draw image
 			// Converting image height and widht
-			double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowCoor);
-			double ImgHeightGL  = ConvertPourcentToGL(FontHeight, false, GridWidth, GridHeight, WindowCoor);
+			double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
+			double ImgHeightGL  = ConvertPourcentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
 			glDisable(GL_DEPTH_TEST);
 			// Drawing image
 			glBegin(GL_QUADS);
@@ -1886,7 +1886,7 @@ public class Menu
 		}
 
 		// Draw window at the center of the screen
-		public void Draw(double PosX,double PosY,int GridWidth,int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowCoor) {
+		public void Draw(double PosX,double PosY,int GridWidth,int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor) {
 			// Call draw of window if it's active
 			if (WindowActive())
 			{
@@ -1895,7 +1895,7 @@ public class Menu
 			else
 			{
 				// Call draw of text
-				super.Draw(PosX, PosY, GridWidth, GridHeight, Highlight, NotFirstItem,WindowCoor);
+				super.Draw(PosX, PosY, GridWidth, GridHeight, Highlight, NotFirstItem, WindowColor);
 			}
 		}
 
