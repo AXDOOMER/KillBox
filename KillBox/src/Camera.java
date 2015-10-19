@@ -216,22 +216,33 @@ public class Camera
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
 			CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+			// If keys for opposite movements are held, don't do anything.
+			if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+				&& Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN)))
 			{
-				CurrentPlayer().ForwardMove((byte) 1);
+				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+				{
+					CurrentPlayer().ForwardMove((byte) 1);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+				{
+					CurrentPlayer().ForwardMove((byte) -1);
+				}
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+
+			// If keys for opposite movements are held, don't do anything.
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_A) && Keyboard.isKeyDown(Keyboard.KEY_D)))
 			{
-				CurrentPlayer().ForwardMove((byte) -1);
+				if (Keyboard.isKeyDown(Keyboard.KEY_A))
+				{
+					CurrentPlayer().LateralMove((byte) -1);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_D))
+				{
+					CurrentPlayer().LateralMove((byte) 1);
+				}
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_A))
-			{
-				CurrentPlayer().LateralMove((byte) -1);
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_D))
-			{
-				CurrentPlayer().LateralMove((byte) 1);
-			}
+
 			// If both keys are held at the same time, don't do anything.
 			if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
 			{
@@ -272,9 +283,13 @@ public class Camera
 			{
 				Menu.UserWantsToExit = true;
 			}
+		}
 
-			// Update player's position even if it hasn't moved
-			//CurrentPlayer().Move(Float.NaN);
+		// Update player's position even if it hasn't moved
+		for (int Player = 0; Player < Lvl.Players.size(); Player++)
+		{
+			// Do this for every player
+			Lvl.Players.get(Player).Friction();
 		}
 
 		// If menu is lock

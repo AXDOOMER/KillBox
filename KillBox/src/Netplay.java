@@ -142,7 +142,7 @@ public class Netplay
 
 		// Connect to a server, because I'm not a server. I'm a client.
 		InetSocketAddress AdressSocket = null;
-		int NombreJoueurRestant, NombreJoueur, NumeroJoueur = 0;
+		int RemainingNumberOfPlayers, NumberOfPlayers, PlayerNumber = 0;
 
 		try
 		{
@@ -160,25 +160,25 @@ public class Netplay
 			String Message = Reader.readLine();
 			String[] strings = Message.split(Separator);
 
-			NombreJoueur = Integer.parseInt(strings[0]);
-			NombreJoueurRestant = Integer.parseInt(strings[1]);
-			NumeroJoueur = Integer.parseInt(strings[2]);
+			NumberOfPlayers = Integer.parseInt(strings[0]);
+			RemainingNumberOfPlayers = Integer.parseInt(strings[1]);
+			PlayerNumber = Integer.parseInt(strings[2]);
 
 			// It gives the right view to the right player
-			View = NumeroJoueur;
+			View = PlayerNumber;
 
-			this.Nodes = NombreJoueur;
+			this.Nodes = NumberOfPlayers;
 
-			System.out.println("Nombrejoueur: " + NombreJoueur);
-			System.out.println("NombreJoueurRestant: " + NombreJoueurRestant);
+			System.out.println("Number of players: " + NumberOfPlayers);
+			System.out.println("Remaining players: " + RemainingNumberOfPlayers);
 		}
 		catch(IOException e)
 		{
 			System.err.println(e);
-			System.err.println("Problem to connect a client. Try to start a server!");
+			System.err.println("Problem when trying to connect to a client. Try to start a server first!");
 		}
 
-		PlayerCommand = new NetCommand((byte)NumeroJoueur/*Player number*/);
+		PlayerCommand = new NetCommand((byte)PlayerNumber/*Player number*/);
 		OtherPlayersCommand.add(new NetCommand((byte)1));
 	}
 
@@ -187,7 +187,7 @@ public class Netplay
     {
 		this.Nodes = Nodes;
 
-		// Check if we are in a mutliplayer game
+		// Check if we are in a multiplayer game
 		if (Nodes > 1)
 		{
 			try

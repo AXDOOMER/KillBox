@@ -231,17 +231,26 @@ public class Player
 			FrontMove = Direction;
 		}
 
+		float NewX = MoX;
+		float NewY = MoY;
+
 		if (Direction > 0)
 		{
-			float NewX = MoX + Acceleration * (float)Math.cos(GetRadianAngle());
-			float NewY = MoY + Acceleration * (float)Math.sin(GetRadianAngle());
+			if (Health > 0)
+			{
+				NewX = MoX + Acceleration * (float) Math.cos(GetRadianAngle());
+				NewY = MoY + Acceleration * (float) Math.sin(GetRadianAngle());
+			}
 
 			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			float NewX = MoX - Acceleration * (float)Math.cos(GetRadianAngle());
-			float NewY = MoY - Acceleration * (float)Math.sin(GetRadianAngle());
+			if (Health > 0)
+			{
+				NewX = MoX - Acceleration * (float) Math.cos(GetRadianAngle());
+				NewY = MoY - Acceleration * (float) Math.sin(GetRadianAngle());
+			}
 
 			TryMove(NewX, NewY);
 		}
@@ -265,17 +274,26 @@ public class Player
 
 		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
+		float NewX = MoX;
+		float NewY = MoY;
+
 		if (Direction > 0)
 		{
-			float NewX = MoX + Acceleration * (float)Math.cos(AdjustedAngle);
-			float NewY = MoY + Acceleration * (float)Math.sin(AdjustedAngle);
+			if (Health > 0)
+			{
+				NewX = MoX + Acceleration * (float) Math.cos(AdjustedAngle);
+				NewY = MoY + Acceleration * (float) Math.sin(AdjustedAngle);
+			}
 
 			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			float NewX = MoX - Acceleration * (float)Math.cos(AdjustedAngle);
-			float NewY = MoY - Acceleration * (float)Math.sin(AdjustedAngle);
+			if (Health > 0)
+			{
+				NewX = MoX - Acceleration * (float) Math.cos(AdjustedAngle);
+				NewY = MoY - Acceleration * (float) Math.sin(AdjustedAngle);
+			}
 
 			TryMove(NewX, NewY);
 		}
@@ -286,7 +304,7 @@ public class Player
 	}
 
 	// Try every type of collision.
-	public float TryMove(float NewX, float NewY)
+	public boolean TryMove(float NewX, float NewY)
 	{
 		float Current = (float)Math.atan2(MoY(), MoX());
 		// Should return the current angle if it's possible to move, else return another...
@@ -343,7 +361,6 @@ public class Player
 				Clear = false;
 			}
 
-
 			if (!Clear)
 			{
 				// Devide movement, because we want to move less
@@ -380,7 +397,7 @@ public class Player
 			Move(HitWall.GetAngle());
 		}
 
-		return GetRadianAngle();
+		return Clear;
 	}
 
 	// Check collision against things
@@ -713,6 +730,22 @@ public class Player
 		}
 	}
 
+	public void Friction()
+	{
+		// Constant deceleration
+		if (MoX != 0)
+		{
+			MoX /= Deceleration;
+		}
+		if (MoY != 0)
+		{
+			MoY /= Deceleration;
+		}
+
+		TryMove(MoX, MoY);
+
+	}
+
 	// Bastard method
 	public void Move(float Angle)
 	{
@@ -723,19 +756,11 @@ public class Player
 		{
 			PosX += MoX();
 			PosY += MoY();
-
-			// Constant deceleration
-			if (MoX != 0)
-			{
-				MoX /= Deceleration;
-			}
-			if (MoY != 0)
-			{
-				MoY /= Deceleration;
-			}
 		}
 		else
 		{
+			// Supposed to make the player slide along the wall
+
 			// Change the postion according to the direction of the movement, because a wall was hit.
 			/*float PlayerAngle = this.GetRadianAngle();
 
