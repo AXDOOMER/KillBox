@@ -4125,4 +4125,52 @@ public class Menu
 
 		//glDisable(GL_TEXTURE_2D);
 	}
+
+	// Can be used to draw messages on the screen
+	public void DrawText(String Text, double LeftXPercent, double BottomYPercent, double LetterWidthPercent, double LetterHeightPercent)
+	{
+		// Declare local variable
+		double ActualX = LeftXPercent;
+		// Declare local constant
+		final double MarginPercent = 0.5d;
+		// Draw letter one by one
+		for(int Letter = 0; Letter < Text.length();Letter++)
+		{
+			// Get int value of char
+			int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
+			int TextureIndex = 0;
+			// Check if number
+			if(CharValue >= Char0Index && CharValue <= Char9Index)
+			{
+				// Initialize Texture Index in font List
+				TextureIndex = CharValue - Char0Index;
+			}
+			// Check if letter
+			else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
+			{
+				// Initialize Texture Index in font List
+				TextureIndex = CharValue - CharAIndex + 10;
+			}
+			// Special character
+			else if (CharValue == CharPERIODIndex)
+			{
+				// Initialize Texture Index in font List
+				TextureIndex = 36;
+			}
+			else if(CharValue == CharCOLONIndex)
+			{
+				// Initialize Texture Index in font List
+				TextureIndex = 37;
+			}
+
+			// Initialize and Bind Texture
+			Texture Image = FontArray.get(TextureIndex);
+
+			// Draw image
+			DrawTexture(Image, ActualX, BottomYPercent, LetterWidthPercent, LetterHeightPercent);
+
+			// Add Width to X
+			ActualX = ActualX + LetterWidthPercent + MarginPercent;
+		}
+	}
 }

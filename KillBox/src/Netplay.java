@@ -169,8 +169,23 @@ public class Netplay
 
 			this.Nodes = NumberOfPlayers;
 
-			System.out.println("Number of player(s): " + NumberOfPlayers);
-			System.out.println("Remaining player(s): " + RemainingNumberOfPlayers);
+			if (NumberOfPlayers < 2)
+			{
+				System.out.println("Number of player: " + NumberOfPlayers);
+			}
+			else
+			{
+				System.out.println("Number of players: " + NumberOfPlayers);
+			}
+
+			if (RemainingNumberOfPlayers < 2)
+			{
+				System.out.println("Remaining player: " + RemainingNumberOfPlayers);
+			}
+			else
+			{
+				System.out.println("Remaining players: " + RemainingNumberOfPlayers);
+			}
 		}
 		catch(IOException e)
 		{
