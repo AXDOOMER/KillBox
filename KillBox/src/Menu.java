@@ -36,6 +36,9 @@ public class Menu
 {
 	public boolean UserWantsToExit = false;
 
+	String GameVersion = "v2.??? (Beta)";
+	String LastUpdate = "october 19th 2015";
+
 	// Inner class to have "pointer" of primitive type
 	class Menu_Boolean
 	{
@@ -172,7 +175,7 @@ public class Menu
 			double TotalWidthPixels = AdditionalWidth;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			// Loop that check each letter of ItemText and load corresponding image and then draw it
 			for(int Letter = 0; Letter < Text.length(); Letter++)
@@ -185,7 +188,7 @@ public class Menu
 				else
 				{
 					// Converting image widht
-					double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
+					double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 
 					// Adding width to total width
 					TotalWidthPixels = TotalWidthPixels + ImgWidthPX + MarginPixels;
@@ -204,8 +207,8 @@ public class Menu
 			// Convert pixel to GL
 			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowColor);
-			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,WindowColor);
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MaginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			if(!Enabled() && !KeepActiveColor)
 			{
@@ -269,9 +272,9 @@ public class Menu
 					FontArray.get(TextureIndex).Bind();
 
 					// Converting image height and widht
-					double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight,WindowColor);
-					double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight,WindowColor);
-					double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
+					double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+					double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
+					double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 					glEnable(GL_DEPTH_TEST);
 					// Drawing image
 					glBegin(GL_QUADS);
@@ -354,8 +357,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthPixels = ConvertPourcentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = BoxWidthPixels + BorderX + MarginPixels;
 
@@ -375,12 +378,12 @@ public class Menu
 			// Convert point to GL unit
 			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight, WindowColor);
 			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
-			double BoxWidthGL = ConvertPourcentToGL(BoxSizeWidth, true, GridWidth, GridHeight, WindowColor);
-			double BoxHeightGL = ConvertPourcentToGL(BoxSizeHeight,false,GridWidth,GridHeight, WindowColor);
+			double BoxWidthGL = ConvertPercentToGL(BoxSizeWidth, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPercentToGL(BoxSizeHeight, false, GridWidth, GridHeight, WindowColor);
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double BoxWidthPixels = ConvertPourcentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			glColor4f(BoxColorUnchecked.getRed(), BoxColorUnchecked.getGreen(), BoxColorUnchecked.getBlue(), BoxColorUnchecked.getAlpha());
 
@@ -505,8 +508,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double SquareWidthPixels = ConvertPourcentToPx(SquareWidth, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double SquareWidthPixels = ConvertPercentToPx(SquareWidth, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = (SquareWidthPixels + BorderX + MarginPixels) * NumberOfSquare;
 
@@ -520,13 +523,13 @@ public class Menu
 			// Convert Px and Pourcent to GL unit
 			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
-			double SquareWidthGL = ConvertPourcentToGL(SquareWidth, true, GridWidth, GridHeight, WindowColor);
-			double SquareHeightGL = ConvertPourcentToGL(SquareHeight, false, GridWidth, GridHeight, WindowColor);
+			double SquareWidthGL = ConvertPercentToGL(SquareWidth, true, GridWidth, GridHeight, WindowColor);
+			double SquareHeightGL = ConvertPercentToGL(SquareHeight, false, GridWidth, GridHeight, WindowColor);
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double SquareWidthPixels = ConvertPourcentToPx(SquareWidth, true, GridWidth, GridHeight);
-			double SquareMargin = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor) + MargeX; // Margin between square
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double SquareWidthPixels = ConvertPercentToPx(SquareWidth, true, GridWidth, GridHeight);
+			double SquareMargin = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor) + MargeX; // Margin between square
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			// Loop to draw all square of the slider
 			for(int SquareIndex = 0; SquareIndex < NumberOfSquare; SquareIndex++)
@@ -701,8 +704,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double CircleRadiusPixels = ConvertPourcentToPx(CircleRadius, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double CircleRadiusPixels = ConvertPercentToPx(CircleRadius, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = CircleRadiusPixels * 2 + MarginPixels;
 
@@ -714,16 +717,16 @@ public class Menu
 		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
 		{
 			// Initialize variable needed to draw circle Border
-			double CircleBorderRadiusGL = ConvertPourcentToGL(CircleRadius + BorderRadius,true,GridWidth,GridHeight, WindowColor);
+			double CircleBorderRadiusGL = ConvertPercentToGL(CircleRadius + BorderRadius, true, GridWidth, GridHeight, WindowColor);
 			double CircleBorderLineX = CircleBorderRadiusGL;
 			double CircleLineY = 0;
 
 			// Initialize variable needed to draw circle
-			double CircleRadiusGL = ConvertPourcentToGL(CircleRadius, true, GridWidth, GridHeight, WindowColor);
-			double CircleRadiusPixels = ConvertPourcentToPx(CircleRadius, true, GridWidth, GridHeight);
+			double CircleRadiusGL = ConvertPercentToGL(CircleRadius, true, GridWidth, GridHeight, WindowColor);
+			double CircleRadiusPixels = ConvertPercentToPx(CircleRadius, true, GridWidth, GridHeight);
 			double CircleX = ConvertPxToGL(PosX + CircleRadiusPixels, true, GridWidth, GridHeight, WindowColor); // Center of circle X
 			double CircleY = ConvertPxToGL(PosY + CircleRadiusPixels, false, GridWidth, GridHeight, WindowColor); // Center of circle Y
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			// Variable to rotate point
 			double CircleCos = Math.cos(CircleTheta);// precalculate the sine and cosine
@@ -921,14 +924,14 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 
 			// Draw all image
 			for(int Images = 0; Images < Value.length();Images++)
 			{
 				// Converting image height and widht
-				double ImgWidthPixels = ConvertPourcentToPx(FontWidth,true, GridWidth, GridHeight);
+				double ImgWidthPixels = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 
 				// Adding width to total width
 				TotalWidthPixels = TotalWidthPixels + ImgWidthPixels  + MarginPixels; //
@@ -949,15 +952,15 @@ public class Menu
 			// Initialize variable to draw border
 			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight, WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
-			double BorderXGL = ConvertPourcentToGL(NumBoxBorderX, true, GridWidth, GridHeight, WindowColor);
-			double BorderYGL = ConvertPourcentToGL(NumBoxBorderY, false, GridWidth, GridHeight, WindowColor);
-			double BorderXPixels = ConvertPourcentToPx(NumBoxBorderX, true, GridWidth, GridHeight);
-			double ImageWidthGL = ConvertPourcentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
-			double ImageHeightGL = ConvertPourcentToGL(FontHeight, true, GridWidth, GridHeight, WindowColor);
+			double BorderXGL = ConvertPercentToGL(NumBoxBorderX, true, GridWidth, GridHeight, WindowColor);
+			double BorderYGL = ConvertPercentToGL(NumBoxBorderY, false, GridWidth, GridHeight, WindowColor);
+			double BorderXPixels = ConvertPercentToPx(NumBoxBorderX, true, GridWidth, GridHeight);
+			double ImageWidthGL = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+			double ImageHeightGL = ConvertPercentToGL(FontHeight, true, GridWidth, GridHeight, WindowColor);
 			double TotalImageWidthGL = 0;
 			double TotalImageWidthPixels = 0;
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
 
 			// Load texture for Value
 			for(int Textures = 0; Textures < Value.length();Textures++)
@@ -985,7 +988,7 @@ public class Menu
 				// Binding Texture
 				FontArray.get(NumberImageIndex[Images]).Bind();
 				// Converting image height and widht
-				double ImgWidthPixels = ConvertPourcentToPx(FontWidth,true, GridWidth, GridHeight);
+				double ImgWidthPixels = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 				glEnable(GL_DEPTH_TEST);
 				if(Highlight)
 				{
@@ -1094,8 +1097,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Adding width to total width
 			TotalWidthPixels = TotalWidthPixels + BoxWidthPixels + BorderX + MarginPixels;
@@ -1121,11 +1124,11 @@ public class Menu
 			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
 			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight, WindowColor);
-			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
-			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
 			glColor4f((float) BorderColor.getRed() / 255.0f, (float) BorderColor.getGreen() / 255.0f, (float) BorderColor.getBlue() / 255.0f,(float)BorderColor.getAlpha() / 255.0f);
@@ -1188,9 +1191,9 @@ public class Menu
 
 				//glBlendFunc(GL_ZERO,GL_ONE_MINUS_SRC_COLOR);
 				// Converting image height and widht
-				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
-				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight, WindowColor);
-				double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
+				double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+				double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
+				double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 				glDisable(GL_DEPTH_TEST);
 				// Drawing image
 				glBegin(GL_QUADS);
@@ -1511,8 +1514,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double BorderXPixels = ConvertPourcentToPx(BorderX, true, GridWidth, GridHeight);
-			double ImageWidthPixels = ConvertPourcentToPx(ImageWidth,true,GridWidth,GridHeight);
+			double BorderXPixels = ConvertPercentToPx(BorderX, true, GridWidth, GridHeight);
+			double ImageWidthPixels = ConvertPercentToPx(ImageWidth, true, GridWidth, GridHeight);
 
 			// Adding width to total width
 			TotalWidthPixels = BorderXPixels + ImageWidthPixels;
@@ -1527,12 +1530,12 @@ public class Menu
 			// Initialize coordonate
 			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
-			double ImageWidthGL = ConvertPourcentToGL(ImageWidth, true, GridWidth, GridHeight, WindowColor);
-			double ImageHeightGL = ConvertPourcentToGL(ImageHeight, false, GridWidth, GridHeight, WindowColor);
-			double ImageWidthPixels = ConvertPourcentToPx(ImageWidth,true,GridWidth,GridHeight);
-			double BorderXGL = ConvertPourcentToGL(BorderX,true,GridWidth,GridHeight, WindowColor);
-			double BorderXPixels = ConvertPourcentToPx(BorderX, true, GridWidth, GridHeight);
-			double BorderYGL = ConvertPourcentToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
+			double ImageWidthGL = ConvertPercentToGL(ImageWidth, true, GridWidth, GridHeight, WindowColor);
+			double ImageHeightGL = ConvertPercentToGL(ImageHeight, false, GridWidth, GridHeight, WindowColor);
+			double ImageWidthPixels = ConvertPercentToPx(ImageWidth, true, GridWidth, GridHeight);
+			double BorderXGL = ConvertPercentToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
+			double BorderXPixels = ConvertPercentToPx(BorderX, true, GridWidth, GridHeight);
+			double BorderYGL = ConvertPercentToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 
 			// Draw border
 			glColor4f(BorderColor.getRed() / 255.0f,BorderColor.getGreen() / 255.0f,BorderColor.getBlue() / 255.0f,BorderColor.getAlpha() / 255.0f);
@@ -1620,8 +1623,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Adding width to total width
 			TotalWidthPixels = BoxWidthPixels + MarginPixels + BorderX;
@@ -1647,11 +1650,11 @@ public class Menu
 			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
 			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double MarginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPourcentToGL((FontWidth + MarginPourcent)  * MaxLength, true, GridWidth, GridHeight, WindowColor);
-			double BoxHeightGL = ConvertPourcentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
-			double BoxWidthPixels = ConvertPourcentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
 			glColor4f((float) BorderColor.getRed() / 255.0f, (float) BorderColor.getGreen() / 255.0f, (float) BorderColor.getBlue() / 255.0f,(float)BorderColor.getAlpha() / 255.0f);
@@ -1764,9 +1767,9 @@ public class Menu
 				FontArray.get(TextureIndex).Bind();
 
 				// Converting image height and widht
-				double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
-				double ImgHeightGL  = ConvertPourcentToGL(FontHeight,false,GridWidth,GridHeight, WindowColor);
-				double ImgWidthPX = ConvertPourcentToPx(FontWidth,true,GridWidth,GridHeight);
+				double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+				double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
+				double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 				glDisable(GL_DEPTH_TEST);
 				// Drawing image
 				glBegin(GL_QUADS);
@@ -1796,8 +1799,8 @@ public class Menu
 
 			// Draw image
 			// Converting image height and widht
-			double ImgWidthGL  = ConvertPourcentToGL(FontWidth,true,GridWidth,GridHeight, WindowColor);
-			double ImgHeightGL  = ConvertPourcentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
+			double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+			double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
 			glDisable(GL_DEPTH_TEST);
 			// Drawing image
 			glBegin(GL_QUADS);
@@ -2287,10 +2290,10 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Use center to find border of windows
-			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
-			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
+			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
+			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,false);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,false);
 
@@ -2309,7 +2312,7 @@ public class Menu
 			glDisable(GL_DEPTH_TEST);
 
 			// Draw Title
-			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) + ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight),false,GridWidth,GridHeight,false);
+			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) + ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight),false,GridWidth,GridHeight,false);
 
 			glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 			glRectd(BottomLeftXGL, TitleBottomYGL, TopRightXGL, TopRightYGL);
@@ -2318,12 +2321,12 @@ public class Menu
 
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,false);
+			double MaginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
 			// Initialize X coordonate
-			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)),true,GridWidth,GridHeight,true);
+			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of ItemText and load corresponding image and then draw it
 			for(int Letter = 0; Letter < Text.length(); Letter++)
@@ -2368,8 +2371,8 @@ public class Menu
 					FontArray.get(TextureIndex).Bind();
 
 					// Converting image height and widht
-					double ImgWidthGL  = ConvertPourcentToGL(TitleFontWidth,true,GridWidth,GridHeight,false);
-					double ImgHeightGL  = ConvertPourcentToGL(TitleFontHeight,false,GridWidth,GridHeight,false);
+					double ImgWidthGL  = ConvertPercentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
+					double ImgHeightGL  = ConvertPercentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
 
 					glDisable(GL_DEPTH_TEST);
 					// Drawing image
@@ -2392,9 +2395,9 @@ public class Menu
 
 
 
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent,true,GridWidth,GridHeight);
-			double PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + MarginPixels;
-			double PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight - TitleHeightAdjust,false,GridWidth,GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
+			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight - TitleHeightAdjust, false, GridWidth, GridHeight);
 			double BigestItemWidth = 0;
 
 			glDisable(GL_DEPTH_TEST);
@@ -2416,7 +2419,7 @@ public class Menu
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, false, false, true);
 					}
 					// Ajust next Y
-					PosY = PosY - ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight);
+					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
 					if(Items.get(ItemArray).get(Item).Occupied_Width() > BigestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
@@ -2427,8 +2430,8 @@ public class Menu
 					// Reset occupied width to 0
 					Items.get(ItemArray).get(Item).Occupied_Width(0);
 				}
-				PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight - TitleHeightAdjust,false,GridWidth,GridHeight);
-				PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 3;
+				PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight - TitleHeightAdjust, false, GridWidth, GridHeight);
+				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 3;
 			}
 
 			// Move to the top of window
@@ -2772,10 +2775,10 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Use center to find border of windows
-			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
-			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
+			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
+			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,false);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,false);
 
@@ -2794,7 +2797,7 @@ public class Menu
 			glDisable(GL_DEPTH_TEST);
 
 			// Draw Title
-			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) + ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight),false,GridWidth,GridHeight,false);
+			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) + ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight),false,GridWidth,GridHeight,false);
 
 			glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 			glRectd(BottomLeftXGL, TitleBottomYGL, TopRightXGL, TopRightYGL);
@@ -2802,12 +2805,12 @@ public class Menu
 			// Draw Text of Title
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,false);
+			double MaginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
 			// Initialize X coordonate
-			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)),true,GridWidth,GridHeight,true);
+			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of Title and load corresponding image and then draw it
 			for(int Letter = 0; Letter < Text.length(); Letter++)
@@ -2851,8 +2854,8 @@ public class Menu
 					FontArray.get(TextureIndex).Bind();
 
 					// Converting image height and widht
-					double ImgWidthGL = ConvertPourcentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
-					double ImgHeightGL = ConvertPourcentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
+					double ImgWidthGL = ConvertPercentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
+					double ImgHeightGL = ConvertPercentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
 
 					glDisable(GL_DEPTH_TEST);
 					// Drawing image
@@ -2873,9 +2876,9 @@ public class Menu
 				}
 			}
 
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent,true,GridWidth,GridHeight);
-			double PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + MarginPixels;
-			double PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
+			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
 			double BigestItemWidth = 0;
 
 			glDisable(GL_DEPTH_TEST);
@@ -2897,7 +2900,7 @@ public class Menu
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, false, false, true);
 					}
 					// Ajust next Y
-					PosY = PosY - ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight);
+					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
 					if(Items.get(ItemArray).get(Item).Occupied_Width() > BigestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
@@ -2908,8 +2911,8 @@ public class Menu
 					// Reset occupied width to 0
 					Items.get(ItemArray).get(Item).Occupied_Width(0);
 				}
-				PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight);
-				PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 10;
+				PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
+				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 10;
 			}
 
 			// Move to the top of window
@@ -3028,10 +3031,10 @@ public class Menu
 			// Column 2
 			List<MenuItem> Column2 = new ArrayList<MenuItem>();
 			Column2.add(new MenuItem("Alexandre Xavier Labonte Lamoureux",false,true));
-			Column2.add(new MenuItem("Andy Sergerie",false,true)); // Spacer
 			Column2.add(new MenuItem("Francis Bourgault",false,true)); // Spacer
-			Column2.add(new MenuItem("Beta",false,true));
-			Column2.add(new MenuItem("2015 10 04",false,true));
+			Column2.add(new MenuItem("Andy Sergerie",false,true)); // Spacer
+			Column2.add(new MenuItem(GameVersion,false,true));
+			Column2.add(new MenuItem(LastUpdate,false,true));
 			Column2.add(new MenuItem("Close",true,true));
 
 			Items.add(Column1);
@@ -3048,10 +3051,10 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Use center to find border of windows
-			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
-			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight),true,GridWidth,GridHeight,true);
-			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight),false,GridWidth,GridHeight,true);
+			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
+			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
+			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,false);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,false);
 
@@ -3070,7 +3073,7 @@ public class Menu
 			glDisable(GL_DEPTH_TEST);
 
 			// Draw Title
-			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) + ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight),false,GridWidth,GridHeight,false);
+			double TitleBottomYGL = ConvertPxToGL(((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) + ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight),false,GridWidth,GridHeight,false);
 
 			glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 			glRectd(BottomLeftXGL, TitleBottomYGL, TopRightXGL, TopRightYGL);
@@ -3078,12 +3081,12 @@ public class Menu
 			// Draw Text of Title
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPourcentToGL(MarginPourcent, true, GridWidth, GridHeight,false);
+			double MaginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
 			// Initialize X coordonate
-			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)),true,GridWidth,GridHeight,true);
+			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of Title and load corresponding image and then draw it
 			for(int Letter = 0; Letter < Text.length(); Letter++)
@@ -3127,8 +3130,8 @@ public class Menu
 					FontArray.get(TextureIndex).Bind();
 
 					// Converting image height and widht
-					double ImgWidthGL = ConvertPourcentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
-					double ImgHeightGL = ConvertPourcentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
+					double ImgWidthGL = ConvertPercentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
+					double ImgHeightGL = ConvertPercentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
 
 					glDisable(GL_DEPTH_TEST);
 					// Drawing image
@@ -3149,9 +3152,9 @@ public class Menu
 				}
 			}
 
-			double MarginPixels = ConvertPourcentToPx(MarginPourcent,true,GridWidth,GridHeight);
-			double PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + MarginPixels;
-			double PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
+			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
 			double BigestItemWidth = 0;
 
 			glDisable(GL_DEPTH_TEST);
@@ -3173,7 +3176,7 @@ public class Menu
 					}
 
 					// Ajust next Y
-					PosY = PosY - ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight);
+					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
 					if(Items.get(ItemArray).get(Item).Occupied_Width() > BigestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
@@ -3184,8 +3187,8 @@ public class Menu
 					// Reset occupied width to 0
 					Items.get(ItemArray).get(Item).Occupied_Width(0);
 				}
-				PosY = ((float) GridHeight / 2.0f) + (ConvertPourcentToPx(WindowsHeight() / 2.0f,false,GridWidth,GridHeight)) - ConvertPourcentToPx(TitleHeight,false,GridWidth,GridHeight);
-				PosX = (((float)GridWidth / 2.0f) - ConvertPourcentToPx(WindowsWidth() / 2.0f,true,GridWidth,GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 10;
+				PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
+				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 10;
 			}
 
 			// Move to the top of window
@@ -3521,7 +3524,7 @@ public class Menu
 		Texture TexturePlus = new Texture(("Stuff/" + Folder + "/" + "PLUS" + ".png"),GL_NEAREST);
 		Texture TextureMinus = new Texture(("Stuff/" + Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
 		Texture TextureNumber = new Texture(("Stuff/" + Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
-		Texture TextureEclamation = new Texture(("Stuff/" + Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
+		Texture TextureExclamation = new Texture(("Stuff/" + Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
 		Texture TextureQuestion = new Texture(("Stuff/" + Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
 
 		FontList.add(TexturePeriod);
@@ -3534,7 +3537,7 @@ public class Menu
 		FontList.add(TexturePlus);
 		FontList.add(TextureMinus);
 		FontList.add(TextureNumber);
-		FontList.add(TextureEclamation);
+		FontList.add(TextureExclamation);
 		FontList.add(TextureQuestion);
 	}
 
@@ -3705,33 +3708,33 @@ public class Menu
 		double PosX = 0;
 		double PosY = 0;
 		double OccupiedWidth = 0;
-		double MarginPixels = ConvertPourcentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
+		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
 
 		boolean WindowDraw = false;
 		// Draw menu bar on the top of the screen
 		DrawMenuBar();
 
 		// Draw alpha rectangle
-		if(!HaveWindowActive())
+		if (!HaveWindowActive())
 		{
 			DrawAlphaRectangle();
 		}
 
 		// Draw all menu items
-		for(int MenuIndex = 0; MenuIndex < Items.size(); MenuIndex++)
+		for (int MenuIndex = 0; MenuIndex < Items.size(); MenuIndex++)
 		{
-			for(int SubMenuIndex = 0; SubMenuIndex < Items.get(MenuIndex).size(); SubMenuIndex++)
+			for (int SubMenuIndex = 0; SubMenuIndex < Items.get(MenuIndex).size(); SubMenuIndex++)
 			{
 				// Move Y from constant
-				PosY = PosY - ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight);
+				PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 				// if first item (title)
-				if(SubMenuIndex == 0)
+				if (SubMenuIndex == 0)
 				{
 					// Raise Y by 1/5 of RowHeight
 					PosY = PosY + Math.abs(PosY * 1.0f/5.0f);
 					// Draw
-					if(MenuIndex == MenuBarCursor)
+					if (MenuIndex == MenuBarCursor)
 					{
 						// Draw highlight if cursor is on it
 						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(),true,false,false);
@@ -3746,13 +3749,13 @@ public class Menu
 					OccupiedWidth = Items.get(MenuIndex).get(SubMenuIndex).Occupied_Width();
 				}
 				// Check if MenuCursor on MenuIndex
-				else if(MenuIndex == MenuBarCursor)
+				else if (MenuIndex == MenuBarCursor)
 				{
 					// Check if window is active
-					if(HaveWindowActive())
+					if (HaveWindowActive())
 					{
 						// Check if the item is a window
-						if(Items.get(MenuIndex).get(SubMenuIndex).getClass().equals(MenuItem_Windows.class))
+						if (Items.get(MenuIndex).get(SubMenuIndex).getClass().equals(MenuItem_Windows.class))
 						{
 							// Check if the window is active
 							if(((MenuItem_Windows)Items.get(MenuIndex).get(SubMenuIndex)).WindowActive())
@@ -3760,18 +3763,18 @@ public class Menu
 								((MenuItem_Windows)Items.get(MenuIndex).get(SubMenuIndex)).Draw(PosX, PosY, GridWidth(), GridHeight(), false, false,true);
 							}
 						}
-						// Dont draw if not window
+						// Don't draw if not window
 					}
 					// Draw items. Check if subCursor on it.
-					else if(SubMenuIndex == SubMenuCursor)
+					else if (SubMenuIndex == SubMenuCursor)
 					{
 						// Call draw function with highlight
-						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(),true,true,false);
+						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(), true, true, false);
 					}
 					else
 					{
 						// Call draw function without highlight
-						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(),false,true,false);
+						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(), false, true, false);
 					}
 				}
 				// Reset Occupied_Width to avoid adding ancient Occupied_Width to new Width
@@ -3794,7 +3797,7 @@ public class Menu
 	{
 		// Draw bar that cover the top of the screen. Convert Point to Gl unit.
 		double PosXGL = ConvertPxToGL(0, true, GridWidth, GridHeight,false);
-		double PosYGL = ConvertPourcentToGL(-RowHeight, false, GridWidth, GridHeight, false);
+		double PosYGL = ConvertPercentToGL(-RowHeight, false, GridWidth, GridHeight, false);
 		double GridWidthGL = ConvertPxToGL(GridWidth, true, GridWidth, GridHeight, false);
 		double TopYGL = ConvertPxToGL(0, false, GridWidth, GridHeight,false);
 
@@ -3811,27 +3814,27 @@ public class Menu
 	// Draw alpha rectangle where MenuBarCursor is active
 	private void DrawAlphaRectangle()
 	{
-		double BigestSubItemWidth = 0;
+		double BiggestSubItemWidth = 0;
 		double StartPosX = 0;
-		double MarginPixels = ConvertPourcentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
+		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
 
 		// Get X. Check all first item
-		for(int Item = 0; Item < MenuBarCursor;Item++)
+		for (int Item = 0; Item < MenuBarCursor;Item++)
 		{
 			// Get Start X
-			StartPosX = StartPosX + Items.get(Item).get(0).GetDrawWidth(GridWidth(),GridHeight(),false,0) + MarginPixels * BigMargin;
+			StartPosX = StartPosX + Items.get(Item).get(0).GetDrawWidth(GridWidth(), GridHeight(), false, 0) + MarginPixels * BigMargin;
 		}
 
 		// Check all item where menu cursor is
-		for(int Item = 1;Item < Items.get(MenuBarCursor).size();Item++)
+		for (int Item = 1;Item < Items.get(MenuBarCursor).size();Item++)
 		{
 			// Get width
 			double SubItemWidth = Items.get(MenuBarCursor).get(Item).GetDrawWidth(GridWidth(),GridHeight(),false,0);
 
 			// Check if bigger than the biggest
-			if(SubItemWidth > BigestSubItemWidth)
+			if (SubItemWidth > BiggestSubItemWidth)
 			{
-				BigestSubItemWidth = SubItemWidth;
+				BiggestSubItemWidth = SubItemWidth;
 			}
 		}
 
@@ -3839,11 +3842,11 @@ public class Menu
 
 		// Initialize point
 		double StartRectPosXGL = ConvertPxToGL(StartPosX - MarginPixels, true, GridWidth(), GridHeight(), false);
-		double EndRectPosXGL = ConvertPxToGL(StartPosX + BigestSubItemWidth + MarginPixels,true,GridWidth(),GridHeight(),false);
-		double EndRectPosYGL = ConvertPxToGL(0 - ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight), false, GridWidth(), GridHeight(), false);
-		double StartRectPosYGL = ConvertPxToGL(0 - (ConvertPourcentToPx(RowHeight, false, GridWidth, GridHeight) * Items.get(MenuBarCursor).size()),false,GridWidth(),GridHeight(),false);
+		double EndRectPosXGL = ConvertPxToGL(StartPosX + BiggestSubItemWidth + MarginPixels, true, GridWidth(), GridHeight(), false);
+		double EndRectPosYGL = ConvertPxToGL(0 - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight), false, GridWidth(), GridHeight(), false);
+		double StartRectPosYGL = ConvertPxToGL(0 - (ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight) * Items.get(MenuBarCursor).size()),false,GridWidth(),GridHeight(),false);
 
-		// Initialize polygone mode to FIll
+		// Initialize polygon mode to FIll
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		// Initialize Color
@@ -3878,16 +3881,16 @@ public class Menu
 	public void CursorRight()
 	{
 		// Check if cursor can move to right
-		if(MenuBarCursor < Items.size() - 1 && !Locked())
+		if (MenuBarCursor < Items.size() - 1 && !Locked())
 		{
 			MenuBarCursor++;
 			// Check if SubMenuCursor to big to fit next subMenu
-			if(SubMenuCursor >= Items.get(MenuBarCursor).size() - 1)
+			if (SubMenuCursor >= Items.get(MenuBarCursor).size() - 1)
 			{
 				SubMenuCursor = Items.get(MenuBarCursor).size() - 1;
 			}
 			// Check if Item is not enable
-			else if(!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled())
+			else if (!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled())
 			{
 				SubMenuCursor--;
 			}
@@ -3898,16 +3901,16 @@ public class Menu
 	public void CursorLeft()
 	{
 		// Check if cursor can move to left
-		if(MenuBarCursor > 0 && !Locked() && !HaveWindowActive())
+		if (MenuBarCursor > 0 && !Locked() && !HaveWindowActive())
 		{
 			MenuBarCursor--;
 			// Check if SubMenuCursor to big to fit next subMenu
-			if(SubMenuCursor >= Items.get(MenuBarCursor).size() - 1)
+			if (SubMenuCursor >= Items.get(MenuBarCursor).size() - 1)
 			{
 				SubMenuCursor = Items.get(MenuBarCursor).size() - 1;
 			}
 			// Check if Item is not enable
-			else if(!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled())
+			else if (!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled())
 			{
 				SubMenuCursor--;
 			}
@@ -3918,12 +3921,12 @@ public class Menu
 	public void CursorDown()
 	{
 		// Check if cursor can move down
-		if(SubMenuCursor < Items.get(MenuBarCursor).size() - 1 && !Locked() && !HaveWindowActive())
+		if (SubMenuCursor < Items.get(MenuBarCursor).size() - 1 && !Locked() && !HaveWindowActive())
 		{
 			SubMenuCursor++;
 		}
 		// If Item is not enabled, skip
-		if(!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled() && !Locked() && !HaveWindowActive())
+		if (!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled() && !Locked() && !HaveWindowActive())
 		{
 			SubMenuCursor++;
 		}
@@ -3933,49 +3936,49 @@ public class Menu
 	public void CursorUp()
 	{
 		// Check if cursor can move down
-		if(SubMenuCursor > 0 && !Locked() && !HaveWindowActive())
+		if (SubMenuCursor > 0 && !Locked() && !HaveWindowActive())
 		{
 			SubMenuCursor--;
 		}
 		// If Item is not enabled, skip
-		if(!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled() && !Locked() && !HaveWindowActive())
+		if (!Items.get(MenuBarCursor).get(SubMenuCursor).Enabled() && !Locked() && !HaveWindowActive())
 		{
 			SubMenuCursor--;
 		}
 	}
 
-	// Lock/Unlock current cusor position if not the first item of menu
+	// Lock/Unlock current cursor position if not the first item of menu
 	public void Locking()
 	{
-		if(Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_Windows.class) && !ExitWindow) // Window
+		if (Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_Windows.class) && !ExitWindow) // Window
 		{
 			// Activate windows at this index
 			((MenuItem_Windows)(Items.get(MenuBarCursor).get(SubMenuCursor))).WindowActive(true);
 		}
 
-		else if(Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_CheckBox.class)) // Checkbox
+		else if (Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_CheckBox.class)) // Checkbox
 		{
 			// De/Activate checkbox at this index
 			((MenuItem_CheckBox)(Items.get(MenuBarCursor).get(SubMenuCursor))).IsChecked(!((MenuItem_CheckBox)(Items.get(MenuBarCursor).get(SubMenuCursor))).IsChecked());
 		}
-		else if(Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_RadioButton.class)) // Radio button
+		else if (Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_RadioButton.class)) // Radio button
 		{
 			// De/Activate Radio Button at this index
 			((MenuItem_RadioButton)(Items.get(MenuBarCursor).get(SubMenuCursor))).IsChecked(true);
 		}
-		else if(Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_HorSlider.class)) // Horizontal slider
+		else if (Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_HorSlider.class)) // Horizontal slider
 		{
 			((MenuItem_HorSlider)(Items.get(MenuBarCursor).get(SubMenuCursor))).Action(false);
 		}
-		else if(MenuBarCursor == PosQuit[0] && SubMenuCursor == PosQuit[1]) // Quit Game
+		else if (MenuBarCursor == PosQuit[0] && SubMenuCursor == PosQuit[1]) // Quit Game
 		{
 			QuitGame();
 		}
-		else if(MenuBarCursor == PosExit[0] && SubMenuCursor == PosExit[1]) // Exit Game
+		else if (MenuBarCursor == PosExit[0] && SubMenuCursor == PosExit[1]) // Exit Game
 		{
 			ExitGame();
 		}
-		if(SubMenuCursor > 0 && !Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_RadioButton.class) &&
+		if (SubMenuCursor > 0 && !Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_RadioButton.class) &&
 				!Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_CheckBox.class) &&
 				!Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_HorSlider.class) &&
 				!Items.get(MenuBarCursor).get(SubMenuCursor).getClass().equals(MenuItem_Windows.class) &&
@@ -4013,7 +4016,7 @@ public class Menu
 	}
 
 	// Convert pourcent to Px
-	public static double ConvertPourcentToPx(double Poucent, boolean IsX, int GridWidth, int GridHeight)
+	public static double ConvertPercentToPx(double Percent, boolean IsX, int GridWidth, int GridHeight)
 	{
 		// Declare local int
 		double Pixel = 0;
@@ -4021,11 +4024,11 @@ public class Menu
 		// Check if is X coordonate
 		if(IsX)
 		{
-			Pixel = (Poucent * GridWidth) / 100;
+			Pixel = (Percent * GridWidth) / 100;
 		}
 		else // Is Y
 		{
-			Pixel = (Poucent * GridHeight) / 100;
+			Pixel = (Percent * GridHeight) / 100;
 		}
 
 		// Return converted mesure
@@ -4033,7 +4036,7 @@ public class Menu
 	}
 
 	// Convert pourcent to GL
-	public static double ConvertPourcentToGL(double Poucent, boolean IsX, int GridWidth, int GridHeight,boolean IsWindow)
+	public static double ConvertPercentToGL(double Percent, boolean IsX, int GridWidth, int GridHeight, boolean IsWindow)
 	{
 		// Declare local int
 		double GLUnit = 0;
@@ -4041,31 +4044,31 @@ public class Menu
 		// Check if is X coordonate
 		if(IsX)
 		{
-			GLUnit = (Poucent * GridWidth) / 100;
+			GLUnit = (Percent * GridWidth) / 100;
 		}
 		else // Is Y
 		{
-			GLUnit = (Poucent * GridHeight) / 100;
+			GLUnit = (Percent * GridHeight) / 100;
 		}
 
 		// Convert the obtains pixel to GL
 		GLUnit = ConvertPxToGL(GLUnit,IsX, GridWidth, GridHeight,IsWindow);
 
-		// Return converted mesure
+		// Return converted measure
 		return GLUnit;
 	}
 
 	// Convert pixel to GL
-	public static double ConvertPxToGL(double Pixel, boolean IsX, int GridWidth, int GridHeight,boolean IsWindow)
+	public static double ConvertPxToGL(double Pixel, boolean IsX, int GridWidth, int GridHeight, boolean IsWindow)
 	{
 		// Declare local int
 		double GLUnit = 0;
 
 		// Check if it a window coordonate
-		if(!IsWindow)
+		if (!IsWindow)
 		{
 			// Check if is X coordonate
-			if(IsX)
+			if (IsX)
 			{
 				GLUnit = (Pixel * GlWinWidth) / GridWidth;
 			}
@@ -4077,7 +4080,7 @@ public class Menu
 		else
 		{
 			// Check if is X coordonate
-			if(IsX)
+			if (IsX)
 			{
 				GLUnit = (Pixel * 2.0f) / GridWidth;
 			}
@@ -4087,21 +4090,21 @@ public class Menu
 			}
 		}
 
-		// Return converted mesure
+		// Return converted measure
 		return GLUnit;
 	}
 
 	// Draw image from the bottom corner of the window (not draw at the same time as menu
-	public static void DrawTexture(Texture Image, double LeftXPourcent, double BottomYPourcent,double WidthPourcent, double HeightPourcent)
+	public static void DrawTexture(Texture Image, double LeftXPercent, double BottomYPercent, double WidthPercent, double HeightPercent)
 	{
 		// Move drawing cursor to bottom of window
 		glTranslatef(-1,-1,0);
 
 		// Initialize coordonate
-		double PosXGL = ConvertPourcentToGL(LeftXPourcent, true, Display.getWidth(), Display.getHeight(), true);
-		double PosYGL = ConvertPourcentToGL(BottomYPourcent, false, Display.getWidth(), Display.getHeight(), true);
-		double ImageWidthGL = ConvertPourcentToGL(WidthPourcent, true, Display.getWidth(), Display.getHeight(), true);
-		double ImageHeightGL = ConvertPourcentToGL(HeightPourcent, false, Display.getWidth(), Display.getHeight(), true);
+		double PosXGL = ConvertPercentToGL(LeftXPercent, true, Display.getWidth(), Display.getHeight(), true);
+		double PosYGL = ConvertPercentToGL(BottomYPercent, false, Display.getWidth(), Display.getHeight(), true);
+		double ImageWidthGL = ConvertPercentToGL(WidthPercent, true, Display.getWidth(), Display.getHeight(), true);
+		double ImageHeightGL = ConvertPercentToGL(HeightPercent, false, Display.getWidth(), Display.getHeight(), true);
 
 		// Draw image
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -4134,19 +4137,19 @@ public class Menu
 		// Declare local constant
 		final double MarginPercent = 0.5d;
 		// Draw letter one by one
-		for(int Letter = 0; Letter < Text.length();Letter++)
+		for (int Letter = 0; Letter < Text.length(); Letter++)
 		{
 			// Get int value of char
 			int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
 			int TextureIndex = 0;
 			// Check if number
-			if(CharValue >= Char0Index && CharValue <= Char9Index)
+			if (CharValue >= Char0Index && CharValue <= Char9Index)
 			{
 				// Initialize Texture Index in font List
 				TextureIndex = CharValue - Char0Index;
 			}
 			// Check if letter
-			else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
+			else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
 			{
 				// Initialize Texture Index in font List
 				TextureIndex = CharValue - CharAIndex + 10;
