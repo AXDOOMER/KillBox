@@ -671,6 +671,8 @@ public class Camera
 					Menu.DrawText(PlayerScore + PlayerHits, 1, Lvl.Players.size() * 4 - Player * 4, 3, 3);
 				}
 
+				// Draw the scores
+				Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
 
 				/*
 				// Draw texture here (Test to draw image at bottom left
