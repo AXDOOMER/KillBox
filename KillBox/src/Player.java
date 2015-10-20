@@ -68,6 +68,8 @@ public class Player
 	int Frame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
+	Random Randomizer = null;
+	final int MaxTriesBeforeFreeSpawnIsFound = 30;
 
 	public Player(Level Lvl, Sound Output)
 	{
@@ -78,6 +80,8 @@ public class Player
 		{
 			OwnedWeapons[i] = false;
 		}
+
+		Randomizer = new Random();
 	}
 
 	public void LoadSprites()
@@ -207,9 +211,14 @@ public class Player
 					// Damage him
 					Hit.DamageSelf(Damage, this.PosX(), this.PosY());
 
+					// If he's dead
 					if (Hit.Health <= 0)
 					{
+						// Got a point
 						Kills++;
+
+						// Add one death to his counter
+						Hit.Deaths++;
 					}
 
 					return Hit;
@@ -927,6 +936,29 @@ public class Player
 
 		// The function returns something, but nobody really cares.
 		return FoundZ;
+	}
+
+	public boolean SpawnAtRandomSpot()
+	{
+		// Spawn the player at a random location
+		int RandomNumber = Randomizer.GiveNumber();
+		int Tries = 0;
+
+		Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+		while (!this.Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+		{
+			RandomNumber = Randomizer.GiveNumber();
+			SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+			if (Tries > MaxTriesBeforeFreeSpawnIsFound)
+			{
+				return false;
+			}
+			Tries++;
+		}
+
+		return true;
 	}
 
 	public boolean Spawn(float X, float Y, float Z, short Angle)

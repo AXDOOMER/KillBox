@@ -219,11 +219,11 @@ public class Netplay
 				for (int Player = 1; Player < this.Nodes; Player++)
 				{
 
-					System.err.println("Waiting for " + (this.Nodes - Player) + " more nodes");
+					System.err.println("Waiting for " + (this.Nodes - Player) + " more node(s)...");
 					Socket Client = Server.accept();
 
 
-					System.err.println("A client has connected");
+					System.err.println("A client has connected.");
 					Connections.add(Client);
 
 					Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
@@ -311,7 +311,6 @@ public class Netplay
             {
                 if (player.isConnected())
                 {
-                    System.out.println("It's comming!");
                     PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(player.getOutputStream()));
 
                     PlayerWriter.println(message);

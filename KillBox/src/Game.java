@@ -186,90 +186,13 @@ public class Game
 			Lvl.LoadLevel("Stuff/maps/" + /*Reader.readLine()*/"genlevel.txt", WallsFilter);
 
 			// Players will spawn at random locations
-			Random Rand = new Random();
-			int TriesBeforeFreeSpawnIsFound = 0;
-			if(Lvl.Players.size() > 0)
+			for (int Player = 0; Player < Lvl.Players.size(); Player++)
 			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(0).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
 				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TriesBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TriesBeforeFreeSpawnIsFound++;
+					System.out.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+					System.exit(1);
 				}
-
-				TriesBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 1)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(1).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TriesBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TriesBeforeFreeSpawnIsFound++;
-				}
-
-				TriesBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 2)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(2).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TriesBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TriesBeforeFreeSpawnIsFound++;
-				}
-
-				TriesBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 3)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(3).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TriesBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TriesBeforeFreeSpawnIsFound++;
-				}
-
-				TriesBeforeFreeSpawnIsFound = 0;
 			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game
