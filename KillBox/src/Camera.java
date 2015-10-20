@@ -268,7 +268,23 @@ public class Camera
 			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) && !JustPressedFireKey)
 			{
 				JustPressedFireKey = true;
-				CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+				if (CurrentPlayer().Health > 0)
+				{
+					CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+				}
+				else
+				{
+					// Check if the player has completely dropped on the floor
+					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
+					{
+						// Spawn the player
+						if (!CurrentPlayer().SpawnAtRandomSpot())
+						{
+							System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+							System.exit(1);
+						}
+					}
+				}
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
 			{

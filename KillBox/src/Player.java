@@ -35,6 +35,7 @@ public class Player
 	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
 	final int MaxRunSpeed = 70/8;
 	final int DefaultViewZ = 42;
+	final int HeadOnFloor = 12;
 	int ViewZ = DefaultViewZ;
 	
 	public enum DamageIndicatorDirection
@@ -938,15 +939,33 @@ public class Player
 		return FoundZ;
 	}
 
+	// Come back to life
+	private void ResetPlayerForRespawn()
+	{
+		Health = 100;
+		ViewZ = DefaultViewZ;
+		MoX = 0;
+		MoY = 0;
+		MoZ = 0;
+
+		// Reset other stuff
+		HasMoved = false;
+		byte FrontMove = 0;
+		byte SideMove = 0;
+		short AngleDiff = 0;
+	}
+
 	public boolean SpawnAtRandomSpot()
 	{
+		Shot = true;	// Need this for the player to respawn in the other game
+
 		// Spawn the player at a random location
 		int RandomNumber = Randomizer.GiveNumber();
 		int Tries = 0;
 
 		Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-		while (!this.Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+		while (!this.SpawnAtLocation(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
 		{
 			RandomNumber = Randomizer.GiveNumber();
 			SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
@@ -961,7 +980,7 @@ public class Player
 		return true;
 	}
 
-	public boolean Spawn(float X, float Y, float Z, short Angle)
+	private boolean SpawnAtLocation(float X, float Y, float Z, short Angle)
 	{
 		boolean FreeSpace = true;
 		for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -976,6 +995,8 @@ public class Player
 
 		if (FreeSpace == true)
 		{
+			ResetPlayerForRespawn();
+
 			this.Angle = Angle;
 			PosX = X;
 			PosY = Y;
@@ -989,7 +1010,7 @@ public class Player
 	{
 		if (Health <= 0)
 		{
-			if (ViewZ > 12)
+			if (ViewZ > HeadOnFloor)
 			{
 				ViewZ--;
 			}

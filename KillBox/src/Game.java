@@ -190,7 +190,7 @@ public class Game
 			{
 				if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
 				{
-					System.out.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+					System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
 					System.exit(1);
 				}
 			}
@@ -258,7 +258,24 @@ public class Game
 
 							if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 							{
-								Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+								if (Lvl.Players.get(Number).Health > 0)
+								{
+									Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+								}
+								else
+								{
+									// Check if the player has completely dropped on the floor
+									if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+									{
+										// Spawn the player
+										if (!Lvl.Players.get(Number).SpawnAtRandomSpot())
+										{
+											System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+											System.exit(1);
+										}
+									}
+								}
+
 								Lvl.Players.get(Number).Shot = false;
 							}
 						}
