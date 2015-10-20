@@ -298,6 +298,12 @@ public class Game
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
 
+				// Update players
+				for (int Player = 0; Player < Lvl.Players.size(); Player++)
+				{
+					Lvl.Players.get(Player).UpdateIfDead();
+				}
+
 				if (Nodes > 1)
 				{
 					if (CheckParm(args, "-fakenet") < 0)

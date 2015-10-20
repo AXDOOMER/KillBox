@@ -34,7 +34,8 @@ public class Player
 
 	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
 	final int MaxRunSpeed = 70/8;
-	final int ViewZ = 42;
+	final int DefaultViewZ = 42;
+	int ViewZ = DefaultViewZ;
 	
 	public enum DamageIndicatorDirection
 	{
@@ -950,6 +951,17 @@ public class Player
 		}
 
 		return FreeSpace;
+	}
+
+	public void UpdateIfDead()
+	{
+		if (Health <= 0)
+		{
+			if (ViewZ > 12)
+			{
+				ViewZ--;
+			}
+		}
 	}
 
 	// Set X Position
