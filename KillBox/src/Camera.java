@@ -644,7 +644,7 @@ public class Camera
 			else // Draw 2D texture (weapon and HUD)
 			{
 				// To 2d
-				/*glMatrixMode(GL_PROJECTION);
+				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
 				glMatrixMode(GL_MODELVIEW);
@@ -653,16 +653,36 @@ public class Camera
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 
+				// Show the scores on the screen
+				for (int Player = Lvl.Players.size() - 1; Player >= 0; Player--)
+				{
+					// Show the score of every player that is in the game
+					String PlayerScore = "Player#" + (Player + 1) + ": " + Lvl.Players.get(Player).Kills;
+					String PlayerHits = "";
+
+					if (Lvl.Players.get(Player).Hits > 0)
+					{
+						int HitPercentage = (int)((float)Lvl.Players.get(Player).Hits * 100 / (Lvl.Players.get(Player).Hits + Lvl.Players.get(Player).Missed));
+						PlayerHits = " (hit: " + HitPercentage + ")";
+					}
+
+					//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;
+
+					Menu.DrawText(PlayerScore + PlayerHits, 1, Lvl.Players.size() * 4 - Player * 4, 3, 3);
+				}
+
+
+				/*
 				// Draw texture here (Test to draw image at bottom left
 				Menu.DrawTexture((new Texture("Stuff/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
-
+*/
 				// Draw all element
 				glFlush();
 
 				// Enable for the 3D element
 				glEnable(GL_DEPTH_TEST);
 				InitProjection();
-				glEnable(GL_TEXTURE_2D);*/
+				glEnable(GL_TEXTURE_2D);
 			}
 
 			// Check if mouse should be grabbed at the end so the mouse input is not destroyed

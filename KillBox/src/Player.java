@@ -59,6 +59,8 @@ public class Player
 	int Kills = 0;
 	int Deaths = 0;
 	int FlagTime = 0;
+	int Hits = 0;
+	int Missed = 0;
 
 	byte FrontMove = 0;
 	byte SideMove = 0;
@@ -154,8 +156,6 @@ public class Player
 	// Check if this coordinate is inside a player then return this player
 	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
 	{
-		Shot = true;
-
 		for (int Player = 0; Player < Lvl.Players().size(); Player++)
 		{
 			if (Lvl.Players().get(Player) == this)
@@ -188,6 +188,7 @@ public class Player
 	{
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
+		Shot = true;	// Set shot property tot he player so it's transmitted over the network
 		
 		// Start scanning from the player's position
 		float TravelX = this.PosX();
@@ -202,30 +203,46 @@ public class Player
 			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
 			TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
-			Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
-
-			// Check if something was really hit
-			if (Hit != null)
+			// Check if a wall was hit. Check for wall on a line between the player and the hit point.
+			if (CheckWallCollision(TravelX, TravelY, Step) == null)
 			{
-				if (Hit.Health > 0)
+				Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+
+				// Check if something was really hit
+				if (Hit != null)
 				{
-					// Damage him
-					Hit.DamageSelf(Damage, this.PosX(), this.PosY());
-
-					// If he's dead
-					if (Hit.Health <= 0)
+					// If the player who was hit is not dead
+					if (Hit.Health > 0)
 					{
-						// Got a point
-						Kills++;
+						// Damage him
+						Hit.DamageSelf(Damage, this.PosX(), this.PosY());
 
-						// Add one death to his counter
-						Hit.Deaths++;
+						// Bullet has hit
+						Hits++;
+
+						// If he's dead
+						if (Hit.Health <= 0)
+						{
+							// Got a point
+							Kills++;
+
+							// Add one death to his counter
+							Hit.Deaths++;
+						}
+
+						return Hit;
 					}
-
-					return Hit;
 				}
 			}
+			else
+			{
+				// A wall was hit.
+				break;
+			}
 		}
+
+		// Bullet missed
+		Missed++;
 
 		return null;
 	}
@@ -358,7 +375,7 @@ public class Player
 			}
 
 			// Player against wall collision
-			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY())))
+			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
 			{
 				if (Clear)
 				{
@@ -390,7 +407,7 @@ public class Player
 		else if (!Float.isNaN(PushAngle))
 		{
 			// Try to push the player
-			// If the player is alreay in another player, he's already fucked.
+			// If the player is already in another player, he's already fucked.
 
 			// TO-DO: Make the player slide against the other's sides [DEVIATE THE MOMENTUM!!!]
 
@@ -500,7 +517,7 @@ public class Player
 	}
 
 	// Check for collision against walls
-	public Plane CheckWallCollision(float NewX, float NewY)
+	public Plane CheckWallCollision(float NewX, float NewY, float RadiusToUse)
 	{
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
@@ -533,14 +550,14 @@ public class Player
 				float WallLength = (float)Math.sqrt(Math.pow(StartX - EndX, 2) + Math.pow(StartY - EndY, 2));
 				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
 
-				if (DistanceToOneWallVertex <= WallLength + this.Radius() * 2)
+				if (DistanceToOneWallVertex <= WallLength + RadiusToUse * 2)
 				{
 					// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
 					// Test for a vertical wall
 					if (StartX == EndX)
 					{
 						// Test if player is close enough for a collision
-						if (Math.abs(StartX - NewX) < Radius())
+						if (Math.abs(StartX - NewX) <= RadiusToUse)
 						{
 							// Now test if the player stands within the wall's vertical range
 							if (StartY < EndY)
@@ -569,7 +586,7 @@ public class Player
 					if (StartY == EndY)
 					{
 						// Test if player is close enough for a collision
-						if (Math.abs(StartY - NewY) < Radius())
+						if (Math.abs(StartY - NewY) <= RadiusToUse)
 						{
 							// Now test if the player stands within the wall's horizontal range
 							if (StartX < EndX)
@@ -600,11 +617,11 @@ public class Player
 					float OrthY = -EndX;    // The opposite is 'StartY'
 					float OrthAngle = (float) Math.atan2(StartY - OrthY, StartX - OrthX);
 
-					float OrthPlayerStartX = NewX - (float) Math.cos(OrthAngle) * (float) Radius();
-					float OrthPlayerStartY = NewY - (float) Math.sin(OrthAngle) * (float) Radius();
+					float OrthPlayerStartX = NewX - (float) Math.cos(OrthAngle) * RadiusToUse;
+					float OrthPlayerStartY = NewY - (float) Math.sin(OrthAngle) * RadiusToUse;
 
-					float OrthPlayerEndX = NewX + (float) Math.cos(OrthAngle) * (float) Radius();
-					float OrthPlayerEndY = NewY + (float) Math.sin(OrthAngle) * (float) Radius();
+					float OrthPlayerEndX = NewX + (float) Math.cos(OrthAngle) * RadiusToUse;
+					float OrthPlayerEndY = NewY + (float) Math.sin(OrthAngle) * RadiusToUse;
 
 					// Cramer's rule --> source: https://books.google.ca/books?id=lRUj-nhQRu8C&pg=PA844&lpg=PA844&dq=cramer%27s+rule+windows+game&source=bl&ots=7xD9_FJ72z&sig=GL9uIZvhbQX8buR6UZlxgtVOGYU&hl=en&sa=X&ved=0CB4Q6AEwAWoVChMIqeiE75SyyAIVAxceCh0E2Q-X#v=onepage&q=cramer's%20rule%20windows%20game&f=false
 					// https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1201356#1201356
@@ -626,7 +643,7 @@ public class Player
 
 						float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
 
-						if (Distance <= Radius())
+						if (Distance <= RadiusToUse)
 						{
 							//System.err.println(Distance);
 
@@ -636,7 +653,7 @@ public class Player
 
 					// Check for a collision on the edge of a wall
 					float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
-					if (Distance <= Radius())
+					if (Distance <= RadiusToUse)
 					{
 						return Lvl.Planes.get(Plane);
 					}
@@ -644,7 +661,7 @@ public class Player
 					{
 						Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
 
-						if (Distance <= Radius())
+						if (Distance <= RadiusToUse)
 						{
 							return Lvl.Planes.get(Plane);
 						}

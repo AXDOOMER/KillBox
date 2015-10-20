@@ -1685,110 +1685,118 @@ public class Menu
 				// Get int value of char
 				int CharValue = (String.valueOf(Items.get(ItemsIndex).charAt(Image)).toUpperCase()).charAt(0);
 				int TextureIndex = 0;
-				// Check if number
-				if(CharValue >= Char0Index && CharValue <= Char9Index)
+				if(CharValue == ' ')
 				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - Char0Index;
+					// Adding width to total width
+					ImagePosXGL = ImagePosXGL + ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor) + MarginGL;
 				}
-				else if(CharValue == CharCommercialAIndex)
+				else
 				{
-					TextureIndex = 10;
-				}
-				// Check if letter
-				else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - CharAIndex + 10;
-				}
-				// Special character
-				else if (CharValue == CharPERIODIndex || CharValue == CharCommaIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 36;
-				}
-				else if(CharValue == CharCOLONIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 37;
-				}
-				else if(CharValue == CharUnderScoreIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 38;
-				}
-				else if(CharValue == CharApostropheIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 39;
-				}
-				else if(CharValue == CharAsteriskIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 40;
-				}
-				else if(CharValue == CharLeftParaIndex || CharValue == CharLeftSquare || CharValue == CharLeftBrace)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 41;
-				}
-				else if(CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 42;
-				}
-				else if(CharValue == CharPlusIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 43;
-				}
-				else if(CharValue == CharMinusIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 44;
-				}
-				else if(CharValue == CharNumberIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 45;
-				}
-				else if(CharValue == CharEclamationIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 46;
-				}
-				else // Character not define. Write ?.
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 47;
-				}
+					// Check if numbe
+					if(CharValue >= Char0Index && CharValue <= Char9Index)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = CharValue - Char0Index;
+					}
+					else if(CharValue == CharCommercialAIndex)
+					{
+						TextureIndex = 10;
+					}
+					// Check if letter
+					else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = CharValue - CharAIndex + 10;
+					}
+					// Special character
+					else if (CharValue == CharPERIODIndex || CharValue == CharCommaIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 36;
+					}
+					else if(CharValue == CharCOLONIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 37;
+					}
+					else if(CharValue == CharUnderScoreIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 38;
+					}
+					else if(CharValue == CharApostropheIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 39;
+					}
+					else if(CharValue == CharAsteriskIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 40;
+					}
+					else if(CharValue == CharLeftParaIndex || CharValue == CharLeftSquare || CharValue == CharLeftBrace)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 41;
+					}
+					else if(CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 42;
+					}
+					else if(CharValue == CharPlusIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 43;
+					}
+					else if(CharValue == CharMinusIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 44;
+					}
+					else if(CharValue == CharNumberIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 45;
+					}
+					else if(CharValue == CharEclamationIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 46;
+					}
+					else // Character not define. Write ?.
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 47;
+					}
 
-				// Initialize and Bind Texture
-				FontArray.get(TextureIndex).Bind();
+					// Initialize and Bind Texture
+					FontArray.get(TextureIndex).Bind();
 
-				// Converting image height and widht
-				double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
-				double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
-				double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
-				glDisable(GL_DEPTH_TEST);
-				// Drawing image
-				glBegin(GL_QUADS);
-				glTexCoord2d(0.0d, 1.0d);
-				glVertex2d(ImagePosXGL, PosYGL);
-				glTexCoord2d(1.0d, 1.0d);
-				glVertex2d(ImagePosXGL + ImgWidthGL, PosYGL);
-				glTexCoord2d(1.0d, 0.0d);
-				glVertex2d(ImagePosXGL + ImgWidthGL, PosYGL + ImgHeightGL);
-				glTexCoord2d(0.0d, 0.0d);
-				glVertex2d(ImagePosXGL, PosYGL + ImgHeightGL);
-				glEnd();
+					// Converting image height and widht
+					double ImgWidthGL  = ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor);
+					double ImgHeightGL  = ConvertPercentToGL(FontHeight, false, GridWidth, GridHeight, WindowColor);
+					double ImgWidthPX = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
+					glDisable(GL_DEPTH_TEST);
+					// Drawing image
+					glBegin(GL_QUADS);
+					glTexCoord2d(0.0d, 1.0d);
+					glVertex2d(ImagePosXGL, PosYGL);
+					glTexCoord2d(1.0d, 1.0d);
+					glVertex2d(ImagePosXGL + ImgWidthGL, PosYGL);
+					glTexCoord2d(1.0d, 0.0d);
+					glVertex2d(ImagePosXGL + ImgWidthGL, PosYGL + ImgHeightGL);
+					glTexCoord2d(0.0d, 0.0d);
+					glVertex2d(ImagePosXGL, PosYGL + ImgHeightGL);
+					glEnd();
 
-				// Adjusting next PosX for the next image
-				ImagePosXGL = ImagePosXGL + ImgWidthGL + MarginGL;
+					// Adjusting next PosX for the next image
+					ImagePosXGL = ImagePosXGL + ImgWidthGL + MarginGL;
 
-				glEnable(GL_DEPTH_TEST);
+					glEnable(GL_DEPTH_TEST);
 
-				glDisable(GL_TEXTURE_2D);
+					glDisable(GL_TEXTURE_2D);
+				}
 			}
 
 			// Draw selector image at the end of the Combo Box
@@ -4124,12 +4132,12 @@ public class Menu
 		glEnd();
 
 		// Move drawing cursor back to center of window
-		glTranslatef(-1, -1, 0);
+		glTranslatef(1, 1, 0);
 
 		//glDisable(GL_TEXTURE_2D);
 	}
 
-	// Can be used to draw messages on the screen
+	// Can be used to draw messages on the screen (2D texture or menu must be initalized or it will cause glitches)
 	public void DrawText(String Text, double LeftXPercent, double BottomYPercent, double LetterWidthPercent, double LetterHeightPercent)
 	{
 		// Declare local variable
@@ -4142,38 +4150,100 @@ public class Menu
 			// Get int value of char
 			int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
 			int TextureIndex = 0;
-			// Check if number
-			if (CharValue >= Char0Index && CharValue <= Char9Index)
+			// Check if space
+			if (CharValue == ' ')
 			{
-				// Initialize Texture Index in font List
-				TextureIndex = CharValue - Char0Index;
+				// Adding width to total width
+				ActualX = ActualX + LetterWidthPercent + MarginPercent;
 			}
-			// Check if letter
-			else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
+			else
 			{
-				// Initialize Texture Index in font List
-				TextureIndex = CharValue - CharAIndex + 10;
-			}
-			// Special character
-			else if (CharValue == CharPERIODIndex)
-			{
-				// Initialize Texture Index in font List
-				TextureIndex = 36;
-			}
-			else if(CharValue == CharCOLONIndex)
-			{
-				// Initialize Texture Index in font List
-				TextureIndex = 37;
-			}
+				// Check if number
+				if (CharValue >= Char0Index && CharValue <= Char9Index)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = CharValue - Char0Index;
+				}
+				else if (CharValue == CharCommercialAIndex)
+				{
+					TextureIndex = 10;
+				}
+				// Check if letter
+				else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = CharValue - CharAIndex + 10;
+				}
+				// Special character
+				else if (CharValue == CharPERIODIndex || CharValue == CharCommaIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 36;
+				}
+				else if (CharValue == CharCOLONIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 37;
+				}
+				else if (CharValue == CharUnderScoreIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 38;
+				}
+				else if (CharValue == CharApostropheIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 39;
+				}
+				else if (CharValue == CharAsteriskIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 40;
+				}
+				else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquare || CharValue == CharLeftBrace)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 41;
+				} else if (CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 42;
+				}
+				else if (CharValue == CharPlusIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 43;
+				}
+				else if (CharValue == CharMinusIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 44;
+				}
+				else if (CharValue == CharNumberIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 45;
+				}
+				else if (CharValue == CharEclamationIndex)
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 46;
+				}
+				else // Character not define. Write ?.
+				{
+					// Initialize Texture Index in font List
+					TextureIndex = 47;
+				}
 
-			// Initialize and Bind Texture
-			Texture Image = FontArray.get(TextureIndex);
+				// Initialize and Bind Texture
+				Texture Image = FontArray.get(TextureIndex);
 
-			// Draw image
-			DrawTexture(Image, ActualX, BottomYPercent, LetterWidthPercent, LetterHeightPercent);
+				// Draw image
+				DrawTexture(Image, ActualX, BottomYPercent, LetterWidthPercent, LetterHeightPercent);
 
-			// Add Width to X
-			ActualX = ActualX + LetterWidthPercent + MarginPercent;
+				// Add Width to X
+				ActualX = ActualX + LetterWidthPercent + MarginPercent;
+			}
 		}
 	}
 }

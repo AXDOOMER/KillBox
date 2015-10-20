@@ -28,7 +28,7 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox v2.??? (beta)");
+		System.out.println("			KillBox v2.??? (Bêta)");
 		System.out.println("			======================");
 
 		// Nodes are computers where there is a player
@@ -260,7 +260,11 @@ public class Game
 							{
 								if (Lvl.Players.get(Number).Health > 0)
 								{
-									Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+									// BUG: Don't shot at the first tick, the player shots for no reason.
+									if (TicksCount > 0)
+									{
+										Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+									}
 								}
 								else
 								{
@@ -275,8 +279,6 @@ public class Game
 										}
 									}
 								}
-
-								Lvl.Players.get(Number).Shot = false;
 							}
 						}
 
@@ -286,6 +288,7 @@ public class Game
 							Lvl.Players.get(Player).SideMove = 0;
 							Lvl.Players.get(Player).FrontMove = 0;
 							Lvl.Players.get(Player).AngleDiff = 0;
+							Lvl.Players.get(Player).Shot = false;
 						}
 					}
 				}
