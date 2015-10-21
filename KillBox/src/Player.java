@@ -1004,7 +1004,7 @@ public class Player
 		{
 			float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
 
-			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosY() - Z) <= this.Height())
+			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
 			{
 				FreeSpace = false;
 			}
