@@ -475,10 +475,13 @@ public class Game
 					}
 				}
 
-				if (View == NetplayInfo.View)
+				if (NetplayInfo != null)
 				{
-					// Set the control to its own view
-					HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
+					if (View == NetplayInfo.View)
+					{
+						// Set the control to its own view
+						HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
+					}
 				}
 
 				try

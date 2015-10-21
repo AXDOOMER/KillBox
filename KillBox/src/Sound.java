@@ -203,7 +203,7 @@ public class Sound
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 					alSource(IntSource, AL_POSITION, SourcePos);
 					alSource(IntSource, AL_VELOCITY, SourceVel);
-					// AL_GAIN Controle le volume
+					// AL_GAIN controls the volume
 					alSourcef(IntSource, AL_GAIN, 0.5f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
@@ -232,7 +232,7 @@ public class Sound
 			// Find the right buffer for the sound
 			do
 			{
-				if (LoadedFiles.get(SoundBuffersIndex) == Name)
+				if (LoadedFiles.get(SoundBuffersIndex).equals(Name))
 				{
 					RightBufferIndex = true;
 				}

@@ -27,7 +27,7 @@ public class Camera
 	Player Plyr;
 	Menu Menu = new Menu();
 
-	// Postions inside the camera are as represented in OpenGL
+	// Positions inside the camera are as represented as in OpenGL
 	// The axis are inverted, thus a positive value is a negative value
 	private float PosX;
 	private float PosY;
@@ -36,7 +36,7 @@ public class Camera
 	private float RotY;
 	private float RotZ;
 
-	// Controle the mouse sensitivity
+	// Controls the mouse sensitivity
 	public float MouseSensitivity = 1.0f;
 
 	private float FOV;
