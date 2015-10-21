@@ -19,8 +19,8 @@ import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
 {
-	float PosX = -100;	// Horizontal position
-	float PosY = -100;	// Vertical position
+	float PosX;	// Horizontal position
+	float PosY;	// Vertical position
 	float PosZ;	// Height, do not mix with Y.
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
