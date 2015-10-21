@@ -499,7 +499,12 @@ public class Camera
 
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
-					float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
+					//float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
+					float LookAngleDiff = (float)Math.atan2(this.CurrentPlayer().PosY() - Lvl.Players.get(Player).PosY(), this.CurrentPlayer().PosX() - Lvl.Players.get(Player).PosX());
+					// Convert to degrees
+					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
+
+					System.err.println(LookAngleDiff);
 
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 
