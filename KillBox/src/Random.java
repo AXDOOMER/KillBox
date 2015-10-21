@@ -44,6 +44,11 @@ public class Random
 
 		return (int) PRNG[Index++];
 	}
+
+	public void Reset()
+	{
+		Index = 0;
+	}
 }
 
 

@@ -37,6 +37,7 @@ public class Game
 		Level Lvl = null;
 		int View = 0;
 		String ConfigFileName = "default.cfg";
+		boolean InGame = false;
 
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
@@ -86,7 +87,10 @@ public class Game
 
 				System.out.println("Up to " + Nodes + " nodes can join.");
 
-				NetplayInfo = new Netplay(Nodes);
+				NetplayInfo = new Netplay(Nodes, 0, 10, 25);
+
+				// So the game starts.
+				InGame = true;
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
@@ -101,16 +105,19 @@ public class Game
 				}
 				catch (Exception e)
 				{
-					System.out.println("Bad IP address specified to '-connect' argument.");
+					System.out.println("Bad IP address specified: " + HostIP);
 				}
 
 				NetplayInfo = new Netplay(Nodes, HostIP);
 
-				// Changer le nombre de Nodes pour le joueur
+				// Change the number of nodes
 				Nodes = NetplayInfo.Nodes;
 
-				// Changer la view du joueur
+				// Change the player's view
 				View = NetplayInfo.View;
+
+				// So the game starts
+				InGame = true;
 			}
 
 			// Select sound mode
@@ -137,7 +144,7 @@ public class Game
 			// Sound (SFX)
 			Sound SndDriver = null;
 			// Whoa! That's an ugly way to do things...
-			for (int i = 1; i <= Nodes; i++)
+			for (int Player = 0; Player < Nodes; Player++)
 			{
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
@@ -160,6 +167,7 @@ public class Game
 
 			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
+			HeadCamera.Menu.InGame = InGame;
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
@@ -210,6 +218,10 @@ public class Game
 				}
 			}
 
+			// Deactivate de menu and give back the control to the player
+			//HeadCamera.Menu.Active(false);
+			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
+
 			// Load the configuration file
 			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
@@ -218,113 +230,255 @@ public class Game
 			{
 				TimeStart = System.currentTimeMillis();
 
+				// Get mouse sensitivity
+				HeadCamera.MouseSensitivity = (((float)HeadCamera.Menu.MouseSensitivity.Int())/100);
+				// Get sound volume
+				SndDriver.VolumeMultiplier = ((float)(HeadCamera.Menu.SFXVolume.Int()))/100;
+				// Get sound mode
+				if(HeadCamera.Menu.SoundMode.Int() == 0)
+					SndDriver.SndMode = SoundMode.Bi;
+				else if(HeadCamera.Menu.SoundMode.Int() == 1)
+					SndDriver.SndMode = SoundMode.Three;
+				else
+					SndDriver.SndMode = SoundMode.Duppler;
+
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
 
-				// Update players
-				for (int Player = 0; Player < Lvl.Players.size(); Player++)
+				if (HeadCamera.Menu.InGame)
 				{
-					Lvl.Players.get(Player).UpdateIfDead();
-				}
-
-				if (Nodes > 1)
-				{
-					if (CheckParm(args, "-fakenet") < 0)
+					// Update players
+					for (int Player = 0; Player < Lvl.Players.size(); Player++)
 					{
-						// Empty the command that's gonna be sent over the network
-						NetplayInfo.PlayerCommand.Reset();
-						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+						Lvl.Players.get(Player).UpdateIfDead();
+					}
+
+					if (Nodes > 1)
+					{
+						if (CheckParm(args, "-fakenet") < 0)
 						{
-							NetplayInfo.OtherPlayersCommand.get(Player).Reset();
-						}
-
-						// Put the players' move in a command
-						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
-						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
-						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
-						NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
-
-						// Do the network communication through the socket
-						NetplayInfo.Update();
-
-						// Update the other player movements
-						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
-						{
-							int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
-
-							Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-							Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-							Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
-
-							if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+							// Empty the command that's gonna be sent over the network
+							NetplayInfo.PlayerCommand.Reset();
+							for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 							{
-								if (Lvl.Players.get(Number).Health > 0)
+								NetplayInfo.OtherPlayersCommand.get(Player).Reset();
+							}
+
+							// Put the players' move in a command
+							NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
+							NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
+							NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+							NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
+
+							// Do the network communication through the socket
+							NetplayInfo.Update();
+
+							// Update the other player movements
+							for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+							{
+								int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
+
+								Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+								Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+								Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+
+								if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 								{
-									// BUG: Don't shot at the first tick, the player shots for no reason.
-									if (TicksCount > 0)
-									{
-										Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-									}
-								}
-								else
-								{
-									// Check if the player has completely dropped on the floor
-									if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
-									{
-										// Spawn the player
-										if (!Lvl.Players.get(Number).SpawnAtRandomSpot())
+									if (Lvl.Players.get(Number).Health > 0) {
+										// BUG: Don't shot at the first tick, the player shots for no reason.
+										if (TicksCount > 0)
 										{
-											System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-											System.exit(1);
+											Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+										}
+									}
+									else
+									{
+										// Check if the player has completely dropped on the floor
+										if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+										{
+											// Spawn the player
+											if (!Lvl.Players.get(Number).SpawnAtRandomSpot()) {
+												System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+												System.exit(1);
+											}
 										}
 									}
 								}
 							}
-						}
 
-						for (int Player = 0; Player < Lvl.Players.size(); Player++)
-						{
-							// BUG: Cheap fix player strafing not reset. FUCK!
-							Lvl.Players.get(Player).SideMove = 0;
-							Lvl.Players.get(Player).FrontMove = 0;
-							Lvl.Players.get(Player).AngleDiff = 0;
-							Lvl.Players.get(Player).Shot = false;
+							for (int Player = 0; Player < Lvl.Players.size(); Player++)
+							{
+								// BUG: Cheap fix player strafing not reset. FUCK!
+								Lvl.Players.get(Player).SideMove = 0;
+								Lvl.Players.get(Player).FrontMove = 0;
+								Lvl.Players.get(Player).AngleDiff = 0;
+								Lvl.Players.get(Player).Shot = false;
+							}
 						}
 					}
-				}
 
-				// Spy view
-				if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
-				{
-					boolean Control = false;
-
-					do
+					// Sound test!!
+					if (Keyboard.isKeyDown(Keyboard.KEY_1))
 					{
-						View = (View + 1) % Lvl.Players.size();
-
-						if (View == NetplayInfo.View)
-						{
-							Control = true;
-						}
-						else
-						{
-							Control = false;
-						}
+						SndDriver.PlaySound(Lvl.Players.get(View), "button.wav",
+								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
 					}
-					while (Lvl.Players.get(View) == null);
+					if (Keyboard.isKeyDown(Keyboard.KEY_2))
+					{
+						SndDriver.PlaySound(Lvl.Players.get(View), "chat.wav",
+								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+					}
+					if (Keyboard.isKeyDown(Keyboard.KEY_3))
+					{
+						SndDriver.PlaySound(Lvl.Players.get(View), "cocking.wav",
+								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+					}
+					if (Keyboard.isKeyDown(Keyboard.KEY_4))
+					{
+						SndDriver.PlaySound(Lvl.Players.get(View), "death.wav",
+								Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosX(), Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosY(), Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosZ());
+					}
+					if (Keyboard.isKeyDown(Keyboard.KEY_5))
+					{
+						SndDriver.PlaySound(Lvl.Players.get(View), "respawn.wav",
+								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+					}
 
-					System.out.println("Spying view " + View);
-					HeadCamera.ChangePlayer(Lvl.Players.get(View), Control);
+					// Spy view
+					if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
+					{
+						boolean Control = false;
 
-					JustPressedSpyKey = true;
-				}
-				else if (Keyboard.isKeyDown(Keyboard.KEY_F12))
-				{
-					JustPressedSpyKey = true;
+						do
+						{
+							View = (View + 1) % Lvl.Players.size();
+
+							if (View == NetplayInfo.View)
+							{
+								Control = true;
+							}
+							else
+							{
+								Control = false;
+							}
+						}
+						while (Lvl.Players.get(View) == null);
+
+						System.out.println("Spying view " + View);
+						HeadCamera.ChangePlayer(Lvl.Players.get(View), Control);
+
+						JustPressedSpyKey = true;
+					}
+					else if (Keyboard.isKeyDown(Keyboard.KEY_F12))
+					{
+						JustPressedSpyKey = true;
+					}
+					else
+					{
+						JustPressedSpyKey = false;
+					}
 				}
 				else
 				{
-					JustPressedSpyKey = false;
+					if (NetplayInfo != null)
+					{
+						if (NetplayInfo.Server != null)
+						{
+							NetplayInfo.Server.close();
+						}
+
+						for (int Soc = 0; Soc < NetplayInfo.Connections.size(); Soc++)
+						{
+							if (NetplayInfo.Connections.get(Soc) != null)
+							{
+								NetplayInfo.Connections.get(Soc).close();
+							}
+						}
+					}
+
+					// Game is not started. Start one using the menu.
+					if (HeadCamera.Menu.IsServer)
+					{
+						Nodes = 2;
+						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.Gamemode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
+						HeadCamera.Menu.InGame = true;
+
+						// The game will start, don't need this anymore. Reset to default value.
+						HeadCamera.Menu.IsServer = false;
+
+						// Create more players if there is not enough for every nodes
+						for (int Player = Lvl.Players.size(); Player < Nodes; Player++)
+						{
+							Lvl.Players.add(new Player(Lvl, SndDriver));
+						}
+
+						View = NetplayInfo.View;
+
+						// Players will spawn at random locations
+						Random Rand = new Random();
+						Rand.Reset();
+
+						for (int Player = 0; Player < Lvl.Players.size(); Player++)
+						{
+							if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
+							{
+								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+								System.exit(1);
+							}
+						}
+					}
+					else if (HeadCamera.Menu.IsClient)
+					{
+
+						String IpAddress = HeadCamera.Menu.Address;
+						Nodes = 2;
+						NetplayInfo = new Netplay(Nodes, IpAddress);
+
+						if (NetplayInfo.Connections.get(0).isConnected())
+						{
+							// Get the game condition
+							HeadCamera.Menu.Gamemode = NetplayInfo.Gamemode;
+							HeadCamera.Menu.TimeLimit = NetplayInfo.TimeLimit;
+							HeadCamera.Menu.KillLimit = NetplayInfo.KillLimit;
+
+							// Change the player view
+							View = NetplayInfo.View;
+
+							HeadCamera.Menu.InGame = true;
+						}
+						else
+						{
+							System.err.println("Can't connect to server. Check if the server works.");
+						}
+
+						// The game will start, don't need this anymore. Reset to default value.
+						HeadCamera.Menu.IsClient = false;
+
+						// Create more players if there is not enough for every nodes
+						for (int Player = Lvl.Players.size(); Player < Nodes; Player++)
+						{
+							Lvl.Players.add(new Player(Lvl, SndDriver));
+						}
+
+						// Players will spawn at random locations
+						Random Rand = new Random();
+						Rand.Reset();
+
+						for (int Player = 0; Player < Lvl.Players.size(); Player++)
+						{
+							if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
+							{
+								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+								System.exit(1);
+							}
+						}
+					}
+				}
+
+				if (View == NetplayInfo.View)
+				{
+					// Set the control to its own view
+					HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
 				}
 
 				try
@@ -361,9 +515,9 @@ public class Game
 			// Close the display
 			Display.destroy();
 		}
-		catch (/*IO*/Exception ioe)
+		catch (Exception e)
 		{
-			System.err.println(ioe.getMessage());
+			System.err.println(e.getMessage());
 			System.exit(1);
 		}
 	}

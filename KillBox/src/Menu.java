@@ -39,6 +39,14 @@ public class Menu
 	String GameVersion = "v2.??? (Beta)";
 	String LastUpdate = "october 19th 2015";
 
+	public String Address = null;
+	public int Gamemode = 0;
+	public int TimeLimit = 0;
+	public int KillLimit = 0;
+	public boolean IsServer = false;
+	public boolean IsClient = false;
+	public boolean InGame = false;
+
 	// Inner class to have "pointer" of primitive type
 	class Menu_Boolean
 	{
@@ -2401,8 +2409,6 @@ public class Menu
 				}
 			}
 
-
-
 			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
 			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight - TitleHeightAdjust, false, GridWidth, GridHeight);
@@ -2477,6 +2483,7 @@ public class Menu
 					{
 						// Connect to server
 						CreateServer();
+						InGame = false;
 					}
 					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
 					{
@@ -2587,12 +2594,13 @@ public class Menu
 			//}
 
 			// Get Gamemode, TimeLimit and KillLimit
-			int Mode = Gamemode.Int();
-			int Time = TimeLimit.Int();
-			int Kill = KillLimit.Int();
+			Menu.this.Gamemode = this.Gamemode.Int();
+			Menu.this.TimeLimit = this.TimeLimit.Int();
+			Menu.this.KillLimit = this.KillLimit.Int();
 
 			// Get Map name
 			String Map = ((MenuItem_ComboBox)Items.get(PosComboBox[0]).get(PosComboBox[1])).CurrentItem();
+			IsServer = true;
 		}
 	}
 
@@ -2947,6 +2955,7 @@ public class Menu
 					{
 						// Connect to server
 						ConnectToServer();
+						InGame = false;
 					}
 					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1])
 					{
@@ -3006,7 +3015,8 @@ public class Menu
 		public void ConnectToServer()
 		{
 			// Try to connect to address
-			String Address = ((MenuItem_TextBox)Items.get(PosTextBox[0]).get(PosTextBox[1])).TextInside();
+			Address = ((MenuItem_TextBox)Items.get(PosTextBox[0]).get(PosTextBox[1])).TextInside();
+			IsClient = true;
 		}
 	}
 
@@ -4015,6 +4025,10 @@ public class Menu
 	public void QuitGame()
 	{
 		// To do
+		this.Active(false);
+		IsClient = false;
+		IsServer = false;
+		InGame = false;
 	}
 
 	// Close app
