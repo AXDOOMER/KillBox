@@ -1082,7 +1082,7 @@ public class Player
 
 	public void MakesNoise(String Sound)
 	{
-		Emitter.PlaySound(this, Sound);
+		Emitter.PlaySound(Sound);
 	}
 
 	public float MoX()

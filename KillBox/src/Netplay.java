@@ -115,6 +115,11 @@ public class Netplay
     // Object NetCommand
     NetCommand PlayerCommand = null;
 
+    // Condition de partie
+    int Gamemode = 0;
+    int TimeLimit = 0;
+    int KillLimit = 0;
+
     // For now, only for one player
     ArrayList<NetCommand> OtherPlayersCommand = new ArrayList<NetCommand>();
 
@@ -122,6 +127,7 @@ public class Netplay
     String ServerAddress = "127.0.0.1";
     final int Port = 8167;
     final int Wait = 120000;	// 2 minutes
+    final int WaitLag = 5000;
 
     private String Chat = null;
     String Line = null;
@@ -164,6 +170,11 @@ public class Netplay
 			NumberOfPlayers = Integer.parseInt(strings[0]);
 			RemainingNumberOfPlayers = Integer.parseInt(strings[1]);
 			PlayerNumber = Integer.parseInt(strings[2]);
+            this.Gamemode = Integer.parseInt(strings[3]);
+            this.TimeLimit = Integer.parseInt(strings[4]);
+            this.KillLimit = Integer.parseInt(strings[5]);
+
+            Connections.get(0).setSoTimeout(WaitLag);
 
 			// It gives the right view to the right player
 			View = PlayerNumber;
@@ -188,6 +199,11 @@ public class Netplay
 				System.out.println("Remaining players: " + RemainingNumberOfPlayers);
 			}
 		}
+        catch (SocketTimeoutException sto)
+        {
+            System.out.println("Other player may have disconnected or connection was interrupted.");
+            System.exit(1);
+        }
 		catch(IOException e)
 		{
 			System.err.println(e);
@@ -195,7 +211,7 @@ public class Netplay
 		}
 
 		PlayerCommand = new NetCommand((byte)PlayerNumber/*Player number*/);
-		OtherPlayersCommand.add(new NetCommand((byte)1));
+		OtherPlayersCommand.add(new NetCommand((byte)0));
 	}
 
 	// Constructor for the server
@@ -238,6 +254,7 @@ public class Netplay
 					System.err.println("Waiting for " + (this.Nodes - Player) + " more node(s)...");
 					Socket Client = Server.accept();
 
+                    Client.setSoTimeout(WaitLag);
 
 					System.err.println("A client has connected.");
 					Connections.add(Client);
@@ -250,13 +267,82 @@ public class Netplay
 					SendNodesToPlayer(this.Nodes - Player, this.Nodes,Player/*Player's number*/);
 				}
 			}
+            catch (SocketTimeoutException sto)
+            {
+                System.out.println("Other player may have disconnected or connection was interrupted.");
+                System.exit(1);
+            }
 			catch (IOException ioe)
 			{
 				System.err.println(ioe);
 			}
 		}
 	}
+    // Constructor for the server with game condition
+    public Netplay(int Nodes,int NewGameMode,int NewTimeLimit,int NewKillLimit)
+    {
+        this.Nodes = Nodes;
 
+        // Check if we are in a mutliplayer game
+        if (Nodes > 1)
+        {
+            try
+            {
+                Server = new ServerSocket(Port);
+            }
+            catch (IOException ioe)
+            {
+                System.err.println(ioe);
+            }
+
+            try
+            {
+                // Wait for others to connect
+                Server.setSoTimeout(Wait);
+            }
+            catch (SocketException se)
+            {
+                System.err.println(se);
+            }
+
+            try
+            {
+                // Server is 0
+                PlayerCommand = new NetCommand((byte)0/*Player number*/);
+                // The other player is 1
+                OtherPlayersCommand.add(new NetCommand((byte)1));
+
+                for (int Player = 1; Player < this.Nodes; Player++)
+                {
+
+                    System.err.println("Waiting for " + (this.Nodes - Player) + " more nodes");
+                    Socket Client = Server.accept();
+
+                    Client.setSoTimeout(WaitLag);
+
+                    System.err.println("A client has connected");
+                    Connections.add(Client);
+
+                    Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
+                    Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
+
+                    // After a player is connected, we send the number of connections.
+                    // This way, we can start all the players at the same time.
+
+                    SendFirstMessageToPlayers(this.Nodes - Player, this.Nodes, Player, NewGameMode, NewTimeLimit, NewKillLimit);
+                }
+            }
+            catch (SocketTimeoutException sto)
+            {
+                System.out.println("Other player may have disconnected or connection was interrupted.");
+                System.exit(1);
+            }
+            catch (IOException ioe)
+            {
+                System.err.println(ioe);
+            }
+        }
+    }
     public NetCommand GetReferenceNetCommand()
     {
         return PlayerCommand;
@@ -270,9 +356,7 @@ public class Netplay
             // Write his command
             Writer.println(PlayerCommand);
             Writer.flush();
-
             // Read the other player's command
-            this.PlayerCommand.Number++;
             Line = Reader.readLine();
 
             String[] strings = Line.split(Separator);
@@ -289,6 +373,11 @@ public class Netplay
             // print the command (for debug)!
 
         }
+        catch (SocketTimeoutException sto)
+        {
+            System.out.println("Other player may have disconnected or connection was interrupted.");
+            System.exit(1);
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -299,7 +388,7 @@ public class Netplay
     {
         String Message = Integer.toString(NombreJoueur) + Separator + Integer.toString(NombreJoueurRestant) + Separator + Integer.toString(PlayerNumber);
 
-        for(int Player = 0; Player < Connections.size(); Player++)
+        for (int Player = 0; Player < Connections.size(); Player++)
         {
             try
             {
@@ -311,7 +400,7 @@ public class Netplay
                     PlayerWriter.flush();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.err.println(e.getMessage());
             }
@@ -320,7 +409,7 @@ public class Netplay
 
     public void SendMessageToPlayer(String message)
     {
-        for(int Player = 0; Player < Connections.size(); Player++)
+        for (int Player = 0; Player < Connections.size(); Player++)
         {
             Socket player = Connections.get(Player);
             try
@@ -333,7 +422,29 @@ public class Netplay
                     PlayerWriter.flush();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+    public void SendFirstMessageToPlayers(int NombreJoueurRestant, int NombreJoueur,int PlayerNumber,int NewGamemode,int NewTimeLimit,int NewKillLimit)
+    {
+        String Message = Integer.toString(NombreJoueur) + Separator + Integer.toString(NombreJoueurRestant) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGamemode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit);
+
+        for (int Player = 0; Player < Connections.size(); Player++)
+        {
+            try
+            {
+                if (Connections.get(Player).isConnected())
+                {
+                    PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(Connections.get(Player).getOutputStream()));
+
+                    PlayerWriter.println(Message);
+                    PlayerWriter.flush();
+                }
+            }
+            catch (Exception e)
             {
                 System.err.println(e.getMessage());
             }

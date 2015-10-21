@@ -36,6 +36,9 @@ public class Camera
 	private float RotY;
 	private float RotZ;
 
+	// Controle the mouse sensitivity
+	public float MouseSensitivity = 1.0f;
+
 	private float FOV;
 	private float Aspect;
 	private float Near;
@@ -175,8 +178,8 @@ public class Camera
 
 		if (Mouse.isGrabbed())
 		{
-			MouseTurnH = (short) Mouse.getDX();
-			MouseVertical = (short) Mouse.getDY();
+			MouseTurnH = (short) (Mouse.getDX() * MouseSensitivity);
+			MouseVertical = (short) (Mouse.getDY() * MouseSensitivity);
 		}
 		else
 		{
