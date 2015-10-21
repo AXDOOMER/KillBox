@@ -216,8 +216,7 @@ public class Camera
 
 		if (HasControl && !Menu.Active())    // If I am this player
 		{
-			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
-			CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
+			//CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
 			// If keys for opposite movements are held, don't do anything.
 			if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
@@ -253,9 +252,13 @@ public class Camera
 				{
 					CurrentPlayer().AngleTurn((short) 500);
 				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+				else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
 				{
 					CurrentPlayer().AngleTurn((short) -500);
+				}
+				else
+				{
+					CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
 				}
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
