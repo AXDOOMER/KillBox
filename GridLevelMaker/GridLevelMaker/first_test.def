@@ -1,0 +1,16 @@
+#: default.jpg
+$: grass2.jpg
+%: brick-tile1.jpg
+&: grass2.jpg
+/: brick-tile1.jpg
+?: DOOR9_1.bmp
+": brick-tile1.jpg
+!: DOOR9_1.bmp
+|: brick-tile1.jpg
+\: default.jpg
+>: brick-tile1.jpg
+;: brick-tile1.jpg
+<: brick-tile1.jpg
+
+@: spawn
++: flag

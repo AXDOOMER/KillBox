@@ -20,9 +20,9 @@ import static org.lwjgl.opengl.GL11.*;  // GL_NEAREST
 
 public class Level
 {
-	String Name_ = "Unknown";
-	String Sky_;
-	String Fog_ = "black";
+	String Name = "Unknown";
+	String Sky;
+	String Fog = "black";
 	int Visibility = 0;
 	int Filter = GL_NEAREST;
 
@@ -86,15 +86,15 @@ public class Level
 							}
 							else if (Line.contains("name: "))
 							{
-								Name_ = Line.substring(Line.indexOf("name: ") + 6, Line.indexOf(";"));
+								Name = Line.substring(Line.indexOf("name: ") + 6, Line.indexOf(";"));
 							}
 							else if (Line.contains("fog: "))
 							{
-								Fog_ = Line.substring(Line.indexOf("fog: ") + 5, Line.indexOf(";"));
+								Fog = Line.substring(Line.indexOf("fog: ") + 5, Line.indexOf(";"));
 							}
 							else if (Line.contains("sky: "))
 							{
-								Sky_ = Line.substring(Line.indexOf("sky: ") + 5, Line.indexOf(";"));
+								Sky = Line.substring(Line.indexOf("sky: ") + 5, Line.indexOf(";"));
 							}
 						}
 					}
@@ -144,7 +144,7 @@ public class Level
 								Planes.get(Planes.size() - 1).SetReference(LoadTexture(Planes.get(Planes.size() - 1).TextureName));
 								NameIsSet = true;
 							}
-							else if (Line.contains("texture: "))
+							else if (Line.contains("light: "))
 							{
 								Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 9, Line.indexOf(";"))));
 							}
@@ -281,6 +281,7 @@ public class Level
 		catch (FileNotFoundException fnfe)
 		{
 			System.err.println("The specified level cannot be found: " + LvlName);
+			System.exit(1);
 		}
 	}
 

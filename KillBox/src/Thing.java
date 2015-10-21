@@ -38,7 +38,7 @@ public class Thing
 	{
 		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
-		Unknown, Custom
+		Flag, Unknown, Custom
 	}
 
 	Names Type;
@@ -200,6 +200,12 @@ public class Thing
 					Height = 24;
 					Health = 10;
 					Sprite = new Texture("Plasma.png", GL_NEAREST);
+					break;
+				case Flag:
+					Radius = 16;
+					Height = 48;
+					Health = 10;
+					Sprite = new Texture("Flag.png", GL_NEAREST);
 					break;
 
 				default:

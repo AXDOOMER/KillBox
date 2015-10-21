@@ -15,14 +15,12 @@
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
-import java.util.*;
 
 public class Game
 {
@@ -30,7 +28,7 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox v2.??? (alpha)");
+		System.out.println("			KillBox v2.??? (Bêta)");
 		System.out.println("			======================");
 
 		// Nodes are computers where there is a player
@@ -38,11 +36,20 @@ public class Game
 		String Demo = null;
 		Level Lvl = null;
 		int View = 0;
+		String ConfigFileName = "default.cfg";
+
+		// The frame rate and the time limit to execute a frame
+		final int FrameRate = 30;
+		final double TimeFrameLimit = (1 / (double)FrameRate) * 1000;
 
 		Netplay NetplayInfo = null;
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
+
+		long TimeStart = System.currentTimeMillis();
+		long TimeEnd = System.currentTimeMillis();
+
 		try
 		{
 			Lvl = new Level(/*Reader.readLine()*/ /*"Stuff/test.txt"*/);
@@ -79,31 +86,31 @@ public class Game
 
 				System.out.println("Up to " + Nodes + " nodes can join.");
 
-				NetplayInfo = new Netplay(true,Nodes);
+				NetplayInfo = new Netplay(Nodes);
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
-			// IP : -connect 127.0.0.1
 			if(CheckParm(args, "-connect") >= 0)
 			{
+				String HostIP = null;
+
 				try
 				{
-					String PlayerIp = args[CheckParm(args, "-connect") + 1];
-					System.out.println("IP : " + PlayerIp);
+					HostIP = args[CheckParm(args, "-connect") + 1];
+					System.out.println("Host IP : " + HostIP);
 				}
 				catch (Exception e)
 				{
-					System.out.println("Mistake in IP argu");
+					System.out.println("Bad IP address specified to '-connect' argument.");
 				}
 
-				NetplayInfo = new Netplay(false,Nodes/*useless*/);
+				NetplayInfo = new Netplay(Nodes, HostIP);
 
 				// Changer le nombre de Nodes pour le joueur
 				Nodes = NetplayInfo.Nodes;
 
 				// Changer la view du joueur
 				View = NetplayInfo.View;
-
 			}
 
 			// Select sound mode
@@ -137,7 +144,7 @@ public class Game
 
 			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
-			// The game is all setted up. Open the window.
+			// The game is all set up. Open the window.
 			try
 			{
 				Display.setDisplayMode(new DisplayMode(640, 480));
@@ -176,93 +183,16 @@ public class Game
 				WallsFilter = GL_LINEAR;
 			}
 
-			Lvl.LoadLevel("Stuff/test.txt", WallsFilter);
+			Lvl.LoadLevel("Stuff/maps/" + /*Reader.readLine()*/"genlevel.txt", WallsFilter);
 
 			// Players will spawn at random locations
-			Random Rand = new Random();
-			int TiresBeforeFreeSpawnIsFound = 0;
-			if(Lvl.Players.size() > 0)
+			for (int Player = 0; Player < Lvl.Players.size(); Player++)
 			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(0).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+				if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
 				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TiresBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TiresBeforeFreeSpawnIsFound++;
+					System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+					System.exit(1);
 				}
-
-				TiresBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 1)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(1).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TiresBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TiresBeforeFreeSpawnIsFound++;
-				}
-
-				TiresBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 2)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(2).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TiresBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TiresBeforeFreeSpawnIsFound++;
-				}
-
-				TiresBeforeFreeSpawnIsFound = 0;
-			}
-
-			if(Lvl.Players.size() > 3)
-			{
-				int RandomNumber = Rand.GiveNumber();
-				Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-				while (!Lvl.Players.get(3).Spawn(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
-				{
-					RandomNumber = Rand.GiveNumber();
-					SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
-
-					if (TiresBeforeFreeSpawnIsFound > 30)
-					{
-						System.out.println("Can't find a free spot to spawn. Your map may not have enough of them.");
-						System.exit(1);
-					}
-					TiresBeforeFreeSpawnIsFound++;
-				}
-
-				TiresBeforeFreeSpawnIsFound = 0;
 			}
 
 			// Load the texture "sprites" that will be used to represent the players in the game
@@ -280,66 +210,90 @@ public class Game
 				}
 			}
 
+			// Load the configuration file
+			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
+
 			// The main game loop
-			while (!Display.isCloseRequested())
+			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
 			{
+				TimeStart = System.currentTimeMillis();
+
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
 
+				// Update players
+				for (int Player = 0; Player < Lvl.Players.size(); Player++)
+				{
+					Lvl.Players.get(Player).UpdateIfDead();
+				}
+
 				if (Nodes > 1)
 				{
-					if (CheckParm(args, "-fakenet") >= 0)
+					if (CheckParm(args, "-fakenet") < 0)
 					{
-
+						// Empty the command that's gonna be sent over the network
 						NetplayInfo.PlayerCommand.Reset();
 						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 						{
 							NetplayInfo.OtherPlayersCommand.get(Player).Reset();
 						}
 
+						// Put the players' move in a command
 						NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
 						NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
 						NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
+						NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
 
+						// Do the network communication through the socket
 						NetplayInfo.Update();
-
-						// Print the number of command sent
-						// System.out.println("PlyrCmd: " + NetplayInfo.PlayerCommand.Number);
-						// System.out.println("OtherPlyrCmd: " + NetplayInfo.OtherPlayersCommand.get(0).Number);
 
 						// Update the other player movements
 						for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 						{
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-							Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+							int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
+
+							Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+							Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+							Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+
+							if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+							{
+								if (Lvl.Players.get(Number).Health > 0)
+								{
+									// BUG: Don't shot at the first tick, the player shots for no reason.
+									if (TicksCount > 0)
+									{
+										Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+									}
+								}
+								else
+								{
+									// Check if the player has completely dropped on the floor
+									if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+									{
+										// Spawn the player
+										if (!Lvl.Players.get(Number).SpawnAtRandomSpot())
+										{
+											System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+											System.exit(1);
+										}
+									}
+								}
+							}
 						}
 
 						for (int Player = 0; Player < Lvl.Players.size(); Player++)
 						{
 							// BUG: Cheap fix player strafing not reset. FUCK!
 							Lvl.Players.get(Player).SideMove = 0;
+							Lvl.Players.get(Player).FrontMove = 0;
+							Lvl.Players.get(Player).AngleDiff = 0;
+							Lvl.Players.get(Player).Shot = false;
 						}
 					}
 				}
-/*
-				// player 2 turns in circles
-				Lvl.Players.get(1).ForwardMove(1);
-				Lvl.Players.get(1).AngleTurn((short) -200);
-				Lvl.Players.get(1).Move();
 
-				// player 3 turns in circles
-				Lvl.Players.get(2).ForwardMove(-1);
-				Lvl.Players.get(2).LateralMove(1);
-				Lvl.Players.get(2).AngleTurn((short) 500);
-				Lvl.Players.get(2).Move();
-
-				// player 4 turns in circles
-				Lvl.Players.get(3).ForwardMove(1);
-				Lvl.Players.get(3).LateralMove(-1);
-				Lvl.Players.get(3).AngleTurn((short) -500);
-				Lvl.Players.get(3).Move();
-*/
+				// Spy view
 				if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
 				{
 					boolean Control = false;
@@ -348,7 +302,7 @@ public class Game
 					{
 						View = (View + 1) % Lvl.Players.size();
 
-						if (View == 0)
+						if (View == NetplayInfo.View)
 						{
 							Control = true;
 						}
@@ -375,13 +329,34 @@ public class Game
 
 				try
 				{
-					Thread.sleep(30);
+					// Timer for sleep
+					TimeEnd = System.currentTimeMillis();
+					long DeltaTime = TimeEnd - TimeStart;
+
+					// Make sure the time is not negative
+					// We want to run the game as fast as possible
+					if (DeltaTime < 0)
+					{
+						DeltaTime = 0;
+					}
+					else if (DeltaTime > TimeFrameLimit)
+					{
+						DeltaTime = (long)TimeFrameLimit;
+					}
+
+					// Make the game sleep depending on how much time it took to execute one tick
+					Thread.sleep((long)TimeFrameLimit - DeltaTime);
+					TicksCount++;
 				}
 				catch (InterruptedException ie)
 				{
-					System.out.print("The game failed to sleep: " + ie.getMessage());
+					System.err.print("The game failed to sleep: " + ie.getMessage());
+					System.exit(1);
 				}
 			}
+
+			// Save configs to file
+			SaveConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// Close the display
 			Display.destroy();
@@ -404,6 +379,70 @@ public class Game
 		}
 
 		return -1;
+	}
+
+	public static void LoadConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
+	{
+		// Load the config file and assign every value to their respective variables
+
+		try
+		{
+			// Load the file
+			BufferedReader ConfigFile = new BufferedReader(new FileReader("Stuff/" + Name));
+
+			// Load the user's settings in the same order that they were saved.
+			ConfigFile.readLine();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			System.err.println("Cannot load your settings. Configuration file not found.");
+		}
+		catch (IOException ioe)
+		{
+			System.err.println("Error while reading from the configuration file.");
+		}
+
+	}
+
+	public static void SaveConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
+	{
+		// Save the configuration variables in a specific order in a config file
+
+		try
+		{
+			// Writer for the config file
+			PrintWriter ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("Stuff/" + Name)));
+
+			// Double tabs
+			final String Spacing = "\t\t";
+
+			ConfigFile.println("use_freelook" + Spacing + "true");
+			ConfigFile.println("show_messages" + Spacing + "true");
+			ConfigFile.println("show_hud" + Spacing + "true");
+			ConfigFile.println("show_debug" + Spacing + "true");
+
+			ConfigFile.println("grab_mouse" + Spacing + "false");
+			ConfigFile.println("enable_chat" + Spacing + "true");
+			ConfigFile.println("mouse_sensitivity" + Spacing + "3");
+
+			ConfigFile.println("sfx_volume" + Spacing + "3");
+			ConfigFile.println("sound_mode" + Spacing + "2d");	// Can be '2d', '3d' or '3d+'.
+
+			ConfigFile.println("fullscreen" + Spacing + "false");
+			ConfigFile.println("enable_filtering" + Spacing + "false");
+			ConfigFile.println("view_depth" + Spacing + "100");
+
+			ConfigFile.close();
+		}
+		catch (FileNotFoundException fnfe)
+		{
+			System.err.println("Could not save your settings to a configuration file.");
+			System.err.println(fnfe.getMessage());
+		}
+		catch (IOException ioe)
+		{
+			System.err.println("File error.");
+		}
 	}
 }
 

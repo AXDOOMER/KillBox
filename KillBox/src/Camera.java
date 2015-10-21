@@ -46,12 +46,14 @@ public class Camera
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
 
-	private boolean MenuHasControl = false;
+	private boolean HasControl = false;
+	private boolean MenuKeyPressed = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
 	private boolean JustPressedMouseGrabKey = false;
 	private boolean JustPressedMenuKey = false;
+	private boolean JustPressedFireKey = false;
 
 	// Mouse movement
 	private short MouseTurnH;
@@ -113,7 +115,7 @@ public class Camera
 	public void ChangePlayer(Player Plyr, boolean CanControl)
 	{
 		this.Plyr = Plyr;
-		MenuHasControl = CanControl;
+		HasControl = CanControl;
 	}
 
 	public void ChangeProperties(float FOV, float Aspect, float Near, float Far)
@@ -144,6 +146,7 @@ public class Camera
 		glLoadIdentity();
 		this.UseView(); // Rotation matrices for the view
 
+		// Grab mouse is controller by F1
 		if (Keyboard.isKeyDown(Keyboard.KEY_F1) && !JustPressedMouseGrabKey)
 		{
 			JustPressedMouseGrabKey = true;
@@ -151,10 +154,12 @@ public class Camera
 			if (!Mouse.isGrabbed())
 			{
 				Mouse.setGrabbed(true); // Hide mouse
+				Menu.GrabMouse(true);
 			}
 			else
 			{
 				Mouse.setGrabbed(false);
+				Menu.GrabMouse(false);
 			}
 
 			Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
@@ -206,34 +211,49 @@ public class Camera
 			JustPressedFilterKey = false;
 		}
 
-		if (MenuHasControl)    // If I am this player
+		if (HasControl && !Menu.Active())    // If I am this player
 		{
 			CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
-			CurrentPlayer().ForwardMove((byte)(MouseVertical/5));
+			CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+			// If keys for opposite movements are held, don't do anything.
+			if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+				&& (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))))
 			{
-				CurrentPlayer().ForwardMove((byte)1);
+				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+				{
+					CurrentPlayer().ForwardMove((byte) 1);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+				{
+					CurrentPlayer().ForwardMove((byte) -1);
+				}
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+
+			// If keys for opposite movements are held, don't do anything.
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_A) && Keyboard.isKeyDown(Keyboard.KEY_D)))
 			{
-				CurrentPlayer().ForwardMove((byte)-1);
+				if (Keyboard.isKeyDown(Keyboard.KEY_A))
+				{
+					CurrentPlayer().LateralMove((byte) -1);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_D))
+				{
+					CurrentPlayer().LateralMove((byte) 1);
+				}
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_A))
+
+			// If both keys are held at the same time, don't do anything.
+			if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
 			{
-				CurrentPlayer().LateralMove((byte)-1);
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_D))
-			{
-				CurrentPlayer().LateralMove((byte)1);
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
-			{
-				CurrentPlayer().AngleTurn((short) 500);
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-			{
-				CurrentPlayer().AngleTurn((short) -500);
+				if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+				{
+					CurrentPlayer().AngleTurn((short) 500);
+				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+				{
+					CurrentPlayer().AngleTurn((short) -500);
+				}
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			{
@@ -243,15 +263,59 @@ public class Camera
 			{
 				CurrentPlayer().MoveDown();
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+
+			// Right now, it can only shot like a pistol...
+			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) && !JustPressedFireKey)
 			{
-				System.exit(0);
+				JustPressedFireKey = true;
+				if (CurrentPlayer().Health > 0)
+				{
+					CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+				}
+				else
+				{
+					// Check if the player has completely dropped on the floor
+					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
+					{
+						// Spawn the player
+						if (!CurrentPlayer().SpawnAtRandomSpot())
+						{
+							System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+							System.exit(1);
+						}
+					}
+				}
 			}
-			CurrentPlayer().Move(Float.NaN);
+			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
+			{
+				JustPressedFireKey = true;
+			}
+			else
+			{
+				JustPressedFireKey = false;
+			}
+
+			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
+			{
+				Menu.UserWantsToExit = true;
+			}
 		}
 
+		// Update player's position even if it hasn't moved
+		for (int Player = 0; Player < Lvl.Players.size(); Player++)
+		{
+			// Do this for every player
+			Lvl.Players.get(Player).Friction();
+		}
+
+		// If menu is lock
+		if((Menu.Locked() || Menu.HaveWindowActive()))
+		{
+			// Send input to Action method
+			Menu.Action(MenuKeyPressed);
+		}
 		// If menu is active
-		if(!MenuHasControl)
+		if(Menu.Active() && !Menu.HaveWindowActive() && !MenuKeyPressed)
 		{
 			// Up Key
 			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
@@ -273,23 +337,50 @@ public class Camera
 			{
 				Menu.CursorRight();
 			}
+			// Enter Key
+			if(Keyboard.isKeyDown(Keyboard.KEY_RETURN))
+			{
+				Menu.Locking();
+			}
 		}
 
 		// Show/Hide menu
-		if(Keyboard.isKeyDown(Keyboard.KEY_F10) && !JustPressedMenuKey)
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
 		{
 			// Remove control to player
-			MenuHasControl = !MenuHasControl;
+			HasControl = !HasControl;
+
+			Menu.Active(!Menu.Active());
 
 			JustPressedMenuKey = true;
 		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_F10))
+		else if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
 			JustPressedMenuKey = true;
 		}
 		else
 		{
 			JustPressedMenuKey = false;
+		}
+
+		// Check input for Menu
+		if(Menu.Active())
+		{
+			while (Keyboard.next())
+			{
+				MenuKeyPressed = Keyboard.getEventKeyState();
+			}
+
+			// Check if key been pressed on Loop 1
+			if(MenuKeyPressed)
+			{
+				MenuKeyPressed = true;
+			}
+			// No key pressed
+			else
+			{
+				MenuKeyPressed = false;
+			}
 		}
 
 		// Print DEBUG stats
@@ -400,9 +491,19 @@ public class Camera
 					continue;
 				}
 
+				if (Lvl.Players.get(Player).Health <= 0)
+				{
+					// Don't draw dead players
+					continue;
+				}
+
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
-					float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
+					//float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
+
+					float LookAngleDiff = (float)Math.atan2(this.CurrentPlayer().PosY() - Lvl.Players.get(Player).PosY(), this.CurrentPlayer().PosX() - Lvl.Players.get(Player).PosX());
+					// Convert to degrees
+					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
 
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 
@@ -470,6 +571,10 @@ public class Camera
 					{
 						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
 					}
+					else if (LookAngleDiff <= 382.5)
+					{
+						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+					}
 				}
 
 				glPushMatrix();
@@ -512,15 +617,16 @@ public class Camera
 			}
 
 			// If menu is Show
-			if(!MenuHasControl)
+			if(Menu.Active())
 			{
-				// Test
+				// To 2d
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 
+				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 				// Set Draw cursor to Top-Left
 				glTranslatef(-1f, 1f, 0.0f);
@@ -528,7 +634,9 @@ public class Camera
 				// Draw menu
 				Menu.GridWidth(Display.getWidth());
 				Menu.GridHeight(Display.getHeight());
+
 				glDisable(GL_TEXTURE_2D);
+
 				Menu.DrawMenu();
 
 				glFlush();
@@ -537,6 +645,62 @@ public class Camera
 				InitProjection();
 				glEnable(GL_TEXTURE_2D);
 			}
+			else // Draw 2D texture (weapon and HUD)
+			{
+				// To 2d
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+
+				// Disable depth so that element are written on the same level
+				glDisable(GL_DEPTH_TEST);
+
+				// Show the scores on the screen
+				for (int Player = Lvl.Players.size() - 1; Player >= 0; Player--)
+				{
+					// Show the score of every player that is in the game
+					String PlayerScore = "Player#" + (Player + 1) + ": " + Lvl.Players.get(Player).Kills;
+					String PlayerHits = "";
+
+					if (Lvl.Players.get(Player).Hits > 0)
+					{
+						int HitPercentage = (int)((float)Lvl.Players.get(Player).Hits * 100 / (Lvl.Players.get(Player).Hits + Lvl.Players.get(Player).Missed));
+						PlayerHits = " (hit: " + HitPercentage + ")";
+					}
+
+					//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;
+
+					Menu.DrawText(PlayerScore + PlayerHits, 1, Lvl.Players.size() * 4 - Player * 4, 3, 3);
+				}
+
+				// Draw the scores
+				Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
+
+				/*
+				// Draw texture here (Test to draw image at bottom left
+				Menu.DrawTexture((new Texture("Stuff/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
+*/
+				// Draw all element
+				glFlush();
+
+				// Enable for the 3D element
+				glEnable(GL_DEPTH_TEST);
+				InitProjection();
+				glEnable(GL_TEXTURE_2D);
+			}
+
+			// Check if mouse should be grabbed at the end so the mouse input is not destroyed
+			if (Menu.GrabMouse() && !Mouse.isGrabbed())
+			{
+				Mouse.setGrabbed(true);
+			}
+			else if (!Menu.GrabMouse() && Mouse.isGrabbed())
+			{
+				Mouse.setGrabbed(false);
+			}
+
 			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
 			this.UpdateCamera();
 		}

@@ -19,8 +19,8 @@ import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
 {
-	float PosX = -100;	// Horizontal position
-	float PosY = -100;	// Vertical position
+	float PosX;	// Horizontal position
+	float PosY;	// Vertical position
 	float PosZ;	// Height, do not mix with Y.
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
@@ -34,7 +34,9 @@ public class Player
 
 	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
 	final int MaxRunSpeed = 70/8;
-	final int ViewZ = 42;
+	final int DefaultViewZ = 42;
+	final int HeadOnFloor = 12;
+	int ViewZ = DefaultViewZ;
 	
 	public enum DamageIndicatorDirection
 	{
@@ -53,16 +55,24 @@ public class Player
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
 
+	// Scores
 	int Kills = 0;
 	int Deaths = 0;
+	int FlagTime = 0;
+	int Hits = 0;
+	int Missed = 0;
 
 	byte FrontMove = 0;
 	byte SideMove = 0;
 	short AngleDiff = 0;
+	boolean Shot = false;
 
+	boolean HasFlag = false;
 	int Frame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
+	Random Randomizer = null;
+	final int MaxTriesBeforeFreeSpawnIsFound = 30;
 
 	public Player(Level Lvl, Sound Output)
 	{
@@ -73,6 +83,8 @@ public class Player
 		{
 			OwnedWeapons[i] = false;
 		}
+
+		Randomizer = new Random();
 	}
 
 	public void LoadSprites()
@@ -124,6 +136,22 @@ public class Player
 			Damages = DamageIndicatorDirection.None;
 		}
 	}
+
+	public int ActionIsHasShot()
+	{
+		// Check if player has shot
+		if (Shot)
+		{
+			// Reset the state of this action
+			Shot = false;
+
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 	
 	// Check if this coordinate is inside a player then return this player
 	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
@@ -156,10 +184,11 @@ public class Player
 		return null;
 	}
 	
-	public void HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
+	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
 	{
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
+		Shot = true;	// Set shot property tot he player so it's transmitted over the network
 		
 		// Start scanning from the player's position
 		float TravelX = this.PosX();
@@ -170,19 +199,52 @@ public class Player
 		for (int Point = 0; Point < MaxChecks; Point++)
 		{
 			// Increment bullet position
-			TravelX = TravelX * Step * (float)Math.cos(HorizontalAngle);
-			TravelY = TravelY * Step * (float)Math.sin(HorizontalAngle);
-			TravelZ = TravelZ * Step * (float)Math.sin(VerticalAngle);
+			TravelX = TravelX + Step * (float)Math.cos(HorizontalAngle);
+			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
+			TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
-			Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
-
-			// Check if something was really hit
-			if (Hit != null)
+			// Check if a wall was hit. Check for wall on a line between the player and the hit point.
+			if (CheckWallCollision(TravelX, TravelY, Step) == null)
 			{
-				// Damage him
-				Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+				Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+
+				// Check if something was really hit
+				if (Hit != null)
+				{
+					// If the player who was hit is not dead
+					if (Hit.Health > 0)
+					{
+						// Damage him
+						Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+
+						// Bullet has hit
+						Hits++;
+
+						// If he's dead
+						if (Hit.Health <= 0)
+						{
+							// Got a point
+							Kills++;
+
+							// Add one death to his counter
+							Hit.Deaths++;
+						}
+
+						return Hit;
+					}
+				}
+			}
+			else
+			{
+				// A wall was hit.
+				break;
 			}
 		}
+
+		// Bullet missed
+		Missed++;
+
+		return null;
 	}
 
 	public void ForwardMove(byte Direction)
@@ -197,17 +259,26 @@ public class Player
 			FrontMove = Direction;
 		}
 
+		float NewX = MoX;
+		float NewY = MoY;
+
 		if (Direction > 0)
 		{
-			float NewX = MoX + Acceleration * (float)Math.cos(GetRadianAngle());
-			float NewY = MoY + Acceleration * (float)Math.sin(GetRadianAngle());
+			if (Health > 0)
+			{
+				NewX = MoX + Acceleration * (float) Math.cos(GetRadianAngle());
+				NewY = MoY + Acceleration * (float) Math.sin(GetRadianAngle());
+			}
 
 			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			float NewX = MoX - Acceleration * (float)Math.cos(GetRadianAngle());
-			float NewY = MoY - Acceleration * (float)Math.sin(GetRadianAngle());
+			if (Health > 0)
+			{
+				NewX = MoX - Acceleration * (float) Math.cos(GetRadianAngle());
+				NewY = MoY - Acceleration * (float) Math.sin(GetRadianAngle());
+			}
 
 			TryMove(NewX, NewY);
 		}
@@ -231,17 +302,26 @@ public class Player
 
 		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
+		float NewX = MoX;
+		float NewY = MoY;
+
 		if (Direction > 0)
 		{
-			float NewX = MoX + Acceleration * (float)Math.cos(AdjustedAngle);
-			float NewY = MoY + Acceleration * (float)Math.sin(AdjustedAngle);
+			if (Health > 0)
+			{
+				NewX = MoX + Acceleration * (float) Math.cos(AdjustedAngle);
+				NewY = MoY + Acceleration * (float) Math.sin(AdjustedAngle);
+			}
 
 			TryMove(NewX, NewY);
 		}
 		else if (Direction < 0)
 		{
-			float NewX = MoX - Acceleration * (float)Math.cos(AdjustedAngle);
-			float NewY = MoY - Acceleration * (float)Math.sin(AdjustedAngle);
+			if (Health > 0)
+			{
+				NewX = MoX - Acceleration * (float) Math.cos(AdjustedAngle);
+				NewY = MoY - Acceleration * (float) Math.sin(AdjustedAngle);
+			}
 
 			TryMove(NewX, NewY);
 		}
@@ -252,7 +332,7 @@ public class Player
 	}
 
 	// Try every type of collision.
-	public float TryMove(float NewX, float NewY)
+	public boolean TryMove(float NewX, float NewY)
 	{
 		float Current = (float)Math.atan2(MoY(), MoX());
 		// Should return the current angle if it's possible to move, else return another...
@@ -295,7 +375,7 @@ public class Player
 			}
 
 			// Player against wall collision
-			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY())))
+			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
 			{
 				if (Clear)
 				{
@@ -308,7 +388,6 @@ public class Player
 
 				Clear = false;
 			}
-
 
 			if (!Clear)
 			{
@@ -328,7 +407,7 @@ public class Player
 		else if (!Float.isNaN(PushAngle))
 		{
 			// Try to push the player
-			// If the player is alreay in another player, he's already fucked.
+			// If the player is already in another player, he's already fucked.
 
 			// TO-DO: Make the player slide against the other's sides [DEVIATE THE MOMENTUM!!!]
 
@@ -346,7 +425,7 @@ public class Player
 			Move(HitWall.GetAngle());
 		}
 
-		return GetRadianAngle();
+		return Clear;
 	}
 
 	// Check collision against things
@@ -391,6 +470,12 @@ public class Player
 				continue;
 			}
 
+			if (Lvl.Players().get(Player).Health <= 0)
+			{
+				// Player is dead, so don't collide with it.
+				continue;
+			}
+
 			float Distance = (float)Math.sqrt(
 					Math.pow(NewX - Lvl.Players().get(Player).PosX(), 2) +
 							Math.pow(NewY - Lvl.Players().get(Player).PosY(), 2));
@@ -432,7 +517,7 @@ public class Player
 	}
 
 	// Check for collision against walls
-	public Plane CheckWallCollision(float NewX, float NewY)
+	public Plane CheckWallCollision(float NewX, float NewY, float RadiusToUse)
 	{
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
@@ -448,7 +533,7 @@ public class Player
 				float EndY = Lvl.Planes.get(Plane).Vertices().get(4);
 				float EndZ = Lvl.Planes.get(Plane).Vertices().get(5);
 
-				// Find another point. Can't find the direction of a wall if poinnts are above each other.
+				// Find another point. Can't find the direction of a wall if points are above each other.
 				if (StartX == EndX && StartY == EndY)
 				{
 					EndX = Lvl.Planes.get(Plane).Vertices().get(6);
@@ -461,60 +546,132 @@ public class Player
 					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
 				}
 
-				// Find the orthogonal vector (Invert X and Y, then set a negative Y)
-				float OrthX = EndY;		// The opposite is 'StartX'
-				float OrthY = -EndX;	// The opposite is 'StartY'
-				float OrthAngle = (float)Math.atan2(StartY - OrthY, StartX - OrthX);
+				// Test the distance to one vertex and if there is a possibility that the player can hit the wall
+				float WallLength = (float)Math.sqrt(Math.pow(StartX - EndX, 2) + Math.pow(StartY - EndY, 2));
+				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
 
-				float OrthPlayerStartX = NewX - (float)Math.cos(OrthAngle) * (float)Radius();
-				float OrthPlayerStartY = NewY - (float)Math.sin(OrthAngle) * (float)Radius();
-
-				float OrthPlayerEndX = NewX + (float)Math.cos(OrthAngle) * (float)Radius();
-				float OrthPlayerEndY = NewY + (float)Math.sin(OrthAngle) * (float)Radius();
-
-				// Cramer's rule
-				// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
-				float WallDiffX = EndX - StartX;	// Vector's X from (0,0)
-				float WallDiffY = EndY - StartY;	// Vector's Y from (0,0)
-				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;	// Vector's X orthogonal to the wall for the player from (0,0)
-				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;	// Vector's Y orthogonal to the wall for the player from (0,0)
-
-				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-
-				// Check if a collision is detected
-				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
+				if (DistanceToOneWallVertex <= WallLength + RadiusToUse * 2)
 				{
-					// Collision detected
-					float CollX = StartX + (PointPlayerOrth * WallDiffX);
-					float CollY = StartY + (PointPlayerOrth * WallDiffY);
-
-					float Distance = (float)Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
-
-					if (Distance <= Radius())
+					// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
+					// Test for a vertical wall
+					if (StartX == EndX)
 					{
-						//System.err.println(Distance);
+						// Test if player is close enough for a collision
+						if (Math.abs(StartX - NewX) <= RadiusToUse)
+						{
+							// Now test if the player stands within the wall's vertical range
+							if (StartY < EndY)
+							{
+								if (StartY <= NewY && EndY >= NewY)
+								{
+									// Collision!
+									return Lvl.Planes.get(Plane);
+								}
+							}
+							else if (StartY > EndY)
+							{
+								if (StartY >= NewY && EndY <= NewY)
+								{
+									// Collision!
+									return Lvl.Planes.get(Plane);
+								}
+							}
+							else
+							{
+								System.out.println("Collision with a 0-length wall!");
+							}
+						}
+					}
+					// Test for an horizontal wall
+					if (StartY == EndY)
+					{
+						// Test if player is close enough for a collision
+						if (Math.abs(StartY - NewY) <= RadiusToUse)
+						{
+							// Now test if the player stands within the wall's horizontal range
+							if (StartX < EndX)
+							{
+								if (StartX <= NewX && EndX >= NewX)
+								{
+									// Collision!
+									return Lvl.Planes.get(Plane);
+								}
+							}
+							else if (StartX > EndX)
+							{
+								if (StartX >= NewX && EndX <= NewX)
+								{
+									// Collision!
+									return Lvl.Planes.get(Plane);
+								}
+							}
+							else
+							{
+								System.out.println("Collision with a 0-length wall!");
+							}
+						}
+					}
 
+					// Find the orthogonal vector (Invert X and Y, then set a negative Y)
+					float OrthX = EndY;        // The opposite is 'StartX'
+					float OrthY = -EndX;    // The opposite is 'StartY'
+					float OrthAngle = (float) Math.atan2(StartY - OrthY, StartX - OrthX);
+
+					float OrthPlayerStartX = NewX - (float) Math.cos(OrthAngle) * RadiusToUse;
+					float OrthPlayerStartY = NewY - (float) Math.sin(OrthAngle) * RadiusToUse;
+
+					float OrthPlayerEndX = NewX + (float) Math.cos(OrthAngle) * RadiusToUse;
+					float OrthPlayerEndY = NewY + (float) Math.sin(OrthAngle) * RadiusToUse;
+
+					// Cramer's rule --> source: https://books.google.ca/books?id=lRUj-nhQRu8C&pg=PA844&lpg=PA844&dq=cramer%27s+rule+windows+game&source=bl&ots=7xD9_FJ72z&sig=GL9uIZvhbQX8buR6UZlxgtVOGYU&hl=en&sa=X&ved=0CB4Q6AEwAWoVChMIqeiE75SyyAIVAxceCh0E2Q-X#v=onepage&q=cramer's%20rule%20windows%20game&f=false
+					// https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1201356#1201356
+					// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+					float WallDiffX = EndX - StartX;    // Vector's X from (0,0)
+					float WallDiffY = EndY - StartY;    // Vector's Y from (0,0)
+					float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;    // Vector's X orthogonal to the wall for the player from (0,0)
+					float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;    // Vector's Y orthogonal to the wall for the player from (0,0)
+
+					float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+					float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+
+					// Check if a collision is detected
+					if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
+					{
+						// Collision detected
+						float CollX = StartX + (PointPlayerOrth * WallDiffX);
+						float CollY = StartY + (PointPlayerOrth * WallDiffY);
+
+						float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
+
+						if (Distance <= RadiusToUse)
+						{
+							//System.err.println(Distance);
+
+							return Lvl.Planes.get(Plane);
+						}
+					}
+
+					// Check for a collision on the edge of a wall
+					float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
+					if (Distance <= RadiusToUse)
+					{
 						return Lvl.Planes.get(Plane);
 					}
-				}
-
-				// Check for a collision on the edge of a wall
-				float Distance = (float)Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
-				if (Distance <= Radius())
-				{
-					return Lvl.Planes.get(Plane);
-				}
-				else
-				{
-					Distance = (float)Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
-
-					if (Distance <= Radius())
+					else
 					{
-						return Lvl.Planes.get(Plane);
+						Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
+
+						if (Distance <= RadiusToUse)
+						{
+							return Lvl.Planes.get(Plane);
+						}
 					}
 				}
-
+			}
+			else
+			{
+				System.err.println("Plane " + Plane + " does not have enough vertices to be a plane. (" + Lvl.Planes.get(Plane).Vertices().size() + ")");
+				System.exit(1);
 			}
 		}
 
@@ -601,6 +758,23 @@ public class Player
 		}
 	}
 
+	public void Friction()
+	{
+		// Constant deceleration
+		if (MoX != 0)
+		{
+			MoX /= Deceleration;
+		}
+		if (MoY != 0)
+		{
+			MoY /= Deceleration;
+		}
+
+		TryMove(MoX, MoY);
+
+	}
+
+	// Bastard method
 	public void Move(float Angle)
 	{
 		// Max sure the player's speed is not bigger than the maximum allowed
@@ -610,19 +784,11 @@ public class Player
 		{
 			PosX += MoX();
 			PosY += MoY();
-
-			// Constant deceleration
-			if (MoX != 0)
-			{
-				MoX /= Deceleration;
-			}
-			if (MoY != 0)
-			{
-				MoY /= Deceleration;
-			}
 		}
 		else
 		{
+			// Supposed to make the player slide along the wall
+
 			// Change the postion according to the direction of the movement, because a wall was hit.
 			/*float PlayerAngle = this.GetRadianAngle();
 
@@ -790,14 +956,55 @@ public class Player
 		return FoundZ;
 	}
 
-	public boolean Spawn(float X, float Y, float Z, short Angle)
+	// Come back to life
+	private void ResetPlayerForRespawn()
+	{
+		Health = 100;
+		ViewZ = DefaultViewZ;
+		MoX = 0;
+		MoY = 0;
+		MoZ = 0;
+
+		// Reset other stuff
+		HasMoved = false;
+		byte FrontMove = 0;
+		byte SideMove = 0;
+		short AngleDiff = 0;
+	}
+
+	public boolean SpawnAtRandomSpot()
+	{
+		Shot = true;	// Need this for the player to respawn in the other game
+
+		// Spawn the player at a random location
+		int RandomNumber = Randomizer.GiveNumber();
+		int Tries = 0;
+
+		Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+		while (!this.SpawnAtLocation(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+		{
+			RandomNumber = Randomizer.GiveNumber();
+			SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
+
+			if (Tries > MaxTriesBeforeFreeSpawnIsFound)
+			{
+				return false;
+			}
+			Tries++;
+		}
+
+		return true;
+	}
+
+	private boolean SpawnAtLocation(float X, float Y, float Z, short Angle)
 	{
 		boolean FreeSpace = true;
 		for (int Player = 0; Player < Lvl.Players.size(); Player++)
 		{
 			float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
 
-			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosY() - Z) <= this.Height())
+			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
 			{
 				FreeSpace = false;
 			}
@@ -805,6 +1012,8 @@ public class Player
 
 		if (FreeSpace == true)
 		{
+			ResetPlayerForRespawn();
+
 			this.Angle = Angle;
 			PosX = X;
 			PosY = Y;
@@ -812,6 +1021,17 @@ public class Player
 		}
 
 		return FreeSpace;
+	}
+
+	public void UpdateIfDead()
+	{
+		if (Health <= 0)
+		{
+			if (ViewZ > HeadOnFloor)
+			{
+				ViewZ--;
+			}
+		}
 	}
 
 	// Set X Position
@@ -852,12 +1072,12 @@ public class Player
 
 	public void MoveUp()
 	{
-		PosZ = PosZ + 64;
+		PosZ = PosZ + 8;
 	}
 
 	public void MoveDown()
 	{
-		PosZ = PosZ - 64;
+		PosZ = PosZ - 8;
 	}
 
 	public void MakesNoise(String Sound)
