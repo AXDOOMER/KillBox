@@ -234,13 +234,20 @@ public class Game
 				HeadCamera.MouseSensitivity = (((float)HeadCamera.Menu.MouseSensitivity.Int())/100);
 				// Get sound volume
 				SndDriver.VolumeMultiplier = ((float)(HeadCamera.Menu.SFXVolume.Int()))/100;
+
 				// Get sound mode
 				if(HeadCamera.Menu.SoundMode.Int() == 0)
+				{
 					SndDriver.SndMode = SoundMode.Bi;
+				}
 				else if(HeadCamera.Menu.SoundMode.Int() == 1)
+				{
 					SndDriver.SndMode = SoundMode.Three;
+				}
 				else
+				{
 					SndDriver.SndMode = SoundMode.Duppler;
+				}
 
 				// Draw the screen
 				HeadCamera.Render(Lvl, Lvl.Players);
@@ -429,7 +436,6 @@ public class Game
 					}
 					else if (HeadCamera.Menu.IsClient)
 					{
-
 						String IpAddress = HeadCamera.Menu.Address;
 						Nodes = 2;
 						NetplayInfo = new Netplay(Nodes, IpAddress);
@@ -437,7 +443,7 @@ public class Game
 						if (NetplayInfo.Connections.get(0).isConnected())
 						{
 							// Get the game condition
-							HeadCamera.Menu.Gamemode = NetplayInfo.Gamemode;
+							HeadCamera.Menu.Gamemode = NetplayInfo.GameMode;
 							HeadCamera.Menu.TimeLimit = NetplayInfo.TimeLimit;
 							HeadCamera.Menu.KillLimit = NetplayInfo.KillLimit;
 
@@ -477,6 +483,7 @@ public class Game
 
 				if (NetplayInfo != null)
 				{
+					// This may be repetitive
 					if (View == NetplayInfo.View)
 					{
 						// Set the control to its own view

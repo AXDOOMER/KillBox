@@ -115,8 +115,8 @@ public class Netplay
     // Object NetCommand
     NetCommand PlayerCommand = null;
 
-    // Condition de partie
-    int Gamemode = 0;
+    // Game conditions
+    int GameMode = 0;
     int TimeLimit = 0;
     int KillLimit = 0;
 
@@ -154,7 +154,7 @@ public class Netplay
 		try
 		{
 			AdressSocket = new InetSocketAddress(IpAddress, Port);
-			// Add his socket to his array lsit
+			// Add his socket to his array list
 			Connections.add(new Socket());
 			// Connect to the server
 			Connections.get(0).connect(AdressSocket);
@@ -170,7 +170,7 @@ public class Netplay
 			NumberOfPlayers = Integer.parseInt(strings[0]);
 			RemainingNumberOfPlayers = Integer.parseInt(strings[1]);
 			PlayerNumber = Integer.parseInt(strings[2]);
-            this.Gamemode = Integer.parseInt(strings[3]);
+            this.GameMode = Integer.parseInt(strings[3]);
             this.TimeLimit = Integer.parseInt(strings[4]);
             this.KillLimit = Integer.parseInt(strings[5]);
 
@@ -202,11 +202,10 @@ public class Netplay
         catch (SocketTimeoutException sto)
         {
             System.out.println("Other player may have disconnected or connection was interrupted.");
-            System.exit(1);
         }
 		catch(IOException e)
 		{
-			System.err.println(e);
+			System.err.println(e.getMessage());
 			System.err.println("Problem when trying to connect to a client. Try to start a server first!");
 		}
 
@@ -228,7 +227,7 @@ public class Netplay
 			}
 			catch (IOException ioe)
 			{
-				System.err.println(ioe);
+				System.err.println(ioe.getMessage());
 			}
 
 			try
@@ -238,7 +237,7 @@ public class Netplay
 			}
 			catch (SocketException se)
 			{
-				System.err.println(se);
+				System.err.println(se.getMessage());
 			}
 
 			try
@@ -270,7 +269,6 @@ public class Netplay
             catch (SocketTimeoutException sto)
             {
                 System.out.println("Other player may have disconnected or connection was interrupted.");
-                System.exit(1);
             }
 			catch (IOException ioe)
 			{
@@ -292,7 +290,7 @@ public class Netplay
             }
             catch (IOException ioe)
             {
-                System.err.println(ioe);
+                System.err.println(ioe.getMessage());
             }
 
             try
@@ -302,7 +300,7 @@ public class Netplay
             }
             catch (SocketException se)
             {
-                System.err.println(se);
+                System.err.println(se.getMessage());
             }
 
             try
@@ -335,7 +333,6 @@ public class Netplay
             catch (SocketTimeoutException sto)
             {
                 System.out.println("Other player may have disconnected or connection was interrupted.");
-                System.exit(1);
             }
             catch (IOException ioe)
             {
@@ -376,7 +373,6 @@ public class Netplay
         catch (SocketTimeoutException sto)
         {
             System.out.println("Other player may have disconnected or connection was interrupted.");
-            System.exit(1);
         }
         catch (Exception e)
         {
@@ -384,9 +380,9 @@ public class Netplay
         }
     }
 
-    public void SendNodesToPlayer(int NombreJoueurRestant, int NombreJoueur,int PlayerNumber)
+    public void SendNodesToPlayer(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber)
     {
-        String Message = Integer.toString(NombreJoueur) + Separator + Integer.toString(NombreJoueurRestant) + Separator + Integer.toString(PlayerNumber);
+        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber);
 
         for (int Player = 0; Player < Connections.size(); Player++)
         {
@@ -428,9 +424,9 @@ public class Netplay
             }
         }
     }
-    public void SendFirstMessageToPlayers(int NombreJoueurRestant, int NombreJoueur,int PlayerNumber,int NewGamemode,int NewTimeLimit,int NewKillLimit)
+    public void SendFirstMessageToPlayers(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber, int NewGameMode, int NewTimeLimit, int NewKillLimit)
     {
-        String Message = Integer.toString(NombreJoueur) + Separator + Integer.toString(NombreJoueurRestant) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGamemode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit);
+        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGameMode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit);
 
         for (int Player = 0; Player < Connections.size(); Player++)
         {
