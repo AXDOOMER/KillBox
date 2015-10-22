@@ -50,9 +50,14 @@ public class Sound
 	}
 	SoundModes SndMode = SoundModes.Bi;
 
+	public void CloseOpenAL()
+	{
+		// Don't just close. DESTROY!
+		AL.destroy();
+	}
+
 	public Sound(boolean Preload, ArrayList<Player> Listeners, SoundModes Mode)
 	{
-
 		try
 		{
 			AL.create();

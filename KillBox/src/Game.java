@@ -394,11 +394,11 @@ public class Game
 							NetplayInfo.Server.close();
 						}
 
-						for (int Soc = 0; Soc < NetplayInfo.Connections.size(); Soc++)
+						for (int ConnectionSocket = 0; ConnectionSocket < NetplayInfo.Connections.size(); ConnectionSocket++)
 						{
-							if (NetplayInfo.Connections.get(Soc) != null)
+							if (NetplayInfo.Connections.get(ConnectionSocket) != null)
 							{
-								NetplayInfo.Connections.get(Soc).close();
+								NetplayInfo.Connections.get(ConnectionSocket).close();
 							}
 						}
 					}
@@ -407,7 +407,7 @@ public class Game
 					if (HeadCamera.Menu.IsServer)
 					{
 						Nodes = 2;
-						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.Gamemode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
+						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
 						HeadCamera.Menu.InGame = true;
 
 						// The game will start, don't need this anymore. Reset to default value.
@@ -443,7 +443,7 @@ public class Game
 						if (NetplayInfo.Connections.get(0).isConnected())
 						{
 							// Get the game condition
-							HeadCamera.Menu.Gamemode = NetplayInfo.GameMode;
+							HeadCamera.Menu.GameMode = NetplayInfo.GameMode;
 							HeadCamera.Menu.TimeLimit = NetplayInfo.TimeLimit;
 							HeadCamera.Menu.KillLimit = NetplayInfo.KillLimit;
 
@@ -521,6 +521,9 @@ public class Game
 
 			// Save configs to file
 			SaveConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
+
+			// Close OpenAL
+			SndDriver.CloseOpenAL();
 
 			// Close the display
 			Display.destroy();

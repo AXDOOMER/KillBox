@@ -99,10 +99,10 @@ public class Menu
 		private final int SpaceSize = 2; // Multiply magin by this number to create space
 		final double FontWidth = 1.34375d; // Value in %, must be converted to GL unit
 		final double FontHeight = 3.2083333333333333333333333333333d; // Value in %, must be converted to GL unit
-		final Color FontColor = new Color(255,255,255,255);
-		final Color FontHighlightColor = new Color(0,183,0,255);
-		final Color FontFirstItemHighlightColor = new Color(255,255,0,255);
-		final Color FontUnableColor = new Color(127,127,127,255);
+		final Color FontColor = new Color(255, 255, 255, 255);
+		final Color FontHighlightColor = new Color(0, 183, 0, 255);
+		final Color FontFirstItemHighlightColor = new Color(255, 255, 0, 255);
+		final Color FontUnableColor = new Color(127, 127, 127, 255);
 
 		// Default constructor
 		public MenuItem()
@@ -114,7 +114,7 @@ public class Menu
 			Occupied_Width(0);
 		}
 
-		// Parametered constructor
+		// Parameterized constructor
 		public MenuItem(String Text, boolean Active,boolean Keep)
 		{
 			// Initialize Parameters
@@ -215,7 +215,7 @@ public class Menu
 			// Convert pixel to GL
 			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowColor);
-			double MaginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
 			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
 
 			if(!Enabled() && !KeepActiveColor)
@@ -241,7 +241,7 @@ public class Menu
 				if(Text.charAt(Letter) == ' ')
 				{
 					// Adjusting next PosX for the next image
-					PosXGL = PosXGL + MaginGL * SpaceSize;
+					PosXGL = PosXGL + MarginGL * SpaceSize;
 					// Adding width to total width
 					Occupied_Width(Occupied_Width() + MarginPixels * SpaceSize);
 				}
@@ -299,7 +299,7 @@ public class Menu
 					Occupied_Width(Occupied_Width() + ImgWidthPX  + MarginPixels); //
 
 					// Adjusting next PosX for the next image
-					PosXGL = PosXGL + ImgWidthGL + MaginGL;
+					PosXGL = PosXGL + ImgWidthGL + MarginGL;
 
 					// Disable so that the next element are written on the same level
 					glDisable(GL_TEXTURE_2D);
@@ -1588,7 +1588,7 @@ public class Menu
 		final double BorderY = BorderX * (2.0d / 3.0d);
 		final int MaxLength = 15;
 
-		// Contructor
+		// Constructor
 		public MenuItem_ComboBox(String Text,boolean Enabled,boolean Keep,List<String> ItemsText)
 		{
 			// Initialize super attribute
@@ -2129,33 +2129,33 @@ public class Menu
 
 			// Column with GameMode Radio buttons, Record Demo Checkbox, KillLimit and Connect Button
 			List<MenuItem> Column1 = new ArrayList<MenuItem>();
-			Column1.add(new MenuItem("GameMode",false,true));
+			Column1.add(new MenuItem("GameMode", false, true));
 			Column1.add(RadioGroup.RadioButtons[0]);
 			Column1.add(RadioGroup.RadioButtons[1]);
 			Column1.add(RadioGroup.RadioButtons[2]);
-			Column1.add(new MenuItem("",false,false)); // Spacer
+			Column1.add(new MenuItem("", false, false)); // Spacer
 			//Column1.add(new MenuItem_CheckBox("Record Demo",true,false,RecordDemo));
 			//Column1.add(new MenuItem_TextBox("Demo Name",true,false));
-			Column1.add(new MenuItem_NumberBox("Kill Limit",true,false,KillLimit,1,50,1));
-			Column1.add(new MenuItem_ComboBox("Map:",true,false,Maps));
-			Column1.add(new MenuItem_Dialog("Browse a Map",true,false,"Choose a Map","txt","Text File"));
-			Column1.add(new MenuItem("",false,false)); // Spacer
-			Column1.add(new MenuItem("Start",true,false));
+			Column1.add(new MenuItem_NumberBox("Kill Limit", true, false, KillLimit, 1, 50, 1));
+			Column1.add(new MenuItem_ComboBox("Map:", true, false, Maps));
+			Column1.add(new MenuItem_Dialog("Browse a Map", true, false, "Choose a Map", "txt", "Text File"));
+			Column1.add(new MenuItem("", false, false)); // Spacer
+			Column1.add(new MenuItem("Start", true, false));
 
 			// Column with Image ("special Texture"), Save as TextBox, TimeLimit and close button
 			List<MenuItem> Column2 = new ArrayList<MenuItem>();
-			Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("",false,false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem_PictureBox(0));
 			//Column2.add(new MenuItem("",false,false)); // Spacer
 			//Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("",false,false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem_NumberBox("Time Limit",true,false,TimeLimit,0,60,1));
-			Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("",false,false)); // Spacer
-			Column2.add(new MenuItem("Close",true,false));
+			Column2.add(new MenuItem("", false, false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
+			Column2.add(new MenuItem("", false, false)); // Spacer
+			Column2.add(new MenuItem("Close", true, false));
 
 			Items.add(Column1);
 			Items.add(Column2);
@@ -2487,6 +2487,7 @@ public class Menu
 
 						// Close the window
 						CloseWindow = true;
+						Active = false;
 					}
 					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
 					{
@@ -2832,7 +2833,7 @@ public class Menu
 			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of Title and load corresponding image and then draw it
-			for(int Letter = 0; Letter < Text.length(); Letter++)
+			for (int Letter = 0; Letter < Text.length(); Letter++)
 			{
 				if (Text.charAt(Letter) == ' ')
 				{
@@ -2962,6 +2963,7 @@ public class Menu
 
 						// Close window
 						CloseWindow = true;
+						Active = false;
 					}
 					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1])
 					{
@@ -3035,31 +3037,31 @@ public class Menu
 		final double TitleHeight = 10.25d; // Smaller = Bigger.
 		final Color WindowColor = new Color(160,160,160,255);
 		// Constructor
-		public MenuWindow_About(String Title,double Width,double Height)
+		public MenuWindow_About(String Title, double Width,double Height)
 		{
 			// Initialize super attribute
-			super(Title,Width,Height);
+			super(Title, Width, Height);
 
 			// Add text item to window
 			Items = new ArrayList<List<MenuItem>>();
 
 			// Column 1
 			List<MenuItem> Column1 = new ArrayList<MenuItem>();
-			Column1.add(new MenuItem("Developper:",false,true));
-			Column1.add(new MenuItem("",false,true)); // Spacer
-			Column1.add(new MenuItem("",false,true)); // Spacer
-			Column1.add(new MenuItem("Version:",false,true));
-			Column1.add(new MenuItem("Last Update:",false,true));
-			Column1.add(new MenuItem("",false,true)); // Spacer
+			Column1.add(new MenuItem("Developer:", false, true));
+			Column1.add(new MenuItem("", false, true)); // Spacer
+			Column1.add(new MenuItem("", false, true)); // Spacer
+			Column1.add(new MenuItem("Version:", false, true));
+			Column1.add(new MenuItem("Last Update:", false, true));
+			Column1.add(new MenuItem("", false, true)); // Spacer
 
 			// Column 2
 			List<MenuItem> Column2 = new ArrayList<MenuItem>();
-			Column2.add(new MenuItem("Alexandre-Xavier Labonte-Lamoureux",false,true));
-			Column2.add(new MenuItem("Francis Bourgault",false,true)); // Spacer
-			Column2.add(new MenuItem("Andy Sergerie",false,true)); // Spacer
-			Column2.add(new MenuItem(GameVersion,false,true));
-			Column2.add(new MenuItem(LastUpdate,false,true));
-			Column2.add(new MenuItem("Close",true,true));
+			Column2.add(new MenuItem("Alexandre-Xavier Labonte-Lamoureux", false, true));
+			Column2.add(new MenuItem("Francis Bourgault", false, true)); // Spacer
+			Column2.add(new MenuItem("Andy Sergerie", false, true)); // Spacer
+			Column2.add(new MenuItem(GameVersion, false, true));
+			Column2.add(new MenuItem(LastUpdate, false, true));
+			Column2.add(new MenuItem("Close", true, true));
 
 			Items.add(Column1);
 			Items.add(Column2);
@@ -3075,12 +3077,12 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Use center to find border of windows
-			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
-			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
-			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight),true,GridWidth,GridHeight,true);
-			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight),false,GridWidth,GridHeight,true);
-			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight,false);
-			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight,false);
+			double BottomLeftXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight), true,GridWidth,GridHeight, true);
+			double BottomLeftYGL = ConvertPxToGL(((float)GridHeight / 2.0f) - ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight), false,GridWidth,GridHeight, true);
+			double TopRightXGL = ConvertPxToGL(((float)GridWidth / 2.0f) + ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight), true,GridWidth,GridHeight, true);
+			double TopRightYGL = ConvertPxToGL(((float)GridHeight / 2.0f) + ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight), false,GridWidth,GridHeight, true);
+			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, false);
+			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, false);
 
 			// Move cursor to bottom of window
 			glTranslatef(0, -2, 0);
@@ -3105,7 +3107,7 @@ public class Menu
 			// Draw Text of Title
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
@@ -3113,12 +3115,12 @@ public class Menu
 			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of Title and load corresponding image and then draw it
-			for(int Letter = 0; Letter < Text.length(); Letter++)
+			for (int Letter = 0; Letter < Text.length(); Letter++)
 			{
 				if (Text.charAt(Letter) == ' ')
 				{
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + MaginGL * SpaceSize;
+					StartTextXGL = StartTextXGL + MarginGL * SpaceSize;
 				}
 				else
 				{
@@ -3153,7 +3155,7 @@ public class Menu
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
 
-					// Converting image height and widht
+					// Converting image height and width
 					double ImgWidthGL = ConvertPercentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
 					double ImgHeightGL = ConvertPercentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
 
@@ -3161,16 +3163,16 @@ public class Menu
 					// Drawing image
 					glBegin(GL_QUADS);
 					glTexCoord2d(0.0d, 1.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 1.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 0.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL + ImgHeightGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL + ImgHeightGL);
 					glTexCoord2d(0.0d, 0.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MarginGL);
 					glEnd();
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + ImgWidthGL + MaginGL;
+					StartTextXGL = StartTextXGL + ImgWidthGL + MarginGL;
 
 					glDisable(GL_TEXTURE_2D);
 				}
@@ -3454,44 +3456,45 @@ public class Menu
 
 		// Game array
 		List<MenuItem> Game = new ArrayList<MenuItem>();
-		Game.add(new MenuItem("Game", true,false));
-		MenuWindows_NewGame GameWin = new MenuWindows_NewGame("New Game",55,67);
-		Game.add(new MenuItem_Windows("New Game", true,false,GameWin));
-		MenuWindows_JoinGame JoinWin = new MenuWindows_JoinGame("Join Game",50,17);
-		Game.add(new MenuItem_Windows("Join Game", true,false,JoinWin));
-		Game.add(new MenuItem("Quit Game", true,false));
-		// Seperator
+		Game.add(new MenuItem("Game", true, false));
+		MenuWindows_NewGame GameWin = new MenuWindows_NewGame("New Game", 55, 67);
+		Game.add(new MenuItem_Windows("New Game", true, false,GameWin));
+		MenuWindows_JoinGame JoinWin = new MenuWindows_JoinGame("Join Game", 50, 17);
+		Game.add(new MenuItem_Windows("Join Game", true, false, JoinWin));
+		Game.add(new MenuItem("Quit Game", true, false));
+		// Separator
 		//Game.add(new MenuItem_Dialog("Play Demo", true,false,"Choose a Demo","txt","Text File"));
-		MenuWindow_About AboutWin = new MenuWindow_About("About",82,45);
-		Game.add(new MenuItem_Windows("About", true,false,AboutWin));
-		Game.add(new MenuItem("Exit", true,false));
+		MenuWindow_About AboutWin = new MenuWindow_About("About", 85, 45);
+		Game.add(new MenuItem_Windows("About", true, false, AboutWin));
+		Game.add(new MenuItem("Exit", true, false));
 
 		// Option Array
 		List<MenuItem> Option = new ArrayList<MenuItem>();
-		Option.add(new MenuItem("Option", true,false));
-		Option.add(new MenuItem_CheckBox("Use freelook", true,false, FreeLook));
-		Option.add(new MenuItem_CheckBox("Show messages", true,false, ShowMessage));
-		Option.add(new MenuItem_CheckBox("Show HUD", true,false, ShowHud));
+		Option.add(new MenuItem("Option", true, false));
+		Option.add(new MenuItem_CheckBox("Use freelook", true, false, FreeLook));
+		Option.add(new MenuItem_CheckBox("Show messages", true, false, ShowMessage));
+		Option.add(new MenuItem_CheckBox("Show HUD", true, false, ShowHud));
 		// Seperator
-		Option.add(new MenuItem_CheckBox("Show Debug", true,false, ShowDebug));
+		Option.add(new MenuItem_CheckBox("Show Debug", true, false, ShowDebug));
 
 		// Control Array
 		List<MenuItem> Control = new ArrayList<MenuItem>();
-		Control.add(new MenuItem("Control", true,false));
-		Control.add(new MenuItem_CheckBox("Grab mouse", true,false, GrabMouse));
-		Control.add(new MenuItem_CheckBox("Enable chat", true,false, EnableChat));
-		Control.add(new MenuItem_HorSlider("Mouse Sensitivity", true,false, 0, 100, MouseSensitivity));
+		Control.add(new MenuItem("Control", true, false));
+		Control.add(new MenuItem_CheckBox("Grab mouse", true, false, GrabMouse));
+		Control.add(new MenuItem_CheckBox("Enable chat", true, false, EnableChat));
+		Control.add(new MenuItem_HorSlider("Mouse Sensitivity", true ,false, 0, 100, MouseSensitivity));
 
 		// Sound Array
 		List<MenuItem> Sound = new ArrayList<MenuItem>();
-		Sound.add(new MenuItem("Sound", true,false));
-		Sound.add(new MenuItem_HorSlider("SFX Volume", true,false, 0, 100, SFXVolume));
-		Sound.add(new MenuItem("Mode ",false,true));
+		Sound.add(new MenuItem("Sound", true, false));
+		Sound.add(new MenuItem_HorSlider("SFX Volume", true, false, 0, 100, SFXVolume));
+		Sound.add(new MenuItem("Mode ",false, true));
 		String[] RadioText = new String[3];
 		RadioText[0] = "2D";
 		RadioText[1] = "3D";
 		RadioText[2] = "3D Duppler Effect";
 		MenuItem_RadioButtonGroup RadioGroup = new MenuItem_RadioButtonGroup(RadioText,SoundMode);
+
 		for (int Radio = 0; Radio < RadioGroup.RadioButtons.length; Radio++)
 		{
 			Sound.add(RadioGroup.RadioButtons[Radio]);
@@ -4224,7 +4227,8 @@ public class Menu
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 41;
-				} else if (CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
+				}
+				else if (CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 42;
