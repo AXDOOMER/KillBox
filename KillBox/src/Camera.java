@@ -315,43 +315,43 @@ public class Camera
 		}
 
 		// If menu is lock
-		if((Menu.Locked() || Menu.HaveWindowActive()))
+		if ((Menu.Locked() || Menu.HaveWindowActive()))
 		{
 			// Send input to Action method
 			Menu.Action(MenuKeyPressed);
 		}
 		// If menu is active
-		if(Menu.Active() && !Menu.HaveWindowActive() && !MenuKeyPressed)
+		if (Menu.Active() && !Menu.HaveWindowActive() && !MenuKeyPressed)
 		{
 			// Up Key
-			if(Keyboard.isKeyDown(Keyboard.KEY_UP))
+			if (Keyboard.isKeyDown(Keyboard.KEY_UP))
 			{
 				Menu.CursorUp();
 			}
 			// Down Key
-			if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN))
 			{
 				Menu.CursorDown();
 			}
 			// Left Key
-			if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
 			{
 				Menu.CursorLeft();
 			}
 			// Right Key
-			if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
 			{
 				Menu.CursorRight();
 			}
 			// Enter Key
-			if(Keyboard.isKeyDown(Keyboard.KEY_RETURN))
+			if (Keyboard.isKeyDown(Keyboard.KEY_RETURN))
 			{
 				Menu.Locking();
 			}
 		}
 
 		// Show/Hide menu
-		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
 		{
 			// Remove control to player
 			HasControl = !HasControl;
@@ -370,7 +370,7 @@ public class Camera
 		}
 
 		// Check input for Menu
-		if(Menu.Active())
+		if (Menu.Active())
 		{
 			while (Keyboard.next())
 			{
@@ -378,7 +378,7 @@ public class Camera
 			}
 
 			// Check if key been pressed on Loop 1
-			if(MenuKeyPressed)
+			if (MenuKeyPressed)
 			{
 				MenuKeyPressed = true;
 			}

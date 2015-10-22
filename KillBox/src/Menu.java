@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.??? (Beta)";
-	String LastUpdate = "october 21th 2015";
+	String LastUpdate = "october 22th 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -264,7 +264,27 @@ public class Menu
 						// Initialize Texture Index in font List
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
+					else if (CharValue == CharAsteriskIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 40;
+					}
+					else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 41;
+					}
+					else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 42;
+					}
 					// Special character
+					else if (CharValue == CharMinusIndex)
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 44;
+					}
 					else if (CharValue == ChaPeriodIndex)
 					{
 						// Initialize Texture Index in font List
@@ -274,6 +294,11 @@ public class Menu
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
+					}
+					else // Character is not defined. Write '?' instead.
+					{
+						// Initialize Texture Index in font List
+						TextureIndex = 48;
 					}
 
 					// Initialize and Bind Texture
