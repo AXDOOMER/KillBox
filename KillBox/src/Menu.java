@@ -208,7 +208,7 @@ public class Menu
 		}
 
 		// Draw text of MenuItem at position
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight,boolean NotFirstItem,boolean WindowColor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight, boolean NotFirstItem, boolean WindowColor)
 		{
 			// Get Item Text
 			String Text = ItemText();
@@ -236,7 +236,7 @@ public class Menu
 			}
 
 			// Loop that check each letter of ItemText and load corresponding image and then draw it
-			for(int Letter = 0; Letter < Text.length(); Letter++)
+			for (int Letter = 0; Letter < Text.length(); Letter++)
 			{
 				if(Text.charAt(Letter) == ' ')
 				{
@@ -3146,7 +3146,8 @@ public class Menu
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
-					} else if (CharValue == CharCOLONIndex)
+					}
+					else if (CharValue == CharCOLONIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -3427,7 +3428,7 @@ public class Menu
 
 		// Loading all Font Texture
 		FontArray = new ArrayList<Texture>();
-		LoadFont("smallchars", FontArray);
+		LoadFont("res/smallchars", FontArray);
 
 		SpecialImageArray = new ArrayList<Texture>();
 		Texture GameModeFree = new Texture("res/sprites/FreeForAll.png", GL_NEAREST);
@@ -3516,7 +3517,7 @@ public class Menu
 	}
 
 	// Load image file into array at startup to avoid having to load font each time we need them
-	private void LoadFont(String Folder,List<Texture> FontList)
+	private void LoadFont(String Folder, List<Texture> FontList)
 	{
 		// Loading number
 		for(int Number = Char0Index; Number <= Char9Index; Number++)
@@ -3524,7 +3525,7 @@ public class Menu
 			// Initialize letter
 			char FileName = (char)Number;
 			// Load Texture
-			Texture Texture = new Texture(("res/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
+			Texture Texture = new Texture((Folder + "/" + FileName + ".png"),GL_NEAREST);
 			// Put Texture into Array
 			FontList.add(Texture);
 		}
@@ -3535,24 +3536,25 @@ public class Menu
 			// Initialize letter
 			char FileName = (char)Letter;
 			// Load Texture
-			Texture Texture = new Texture(("res/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
+			Texture Texture = new Texture((Folder + "/" + FileName + ".png"),GL_NEAREST);
 			// Put Texture into Array
 			FontList.add(Texture);
 		}
 
 		// Loading punctuation
-		Texture TexturePeriod = new Texture(("res/" + Folder + "/" + "PERIOD" + ".png"),GL_NEAREST);
-		Texture TextureColon = new Texture(("res/" + Folder + "/" + "COLON" + ".png"),GL_NEAREST);
-		Texture TextureUnderScore = new Texture(("res/" + Folder + "/" + "UNDERSCORE" + ".png"),GL_NEAREST);
-		Texture TextureApostrophe = new Texture(("res/" + Folder + "/" + "APOSTROPHE" + ".png"),GL_NEAREST);
-		Texture TextureAsterisk = new Texture(("res/" + Folder + "/" + "ASTERISK" + ".png"),GL_NEAREST);
-		Texture TextureLeftPara = new Texture(("res/" + Folder + "/" + "LEFTPARENTHESIS" + ".png"),GL_NEAREST);
-		Texture TextureRightPara = new Texture(("res/" + Folder + "/" + "RIGHTPARENTHESIS" + ".png"),GL_NEAREST);
-		Texture TexturePlus = new Texture(("res/" + Folder + "/" + "PLUS" + ".png"),GL_NEAREST);
-		Texture TextureMinus = new Texture(("res/" + Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
-		Texture TextureNumber = new Texture(("res/" + Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
-		Texture TextureExclamation = new Texture(("res/" + Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
-		Texture TextureQuestion = new Texture(("res/" + Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
+		Texture TexturePeriod = new Texture((Folder + "/" + "PERIOD" + ".png"),GL_NEAREST);
+		Texture TextureColon = new Texture((Folder + "/" + "COLON" + ".png"),GL_NEAREST);
+		Texture TextureUnderScore = new Texture((Folder + "/" + "UNDERSCORE" + ".png"),GL_NEAREST);
+		Texture TextureApostrophe = new Texture((Folder + "/" + "APOSTROPHE" + ".png"),GL_NEAREST);
+		Texture TextureAsterisk = new Texture((Folder + "/" + "ASTERISK" + ".png"),GL_NEAREST);
+		Texture TextureLeftPara = new Texture((Folder + "/" + "LEFTPARENTHESIS" + ".png"),GL_NEAREST);
+		Texture TextureRightPara = new Texture((Folder + "/" + "RIGHTPARENTHESIS" + ".png"),GL_NEAREST);
+		Texture TexturePlus = new Texture((Folder + "/" + "PLUS" + ".png"),GL_NEAREST);
+		Texture TextureMinus = new Texture((Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
+		Texture TextureNumber = new Texture((Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
+		Texture TextureExclamation = new Texture((Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
+		Texture TextureQuestion = new Texture((Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
+		Texture TexturePercent = new Texture((Folder + "/" + "PERCENT" + ".png"),GL_NEAREST);
 
 		FontList.add(TexturePeriod);
 		FontList.add(TextureColon);
@@ -3566,6 +3568,7 @@ public class Menu
 		FontList.add(TextureNumber);
 		FontList.add(TextureExclamation);
 		FontList.add(TextureQuestion);
+		FontList.add(TexturePercent);
 	}
 
 	// Set locked value
