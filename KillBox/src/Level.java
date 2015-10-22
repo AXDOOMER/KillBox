@@ -264,7 +264,7 @@ public class Level
 							}
 						}
 
-						Things.add(new Thing("Stuff/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
+						Things.add(new Thing("res/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
 					}
 					else
 					{
@@ -325,13 +325,13 @@ public class Level
 		if (Search == 0)
 		{
 			// It's the only element, so it must be the first element.
-			NewTexture = new Texture("Stuff/" + Path, Filter);
+			NewTexture = new Texture("res/" + Path, Filter);
 			Textures.add(NewTexture);
 		}
 		else if (Search > 0)
 		{
 			// Add it there. Since the index of 'Search' is an element after the required position, one is substracted.
-			NewTexture = new Texture("Stuff/" + Path, Filter);
+			NewTexture = new Texture("res/" + Path, Filter);
 			Textures.add(Search - 1, NewTexture);
 		}
 

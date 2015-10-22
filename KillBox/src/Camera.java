@@ -192,12 +192,12 @@ public class Camera
 		{
 			if (TextureFiltered)
 			{
-				//Door = new Texture("Stuff/DOOR9_1.bmp", GL_NEAREST);    // Only to test
+				//Door = new Texture("res/DOOR9_1.bmp", GL_NEAREST);    // Only to test
 				TextureFiltered = false;
 			}
 			else
 			{
-				//Door = new Texture("Stuff/DOOR9_1.bmp", GL_LINEAR);    // Only to test
+				//Door = new Texture("res/DOOR9_1.bmp", GL_LINEAR);    // Only to test
 				TextureFiltered = true;
 			}
 
@@ -689,7 +689,7 @@ public class Camera
 
 				/*
 				// Draw texture here (Test to draw image at bottom left
-				Menu.DrawTexture((new Texture("Stuff/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
+				Menu.DrawTexture((new Texture("res/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
 */
 				// Draw all element
 				glFlush();

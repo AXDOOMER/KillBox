@@ -92,7 +92,7 @@ public class Player
 		// Load Sprites for the Players
 		for (int Rotation = 1; Rotation <= Rotations; Rotation++)
 		{
-			Texture NextFrame = new Texture("Stuff/player/PLAY" + "A" + Rotation + ".png", GL_NEAREST);
+			Texture NextFrame = new Texture("res/player/PLAY" + "A" + Rotation + ".png", GL_NEAREST);
 			WalkFrames.add(NextFrame);
 		}
 	}

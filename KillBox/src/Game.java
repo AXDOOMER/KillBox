@@ -53,7 +53,7 @@ public class Game
 
 		try
 		{
-			Lvl = new Level(/*Reader.readLine()*/ /*"Stuff/test.txt"*/);
+			Lvl = new Level(/*Reader.readLine()*/ /*"res/test.txt"*/);
 
 			// Continues here if a the level is found and loaded (no exception)
 			if (CheckParm(args, "-playdemo") >= 0)
@@ -191,7 +191,7 @@ public class Game
 				WallsFilter = GL_LINEAR;
 			}
 
-			Lvl.LoadLevel("Stuff/maps/" + /*Reader.readLine()*/"genlevel.txt", WallsFilter);
+			Lvl.LoadLevel("res/maps/" + /*Reader.readLine()*/"genlevel.txt", WallsFilter);
 
 			// Players will spawn at random locations
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -555,7 +555,7 @@ public class Game
 		try
 		{
 			// Load the file
-			BufferedReader ConfigFile = new BufferedReader(new FileReader("Stuff/" + Name));
+			BufferedReader ConfigFile = new BufferedReader(new FileReader("res/" + Name));
 
 			// Load the user's settings in the same order that they were saved.
 			ConfigFile.readLine();
@@ -578,7 +578,7 @@ public class Game
 		try
 		{
 			// Writer for the config file
-			PrintWriter ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("Stuff/" + Name)));
+			PrintWriter ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("res/" + Name)));
 
 			// Double tabs
 			final String Spacing = "\t\t";

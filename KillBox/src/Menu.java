@@ -2112,7 +2112,7 @@ public class Menu
 			// Load all map from map folder
 			try
 			{
-				List<File> FilesInFolder = Files.walk(Paths.get("Stuff/Maps/"))
+				List<File> FilesInFolder = Files.walk(Paths.get("res/maps/"))
 						.filter(Files::isRegularFile)
 						.map(Path::toFile)
 						.collect(Collectors.toList());
@@ -3430,10 +3430,10 @@ public class Menu
 		LoadFont("smallchars", FontArray);
 
 		SpecialImageArray = new ArrayList<Texture>();
-		Texture GameModeFree = new Texture("Stuff/sprites/FreeForAll.png", GL_NEAREST);
-		Texture GameModeOne = new Texture("Stuff/sprites/OneHitKill.png", GL_NEAREST);
-		Texture GameModeFlag = new Texture("Stuff/sprites/FlagTag.png", GL_NEAREST);
-		Texture ImageSelect = new Texture("Stuff/sprites/Select.png", GL_NEAREST);
+		Texture GameModeFree = new Texture("res/sprites/FreeForAll.png", GL_NEAREST);
+		Texture GameModeOne = new Texture("res/sprites/OneHitKill.png", GL_NEAREST);
+		Texture GameModeFlag = new Texture("res/sprites/FlagTag.png", GL_NEAREST);
+		Texture ImageSelect = new Texture("res/sprites/Select.png", GL_NEAREST);
 		SpecialImageArray.add(GameModeFree);
 		SpecialImageArray.add(GameModeOne);
 		SpecialImageArray.add(GameModeFlag);
@@ -3524,7 +3524,7 @@ public class Menu
 			// Initialize letter
 			char FileName = (char)Number;
 			// Load Texture
-			Texture Texture = new Texture(("Stuff/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
+			Texture Texture = new Texture(("res/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
 			// Put Texture into Array
 			FontList.add(Texture);
 		}
@@ -3535,24 +3535,24 @@ public class Menu
 			// Initialize letter
 			char FileName = (char)Letter;
 			// Load Texture
-			Texture Texture = new Texture(("Stuff/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
+			Texture Texture = new Texture(("res/" + Folder + "/" + FileName + ".png"),GL_NEAREST);
 			// Put Texture into Array
 			FontList.add(Texture);
 		}
 
 		// Loading punctuation
-		Texture TexturePeriod = new Texture(("Stuff/" + Folder + "/" + "PERIOD" + ".png"),GL_NEAREST);
-		Texture TextureColon = new Texture(("Stuff/" + Folder + "/" + "COLON" + ".png"),GL_NEAREST);
-		Texture TextureUnderScore = new Texture(("Stuff/" + Folder + "/" + "UNDERSCORE" + ".png"),GL_NEAREST);
-		Texture TextureApostrophe = new Texture(("Stuff/" + Folder + "/" + "APOSTROPHE" + ".png"),GL_NEAREST);
-		Texture TextureAsterisk = new Texture(("Stuff/" + Folder + "/" + "ASTERISK" + ".png"),GL_NEAREST);
-		Texture TextureLeftPara = new Texture(("Stuff/" + Folder + "/" + "LEFTPARENTHESIS" + ".png"),GL_NEAREST);
-		Texture TextureRightPara = new Texture(("Stuff/" + Folder + "/" + "RIGHTPARENTHESIS" + ".png"),GL_NEAREST);
-		Texture TexturePlus = new Texture(("Stuff/" + Folder + "/" + "PLUS" + ".png"),GL_NEAREST);
-		Texture TextureMinus = new Texture(("Stuff/" + Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
-		Texture TextureNumber = new Texture(("Stuff/" + Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
-		Texture TextureExclamation = new Texture(("Stuff/" + Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
-		Texture TextureQuestion = new Texture(("Stuff/" + Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
+		Texture TexturePeriod = new Texture(("res/" + Folder + "/" + "PERIOD" + ".png"),GL_NEAREST);
+		Texture TextureColon = new Texture(("res/" + Folder + "/" + "COLON" + ".png"),GL_NEAREST);
+		Texture TextureUnderScore = new Texture(("res/" + Folder + "/" + "UNDERSCORE" + ".png"),GL_NEAREST);
+		Texture TextureApostrophe = new Texture(("res/" + Folder + "/" + "APOSTROPHE" + ".png"),GL_NEAREST);
+		Texture TextureAsterisk = new Texture(("res/" + Folder + "/" + "ASTERISK" + ".png"),GL_NEAREST);
+		Texture TextureLeftPara = new Texture(("res/" + Folder + "/" + "LEFTPARENTHESIS" + ".png"),GL_NEAREST);
+		Texture TextureRightPara = new Texture(("res/" + Folder + "/" + "RIGHTPARENTHESIS" + ".png"),GL_NEAREST);
+		Texture TexturePlus = new Texture(("res/" + Folder + "/" + "PLUS" + ".png"),GL_NEAREST);
+		Texture TextureMinus = new Texture(("res/" + Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
+		Texture TextureNumber = new Texture(("res/" + Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
+		Texture TextureExclamation = new Texture(("res/" + Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
+		Texture TextureQuestion = new Texture(("res/" + Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
 
 		FontList.add(TexturePeriod);
 		FontList.add(TextureColon);
