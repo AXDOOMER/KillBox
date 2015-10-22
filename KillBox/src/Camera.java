@@ -675,7 +675,7 @@ public class Camera
 						if (Lvl.Players.get(Player).Hits > 0)
 						{
 							int HitPercentage = (int) ((float) Lvl.Players.get(Player).Hits * 100 / (Lvl.Players.get(Player).Hits + Lvl.Players.get(Player).Missed));
-							PlayerHits = " (hit: " + HitPercentage + ")";
+							PlayerHits = " (hit: " + HitPercentage + "%)";
 						}
 
 						//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;

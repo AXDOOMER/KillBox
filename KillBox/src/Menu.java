@@ -265,12 +265,12 @@ public class Menu
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
 					// Special character
-					else if (CharValue == CharPERIODIndex)
+					else if (CharValue == ChaPeriodIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if(CharValue == CharCOLONIndex)
+					else if(CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -1181,12 +1181,12 @@ public class Menu
 					TextureIndex = CharValue - CharAIndex + 10;
 				}
 				// Special character
-				else if (CharValue == CharPERIODIndex)
+				else if (CharValue == ChaPeriodIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 36;
 				}
-				else if(CharValue == CharCOLONIndex)
+				else if(CharValue == CharColonIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 37;
@@ -1717,12 +1717,12 @@ public class Menu
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
 					// Special character
-					else if (CharValue == CharPERIODIndex || CharValue == CharCommaIndex)
+					else if (CharValue == ChaPeriodIndex || CharValue == CharCommaIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if(CharValue == CharCOLONIndex)
+					else if(CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -1742,12 +1742,12 @@ public class Menu
 						// Initialize Texture Index in font List
 						TextureIndex = 40;
 					}
-					else if(CharValue == CharLeftParaIndex || CharValue == CharLeftSquare || CharValue == CharLeftBrace)
+					else if(CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 41;
 					}
-					else if(CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
+					else if(CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 42;
@@ -1767,7 +1767,7 @@ public class Menu
 						// Initialize Texture Index in font List
 						TextureIndex = 45;
 					}
-					else if(CharValue == CharEclamationIndex)
+					else if(CharValue == CharExclamationIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 46;
@@ -2372,12 +2372,12 @@ public class Menu
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
 					// Special character
-					else if (CharValue == CharPERIODIndex)
+					else if (CharValue == ChaPeriodIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if(CharValue == CharCOLONIndex)
+					else if(CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -2860,11 +2860,11 @@ public class Menu
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
 					// Special character
-					else if (CharValue == CharPERIODIndex)
+					else if (CharValue == ChaPeriodIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
-					} else if (CharValue == CharCOLONIndex)
+					} else if (CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -3142,12 +3142,12 @@ public class Menu
 						TextureIndex = CharValue - CharAIndex + 10;
 					}
 					// Special character
-					else if (CharValue == CharPERIODIndex)
+					else if (CharValue == ChaPeriodIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if (CharValue == CharCOLONIndex)
+					else if (CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -3355,16 +3355,16 @@ public class Menu
 	private final Color BarColor = new Color(0.5f,0.0f,0.0f,1.0f);
 	private final Color AlphaRectColor = new Color(0.0f, 0.0f,0.3f, 0.5f);
 	private final float BigMargin = 3.5f; // Multiply normal margin by this number for a bigger margin
-	private static final double GlWinWidth = 2.73f; // Value of the windows width with GL unit (auto ajust to windows size)
-	private static final double GlWinHeight = 1.66f; // Value of the windows height with GL unit (auto ajust to windows size)
+	private static final double GlWinWidth = 2.73f; // Value of the windows width with GL unit (auto adjust to windows size)
+	private static final double GlWinHeight = 1.66f; // Value of the windows height with GL unit (auto adjust to windows size)
 
 	// Char constant
 	final int Char0Index = 48;
 	final int Char9Index = 57;
 	final int CharAIndex = 65;
 	final int CharZIndex = 90;
-	final int CharPERIODIndex = 46;
-	final int CharCOLONIndex = 58;
+	final int ChaPeriodIndex = 46;
+	final int CharColonIndex = 58;
 	final int CharUnderScoreIndex = 95;
 	final int CharApostropheIndex = 39;
 	final int CharAsteriskIndex = 42;
@@ -3373,14 +3373,15 @@ public class Menu
 	final int CharPlusIndex = 43;
 	final int CharMinusIndex = 45;
 	final int CharNumberIndex = 35;
-	final int CharEclamationIndex = 33;
+	final int CharExclamationIndex = 33;
 	final int CharCommaIndex = 44;
 	final int CharCommercialAIndex = 64;
-	final int CharLeftSquare = 91;
-	final int CharRightSquare = 93;
-	final int CharLeftBrace = 123;
-	final int CharRightBrace = 125;
+	final int CharLeftSquareIndex = 91;
+	final int CharRightSquareIndex = 93;
+	final int CharLeftBraceIndex = 123;
+	final int CharRightBraceIndex = 125;
 	final int CharQuestionIndex = 63;
+	final int CharPercentIndex = 37;
 
 	// Screen coordinates are represented as a fixed resolution
 	int GridWidth = 640;
@@ -3553,8 +3554,8 @@ public class Menu
 		Texture TextureMinus = new Texture((Folder + "/" + "MINUS" + ".png"),GL_NEAREST);
 		Texture TextureNumber = new Texture((Folder + "/" + "NUMBERSIGN" + ".png"),GL_NEAREST);
 		Texture TextureExclamation = new Texture((Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
-		Texture TextureQuestion = new Texture((Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
 		Texture TexturePercent = new Texture((Folder + "/" + "PERCENT" + ".png"),GL_NEAREST);
+		Texture TextureQuestion = new Texture((Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
 
 		FontList.add(TexturePeriod);
 		FontList.add(TextureColon);
@@ -3567,8 +3568,8 @@ public class Menu
 		FontList.add(TextureMinus);
 		FontList.add(TextureNumber);
 		FontList.add(TextureExclamation);
-		FontList.add(TextureQuestion);
 		FontList.add(TexturePercent);
+		FontList.add(TextureQuestion);
 	}
 
 	// Set locked value
@@ -4201,12 +4202,12 @@ public class Menu
 					TextureIndex = CharValue - CharAIndex + 10;
 				}
 				// Special character
-				else if (CharValue == CharPERIODIndex || CharValue == CharCommaIndex)
+				else if (CharValue == ChaPeriodIndex || CharValue == CharCommaIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 36;
 				}
-				else if (CharValue == CharCOLONIndex)
+				else if (CharValue == CharColonIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 37;
@@ -4226,12 +4227,12 @@ public class Menu
 					// Initialize Texture Index in font List
 					TextureIndex = 40;
 				}
-				else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquare || CharValue == CharLeftBrace)
+				else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 41;
 				}
-				else if (CharValue == CharRightParaIndex || CharValue == CharRightSquare || CharValue == CharRightBrace)
+				else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 42;
@@ -4251,15 +4252,19 @@ public class Menu
 					// Initialize Texture Index in font List
 					TextureIndex = 45;
 				}
-				else if (CharValue == CharEclamationIndex)
+				else if (CharValue == CharExclamationIndex)
 				{
 					// Initialize Texture Index in font List
 					TextureIndex = 46;
 				}
+				else if (CharValue == CharPercentIndex)
+				{
+					TextureIndex = 47;
+				}
 				else // Character not define. Write ?.
 				{
 					// Initialize Texture Index in font List
-					TextureIndex = 47;
+					TextureIndex = 48;
 				}
 
 				// Initialize and Bind Texture
