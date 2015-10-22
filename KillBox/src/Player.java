@@ -965,6 +965,12 @@ public class Player
 		MoY = 0;
 		MoZ = 0;
 
+		// Reset scores
+		Kills = 0;
+		Deaths = 0;
+		Hits = 0;
+		Missed = 0;
+
 		// Reset other stuff
 		HasMoved = false;
 		byte FrontMove = 0;
@@ -972,7 +978,7 @@ public class Player
 		short AngleDiff = 0;
 	}
 
-	public boolean SpawnAtRandomSpot()
+	public boolean SpawnAtRandomSpot(boolean MustBeFree)
 	{
 		Shot = true;	// Need this for the player to respawn in the other game
 
@@ -982,7 +988,7 @@ public class Player
 
 		Thing SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
 
-		while (!this.SpawnAtLocation(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle))
+		while (!this.SpawnAtLocation(SomeSpawn.PosX(), SomeSpawn.PosY(), SomeSpawn.PosZ(), SomeSpawn.Angle, MustBeFree))
 		{
 			RandomNumber = Randomizer.GiveNumber();
 			SomeSpawn = Lvl.Spawns.get(RandomNumber % Lvl.Spawns.size());
@@ -997,16 +1003,19 @@ public class Player
 		return true;
 	}
 
-	private boolean SpawnAtLocation(float X, float Y, float Z, short Angle)
+	private boolean SpawnAtLocation(float X, float Y, float Z, short Angle, boolean MustBeFree)
 	{
 		boolean FreeSpace = true;
 		for (int Player = 0; Player < Lvl.Players.size(); Player++)
 		{
-			float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
-
-			if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
+			if (MustBeFree)
 			{
-				FreeSpace = false;
+				float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
+
+				if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
+				{
+					FreeSpace = false;
+				}
 			}
 		}
 

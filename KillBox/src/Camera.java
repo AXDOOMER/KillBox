@@ -284,7 +284,7 @@ public class Camera
 					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
 					{
 						// Spawn the player
-						if (!CurrentPlayer().SpawnAtRandomSpot())
+						if (!CurrentPlayer().SpawnAtRandomSpot(true))
 						{
 							System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
 							System.exit(1);

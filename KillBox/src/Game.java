@@ -196,7 +196,7 @@ public class Game
 			// Players will spawn at random locations
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
 			{
-				if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
+				if (!Lvl.Players.get(Player).SpawnAtRandomSpot(true))
 				{
 					System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
 					System.exit(1);
@@ -304,7 +304,7 @@ public class Game
 										if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
 										{
 											// Spawn the player
-											if (!Lvl.Players.get(Number).SpawnAtRandomSpot()) {
+											if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true)) {
 												System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
 												System.exit(1);
 											}
@@ -427,7 +427,7 @@ public class Game
 
 						for (int Player = 0; Player < Lvl.Players.size(); Player++)
 						{
-							if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
+							if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
 							{
 								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
 								System.exit(1);
@@ -472,7 +472,7 @@ public class Game
 
 						for (int Player = 0; Player < Lvl.Players.size(); Player++)
 						{
-							if (!Lvl.Players.get(Player).SpawnAtRandomSpot())
+							if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
 							{
 								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
 								System.exit(1);
