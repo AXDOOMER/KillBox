@@ -94,9 +94,9 @@ public class Menu
 		private double Occupied_Width; // Initialize on Draw. Tell how much large is the item
 
 		// Constants
-		public static final float MarginPourcent = 0.4f; // Magin between item.
-		private final int FontSize = 3; // Mutiply Font image by this number
-		private final int SpaceSize = 2; // Multiply magin by this number to create space
+		public static final float MarginPercent = 0.4f; // Margin between item.
+		private final int FontSize = 3; // Multiply Font image by this number
+		private final int SpaceSize = 2; // Multiply margin by this number to create space
 		final double FontWidth = 1.34375d; // Value in %, must be converted to GL unit
 		final double FontHeight = 3.2083333333333333333333333333333d; // Value in %, must be converted to GL unit
 		final Color FontColor = new Color(255, 255, 255, 255);
@@ -183,7 +183,7 @@ public class Menu
 			double TotalWidthPixels = AdditionalWidth;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 			// Loop that check each letter of ItemText and load corresponding image and then draw it
 			for(int Letter = 0; Letter < Text.length(); Letter++)
@@ -215,8 +215,8 @@ public class Menu
 			// Convert pixel to GL
 			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowColor);
-			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 			if(!Enabled() && !KeepActiveColor)
 			{
@@ -350,14 +350,14 @@ public class Menu
 		final double BoxSizeHeight = 3.2083333333333333333333333333333d; // Value in %, must be converted to GL unit
 		final int BorderX = 2; // Size of border for the box
 		final int BorderY = BorderX + (BorderX * 2 / 3); // Size of border for the box
-		final Color BoxColorChecked = new Color(255,183,0,255); // Orange color
-		final Color BoxColorUnchecked = new Color(0,0,0,255); // Black
+		final Color BoxColorChecked = new Color(255, 183, 0, 255); // Orange color
+		final Color BoxColorUnchecked = new Color(0, 0, 0, 255); // Black
 
 		// Default constructor
 		public MenuItem_CheckBox()
 		{
 			// Calling MenuItem constructor to initialize inherited attribute
-			super("",false,false);
+			super("", false, false);
 			// Initialize Attribute
 			IsChecked.Bool(false);
 		}
@@ -390,7 +390,7 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 			double BoxWidthPixels = ConvertPercentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = BoxWidthPixels + BorderX + MarginPixels;
@@ -416,7 +416,7 @@ public class Menu
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 			double BoxWidthPixels = ConvertPercentToPx(BoxSizeWidth, true, GridWidth, GridHeight);
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 			glColor4f(BoxColorUnchecked.getRed(), BoxColorUnchecked.getGreen(), BoxColorUnchecked.getBlue(), BoxColorUnchecked.getAlpha());
 
@@ -468,8 +468,8 @@ public class Menu
 		final double SquareHeight = 3; // % value, must be converted to either px or gl
 		final double BorderX = 2; // Size of border for the box
 		final double BorderY = BorderX + (BorderX * 2 / 3); // Size of border for the box
-		final Color SquareColor = new Color(0,142,221,255); // Blue color
-		final Color DarkSquareColor = new Color(0,0,0,255); // Black color
+		final Color SquareColor = new Color(0, 142, 221, 255); // Blue color
+		final Color DarkSquareColor = new Color(0, 0, 0, 255); // Black color
 
 		// Parametered constructor
 		public MenuItem_HorSlider(String Text,boolean Enabled,boolean Keep, int Min,int Max, Menu_Integer Value)
@@ -541,7 +541,7 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 			double SquareWidthPixels = ConvertPercentToPx(SquareWidth, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = (SquareWidthPixels + BorderX + MarginPixels) * NumberOfSquare;
@@ -561,8 +561,8 @@ public class Menu
 			double MargeX = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double MargeY = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 			double SquareWidthPixels = ConvertPercentToPx(SquareWidth, true, GridWidth, GridHeight);
-			double SquareMargin = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor) + MargeX; // Margin between square
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double SquareMargin = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor) + MargeX; // Margin between square
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 			// Loop to draw all square of the slider
 			for(int SquareIndex = 0; SquareIndex < NumberOfSquare; SquareIndex++)
@@ -684,8 +684,8 @@ public class Menu
 		private final double CircleRadius = 1.0d;
 		private final int NumberOfLine = 100; // Number of line drawn to draw a "circle"
 		private final double CircleTheta = 2.0d * 3.1415926d / NumberOfLine;
-		private final Color RadioCheckedColor = new Color(0, 255,0, 255);
-		private final Color RadioUnCheckedColor = new Color(0, 85,0, 255);
+		private final Color RadioCheckedColor = new Color(0, 255, 0, 255);
+		private final Color RadioUnCheckedColor = new Color(0, 85, 0, 255);
 		private final double BorderRadius = 0.33d;
 		// Default constructor
 		public MenuItem_RadioButton()
@@ -737,7 +737,7 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 			double CircleRadiusPixels = ConvertPercentToPx(CircleRadius, true, GridWidth, GridHeight);
 
 			TotalWidthPixels = CircleRadiusPixels * 2 + MarginPixels;
@@ -759,7 +759,7 @@ public class Menu
 			double CircleRadiusPixels = ConvertPercentToPx(CircleRadius, true, GridWidth, GridHeight);
 			double CircleX = ConvertPxToGL(PosX + CircleRadiusPixels, true, GridWidth, GridHeight, WindowColor); // Center of circle X
 			double CircleY = ConvertPxToGL(PosY + CircleRadiusPixels, false, GridWidth, GridHeight, WindowColor); // Center of circle Y
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 			// Variable to rotate point
 			double CircleCos = Math.cos(CircleTheta);// precalculate the sine and cosine
@@ -848,13 +848,13 @@ public class Menu
 		// Constant
 		private final double NumBoxBorderX = 0.1d;
 		private final double NumBoxBorderY = NumBoxBorderX  + (NumBoxBorderX * 2 / 3);
-		private final Color NumBoxHighlightColor = new Color(255,255,0,255);
-		private final Color NumBoxNeutralColor = new Color(255,255,255,255);
-		private final Color NumBoxBorderColor = new Color(0,0,0,255);
+		private final Color NumBoxHighlightColor = new Color(255, 255 ,0 ,255);
+		private final Color NumBoxNeutralColor = new Color(255, 255, 255, 255);
+		private final Color NumBoxBorderColor = new Color(0, 0, 0, 255);
 		private int TimeRepeatEvent = 5; // Time before event is repeated
 
 		// Parameterized constructor
-		public MenuItem_NumberBox(String Text,boolean Enable,boolean Keep,Menu_Integer Value,int Min,int Max, int Stp)
+		public MenuItem_NumberBox(String Text, boolean Enable, boolean Keep, Menu_Integer Value, int Min, int Max, int Stp)
 		{
 			super(Text, Enable, Keep);
 			// Initialize component
@@ -957,7 +957,7 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
 
 			// Draw all image
@@ -983,7 +983,7 @@ public class Menu
 			int[] NumberImageIndex = new int[Value.length()];
 
 			// Initialize variable to draw border
-			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight, WindowColor);
+			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
 			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
 			double BorderXGL = ConvertPercentToGL(NumBoxBorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPercentToGL(NumBoxBorderY, false, GridWidth, GridHeight, WindowColor);
@@ -992,8 +992,8 @@ public class Menu
 			double ImageHeightGL = ConvertPercentToGL(FontHeight, true, GridWidth, GridHeight, WindowColor);
 			double TotalImageWidthGL = 0;
 			double TotalImageWidthPixels = 0;
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
 
 			// Load texture for Value
 			for(int Textures = 0; Textures < Value.length();Textures++)
@@ -1088,9 +1088,9 @@ public class Menu
 
 		// Constant
 		private final int MaxLength = 21;
-		private final Color BorderColor = new Color(0,0,0,255);
-		private final Color InsideColor = new Color(255,255,255,255);
-		private final Color FontColor = new Color(0,0,0,255);
+		private final Color BorderColor = new Color(0, 0, 0, 255);
+		private final Color InsideColor = new Color(255, 255, 255, 255);
+		private final Color FontColor = new Color(0, 0, 0, 255);
 		final int BorderX = 2; // Size of border for the box
 		final int BorderY = BorderX + (BorderX * 2 / 3); // Size of border for the box
 
@@ -1130,8 +1130,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Adding width to total width
 			TotalWidthPixels = TotalWidthPixels + BoxWidthPixels + BorderX + MarginPixels;
@@ -1157,11 +1157,11 @@ public class Menu
 			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
 			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
-			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
-			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
+			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPercent, false, GridWidth, GridHeight, WindowColor);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
 			glColor4f((float) BorderColor.getRed() / 255.0f, (float) BorderColor.getGreen() / 255.0f, (float) BorderColor.getBlue() / 255.0f,(float)BorderColor.getAlpha() / 255.0f);
@@ -1607,8 +1607,8 @@ public class Menu
 		int ItemsIndex;
 
 		// Constant
-		final Color BorderColor = new Color(0,0,0,255);
-		final Color BackGroundColor = new Color(255,255,255,255);
+		final Color BorderColor = new Color(0, 0, 0, 255);
+		final Color BackGroundColor = new Color(255, 255, 255, 255);
 		final double BorderX = 2.0d;
 		final double BorderY = BorderX * (2.0d / 3.0d);
 		final int MaxLength = 15;
@@ -1656,8 +1656,8 @@ public class Menu
 			double TotalWidthPixels = 0;
 
 			// Convert to pixel
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Adding width to total width
 			TotalWidthPixels = BoxWidthPixels + MarginPixels + BorderX;
@@ -1683,11 +1683,11 @@ public class Menu
 			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
 			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
-			double MarginGL = ConvertPercentToGL(MarginPourcent, true, GridWidth, GridHeight, WindowColor);
-			double MarginPixels = ConvertPercentToPx(MarginPourcent, true, GridWidth, GridHeight);
-			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
-			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPourcent, false, GridWidth, GridHeight, WindowColor);
-			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPourcent) * MaxLength, true, GridWidth, GridHeight);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
+			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
+			double BoxWidthGL = ConvertPercentToGL((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight, WindowColor);
+			double BoxHeightGL = ConvertPercentToGL(FontHeight + MarginPercent, false, GridWidth, GridHeight, WindowColor);
+			double BoxWidthPixels = ConvertPercentToPx((FontWidth + MarginPercent) * MaxLength, true, GridWidth, GridHeight);
 
 			// Draw black border
 			glColor4f((float) BorderColor.getRed() / 255.0f, (float) BorderColor.getGreen() / 255.0f, (float) BorderColor.getBlue() / 255.0f,(float)BorderColor.getAlpha() / 255.0f);
@@ -1710,7 +1710,7 @@ public class Menu
 			double ImagePosXGL  = PosXGL + MarginGL;
 
 			// Draw Text inside
-			for(int Image = 0; Image < MaxLength && Image < Items.get(ItemsIndex).length(); Image++)
+			for (int Image = 0; Image < MaxLength && Image < Items.get(ItemsIndex).length(); Image++)
 			{
 				glEnable(GL_TEXTURE_2D);
 
@@ -1718,25 +1718,25 @@ public class Menu
 				// Get int value of char
 				int CharValue = (String.valueOf(Items.get(ItemsIndex).charAt(Image)).toUpperCase()).charAt(0);
 				int TextureIndex = 0;
-				if(CharValue == ' ')
+				if (CharValue == ' ')
 				{
 					// Adding width to total width
 					ImagePosXGL = ImagePosXGL + ConvertPercentToGL(FontWidth, true, GridWidth, GridHeight, WindowColor) + MarginGL;
 				}
 				else
 				{
-					// Check if numbe
-					if(CharValue >= Char0Index && CharValue <= Char9Index)
+					// Check if it's a number
+					if (CharValue >= Char0Index && CharValue <= Char9Index)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = CharValue - Char0Index;
 					}
-					else if(CharValue == CharCommercialAIndex)
+					else if (CharValue == CharCommercialAIndex)
 					{
 						TextureIndex = 10;
 					}
 					// Check if letter
-					else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
+					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = CharValue - CharAIndex + 10;
@@ -1747,52 +1747,52 @@ public class Menu
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if(CharValue == CharColonIndex)
+					else if (CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
 					}
-					else if(CharValue == CharUnderScoreIndex)
+					else if (CharValue == CharUnderScoreIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 38;
 					}
-					else if(CharValue == CharApostropheIndex)
+					else if (CharValue == CharApostropheIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 39;
 					}
-					else if(CharValue == CharAsteriskIndex)
+					else if (CharValue == CharAsteriskIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 40;
 					}
-					else if(CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
+					else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 41;
 					}
-					else if(CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
+					else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 42;
 					}
-					else if(CharValue == CharPlusIndex)
+					else if (CharValue == CharPlusIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 43;
 					}
-					else if(CharValue == CharMinusIndex)
+					else if (CharValue == CharMinusIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 44;
 					}
-					else if(CharValue == CharNumberIndex)
+					else if (CharValue == CharNumberIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 45;
 					}
-					else if(CharValue == CharExclamationIndex)
+					else if (CharValue == CharExclamationIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 46;
@@ -2071,7 +2071,7 @@ public class Menu
 		final int RadioButtonNumber = 3;
 		final double TitleHeight = 13.25d; // Smaller = Bigger.
 		final int TitleHeightAdjust = 5;
-		final Color WindowColor = new Color(160,160,160,255);
+		final Color WindowColor = new Color(160, 160, 160, 255);
 		// Constructor
 		public MenuWindows_NewGame(String Title,int Width,int Height)
 		{
@@ -2142,12 +2142,12 @@ public class Menu
 						.map(Path::toFile)
 						.collect(Collectors.toList());
 
-				for(int Map = 0; Map < FilesInFolder.size();Map++)
+				for (int Map = 0; Map < FilesInFolder.size();Map++)
 				{
 					Maps.add(FilesInFolder.get(Map).getName().substring(0,FilesInFolder.get(Map).getName().indexOf(".")));
 				}
 			}
-			catch(IOException ex)
+			catch (IOException ex)
 			{
 				System.out.println("Error while loading file from maps folder");
 			}
@@ -2176,7 +2176,7 @@ public class Menu
 			//Column2.add(new MenuItem("",false,false)); // Spacer
 			//Column2.add(new MenuItem("",false,false)); // Spacer
 			Column2.add(new MenuItem("", false, false)); // Spacer
-			Column2.add(new MenuItem_NumberBox("Time Limit",true,false,TimeLimit,0,60,1));
+			Column2.add(new MenuItem_NumberBox("Time Limit", true, false, TimeLimit, 0, 60, 1));
 			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem("", false, false)); // Spacer
@@ -2193,28 +2193,28 @@ public class Menu
 		private void CursorRight()
 		{
 			// Check if cursor can move to right
-			if(ColumnCursor < Items.size() - 1)
+			if (ColumnCursor < Items.size() - 1)
 			{
 				ColumnCursor++;
 				// Check if SubMenuCursor to big to fit next column
-				if(RowCursor >= Items.get(ColumnCursor).size() - 1)
+				if (RowCursor >= Items.get(ColumnCursor).size() - 1)
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 				// Check if Item is not enable
-				while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor++;
 				}
 
-				// Ajust Row if out of range
-				if(RowCursor >= Items.get(ColumnCursor).size())
+				// Adjust Row if out of range
+				if (RowCursor >= Items.get(ColumnCursor).size())
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 
 				// If not item enable down, go up
-				while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor--;
 				}
@@ -2225,28 +2225,28 @@ public class Menu
 		public void CursorLeft()
 		{
 			// Check if cursor can move to left
-			if(ColumnCursor > 0)
+			if (ColumnCursor > 0)
 			{
 				ColumnCursor--;
 				// Check if SubMenuCursor to big to fit next column
-				if(RowCursor >= Items.get(ColumnCursor).size() - 1)
+				if (RowCursor >= Items.get(ColumnCursor).size() - 1)
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 				// Check if Item is not enable
-				while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor--;
 				}
 
-				// Ajust Row if out of range
-				if(RowCursor < 0)
+				// Adjust Row if out of range
+				if (RowCursor < 0)
 				{
 					RowCursor = 0;
 				}
 
 				// If not item enable up, go down
-				while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor++;
 				}
@@ -2257,24 +2257,24 @@ public class Menu
 		public void CursorDown()
 		{
 			// Check if cursor can move down
-			if(RowCursor < Items.get(ColumnCursor).size() - 1)
+			if (RowCursor < Items.get(ColumnCursor).size() - 1)
 			{
 				RowCursor++;
 			}
 			// Check if Item is not enable
-			while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor++;
 			}
 
 			// Adjust Row if out of range
-			if(RowCursor >= Items.get(ColumnCursor).size())
+			if (RowCursor >= Items.get(ColumnCursor).size())
 			{
 				RowCursor = Items.get(ColumnCursor).size() - 1;
 			}
 
 			// If not item enable down, go up
-			while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor--;
 			}
@@ -2284,24 +2284,24 @@ public class Menu
 		public void CursorUp()
 		{
 			// Check if cursor can move up
-			if(RowCursor > 0)
+			if (RowCursor > 0)
 			{
 				RowCursor--;
 			}
 			// Check if Item is not enable
-			while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor--;
 			}
 
-			// Ajust Row if out of range
-			if(RowCursor < 0)
+			// Adjust Row if out of range
+			if (RowCursor < 0)
 			{
 				RowCursor = 0;
 			}
 
 			// If not item enable up, go down
-			while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor++;
 			}
@@ -2321,10 +2321,10 @@ public class Menu
 			return RowCursor;
 		}
 
-		// Overide function
+		// Override function
 		void Draw(int GridWidth,int GridHeight)
 		{
-			// Disable Depth Test so that the border of the Window is writen over background. (The MenuBar and Alpha Rectangle)
+			// Disable Depth Test so that the border of the Window is written over background. (The MenuBar and Alpha Rectangle)
 			glDisable(GL_DEPTH_TEST);
 
 			// Set draw mode to fill
@@ -2362,7 +2362,7 @@ public class Menu
 
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
@@ -2370,12 +2370,12 @@ public class Menu
 			double StartTextXGL = ConvertPxToGL(((float)GridWidth / 2.0f) - (ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)),true,GridWidth,GridHeight,true);
 
 			// Loop that check each letter of ItemText and load corresponding image and then draw it
-			for(int Letter = 0; Letter < Text.length(); Letter++)
+			for (int Letter = 0; Letter < Text.length(); Letter++)
 			{
 				if(Text.charAt(Letter) == ' ')
 				{
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + MaginGL * SpaceSize;
+					StartTextXGL = StartTextXGL + MarginGL * SpaceSize;
 				}
 				else
 				{
@@ -2385,13 +2385,13 @@ public class Menu
 					int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
 					int TextureIndex = 0;
 					// Check if number
-					if(CharValue >= Char0Index && CharValue <= Char9Index)
+					if (CharValue >= Char0Index && CharValue <= Char9Index)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = CharValue - Char0Index;
 					}
 					// Check if letter
-					else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
+					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = CharValue - CharAIndex + 10;
@@ -2402,7 +2402,7 @@ public class Menu
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
 					}
-					else if(CharValue == CharColonIndex)
+					else if (CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -2419,16 +2419,16 @@ public class Menu
 					// Drawing image
 					glBegin(GL_QUADS);
 					glTexCoord2d(0.0d, 1.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 1.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 0.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL + ImgHeightGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL + ImgHeightGL);
 					glTexCoord2d(0.0d, 0.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MarginGL);
 					glEnd();
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + ImgWidthGL + MaginGL;
+					StartTextXGL = StartTextXGL + ImgWidthGL + MarginGL;
 
 					glDisable(GL_TEXTURE_2D);
 				}
@@ -2437,17 +2437,17 @@ public class Menu
 			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
 			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight - TitleHeightAdjust, false, GridWidth, GridHeight);
-			double BigestItemWidth = 0;
+			double BiggestItemWidth = 0;
 
 			glDisable(GL_DEPTH_TEST);
 			// Draw all control on a grid system (like menu)
-			for(int ItemArray = 0; ItemArray < Items.size(); ItemArray++)
+			for (int ItemArray = 0; ItemArray < Items.size(); ItemArray++)
 			{
-				for(int Item = 0;Item < Items.get(ItemArray).size();Item++)
+				for (int Item = 0;Item < Items.get(ItemArray).size();Item++)
 				{
 
 					// Check if Cursor is on this item
-					if(ItemArray == ColumnCursor && Item == RowCursor)
+					if (ItemArray == ColumnCursor && Item == RowCursor)
 					{
 						// Draw item
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, true, true, true);
@@ -2457,20 +2457,20 @@ public class Menu
 						// Draw item
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, false, false, true);
 					}
-					// Ajust next Y
+					// Adjust next Y
 					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
-					if(Items.get(ItemArray).get(Item).Occupied_Width() > BigestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
+					if (Items.get(ItemArray).get(Item).Occupied_Width() > BiggestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
 					{
-						BigestItemWidth = Items.get(ItemArray).get(Item).Occupied_Width();
+						BiggestItemWidth = Items.get(ItemArray).get(Item).Occupied_Width();
 					}
 
 					// Reset occupied width to 0
 					Items.get(ItemArray).get(Item).Occupied_Width(0);
 				}
 				PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight - TitleHeightAdjust, false, GridWidth, GridHeight);
-				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 3;
+				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BiggestItemWidth + MarginPixels * 3;
 			}
 
 			// Move to the top of window
@@ -2483,28 +2483,28 @@ public class Menu
 			// Declare local boolean
 			boolean CloseWindow = false;
 			// If lock, send action to actual item
-			if(WindowLock())
+			if (WindowLock())
 			{
 				Items.get(ColumnCursor).get(RowCursor).Action(MenuKeyPressed);
 			}
-			if(!MenuKeyPressed)
+			if (!MenuKeyPressed)
 			{
 				// Enter
-				if(Keyboard.isKeyDown(Keyboard.KEY_RETURN))
+				if (Keyboard.isKeyDown(Keyboard.KEY_RETURN))
 				{
-					if(Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_CheckBox.class)) // Checkbox
+					if (Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_CheckBox.class)) // Checkbox
 					{
 						// De/Activate checkbox at this index
 						((MenuItem_CheckBox)(Items.get(ColumnCursor).get(RowCursor))).IsChecked(!((MenuItem_CheckBox) (Items.get(ColumnCursor).get(RowCursor))).IsChecked());
 					}
-					else if(Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_RadioButton.class)) // Radio
+					else if (Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_RadioButton.class)) // Radio
 					{
 						// De/Activate Radio Button at this index
 						((MenuItem_RadioButton)(Items.get(ColumnCursor).get(RowCursor))).IsChecked(true);
 						// Change picture box image
 						ChangeImage();
 					}
-					else if(ColumnCursor == PosStart[0] && RowCursor == PosStart[1]) // Create
+					else if (ColumnCursor == PosStart[0] && RowCursor == PosStart[1]) // Create
 					{
 						// Connect to server
 						CreateServer();
@@ -2514,16 +2514,16 @@ public class Menu
 						CloseWindow = true;
 						Active = false;
 					}
-					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
+					else if (ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
 					{
 						// Close window
 						CloseWindow = true;
 					}
-					else if(Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_Dialog.class))
+					else if (Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_Dialog.class))
 					{
 						((MenuItem_Dialog)Items.get(ColumnCursor).get(RowCursor)).Action(MenuKeyPressed);
 
-						if(!((MenuItem_Dialog)Items.get(ColumnCursor).get(RowCursor)).FileName().equals(""))
+						if (!((MenuItem_Dialog)Items.get(ColumnCursor).get(RowCursor)).FileName().equals(""))
 						{
 							// Add map to combo box
 							((MenuItem_ComboBox)(Items.get(PosComboBox[0]).get(PosComboBox[1]))).AddItem(((MenuItem_Dialog)Items.get(ColumnCursor).get(RowCursor)).FileName());
@@ -2532,7 +2532,7 @@ public class Menu
 							((MenuItem_Dialog)Items.get(ColumnCursor).get(RowCursor)).FileName("");
 						}
 					}
-					if(!Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_RadioButton.class) &&
+					if (!Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_RadioButton.class) &&
 							!Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_CheckBox.class) &&
 							!Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_HorSlider.class) &&
 							!Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_Dialog.class) &&
@@ -2541,40 +2541,40 @@ public class Menu
 						WindowLock(!WindowLock());
 					}
 				}
-				if(Keyboard.isKeyDown(Keyboard.KEY_F10))
+				if (Keyboard.isKeyDown(Keyboard.KEY_F10))
 				{
 					// Close window
 					CloseWindow = true;
 					WindowLock(false);
 				}
 				// Up
-				if(Keyboard.isKeyDown(Keyboard.KEY_UP) && !WindowLock())
+				if (Keyboard.isKeyDown(Keyboard.KEY_UP) && !WindowLock())
 				{
 					// Move cursor up
 					CursorUp();
 				}
 
 				// Left
-				else if(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && !WindowLock())
 				{
 					// Move cursor left
 					CursorLeft();
 				}
 				// Right
-				else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && !WindowLock())
 				{
 					// Move cursor Right
 					CursorRight();
 				}
 				// Down
-				else if(Keyboard.isKeyDown(Keyboard.KEY_DOWN) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && !WindowLock())
 				{
 					// Move cursor down
 					CursorDown();
 				}
 
 				// If we close window, reset cursor and disable lock
-				if(CloseWindow)
+				if (CloseWindow)
 				{
 					ColumnCursor = 0;
 					RowCursor = 1;
@@ -2588,9 +2588,9 @@ public class Menu
 		private void ChangeImage()
 		{
 			// Check all radio button
-			for(int ItemIndex = PosFirstRadio[1]; ItemIndex <= RadioButtonNumber; ItemIndex++)
+			for (int ItemIndex = PosFirstRadio[1]; ItemIndex <= RadioButtonNumber; ItemIndex++)
 			{
-				if(((MenuItem_RadioButton)Items.get(PosFirstRadio[0]).get(ItemIndex)).IsChecked())
+				if (((MenuItem_RadioButton)Items.get(PosFirstRadio[0]).get(ItemIndex)).IsChecked())
 				{
 					((MenuItem_PictureBox)Items.get(PosPictureBox[0]).get(PosPictureBox[1])).TextureIndex(ItemIndex - PosFirstRadio[1]);
 				}
@@ -2647,9 +2647,9 @@ public class Menu
 
 		// Constant
 		final double TitleHeight = 8.25d; // Smaller = Bigger.
-		final Color WindowColor = new Color(160,160,160,255);
+		final Color WindowColor = new Color(160, 160, 160, 255);
 		// Constructor
-		public MenuWindows_JoinGame(String Title,int Width,int Height)
+		public MenuWindows_JoinGame(String Title, int Width, int Height)
 		{
 			// Initialize super attribute
 			super(Title, Width, Height);
@@ -2678,13 +2678,13 @@ public class Menu
 
 			// Initialize first column
 			List<MenuItem> Column1 = new ArrayList<MenuItem>();
-			Column1.add(new MenuItem_TextBox("Ip",true,false));
-			Column1.add(new MenuItem("Connect",true,false));
+			Column1.add(new MenuItem_TextBox("Ip", true, false));
+			Column1.add(new MenuItem("Connect", true, false));
 
 			// Initialize second column
 			List<MenuItem> Column2 = new ArrayList<MenuItem>();
-			Column2.add(new MenuItem("",false,false));
-			Column2.add(new MenuItem("Close",true,false));
+			Column2.add(new MenuItem("", false, false));
+			Column2.add(new MenuItem("Close", true, false));
 
 			// Add column to item
 			Items.add(Column1);
@@ -2696,28 +2696,28 @@ public class Menu
 		private void CursorRight()
 		{
 			// Check if cursor can move to right
-			if(ColumnCursor < Items.size() - 1)
+			if (ColumnCursor < Items.size() - 1)
 			{
 				ColumnCursor++;
 				// Check if SubMenuCursor to big to fit next column
-				if(RowCursor >= Items.get(ColumnCursor).size() - 1)
+				if (RowCursor >= Items.get(ColumnCursor).size() - 1)
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 				// Check if Item is not enable
-				while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor++;
 				}
 
-				// Ajust Row if out of range
-				if(RowCursor >= Items.get(ColumnCursor).size())
+				// Adjust Row if out of range
+				if (RowCursor >= Items.get(ColumnCursor).size())
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 
 				// If not item enable down, go up
-				while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor--;
 				}
@@ -2728,28 +2728,28 @@ public class Menu
 		public void CursorLeft()
 		{
 			// Check if cursor can move to left
-			if(ColumnCursor > 0)
+			if (ColumnCursor > 0)
 			{
 				ColumnCursor--;
 				// Check if SubMenuCursor to big to fit next column
-				if(RowCursor >= Items.get(ColumnCursor).size() - 1)
+				if (RowCursor >= Items.get(ColumnCursor).size() - 1)
 				{
 					RowCursor = Items.get(ColumnCursor).size() - 1;
 				}
 				// Check if Item is not enable
-				while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor--;
 				}
 
-				// Ajust Row if out of range
-				if(RowCursor < 0)
+				// Adjust Row if out of range
+				if (RowCursor < 0)
 				{
 					RowCursor = 0;
 				}
 
 				// If not item enable up, go down
-				while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+				while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 				{
 					RowCursor++;
 				}
@@ -2760,24 +2760,24 @@ public class Menu
 		public void CursorDown()
 		{
 			// Check if cursor can move down
-			if(RowCursor < Items.get(ColumnCursor).size() - 1)
+			if (RowCursor < Items.get(ColumnCursor).size() - 1)
 			{
 				RowCursor++;
 			}
 			// Check if Item is not enable
-			while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor++;
 			}
 
-			// Ajust Row if out of range
-			if(RowCursor >= Items.get(ColumnCursor).size())
+			// Adjust Row if out of range
+			if (RowCursor >= Items.get(ColumnCursor).size())
 			{
 				RowCursor = Items.get(ColumnCursor).size() - 1;
 			}
 
 			// If not item enable down, go up
-			while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor--;
 			}
@@ -2787,24 +2787,24 @@ public class Menu
 		public void CursorUp()
 		{
 			// Check if cursor can move up
-			if(RowCursor > 0)
+			if (RowCursor > 0)
 			{
 				RowCursor--;
 			}
 			// Check if Item is not enable
-			while(RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor >= 0 && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor--;
 			}
 
-			// Ajust Row if out of range
-			if(RowCursor < 0)
+			// Adjust Row if out of range
+			if (RowCursor < 0)
 			{
 				RowCursor = 0;
 			}
 
 			// If not item enable up, go down
-			while(RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
+			while (RowCursor < Items.get(ColumnCursor).size() && !Items.get(ColumnCursor).get(RowCursor).Enabled())
 			{
 				RowCursor++;
 			}
@@ -2850,7 +2850,7 @@ public class Menu
 			// Draw Text of Title
 			String Text = TitleText();
 			// Convert % to GL
-			double MaginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
+			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, false);
 
 			glColor4d(255, 255, 255, 255);
 
@@ -2863,7 +2863,7 @@ public class Menu
 				if (Text.charAt(Letter) == ' ')
 				{
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + MaginGL * SpaceSize;
+					StartTextXGL = StartTextXGL + MarginGL * SpaceSize;
 				}
 				else
 				{
@@ -2889,7 +2889,8 @@ public class Menu
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 36;
-					} else if (CharValue == CharColonIndex)
+					}
+					else if (CharValue == CharColonIndex)
 					{
 						// Initialize Texture Index in font List
 						TextureIndex = 37;
@@ -2898,7 +2899,7 @@ public class Menu
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
 
-					// Converting image height and widht
+					// Converting image height and width
 					double ImgWidthGL = ConvertPercentToGL(TitleFontWidth, true, GridWidth, GridHeight, false);
 					double ImgHeightGL = ConvertPercentToGL(TitleFontHeight, false, GridWidth, GridHeight, false);
 
@@ -2906,16 +2907,16 @@ public class Menu
 					// Drawing image
 					glBegin(GL_QUADS);
 					glTexCoord2d(0.0d, 1.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 1.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL);
 					glTexCoord2d(1.0d, 0.0d);
-					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MaginGL + ImgHeightGL);
+					glVertex2d(StartTextXGL + ImgWidthGL, TitleBottomYGL + MarginGL + ImgHeightGL);
 					glTexCoord2d(0.0d, 0.0d);
-					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MaginGL);
+					glVertex2d(StartTextXGL, TitleBottomYGL + ImgHeightGL + MarginGL);
 					glEnd();
 					// Adjusting next PosX for the next image
-					StartTextXGL = StartTextXGL + ImgWidthGL + MaginGL;
+					StartTextXGL = StartTextXGL + ImgWidthGL + MarginGL;
 
 					glDisable(GL_TEXTURE_2D);
 				}
@@ -2924,17 +2925,17 @@ public class Menu
 			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 			double PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + MarginPixels;
 			double PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
-			double BigestItemWidth = 0;
+			double BiggestItemWidth = 0;
 
 			glDisable(GL_DEPTH_TEST);
 			// Draw all control on a grid system (like menu)
-			for(int ItemArray = 0; ItemArray < Items.size(); ItemArray++)
+			for (int ItemArray = 0; ItemArray < Items.size(); ItemArray++)
 			{
-				for(int Item = 0;Item < Items.get(ItemArray).size();Item++)
+				for (int Item = 0;Item < Items.get(ItemArray).size();Item++)
 				{
 
 					// Check if Cursor is on this item
-					if(ItemArray == ColumnCursor && Item == RowCursor)
+					if (ItemArray == ColumnCursor && Item == RowCursor)
 					{
 						// Draw item
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, true, true, true);
@@ -2944,20 +2945,20 @@ public class Menu
 						// Draw item
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, false, false, true);
 					}
-					// Ajust next Y
+					// Adjust next Y
 					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
-					if(Items.get(ItemArray).get(Item).Occupied_Width() > BigestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
+					if (Items.get(ItemArray).get(Item).Occupied_Width() > BiggestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
 					{
-						BigestItemWidth = Items.get(ItemArray).get(Item).Occupied_Width();
+						BiggestItemWidth = Items.get(ItemArray).get(Item).Occupied_Width();
 					}
 
 					// Reset occupied width to 0
 					Items.get(ItemArray).get(Item).Occupied_Width(0);
 				}
 				PosY = ((float) GridHeight / 2.0f) + (ConvertPercentToPx(WindowsHeight() / 2.0f, false, GridWidth, GridHeight)) - ConvertPercentToPx(TitleHeight, false, GridWidth, GridHeight);
-				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BigestItemWidth + MarginPixels * 10;
+				PosX = (((float)GridWidth / 2.0f) - ConvertPercentToPx(WindowsWidth() / 2.0f, true, GridWidth, GridHeight)) + BorderX + BiggestItemWidth + MarginPixels * 10;
 			}
 
 			// Move to the top of window
@@ -2971,16 +2972,16 @@ public class Menu
 			boolean CloseWindow = false;
 
 			// If lock, send action to actual item
-			if(WindowLock())
+			if (WindowLock())
 			{
 				Items.get(ColumnCursor).get(RowCursor).Action(MenuKeyPressed);
 			}
-			if(!MenuKeyPressed)
+			if (!MenuKeyPressed)
 			{
 				// Enter
-				if(Keyboard.isKeyDown(Keyboard.KEY_RETURN))
+				if (Keyboard.isKeyDown(Keyboard.KEY_RETURN))
 				{
-					if(ColumnCursor == PosConnect[0] && RowCursor == PosConnect[1])
+					if (ColumnCursor == PosConnect[0] && RowCursor == PosConnect[1])
 					{
 						// Connect to server
 						ConnectToServer();
@@ -2990,50 +2991,50 @@ public class Menu
 						CloseWindow = true;
 						Active = false;
 					}
-					else if(ColumnCursor == PosClose[0] && RowCursor == PosClose[1])
+					else if (ColumnCursor == PosClose[0] && RowCursor == PosClose[1])
 					{
 						// Close window
 						CloseWindow = true;
 					}
-					if(Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_TextBox.class))
+					if (Items.get(ColumnCursor).get(RowCursor).getClass().equals(MenuItem_TextBox.class))
 					{
 						WindowLock(!WindowLock());
 					}
 				}
-				if(Keyboard.isKeyDown(Keyboard.KEY_F10))
+				if (Keyboard.isKeyDown(Keyboard.KEY_F10))
 				{
 					// Close window
 					CloseWindow = true;
 					WindowLock(false);
 				}
 				// Up
-				if(Keyboard.isKeyDown(Keyboard.KEY_UP) && !WindowLock())
+				if (Keyboard.isKeyDown(Keyboard.KEY_UP) && !WindowLock())
 				{
 					// Move cursor up
 					CursorUp();
 				}
 
 				// Left
-				else if(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && !WindowLock())
 				{
 					// Move cursor left
 					CursorLeft();
 				}
 				// Right
-				else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && !WindowLock())
 				{
 					// Move cursor Right
 					CursorRight();
 				}
 				// Down
-				else if(Keyboard.isKeyDown(Keyboard.KEY_DOWN) && !WindowLock())
+				else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && !WindowLock())
 				{
 					// Move cursor down
 					CursorDown();
 				}
 
 				// If we close window, reset cursor and disable lock
-				if(CloseWindow)
+				if (CloseWindow)
 				{
 					ColumnCursor = 0;
 					RowCursor = 1;
@@ -3213,10 +3214,10 @@ public class Menu
 			// Draw all control on a grid system (like menu)
 			for (int ItemArray = 0; ItemArray < Items.size(); ItemArray++)
 			{
-				for(int Item = 0;Item < Items.get(ItemArray).size();Item++)
+				for (int Item = 0;Item < Items.get(ItemArray).size();Item++)
 				{
 					// Check if item is close 'button'
-					if(Items.get(ItemArray).get(Item).ItemText().equals("Close"))
+					if (Items.get(ItemArray).get(Item).ItemText().equals("Close"))
 					{
 						// Draw item
 						Items.get(ItemArray).get(Item).Draw(PosX, PosY, GridWidth, GridHeight, true, true, true);
@@ -3231,7 +3232,7 @@ public class Menu
 					PosY = PosY - ConvertPercentToPx(RowHeight, false, GridWidth, GridHeight);
 
 					// Check if occupied width of the drawn items is bigger that the previous
-					if(Items.get(ItemArray).get(Item).Occupied_Width() > BiggestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
+					if (Items.get(ItemArray).get(Item).Occupied_Width() > BiggestItemWidth && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_ComboBox.class) && !Items.get(ItemArray).get(Item).getClass().equals(Menu.MenuItem_TextBox.class))
 					{
 						BiggestItemWidth = Items.get(ItemArray).get(Item).Occupied_Width();
 					}
@@ -3254,7 +3255,7 @@ public class Menu
 			// Initialize local bool
 			boolean CloseWindow = false;
 
-			if((Keyboard.isKeyDown(Keyboard.KEY_RETURN) || Keyboard.isKeyDown(Keyboard.KEY_F10)) && !MenuKeyPressed)
+			if ((Keyboard.isKeyDown(Keyboard.KEY_RETURN) || Keyboard.isKeyDown(Keyboard.KEY_F10)) && !MenuKeyPressed)
 			{
 				CloseWindow = true;
 			}
@@ -3317,7 +3318,7 @@ public class Menu
 
 		public void Action(boolean MenuKeyPressed)
 		{
-			if(Keyboard.isKeyDown(Keyboard.KEY_RETURN) && !MenuKeyPressed)
+			if (Keyboard.isKeyDown(Keyboard.KEY_RETURN) && !MenuKeyPressed)
 			{
 				// Initialize dialog
 				Dialog = new JFileChooser();
@@ -3327,13 +3328,13 @@ public class Menu
 				// Open dialog
 				int Choice = Dialog.showOpenDialog(null);
 				// Check if yes selected
-				if(Choice == JFileChooser.APPROVE_OPTION)
+				if (Choice == JFileChooser.APPROVE_OPTION)
 				{
 					// Save file into map folder
-					File ChoosenFile = Dialog.getSelectedFile();
+					File ChosenFile = Dialog.getSelectedFile();
 
-					// Put fileName in attibute
-					FileName = ChoosenFile.getName().substring(0, ChoosenFile.getName().indexOf("."));
+					// Put fileName in attribute
+					FileName = ChosenFile.getName().substring(0, ChosenFile.getName().indexOf("."));
 				}
 				else
 				{
@@ -3377,8 +3378,8 @@ public class Menu
 
 	// Constant
 	private final double RowHeight = 6.25d; // Number of px per row of MenuItem
-	private final Color BarColor = new Color(0.5f,0.0f,0.0f,1.0f);
-	private final Color AlphaRectColor = new Color(0.0f, 0.0f,0.3f, 0.5f);
+	private final Color BarColor = new Color(0.5f, 0.0f, 0.0f, 1.0f);
+	private final Color AlphaRectColor = new Color(0.0f, 0.0f, 0.3f, 0.5f);
 	private final float BigMargin = 3.5f; // Multiply normal margin by this number for a bigger margin
 	private static final double GlWinWidth = 2.73f; // Value of the windows width with GL unit (auto adjust to windows size)
 	private static final double GlWinHeight = 1.66f; // Value of the windows height with GL unit (auto adjust to windows size)
@@ -3546,7 +3547,7 @@ public class Menu
 	private void LoadFont(String Folder, List<Texture> FontList)
 	{
 		// Loading number
-		for(int Number = Char0Index; Number <= Char9Index; Number++)
+		for (int Number = Char0Index; Number <= Char9Index; Number++)
 		{
 			// Initialize letter
 			char FileName = (char)Number;
@@ -3557,7 +3558,7 @@ public class Menu
 		}
 
 		// Loading letter
-		for(int Letter = CharAIndex; Letter <= CharZIndex; Letter++)
+		for (int Letter = CharAIndex; Letter <= CharZIndex; Letter++)
 		{
 			// Initialize letter
 			char FileName = (char)Letter;
@@ -3764,7 +3765,7 @@ public class Menu
 		double PosX = 0;
 		double PosY = 0;
 		double OccupiedWidth = 0;
-		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
+		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPercent, true, GridWidth, GridHeight);
 
 		boolean WindowDraw = false;
 		// Draw menu bar on the top of the screen
@@ -3814,7 +3815,7 @@ public class Menu
 						if (Items.get(MenuIndex).get(SubMenuIndex).getClass().equals(MenuItem_Windows.class))
 						{
 							// Check if the window is active
-							if(((MenuItem_Windows)Items.get(MenuIndex).get(SubMenuIndex)).WindowActive())
+							if (((MenuItem_Windows)Items.get(MenuIndex).get(SubMenuIndex)).WindowActive())
 							{
 								((MenuItem_Windows)Items.get(MenuIndex).get(SubMenuIndex)).Draw(PosX, PosY, GridWidth(), GridHeight(), false, false,true);
 							}
@@ -3872,7 +3873,7 @@ public class Menu
 	{
 		double BiggestSubItemWidth = 0;
 		double StartPosX = 0;
-		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPourcent, true, GridWidth, GridHeight);
+		double MarginPixels = ConvertPercentToPx(MenuItem.MarginPercent, true, GridWidth, GridHeight);
 
 		// Get X. Check all first item
 		for (int Item = 0; Item < MenuBarCursor;Item++)
@@ -4062,7 +4063,7 @@ public class Menu
 	// Close game without closing app
 	public void QuitGame()
 	{
-		// To do
+		// Quit playing
 		this.Active(false);
 		IsClient = false;
 		IsServer = false;
@@ -4082,7 +4083,7 @@ public class Menu
 		double Pixel = 0;
 
 		// Check if is X coordonate
-		if(IsX)
+		if (IsX)
 		{
 			Pixel = (Percent * GridWidth) / 100;
 		}
@@ -4102,7 +4103,7 @@ public class Menu
 		double GLUnit = 0;
 
 		// Check if is X coordonate
-		if(IsX)
+		if (IsX)
 		{
 			GLUnit = (Percent * GridWidth) / 100;
 		}
