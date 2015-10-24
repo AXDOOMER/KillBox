@@ -274,7 +274,7 @@ public class Level
 			}
 			catch (IOException ioe)
 			{
-				System.err.println(ioe.getMessage());
+				System.err.println(ioe.getStackTrace());
 			}
 
 		}

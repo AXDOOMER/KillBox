@@ -205,7 +205,7 @@ public class Netplay
         }
 		catch(IOException e)
 		{
-			System.err.println(e.getMessage());
+			System.err.println(e.getStackTrace());
 			System.err.println("Problem when trying to connect to a client. Try to start a server first!");
 		}
 
@@ -227,7 +227,7 @@ public class Netplay
 			}
 			catch (IOException ioe)
 			{
-				System.err.println(ioe.getMessage());
+				System.err.println(ioe.getStackTrace());
 			}
 
 			try
@@ -237,7 +237,7 @@ public class Netplay
 			}
 			catch (SocketException se)
 			{
-				System.err.println(se.getMessage());
+				System.err.println(se.getStackTrace());
 			}
 
 			try
@@ -263,7 +263,7 @@ public class Netplay
 
 					// After a player is connected, we send the number of connections.
 					// This way, we can start all the players at the same time.
-					SendNodesToPlayer(this.Nodes - Player, this.Nodes,Player/*Player's number*/);
+					SendNodesToPlayer(this.Nodes - Player, this.Nodes, Player/*Player's number*/);
 				}
 			}
             catch (SocketTimeoutException sto)
@@ -281,61 +281,92 @@ public class Netplay
     {
         this.Nodes = Nodes;
 
-        // Check if we are in a mutliplayer game
+        // Check if we are in a multiplayer game
         if (Nodes > 1)
         {
             try
             {
-                Server = new ServerSocket(Port);
-            }
-            catch (IOException ioe)
-            {
-                System.err.println(ioe.getMessage());
-            }
+				if (Server != null)
+				{
+					if (!Server.isClosed())
+					{
+						Server.close();
+					}
+				}
 
-            try
-            {
-                // Wait for others to connect
-                Server.setSoTimeout(Wait);
+				// Close any connection that may remain open
+				for (int Connection = 0; Connection < Connections.size(); Connection++)
+				{
+					if (Connections.get(Connection) != null)
+					{
+						if (!Connections.get(Connection).isClosed())
+						{
+							Connections.get(Connection).close();
+						}
+					}
+				}
+
+                Server = new ServerSocket(Port);
+
+				// Wait for others to connect
+				Server.setSoTimeout(Wait);
             }
-            catch (SocketException se)
-            {
-                System.err.println(se.getMessage());
-            }
+			catch (SocketException se)
+			{
+				System.err.println("Socket problem. This port may already be in use. ");
+				System.err.println(se.getStackTrace());
+				System.err.println(se.getMessage());
+			}
+            catch (IOException ioe)
+			{
+				System.err.println("Server Socket Input-Output Exception. ");
+				System.err.println(ioe.getStackTrace());
+				System.err.println(ioe.getMessage());
+			}
 
             try
             {
                 // Server is 0
                 PlayerCommand = new NetCommand((byte)0/*Player number*/);
                 // The other player is 1
-                OtherPlayersCommand.add(new NetCommand((byte)1));
+                OtherPlayersCommand.add(new NetCommand((byte) 1));
 
                 for (int Player = 1; Player < this.Nodes; Player++)
                 {
+                    System.out.println("Waiting for " + (this.Nodes - Player) + " more nodes");
 
-                    System.err.println("Waiting for " + (this.Nodes - Player) + " more nodes");
-                    Socket Client = Server.accept();
+					Socket Client;
 
-                    Client.setSoTimeout(WaitLag);
+					if (Server != null)
+					{
+						Client = Server.accept();
+						Client.setSoTimeout(WaitLag);
 
-                    System.err.println("A client has connected");
-                    Connections.add(Client);
+						System.out.println("A client has connected");
+						Connections.add(Client);
 
-                    Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
-                    Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
+						Writer = new PrintWriter(new OutputStreamWriter(Connections.get(0).getOutputStream()));
+						Reader = new BufferedReader(new InputStreamReader(Connections.get(0).getInputStream()));
 
-                    // After a player is connected, we send the number of connections.
-                    // This way, we can start all the players at the same time.
+						// After a player is connected, we send the number of connections.
+						// This way, we can start all the players at the same time.
 
-                    SendFirstMessageToPlayers(this.Nodes - Player, this.Nodes, Player, NewGameMode, NewTimeLimit, NewKillLimit);
+						SendFirstMessageToPlayers(this.Nodes - Player, this.Nodes, Player, NewGameMode, NewTimeLimit, NewKillLimit);
+					}
+					else
+					{
+						System.err.println("Server socket still 'null'. This means the connection wasn't established.");
+					}
                 }
             }
             catch (SocketTimeoutException sto)
             {
-                System.out.println("Other player may have disconnected or connection was interrupted.");
+                System.err.println("Other player may have disconnected or connection was interrupted.");
             }
             catch (IOException ioe)
             {
+				System.err.println("Client Socket Input-Output Exception.");
+				System.err.println(ioe.getMessage());
                 System.err.println(ioe);
             }
         }
@@ -345,39 +376,63 @@ public class Netplay
         return PlayerCommand;
     }
 
-    public void Update()
+    public boolean Update()
     {
         // Send his command to players
         try
-        {
-            // Write his command
-            Writer.println(PlayerCommand);
-            Writer.flush();
+		{
+			// Write his command
+			if (Writer != null)
+			{
+				Writer.println(PlayerCommand);
+				Writer.flush();
+			}
+			else
+			{
+				return false;
+			}
+
             // Read the other player's command
-            Line = Reader.readLine();
+			if (Reader != null)
+			{
+				Line = Reader.readLine();
+			}
+			else
+			{
+				return false;
+			}
 
-            String[] strings = Line.split(Separator);
-            // System.out.println(OtherPlayersCommand.get(0));
-            OtherPlayersCommand.get(0).Number = Integer.parseInt(strings[0]);
-            OtherPlayersCommand.get(0).PlayerNumber = Byte.parseByte(strings[1]);
-            OtherPlayersCommand.get(0).AngleDiff = Short.parseShort(strings[2]);
-            OtherPlayersCommand.get(0).FaceMove = Byte.parseByte(strings[3]);
-            OtherPlayersCommand.get(0).SideMove = Byte.parseByte(strings[4]);
-            OtherPlayersCommand.get(0).Actions = Integer.parseInt(strings[5]);
-            OtherPlayersCommand.get(0).CheckSum = Integer.parseInt(strings[6]);
-            OtherPlayersCommand.get(0).Chat = strings[7];
-
-            // print the command (for debug)!
-
+			if (Line != null)
+			{
+				String[] strings = Line.split(Separator);
+				// System.out.println(OtherPlayersCommand.get(0));
+				OtherPlayersCommand.get(0).Number = Integer.parseInt(strings[0]);
+				OtherPlayersCommand.get(0).PlayerNumber = Byte.parseByte(strings[1]);
+				OtherPlayersCommand.get(0).AngleDiff = Short.parseShort(strings[2]);
+				OtherPlayersCommand.get(0).FaceMove = Byte.parseByte(strings[3]);
+				OtherPlayersCommand.get(0).SideMove = Byte.parseByte(strings[4]);
+				OtherPlayersCommand.get(0).Actions = Integer.parseInt(strings[5]);
+				OtherPlayersCommand.get(0).CheckSum = Integer.parseInt(strings[6]);
+				OtherPlayersCommand.get(0).Chat = strings[7];
+			}
+			else
+			{
+				return false;
+			}
         }
         catch (SocketTimeoutException sto)
         {
             System.out.println("Other player may have disconnected or connection was interrupted.");
+			sto.printStackTrace();
+			return false;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+			return false;
         }
+
+		return true;
     }
 
     public void SendNodesToPlayer(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber)
@@ -398,7 +453,7 @@ public class Netplay
             }
             catch (Exception e)
             {
-                System.err.println(e.getMessage());
+                System.err.println(e.getStackTrace());
             }
         }
     }
@@ -420,7 +475,7 @@ public class Netplay
             }
             catch (Exception e)
             {
-                System.err.println(e.getMessage());
+                System.err.println(e.getStackTrace());
             }
         }
     }
@@ -442,7 +497,7 @@ public class Netplay
             }
             catch (Exception e)
             {
-                System.err.println(e.getMessage());
+                System.err.println(e.getStackTrace());
             }
         }
     }

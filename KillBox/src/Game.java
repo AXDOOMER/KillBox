@@ -162,7 +162,7 @@ public class Game
 			}
 			catch (LWJGLException ex)
 			{
-				System.out.println("Error while creating the Display: " + ex.getMessage());
+				System.out.println("Error while creating the Display: " + ex.getStackTrace());
 			}
 
 			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
@@ -206,7 +206,7 @@ public class Game
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
 
-			if(NetplayInfo != null)
+			if (NetplayInfo != null)
 			{
 				if (NetplayInfo.Server != null)
 				{
@@ -240,7 +240,7 @@ public class Game
 				{
 					SndDriver.SndMode = SoundMode.Bi;
 				}
-				else if(HeadCamera.Menu.SoundMode.Int() == 1)
+				else if (HeadCamera.Menu.SoundMode.Int() == 1)
 				{
 					SndDriver.SndMode = SoundMode.Three;
 				}
@@ -278,40 +278,54 @@ public class Game
 							NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
 
 							// Do the network communication through the socket
-							NetplayInfo.Update();
-
-							// Update the other player movements
-							for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
+							if (NetplayInfo.Update())
 							{
-								int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
-
-								Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-								Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-								Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
-
-								if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+								// Update the other player movements
+								for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
 								{
-									if (Lvl.Players.get(Number).Health > 0) {
-										// BUG: Don't shot at the first tick, the player shots for no reason.
-										if (TicksCount > 0)
-										{
-											Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-										}
-									}
-									else
+									int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
+
+									Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+									Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+									Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+
+									if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 									{
-										// Check if the player has completely dropped on the floor
-										if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+										if (Lvl.Players.get(Number).Health > 0)
 										{
-											// Spawn the player
-											if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true)) {
-												System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-												System.exit(1);
+											// BUG: Don't shot at the first tick, the player shots for no reason.
+											if (TicksCount > 0)
+											{
+												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+											}
+										}
+										else
+										{
+											// Check if the player has completely dropped on the floor
+											if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+											{
+												// Spawn the player
+												if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+												{
+													System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+													System.exit(1);
+												}
 											}
 										}
 									}
 								}
 							}
+							/*else
+							{
+								// Couldn't get the command
+								for (int Player = 0; Player < Lvl.Players.size(); Player++)
+								{
+									if (Player != View)
+									{
+										Lvl.Players.get(Player).Health = 0;
+									}
+								}
+							}*/
 
 							for (int Player = 0; Player < Lvl.Players.size(); Player++)
 							{
@@ -387,6 +401,16 @@ public class Game
 				}
 				else
 				{
+					// Kill inactive players
+					/*for (int Player = 0; Player < Lvl.Players.size(); Player++)
+					{
+						if (Lvl.Players.get(Player) != HeadCamera.CurrentPlayer())
+						{
+							Lvl.Players.get(Player).Health = 0;
+						}
+					}*/
+
+					// Close sockets
 					if (NetplayInfo != null)
 					{
 						if (NetplayInfo.Server != null)
@@ -406,6 +430,7 @@ public class Game
 					// Game is not started. Start one using the menu.
 					if (HeadCamera.Menu.IsServer)
 					{
+						Display.setTitle("KillBox (Server)");
 						Nodes = 2;
 						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
 						HeadCamera.Menu.InGame = true;
@@ -436,6 +461,7 @@ public class Game
 					}
 					else if (HeadCamera.Menu.IsClient)
 					{
+						Display.setTitle("KillBox (Client)");
 						String IpAddress = HeadCamera.Menu.Address;
 						Nodes = 2;
 						NetplayInfo = new Netplay(Nodes, IpAddress);
@@ -514,7 +540,7 @@ public class Game
 				}
 				catch (InterruptedException ie)
 				{
-					System.err.print("The game failed to sleep: " + ie.getMessage());
+					System.err.print("The game failed to sleep: " + ie.getStackTrace());
 					System.exit(1);
 				}
 			}
@@ -531,6 +557,7 @@ public class Game
 		catch (Exception e)
 		{
 			System.err.println(e.getMessage());
+			System.err.println(e.getStackTrace());
 			System.exit(1);
 		}
 	}
@@ -604,7 +631,7 @@ public class Game
 		catch (FileNotFoundException fnfe)
 		{
 			System.err.println("Could not save your settings to a configuration file.");
-			System.err.println(fnfe.getMessage());
+			System.err.println(fnfe.getStackTrace());
 		}
 		catch (IOException ioe)
 		{

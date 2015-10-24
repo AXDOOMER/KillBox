@@ -310,8 +310,11 @@ public class Camera
 		// Update player's position even if it hasn't moved
 		for (int Player = 0; Player < Lvl.Players.size(); Player++)
 		{
-			// Do this for every player
-			Lvl.Players.get(Player).Friction();
+			if (Lvl.Players.get(Player) != null)
+			{
+				// Do this for every player
+				Lvl.Players.get(Player).Friction();
+			}
 		}
 
 		// If menu is lock

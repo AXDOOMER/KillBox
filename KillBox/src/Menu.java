@@ -2506,6 +2506,9 @@ public class Menu
 					}
 					else if (ColumnCursor == PosStart[0] && RowCursor == PosStart[1]) // Create
 					{
+						// Quit the game
+						QuitGame();
+
 						// Connect to server
 						CreateServer();
 						InGame = false;
@@ -2983,6 +2986,9 @@ public class Menu
 				{
 					if (ColumnCursor == PosConnect[0] && RowCursor == PosConnect[1])
 					{
+						// Quit the game first
+						QuitGame();
+
 						// Connect to server
 						ConnectToServer();
 						InGame = false;
