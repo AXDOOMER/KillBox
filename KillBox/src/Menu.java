@@ -2520,6 +2520,10 @@ public class Menu
 						// Close the window
 						CloseWindow = true;
 						Active = false;
+
+						// Message saying it's waiting for other players
+						NewMessageToShow("Waiting for other players...");
+						MessageTime = MaxMessageTime - 1;
 					}
 					else if (ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
 					{

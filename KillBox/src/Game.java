@@ -21,7 +21,6 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
-import java.net.SocketException;
 
 public class Game
 {
@@ -57,9 +56,9 @@ public class Game
 			Lvl = new Level(/*Reader.readLine()*/ /*"res/test.txt"*/);
 
 			// Continues here if a the level is found and loaded (no exception)
-			if (CheckParm(args, "-playdemo") >= 0)
+			if (CheckParam(args, "-playdemo") >= 0)
 			{
-				Demo = args[CheckParm(args, "-playdemo") + 1];
+				Demo = args[CheckParam(args, "-playdemo") + 1];
 
 				if (Demo.charAt(0) == '-')
 				{
@@ -70,11 +69,11 @@ public class Game
 			}
 
 			// Check if we specify the number of players. It will be a normal game.
-			if (CheckParm(args, "-nodes") >= 0 && Demo == null)
+			if (CheckParam(args, "-nodes") >= 0 && Demo == null)
 			{
 				try
 				{
-					Nodes = Integer.parseInt(args[CheckParm(args, "-nodes") + 1]);
+					Nodes = Integer.parseInt(args[CheckParam(args, "-nodes") + 1]);
 
 					if (Nodes < 1 || Nodes > 16)
 					{
@@ -95,13 +94,13 @@ public class Game
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
-			if(CheckParm(args, "-connect") >= 0)
+			if(CheckParam(args, "-connect") >= 0)
 			{
 				String HostIP = null;
 
 				try
 				{
-					HostIP = args[CheckParm(args, "-connect") + 1];
+					HostIP = args[CheckParam(args, "-connect") + 1];
 					System.out.println("Host IP : " + HostIP);
 				}
 				catch (Exception e)
@@ -123,19 +122,19 @@ public class Game
 
 			// Select sound mode
 			Sound.SoundModes SoundMode = null;
-			if (CheckParm(args, "-sound") >= 0)
+			if (CheckParam(args, "-sound") >= 0)
 			{
-				if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("2d"))
+				if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("2d"))
 				{
 					// Sound will be bi-dimensional
 					SoundMode = Sound.SoundModes.Bi;
 				}
-				else if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("3d"))
+				else if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("3d"))
 				{
 					// Sound will be in 3D
 					SoundMode = Sound.SoundModes.Three;
 				}
-				else if(args[CheckParm(args, "-sound") + 1].equalsIgnoreCase("doppler"))
+				else if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("doppler"))
 				{
 					// Sound will be in 3D with the doppler effect
 					SoundMode = Sound.SoundModes.Duppler;
@@ -150,7 +149,7 @@ public class Game
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
 
-			SndDriver = new Sound(CheckParm(args, "-pcs") >= 0, Lvl.Players, SoundMode);
+			SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all set up. Open the window.
 			try
@@ -181,12 +180,12 @@ public class Game
 			int WallsFilter = GL_NEAREST;
 
 			// Change the texture filter for the walls and other types of surface
-			if (CheckParm(args, "-near") >= 0)
+			if (CheckParam(args, "-near") >= 0)
 			{
 				// Doesn't do anything, but is here in case the default is changed.
 				WallsFilter = GL_NEAREST;
 			}
-			else if (CheckParm(args, "-bi") >= 0)
+			else if (CheckParam(args, "-bi") >= 0)
 			{
 				// This is bilinear filtering
 				WallsFilter = GL_LINEAR;
@@ -263,7 +262,7 @@ public class Game
 
 					if (Nodes > 1)
 					{
-						if (CheckParm(args, "-fakenet") < 0)
+						if (CheckParam(args, "-fakenet") < 0)
 						{
 							// Empty the command that's gonna be sent over the network
 							NetplayInfo.PlayerCommand.Reset();
@@ -587,7 +586,7 @@ public class Game
 		}
 	}
 
-	public static int CheckParm(String[] ArgsList, String Arg)
+	public static int CheckParam(String[] ArgsList, String Arg)
 	{
 		for (int i = 0; i < ArgsList.length; i++)
 		{
