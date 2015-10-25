@@ -295,7 +295,7 @@ public class Game
 										if (Lvl.Players.get(Number).Health > 0)
 										{
 											// BUG: Don't shot at the first tick, the player shots for no reason.
-											if (TicksCount > 0)
+											if (TicksCount > 1)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
 											}
@@ -445,6 +445,7 @@ public class Game
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
 							HeadCamera.Menu.InGame = true;
+							TicksCount = 0;
 
 							// The game will start, don't need this anymore. Reset to default value.
 							HeadCamera.Menu.IsServer = false;
@@ -496,6 +497,7 @@ public class Game
 							View = NetplayInfo.View;
 
 							HeadCamera.Menu.InGame = true;
+							TicksCount = 0;
 						}
 						else
 						{
