@@ -47,6 +47,10 @@ public class Menu
 	public boolean IsClient = false;
 	public boolean InGame = false;
 
+	private String Message = "";
+	private int MessageTime = 0;
+	private int MaxMessageTime = 100;
+
 	// Inner class to have "pointer" of primitive type
 	class Menu_Boolean
 	{
@@ -3927,6 +3931,13 @@ public class Menu
 	// Set value of Active
 	public void Active(boolean IsActive)
 	{
+		// Remove old message when the menu gets activated
+		if (IsActive)
+		{
+			MessageTime = MaxMessageTime;
+		}
+
+		// Change menu state
 		Active = IsActive;
 	}
 
@@ -4196,7 +4207,26 @@ public class Menu
 		//glDisable(GL_TEXTURE_2D);
 	}
 
-	// Can be used to draw messages on the screen (2D texture or menu must be initalized or it will cause glitches)
+	public void NewMessageToShow(String Text)
+	{
+		Message = Text;
+		MessageTime = 0;
+	}
+
+	public void DrawMessage()
+	{
+		// Draw a "normal" message
+		if (Message.length() > 0)
+		{
+			if (MessageTime < MaxMessageTime)
+			{
+				DrawText(Message, 2, 50, 2, 2);
+				MessageTime++;
+			}
+		}
+	}
+
+	// Can be used to draw messages on the screen (2D texture or menu must be initialized or it will cause glitches)
 	public void DrawText(String Text, double LeftXPercent, double BottomYPercent, double LetterWidthPercent, double LetterHeightPercent)
 	{
 		// Declare local variable

@@ -21,6 +21,7 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
+import java.net.SocketException;
 
 public class Game
 {
@@ -315,6 +316,11 @@ public class Game
 									}
 								}
 							}
+							else
+							{
+								HeadCamera.Menu.InGame = false;
+								HeadCamera.Menu.NewMessageToShow("Multi-player game ended.");
+							}
 							/*else
 							{
 								// Couldn't get the command
@@ -416,6 +422,7 @@ public class Game
 						if (NetplayInfo.Server != null)
 						{
 							NetplayInfo.Server.close();
+							NetplayInfo.Server = null;
 						}
 
 						for (int ConnectionSocket = 0; ConnectionSocket < NetplayInfo.Connections.size(); ConnectionSocket++)
@@ -423,6 +430,7 @@ public class Game
 							if (NetplayInfo.Connections.get(ConnectionSocket) != null)
 							{
 								NetplayInfo.Connections.get(ConnectionSocket).close();
+								NetplayInfo.Connections.remove(ConnectionSocket);
 							}
 						}
 					}
@@ -432,32 +440,43 @@ public class Game
 					{
 						Display.setTitle("KillBox (Server)");
 						Nodes = 2;
+
 						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
-						HeadCamera.Menu.InGame = true;
-
-						// The game will start, don't need this anymore. Reset to default value.
-						HeadCamera.Menu.IsServer = false;
-
-						// Create more players if there is not enough for every nodes
-						for (int Player = Lvl.Players.size(); Player < Nodes; Player++)
+						if (!NetplayInfo.ServerSocketIsNull())
 						{
-							Lvl.Players.add(new Player(Lvl, SndDriver));
-						}
+							HeadCamera.Menu.InGame = true;
 
-						View = NetplayInfo.View;
+							// The game will start, don't need this anymore. Reset to default value.
+							HeadCamera.Menu.IsServer = false;
 
-						// Players will spawn at random locations
-						Random Rand = new Random();
-						Rand.Reset();
-
-						for (int Player = 0; Player < Lvl.Players.size(); Player++)
-						{
-							if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
+							// Create more players if there is not enough for every nodes
+							for (int Player = Lvl.Players.size(); Player < Nodes; Player++)
 							{
-								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
-								System.exit(1);
+								Lvl.Players.add(new Player(Lvl, SndDriver));
+							}
+
+							View = NetplayInfo.View;
+
+							// Players will spawn at random locations
+							Random Rand = new Random();
+							Rand.Reset();
+
+							for (int Player = 0; Player < Lvl.Players.size(); Player++)
+							{
+								if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
+								{
+									System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+									System.exit(1);
+								}
 							}
 						}
+						else
+						{
+							NetplayInfo = null;
+							HeadCamera.Menu.IsServer = false;
+							HeadCamera.Menu.NewMessageToShow("Couldn't create a server.");
+						}
+
 					}
 					else if (HeadCamera.Menu.IsClient)
 					{

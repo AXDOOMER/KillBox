@@ -666,6 +666,9 @@ public class Camera
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 
+				// Draw a message if there is one
+				Menu.DrawMessage();
+
 				// Show the scores on the screen
 				if (Lvl.Players.size() > 1)
 				{

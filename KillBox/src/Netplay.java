@@ -314,7 +314,6 @@ public class Netplay
 			catch (SocketException se)
 			{
 				System.err.println("Socket problem. This port may already be in use. ");
-				System.err.println(se.getStackTrace());
 				System.err.println(se.getMessage());
 			}
             catch (IOException ioe)
@@ -375,6 +374,11 @@ public class Netplay
     {
         return PlayerCommand;
     }
+
+	public boolean ServerSocketIsNull()
+	{
+		return (Server == null);
+	}
 
     public boolean Update()
     {
