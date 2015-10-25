@@ -3941,12 +3941,15 @@ public class Menu
 		// Remove old message when the menu gets activated
 		if (IsActive)
 		{
+			// Make the message expire
 			MessageTime = MaxMessageTime;
 		}
 		else
 		{
+			// Close opened windows when closing the menu
 			if (Items != null)
 			{
+				// The game menu only. It is the only one that has windows right now.
 				int MenuInMenuBar = 0;
 
 				if (Items.get(MenuInMenuBar) != null)
@@ -3955,6 +3958,7 @@ public class Menu
 					{
 						if (Items.get(MenuInMenuBar).get(MenuItem) != null)
 						{
+							// Check if the item is part of the window class so it can be closed.
 							if (Items.get(MenuInMenuBar).get(MenuItem).getClass().equals(MenuItem_Windows.class))
 							{
 								MenuItem_Windows WindowRef = (MenuItem_Windows) Items.get(MenuInMenuBar).get(MenuItem);

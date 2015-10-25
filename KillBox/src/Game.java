@@ -286,15 +286,19 @@ public class Game
 								{
 									int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
 
-									Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-									Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-									Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+									if (TicksCount > 1)
+									{
+										// Not allowing movements on the first tick prevents a bug when player may move before the game has even started.
+										Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
+										Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
+										Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+									}
 
 									if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 									{
 										if (Lvl.Players.get(Number).Health > 0)
 										{
-											// BUG: Don't shot at the first tick, the player shots for no reason.
+											// Don't shot at the first tick, the player shots for no reason. This was a bug.
 											if (TicksCount > 1)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
