@@ -179,7 +179,7 @@ public class Menu
 		}
 
 		// Get Draw width. Will not draw the item, only count how much width in px it takes.
-		public double GetDrawWidth(int GridWidth,int GridHeight,boolean WindowCoor,double AdditionalWidth)
+		public double GetDrawWidth(int GridWidth, int GridHeight, boolean WindowCoor, double AdditionalWidth)
 		{
 			// Get Item Text
 			String Text = ItemText();
@@ -217,8 +217,8 @@ public class Menu
 			// Get Item Text
 			String Text = ItemText();
 			// Convert pixel to GL
-			double PosXGL = ConvertPxToGL(PosX,true,GridWidth,GridHeight,WindowColor);
-			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight,WindowColor);
+			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
 			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
 			double MarginPixels = ConvertPercentToPx(MarginPercent, true, GridWidth, GridHeight);
 
@@ -475,7 +475,7 @@ public class Menu
 		final Color SquareColor = new Color(0, 142, 221, 255); // Blue color
 		final Color DarkSquareColor = new Color(0, 0, 0, 255); // Black color
 
-		// Parametered constructor
+		// Parameterized constructor
 		public MenuItem_HorSlider(String Text,boolean Enabled,boolean Keep, int Min,int Max, Menu_Integer Value)
 		{
 			// Initialize Text of Item
@@ -751,7 +751,7 @@ public class Menu
 		}
 
 		// Draw RadioButton control and text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight, boolean NotFirstItem, boolean WindowColor)
 		{
 			// Initialize variable needed to draw circle Border
 			double CircleBorderRadiusGL = ConvertPercentToGL(CircleRadius + BorderRadius, true, GridWidth, GridHeight, WindowColor);
@@ -967,15 +967,15 @@ public class Menu
 			// Draw all image
 			for(int Images = 0; Images < Value.length();Images++)
 			{
-				// Converting image height and widht
+				// Converting image height and width
 				double ImgWidthPixels = ConvertPercentToPx(FontWidth, true, GridWidth, GridHeight);
 
 				// Adding width to total width
-				TotalWidthPixels = TotalWidthPixels + ImgWidthPixels  + MarginPixels; //
+				TotalWidthPixels = TotalWidthPixels + ImgWidthPixels  + MarginPixels;
 			}
 
 			// Return total width
-			return super.GetDrawWidth(GridWidth,GridHeight,WindowCoor,TotalWidthPixels);
+			return super.GetDrawWidth(GridWidth, GridHeight, WindowCoor, TotalWidthPixels);
 		}
 
 		// Draw NumberBox and text
@@ -1029,11 +1029,11 @@ public class Menu
 				glEnable(GL_DEPTH_TEST);
 				if(Highlight)
 				{
-					glColor4f((float)NumBoxHighlightColor.getRed() / 255.0f,(float)NumBoxHighlightColor.getGreen() / 255.0f,(float)NumBoxHighlightColor.getBlue() / 255.0f,(float)NumBoxHighlightColor.getAlpha() / 255.0f);
+					glColor4f((float)NumBoxHighlightColor.getRed() / 255.0f, (float)NumBoxHighlightColor.getGreen() / 255.0f, (float)NumBoxHighlightColor.getBlue() / 255.0f, (float)NumBoxHighlightColor.getAlpha() / 255.0f);
 				}
 				else
 				{
-					glColor4f((float)NumBoxNeutralColor.getRed() / 255.0f,(float)NumBoxNeutralColor.getGreen() / 255.0f, (float)NumBoxNeutralColor.getBlue() / 255.0f, (float)NumBoxNeutralColor.getAlpha() / 255.0f);
+					glColor4f((float)NumBoxNeutralColor.getRed() / 255.0f, (float)NumBoxNeutralColor.getGreen() / 255.0f, (float)NumBoxNeutralColor.getBlue() / 255.0f, (float)NumBoxNeutralColor.getAlpha() / 255.0f);
 				}
 
 				// Drawing image
@@ -1128,7 +1128,7 @@ public class Menu
 		}
 
 		// Get Draw width. Will not draw the item, only count how much width in px it takes.
-		public double GetDrawWidth(int GridWidth,int GridHeight,boolean WindowCoor,double AdditionalWidth)
+		public double GetDrawWidth(int GridWidth, int GridHeight, boolean WindowColor, double AdditionalWidth)
 		{
 			// Initialize total width
 			double TotalWidthPixels = 0;
@@ -1141,11 +1141,11 @@ public class Menu
 			TotalWidthPixels = TotalWidthPixels + BoxWidthPixels + BorderX + MarginPixels;
 
 			// Return total width
-			return super.GetDrawWidth(GridWidth,GridHeight,WindowCoor,TotalWidthPixels);
+			return super.GetDrawWidth(GridWidth, GridHeight, WindowColor, TotalWidthPixels);
 		}
 
 		// Draw the textbox and its text
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight, boolean NotFirstItem, boolean WindowColor)
 		{
 			// Draw text before (MenuItem Text)
 			super.Draw(PosX,PosY,GridWidth,GridHeight,Highlight,NotFirstItem, WindowColor);
@@ -1545,7 +1545,7 @@ public class Menu
 		}
 
 		// Get Draw width. Will not draw the item, only count how much width in px it takes.
-		public double GetDrawWidth(int GridWidth,int GridHeight,boolean WindowCoor,double AdditionalWidth)
+		public double GetDrawWidth(int GridWidth,int GridHeight,boolean WindowColor,double AdditionalWidth)
 		{
 			// Initialize total width
 			double TotalWidthPixels = 0;
@@ -1558,11 +1558,11 @@ public class Menu
 			TotalWidthPixels = BorderXPixels + ImageWidthPixels;
 
 			// Return total width
-			return super.GetDrawWidth(GridWidth,GridHeight,WindowCoor,TotalWidthPixels);
+			return super.GetDrawWidth(GridWidth, GridHeight, WindowColor, TotalWidthPixels);
 		}
 
 		// Draw image with border
-		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor)
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight,boolean Highlight, boolean NotFirstItem, boolean WindowColor)
 		{
 			// Initialize coordonate
 			double PosXGL = ConvertPxToGL(PosX, true, GridWidth, GridHeight, WindowColor);
@@ -1575,7 +1575,7 @@ public class Menu
 			double BorderYGL = ConvertPercentToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 
 			// Draw border
-			glColor4f(BorderColor.getRed() / 255.0f,BorderColor.getGreen() / 255.0f,BorderColor.getBlue() / 255.0f,BorderColor.getAlpha() / 255.0f);
+			glColor4f(BorderColor.getRed() / 255.0f, BorderColor.getGreen() / 255.0f, BorderColor.getBlue() / 255.0f, BorderColor.getAlpha() / 255.0f);
 
 			glRectd(PosXGL, PosYGL - BorderYGL, PosXGL + ImageWidthGL + BorderXGL  * 2, PosYGL + ImageHeightGL + BorderYGL);
 
@@ -1925,16 +1925,16 @@ public class Menu
 		// Public Function
 
 		// Get Draw width. Will not draw the item, only count how much width in px it takes.
-		public double GetDrawWidth(double PosX,int GridWidth,int GridHeight,boolean WindowCoor,double AdditionalWidth)
+		public double GetDrawWidth(double PosX, int GridWidth, int GridHeight, boolean WindowColor, double AdditionalWidth)
 		{
 			double TotalWidthPixels = 0;
 
 			// Return total width
-			return super.GetDrawWidth(GridWidth,GridHeight,WindowCoor,TotalWidthPixels);
+			return super.GetDrawWidth(GridWidth, GridHeight, WindowColor, TotalWidthPixels);
 		}
 
 		// Draw window at the center of the screen
-		public void Draw(double PosX,double PosY,int GridWidth,int GridHeight,boolean Highlight,boolean NotFirstItem,boolean WindowColor) {
+		public void Draw(double PosX, double PosY, int GridWidth, int GridHeight, boolean Highlight, boolean NotFirstItem, boolean WindowColor) {
 			// Call draw of window if it's active
 			if (WindowActive())
 			{
@@ -2990,12 +2990,19 @@ public class Menu
 				{
 					if (ColumnCursor == PosConnect[0] && RowCursor == PosConnect[1])
 					{
-						// Quit the game first
-						QuitGame();
+						if (!InGame)
+						{
+							// Quit the game first
+							QuitGame();
 
-						// Connect to server
-						ConnectToServer();
-						InGame = false;
+							// Connect to server
+							ConnectToServer();
+							InGame = false;
+						}
+						else
+						{
+							NewMessageToShow("Quit this game first.");
+						}
 
 						// Close window
 						CloseWindow = true;
@@ -3426,7 +3433,7 @@ public class Menu
 	// Constructor
 	public Menu()
 	{
-		// Initialize attrribut for control
+		// Initialize attribute for control
 		Fullscreen = new Menu_Boolean();
 		Fullscreen.Bool(true);
 
@@ -3936,6 +3943,28 @@ public class Menu
 		{
 			MessageTime = MaxMessageTime;
 		}
+		else
+		{
+			if (Items != null)
+			{
+				int MenuInMenuBar = 0;
+
+				if (Items.get(MenuInMenuBar) != null)
+				{
+					for (int MenuItem = 0; MenuItem < this.Items.size(); MenuItem++)
+					{
+						if (Items.get(MenuInMenuBar).get(MenuItem) != null)
+						{
+							if (Items.get(MenuInMenuBar).get(MenuItem).getClass().equals(MenuItem_Windows.class))
+							{
+								MenuItem_Windows WindowRef = (MenuItem_Windows) Items.get(MenuInMenuBar).get(MenuItem);
+								WindowRef.WindowActive(false);
+							}
+						}
+					}
+				}
+			}
+		}
 
 		// Change menu state
 		Active = IsActive;
@@ -4130,7 +4159,7 @@ public class Menu
 		}
 
 		// Convert the obtains pixel to GL
-		GLUnit = ConvertPxToGL(GLUnit,IsX, GridWidth, GridHeight,IsWindow);
+		GLUnit = ConvertPxToGL(GLUnit, IsX, GridWidth, GridHeight, IsWindow);
 
 		// Return converted measure
 		return GLUnit;
