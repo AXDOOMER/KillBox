@@ -142,14 +142,12 @@ public class Game
 			}
 
 			// Sound (SFX)
-			Sound SndDriver = null;
+			Sound SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);;
 			// Whoa! That's an ugly way to do things...
 			for (int Player = 0; Player < Nodes; Player++)
 			{
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
-
-			SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);
 
 			// The game is all set up. Open the window.
 			try

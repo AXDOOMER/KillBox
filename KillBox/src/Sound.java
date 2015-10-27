@@ -299,7 +299,7 @@ public class Sound
 		try
 		{
 			// Load the sound, create a buffer and save the filename.
-			WaveData data  = WaveData.create(new BufferedInputStream(new FileInputStream("res/sounds/"+File)));
+			WaveData data  = WaveData.create(new BufferedInputStream(new FileInputStream("res/sounds/" + File)));
 			int buffer = alGenBuffers();
 			alBufferData(buffer, data.format, data.data, data.samplerate);
 			data.dispose();
