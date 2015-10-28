@@ -956,6 +956,19 @@ public class Player
 		return FoundZ;
 	}
 
+	// Game starts for player
+	private void ResetPlayerForNewGame()
+	{
+		// Reset scores
+		Kills = 0;
+		Deaths = 0;
+		Hits = 0;
+		Missed = 0;
+
+		// Reset other properties
+		ResetPlayerForRespawn();
+	}
+
 	// Come back to life
 	private void ResetPlayerForRespawn()
 	{
@@ -964,12 +977,6 @@ public class Player
 		MoX = 0;
 		MoY = 0;
 		MoZ = 0;
-
-		// Reset scores
-		Kills = 0;
-		Deaths = 0;
-		Hits = 0;
-		Missed = 0;
 
 		// Reset other stuff
 		HasMoved = false;
@@ -1017,6 +1024,12 @@ public class Player
 					FreeSpace = false;
 				}
 			}
+		}
+
+		// "MustBeFree" is false when spawns are set for a new game
+		if (!MustBeFree)
+		{
+			ResetPlayerForNewGame();
 		}
 
 		if (FreeSpace == true)
