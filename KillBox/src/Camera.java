@@ -263,15 +263,16 @@ public class Camera
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 			{
-				CurrentPlayer().MoveUp();
+				//CurrentPlayer().MoveUp();
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
 			{
-				CurrentPlayer().MoveDown();
+				//CurrentPlayer().MoveDown();
 			}
 
 			// Right now, it can only shot like a pistol...
-			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) && !JustPressedFireKey)
+			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
+					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 			{
 				JustPressedFireKey = true;
 				if (CurrentPlayer().Health > 0)
@@ -292,7 +293,8 @@ public class Camera
 					}
 				}
 			}
-			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
+			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
+					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
 			{
 				JustPressedFireKey = true;
 			}
@@ -670,7 +672,7 @@ public class Camera
 				Menu.DrawMessage();
 
 				// Show the scores on the screen
-				if (Lvl.Players.size() > 1)
+				if (Lvl.Players.size() > 1 && Menu.InGame == true)
 				{
 					for (int Player = Lvl.Players.size() - 1; Player >= 0; Player--)
 					{
