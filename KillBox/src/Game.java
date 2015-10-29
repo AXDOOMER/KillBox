@@ -607,7 +607,34 @@ public class Game
 			BufferedReader ConfigFile = new BufferedReader(new FileReader("res/" + Name));
 
 			// Load the user's settings in the same order that they were saved.
-			ConfigFile.readLine();
+			MenuSystem.FreeLook(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.ShowMessage(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.ShowHud.Bool(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.ShowDebug(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+
+			MenuSystem.GrabMouse(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.EnableChat(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.MouseSensibility(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.SFXVolume(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+
+			String SoundMode = (ConfigFile.readLine()).split("\t", 2)[1].trim();
+			if (SoundMode.equals("3d+"))
+			{
+				MenuSystem.SoundMode(2);
+			}
+			else if (SoundMode.equals("3d"))
+			{
+				MenuSystem.SoundMode(1);
+			}
+			else
+			{
+				MenuSystem.SoundMode(0);
+			}
+
+			MenuSystem.Fullscreen(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.Filtering(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.ViewDepth(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+
 		}
 		catch (FileNotFoundException fnfe)
 		{
@@ -616,6 +643,10 @@ public class Game
 		catch (IOException ioe)
 		{
 			System.err.println("Error while reading from the configuration file.");
+		}
+		catch (NullPointerException npe)
+		{
+			System.err.println("Error while reading the value of an item from the configuration file.");
 		}
 
 	}
@@ -632,21 +663,34 @@ public class Game
 			// Double tabs
 			final String Spacing = "\t\t";
 
-			ConfigFile.println("use_freelook" + Spacing + "true");
-			ConfigFile.println("show_messages" + Spacing + "true");
-			ConfigFile.println("show_hud" + Spacing + "true");
-			ConfigFile.println("show_debug" + Spacing + "true");
+			ConfigFile.println("use_freelook" + Spacing + MenuSystem.FreeLook.Bool());
+			ConfigFile.println("show_messages" + Spacing + MenuSystem.ShowMessage.Bool());
+			ConfigFile.println("show_hud" + Spacing + MenuSystem.ShowHud.Bool());
+			ConfigFile.println("show_debug" + Spacing + MenuSystem.ShowDebug());
 
-			ConfigFile.println("grab_mouse" + Spacing + "false");
-			ConfigFile.println("enable_chat" + Spacing + "true");
-			ConfigFile.println("mouse_sensitivity" + Spacing + "3");
+			ConfigFile.println("grab_mouse" + Spacing + MenuSystem.GrabMouse.Bool());
+			ConfigFile.println("enable_chat" + Spacing + MenuSystem.EnableChat.Bool());
+			ConfigFile.println("mouse_sensitivity" + Spacing + MenuSystem.MouseSensitivity.Int() / 20);
 
-			ConfigFile.println("sfx_volume" + Spacing + "3");
-			ConfigFile.println("sound_mode" + Spacing + "2d");	// Can be '2d', '3d' or '3d+'.
+			ConfigFile.println("sfx_volume" + Spacing + MenuSystem.SFXVolume.Int() / 20);
 
-			ConfigFile.println("fullscreen" + Spacing + "false");
-			ConfigFile.println("enable_filtering" + Spacing + "false");
-			ConfigFile.println("view_depth" + Spacing + "100");
+			// Can be '2d', '3d' or '3d+'.
+			if (SoundSystem.SndMode == Sound.SoundModes.Bi)
+			{
+				ConfigFile.println("sound_mode" + Spacing + "2d");
+			}
+			else if (SoundSystem.SndMode == Sound.SoundModes.Three)
+			{
+				ConfigFile.println("sound_mode" + Spacing + "3d");
+			}
+			else
+			{
+				ConfigFile.println("sound_mode" + Spacing + "3d+");
+			}
+
+			ConfigFile.println("fullscreen" + Spacing + MenuSystem.Fullscreen.Bool());
+			ConfigFile.println("enable_filtering" + Spacing + MenuSystem.Filtering.Bool());
+			ConfigFile.println("view_depth" + Spacing + MenuSystem.ViewDepth.Int());
 
 			ConfigFile.close();
 		}

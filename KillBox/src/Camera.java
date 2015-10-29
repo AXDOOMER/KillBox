@@ -718,7 +718,7 @@ public class Camera
 				Mouse.setGrabbed(false);
 			}
 
-			// This line must be after the things get drawn else they will be at an innacurate angle when the player turns.
+			// This line must be after the things get drawn else they will be at an inaccurate angle when the player turns.
 			this.UpdateCamera();
 		}
 

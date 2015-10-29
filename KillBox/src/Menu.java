@@ -3541,7 +3541,7 @@ public class Menu
 		String[] RadioText = new String[3];
 		RadioText[0] = "2D";
 		RadioText[1] = "3D";
-		RadioText[2] = "3D Duppler Effect";
+		RadioText[2] = "3D Doppler Effect";
 		MenuItem_RadioButtonGroup RadioGroup = new MenuItem_RadioButtonGroup(RadioText,SoundMode);
 
 		for (int Radio = 0; Radio < RadioGroup.RadioButtons.length; Radio++)
@@ -3716,26 +3716,35 @@ public class Menu
 	{
 		// 0 = 2d
 		// 1 = 3d
-		// 2 = 3d + Duppler effect
+		// 2 = 3d + Doppler effect
 		SoundMode.Int(Mode);
 	}
 
 	// Set SFXVolume value
 	public void SFXVolume(int Volume)
 	{
-		SFXVolume.Int(Volume);
+		if (Volume >= 0 && Volume <= 5)
+		{
+			SFXVolume.Int(Volume);
+		}
 	}
 
 	// Set MouseSensibility value
 	public void MouseSensibility(int Sensibility)
 	{
-		MouseSensitivity.Int(Sensibility);
+		if (Sensibility >= 0 && Sensibility <= 5)
+		{
+			MouseSensitivity.Int(Sensibility);
+		}
 	}
 
 	// Set ViewDepth value
 	public void ViewDepth(int Depth)
 	{
-		ViewDepth.Int(Depth);
+		if (Depth >= 0 && Depth <= 100)
+		{
+			ViewDepth.Int(Depth);
+		}
 	}
 
 	// Function for menu attribute
@@ -3815,12 +3824,12 @@ public class Menu
 					if (MenuIndex == MenuBarCursor)
 					{
 						// Draw highlight if cursor is on it
-						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(),true,false,false);
+						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(), true, false, false);
 					}
 					else
 					{
 						// Draw normal
-						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(),false,false,false);
+						Items.get(MenuIndex).get(SubMenuIndex).Draw(PosX, PosY, GridWidth(), GridHeight(), false, false, false);
 					}
 
 					// Keep track of first item width
