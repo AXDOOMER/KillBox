@@ -120,6 +120,26 @@ public class Netplay
     int TimeLimit = 0;
     int KillLimit = 0;
 
+    public int GetTimeLimit()
+    {
+        if (TimeLimit <= 0)
+        {
+            return Integer.MAX_VALUE;
+        }
+
+        return TimeLimit * 60;
+    }
+
+    public int GetKillLimit()
+    {
+        if (KillLimit <= 0)
+        {
+            return Integer.MAX_VALUE;
+        }
+
+        return KillLimit;
+    }
+
     // For now, only for one player
     ArrayList<NetCommand> OtherPlayersCommand = new ArrayList<NetCommand>();
 

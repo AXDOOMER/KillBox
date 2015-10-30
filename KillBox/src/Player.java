@@ -962,6 +962,7 @@ public class Player
 		// Reset scores
 		Kills = 0;
 		Deaths = 0;
+		FlagTime = 0;
 		Hits = 0;
 		Missed = 0;
 
