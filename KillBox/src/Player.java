@@ -19,20 +19,25 @@ import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
 {
+	// Position
 	float PosX;	// Horizontal position
 	float PosY;	// Vertical position
 	float PosZ;	// Height, do not mix with Y.
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
+	// Weapon
 	final int MaxOwnedWeapons = 10;
-	Boolean[] OwnedWeapons = new Boolean[MaxOwnedWeapons];
-        
+	int SelectedWeapon = 1;
+	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
+	Texture SelectedWeaponSprite;
+
+	// Motion
 	float MoX = 0;
 	float MoY = 0;
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle.
+	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle. (NOTICE: May be solved now)
 	final int MaxRunSpeed = 70/8;
 	final int DefaultViewZ = 42;
 	final int HeadOnFloor = 12;
@@ -79,10 +84,14 @@ public class Player
 		this.Lvl = Lvl;
 		Emitter = Output;
 
+		// Initialize array
 		for (int i = 0; i < MaxOwnedWeapons; i++)
 		{
-			OwnedWeapons[i] = false;
+			OwnedWeapons[i] = null;
 		}
+
+		// The player always has a pistol
+		OwnedWeapons[1] = Thing.Names.Pistol;
 
 		Randomizer = new Random();
 	}
@@ -431,25 +440,50 @@ public class Player
 	// Check collision against things
 	public float CheckPlayerToThingsCollision(float NewX, float NewY)
 	{
-		for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
+		for (int Thingy = 0; Thingy < Lvl.Things.size(); Thingy++)
 		{
-			if (Lvl.Things.get(Thing).Sprite != null)
+			float Distance = (float) Math.sqrt(
+					Math.pow(NewX - Lvl.Things.get(Thingy).PosX(), 2) +
+							Math.pow(NewY - Lvl.Things.get(Thingy).PosY(), 2));
+
+			// Test 2D collision
+			if (Distance <= this.Radius() + Lvl.Things.get(Thingy).Radius())
 			{
-				float Distance = (float) Math.sqrt(
-						Math.pow(NewX - Lvl.Things.get(Thing).PosX(), 2) +
-								Math.pow(NewY - Lvl.Things.get(Thing).PosY(), 2));
-
-				// Test 2D collision
-				if (Distance <= this.Radius() + Lvl.Things.get(Thing).Radius())
+				// Test the Z axis. Both players have the same height.
+				if (Math.abs(this.PosZ() - Lvl.Things.get(Thingy).PosZ()) <= Height())
 				{
-					// Test the Z axis. Both players have the same height.
-					if (Math.abs(this.PosZ() - Lvl.Things.get(Thing).PosZ()) <= Height())
+					// Check if the thing is set to block other things
+					if (Lvl.Things.get(Thingy).Impassable)
 					{
-						// Collision! Return the angle toward the other player.
+						// If the thing becomes invisible, it can't block.
+						if (Lvl.Things.get(Thingy).Sprite != null)
+						{
+							// Collision! Return the angle toward the other player.
 
-						float Glide = (float) Math.atan2(Lvl.Things.get(Thing).PosY() - PosY + NewY, Lvl.Things.get(Thing).PosX() - PosX + NewX);
+							float Glide = (float) Math.atan2(Lvl.Things.get(Thingy).PosY() - PosY + NewY, Lvl.Things.get(Thingy).PosX() - PosX + NewX);
 
-						return Glide - GetRadianAngle();
+							return Glide - GetRadianAngle();
+						}
+					}
+					else
+					{
+						// If it wasn't impassable, then may be it can be picked up.
+						if (Lvl.Things.get(Thingy).Type.equals(Thing.Names.Ak47))
+						{
+							boolean Found = false;
+							for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
+							{
+								if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Ak47))
+								{
+									Found = true;
+								}
+							}
+							if (Found == false)
+							{
+								OwnedWeapons[3] = Thing.Names.Ak47;
+								//Lvl.Things.remove(Thingy);	// Delete the thingy
+							}
+						}
 					}
 				}
 			}
@@ -879,6 +913,35 @@ public class Player
 	{
 		// Apply damages to the player
 		Health = Health + Change;
+	}
+
+	public int GetDamageDoneBySelectedWeapon()
+	{
+		if (SelectedWeapon > 0)
+		{
+			if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Pistol))
+			{
+				return 10;
+			}
+			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Ak47))
+			{
+				return 15;
+			}
+			else
+			{
+				System.err.println("Player->GetDamageDoneBySelectedWeapon() says unknown weapon selected.");
+				System.exit(1);
+			}
+
+			return 10;
+		}
+		else
+		{
+			System.err.println("Player->GetDamageDoneBySelectedWeapon() says no weapon selected.");
+			System.exit(1);
+		}
+
+		return 0;
 	}
 
 	public void Place(float NewX, float NewY, float NewZ, short Angle)

@@ -33,10 +33,12 @@ public class Thing
 	Texture Sprite;		// What does it looks like?
 	int Frame = 0;		// Object state
 	boolean Impassable = false;
+	boolean CanBePickedUp = false;
+	String ResPath = "res/sprites/";
 
 	public enum Names
 	{
-		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox,
+		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
 		Flag, Unknown, Custom
 	}
@@ -48,6 +50,8 @@ public class Thing
 		Type = Names.Custom;
 		this.Sprite = new Texture(Sprite, GL_NEAREST);
 
+		Impassable = true;
+		CanBePickedUp = false;
 		this.PosX = PosX;
 		this.PosY = PosY;
 		this.PosZ = PosZ;
@@ -73,6 +77,7 @@ public class Thing
 		try
 		{
 			Names Value = Names.valueOf(Type);
+			this.Type = Value;
 
 			switch (Value)
 			{
@@ -113,7 +118,14 @@ public class Thing
 	{
 		try
 		{
+			// Special case
+			if (Type.equals("ak47"))
+			{
+				Type = "Ak47";
+			}
+
 			Names Value = Names.valueOf(Type);
+			this.Type = Value;
 
 			switch (Value)
 			{
@@ -121,91 +133,129 @@ public class Thing
 					Radius = 16;
 					Health = 25;
 					Height = 24;
-					Sprite = new Texture("Barrel.png", GL_NEAREST);
+					Impassable = true;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "Barrel.png", GL_NEAREST);
 					break;
 				case StimPack:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("StimPack.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "StimPack.png", GL_NEAREST);
 					break;
 				case MediPack:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("MediPack.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "MediPack.png", GL_NEAREST);
 					break;
 				case Chaingun:
 					Health = 10;
 					Radius = 16;
 					Height = 24;
-					Sprite = new Texture("Chaingun.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Chaingun.png", GL_NEAREST);
+					break;
+				case Ak47:
+					Health = 10;
+					Radius = 16;
+					Height = 24;
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Ak47.png", GL_NEAREST);
 					break;
 				case Pistol:
 					Health = 10;
 					Radius = 16;
 					Height = 24;
-					Sprite = new Texture("Pistol.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Pistol.png", GL_NEAREST);
 					break;
 				case AmmoClip:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("AmmoClip.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "AmmoClip.png", GL_NEAREST);
 					break;
 				case AmmoBox:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("AmmoBox.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "AmmoBox.png", GL_NEAREST);
 					break;
 				case Shells:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("Shells.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Shells.png", GL_NEAREST);
 					break;
 				case ShellBox:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("ShellBox.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "ShellBox.png", GL_NEAREST);
 					break;
 				case Rocket:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("Rocket.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Rocket.png", GL_NEAREST);
 					break;
 				case RocketBox:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("RocketBox.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "RocketBox.png", GL_NEAREST);
 					break;
 				case Cells:
 					Radius = 16;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("Cells.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Cells.png", GL_NEAREST);
 					break;
 				case Bullet:
 					Radius = 8;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("Bullet.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "Bullet.png", GL_NEAREST);
 					break;
 				case Plasma:
 					Radius = 12;
 					Height = 24;
 					Health = 10;
-					Sprite = new Texture("Plasma.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "Plasma.png", GL_NEAREST);
 					break;
 				case Flag:
 					Radius = 16;
 					Height = 48;
 					Health = 10;
-					Sprite = new Texture("Flag.png", GL_NEAREST);
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Flag.png", GL_NEAREST);
 					break;
 
 				default:

@@ -309,6 +309,36 @@ public class Camera
 			}
 		}
 
+		// Change weapon
+		if (Keyboard.isKeyDown(Keyboard.KEY_1))
+		{
+			if (CurrentPlayer().OwnedWeapons[1] != null)
+			{
+				CurrentPlayer().SelectedWeapon = 1;
+			}
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
+		{
+			if (CurrentPlayer().OwnedWeapons[2] != null)
+			{
+				CurrentPlayer().SelectedWeapon = 2;
+			}
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_3))
+		{
+			if (CurrentPlayer().OwnedWeapons[3] != null)
+			{
+				CurrentPlayer().SelectedWeapon = 3;
+			}
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_4))
+		{
+			if (CurrentPlayer().OwnedWeapons[4] != null)
+			{
+				CurrentPlayer().SelectedWeapon = 4;
+			}
+		}
+
 		// Update player's position even if it hasn't moved
 		for (int Player = 0; Player < Lvl.Players.size(); Player++)
 		{

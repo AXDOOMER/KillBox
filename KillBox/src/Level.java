@@ -199,6 +199,54 @@ public class Level
 						Things.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 						Spawns.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 					}
+					else if (Line.contains("thing"))
+					{
+						int PosX = 0;
+						int PosY = 0;
+						int PosZ = 0;
+						short Angle = 0;	// Doesn't matter because the thing is a sprite
+						String Type = "";
+
+						while (!Line.contains("}"))
+						{
+							Line = LevelFile.readLine();
+
+							if (Line.contains("{"))
+							{
+								continue;
+							}
+							else if (Line.contains("x: "))
+							{
+								PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("y: "))
+							{
+								PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("z: "))
+							{
+								PosZ = Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";")));
+							}
+							else if (Line.contains("angle: "))
+							{
+								Angle = Short.parseShort(Line.substring(Line.indexOf("angle: ") + 7, Line.indexOf(";")));
+							}
+							else if (Line.contains("type: "))
+							{
+								Type = Line.substring(Line.indexOf("type: ") + 6, Line.indexOf(";"));
+							}
+							else if (Line.contains("}"))
+							{
+								break;
+							}
+							else
+							{
+								System.out.println("Invalid property: " + Line);
+							}
+						}
+
+						Things.add(new Thing(Type, PosX, PosY, PosZ));
+					}
 					else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))
 					{
 						String Sprite = "";
