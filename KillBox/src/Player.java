@@ -99,9 +99,20 @@ public class Player
 	public void LoadSprites()
 	{
 		// Load Sprites for the Players
-		for (int Rotation = 1; Rotation <= Rotations; Rotation++)
+		final int LastFrame = 'G';
+		for (char Frame = 'A'; Frame <= LastFrame; Frame++)
 		{
-			Texture NextFrame = new Texture("res/player/PLAY" + "A" + Rotation + ".png", GL_NEAREST);
+			for (int Rotation = 1; Rotation <= Rotations; Rotation++)
+			{
+				Texture NextFrame = new Texture("res/player/PLAY" + Frame + Rotation + ".png", GL_NEAREST);
+				WalkFrames.add(NextFrame);
+			}
+		}
+
+		// Death frames
+		for (char Frame = 'H'; Frame <= 'N'; Frame++)
+		{
+			Texture NextFrame = new Texture("res/player/PLAY" + Frame + "0.png", GL_NEAREST);
 			WalkFrames.add(NextFrame);
 		}
 	}
@@ -440,48 +451,51 @@ public class Player
 	// Check collision against things
 	public float CheckPlayerToThingsCollision(float NewX, float NewY)
 	{
-		for (int Thingy = 0; Thingy < Lvl.Things.size(); Thingy++)
+		for (int Thingie = 0; Thingie < Lvl.Things.size(); Thingie++)
 		{
 			float Distance = (float) Math.sqrt(
-					Math.pow(NewX - Lvl.Things.get(Thingy).PosX(), 2) +
-							Math.pow(NewY - Lvl.Things.get(Thingy).PosY(), 2));
+					Math.pow(NewX - Lvl.Things.get(Thingie).PosX(), 2) +
+							Math.pow(NewY - Lvl.Things.get(Thingie).PosY(), 2));
 
 			// Test 2D collision
-			if (Distance <= this.Radius() + Lvl.Things.get(Thingy).Radius())
+			if (Distance <= this.Radius() + Lvl.Things.get(Thingie).Radius())
 			{
 				// Test the Z axis. Both players have the same height.
-				if (Math.abs(this.PosZ() - Lvl.Things.get(Thingy).PosZ()) <= Height())
+				if (Math.abs(this.PosZ() - Lvl.Things.get(Thingie).PosZ()) <= Height())
 				{
 					// Check if the thing is set to block other things
-					if (Lvl.Things.get(Thingy).Impassable)
+					if (Lvl.Things.get(Thingie).Impassable)
 					{
 						// If the thing becomes invisible, it can't block.
-						if (Lvl.Things.get(Thingy).Sprite != null)
+						if (Lvl.Things.get(Thingie).Sprite != null)
 						{
 							// Collision! Return the angle toward the other player.
 
-							float Glide = (float) Math.atan2(Lvl.Things.get(Thingy).PosY() - PosY + NewY, Lvl.Things.get(Thingy).PosX() - PosX + NewX);
+							float Glide = (float) Math.atan2(Lvl.Things.get(Thingie).PosY() - PosY + NewY, Lvl.Things.get(Thingie).PosX() - PosX + NewX);
 
 							return Glide - GetRadianAngle();
 						}
 					}
 					else
 					{
-						// If it wasn't impassable, then may be it can be picked up.
-						if (Lvl.Things.get(Thingy).Type.equals(Thing.Names.Ak47))
+						if (Lvl.Things.get(Thingie).Type != null)
 						{
-							boolean Found = false;
-							for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
+							// If it wasn't impassable, then may be it can be picked up.
+							if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Ak47))
 							{
-								if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Ak47))
+								boolean Found = false;
+								for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
 								{
-									Found = true;
+									if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Ak47))
+									{
+										Found = true;
+									}
 								}
-							}
-							if (Found == false)
-							{
-								OwnedWeapons[3] = Thing.Names.Ak47;
-								//Lvl.Things.remove(Thingy);	// Delete the thingy
+								if (Found == false)
+								{
+									OwnedWeapons[3] = Thing.Names.Ak47;
+									//Lvl.Things.remove(Thingie);	// Delete the thingy
+								}
 							}
 						}
 					}
