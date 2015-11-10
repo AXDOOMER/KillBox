@@ -206,6 +206,7 @@ public class Level
 						int PosZ = 0;
 						short Angle = 0;	// Doesn't matter because the thing is a sprite
 						String Type = "";
+						boolean Impassable = true;
 
 						while (!Line.contains("}"))
 						{
@@ -235,6 +236,10 @@ public class Level
 							{
 								Type = Line.substring(Line.indexOf("type: ") + 6, Line.indexOf(";"));
 							}
+							else if (Line.contains("impassable: "))
+							{
+								Impassable = Boolean.parseBoolean(Line.substring(Line.indexOf("impassable: ") + 12, Line.indexOf(";")));
+							}
 							else if (Line.contains("}"))
 							{
 								break;
@@ -257,6 +262,7 @@ public class Level
 						int Radius = 16;
 						int Height = 96;
 						int Health = 100;
+						boolean Impassable = true;
 
 						while (!Line.contains("}"))
 						{
@@ -301,6 +307,10 @@ public class Level
 							else if (Line.contains("health: "))
 							{
 								Health = Integer.parseInt(Line.substring(Line.indexOf("health: ") + 8, Line.indexOf(";")));
+							}
+							else if (Line.contains("impassable: "))
+							{
+								Impassable = Boolean.parseBoolean(Line.substring(Line.indexOf("impassable: ") + 12, Line.indexOf(";")));
 							}
 							else if (Line.contains("}"))
 							{

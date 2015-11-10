@@ -8,23 +8,6 @@
 	music: ARYX.s3m;
 }
 
-# don'T use that kind of spawn
-dm_spaw1n:
-{
-	x: 100;
-	y: 200;
-	z: 0;
-	angle: 90;
-}
-
-dm_spaw1n:
-{
-	x: -512;
-	y: -32;
-	z: 48;
-	angle: 32768;
-}
-
 wall000:
 {
 	2sided: true;
@@ -653,7 +636,7 @@ spawn:
 
 thing:
 {
-    type: ak47;
+	type: ak47;
 	x: -300;
 	y: -300;
 	z: 0;
