@@ -74,6 +74,7 @@ public class Player
 
 	boolean HasFlag = false;
 	int Frame = 0;
+	int LastFrame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
 	Random Randomizer = null;
@@ -277,6 +278,11 @@ public class Player
 		else
 		{
 			FrontMove = Direction;
+
+			if (Frame - LastFrame <= 0)
+			{
+				Frame++;
+			}
 		}
 
 		float NewX = MoX;
@@ -318,6 +324,11 @@ public class Player
 		else
 		{
 			SideMove = Direction;
+
+			if (Frame - LastFrame <= 0)
+			{
+				Frame++;
+			}
 		}
 
 		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
@@ -411,7 +422,7 @@ public class Player
 
 			if (!Clear)
 			{
-				// Devide movement, because we want to move less
+				// Divide movement, because we want to move less
 				NewX /= 2;
 				NewY /= 2;
 				Clear = true;
@@ -446,6 +457,11 @@ public class Player
 		}
 
 		return Clear;
+	}
+
+	public int Frame()
+	{
+		return Frame;
 	}
 
 	// Check collision against things
@@ -816,6 +832,17 @@ public class Player
 		if (MoY != 0)
 		{
 			MoY /= Deceleration;
+		}
+
+		// Restore current frame to zero because the player is not moving or not moving enough
+		if (MoX < 1 && MoX > -1 && MoY < 1 && MoY > -1)
+		{
+			LastFrame = 0;
+			Frame = 0;
+		}
+		else
+		{
+			LastFrame++;
 		}
 
 		TryMove(MoX, MoY);

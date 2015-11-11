@@ -546,75 +546,90 @@ public class Camera
 					// Convert to degrees
 					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
 
-					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+					// Chose the correct frame for the movement
+					int CurrentFrameIndex = 0;
+					if (Lvl.Players.get(Player).Frame() % 16 >= 12)
+					{
+						CurrentFrameIndex = 24;
+					}
+					else if (Lvl.Players.get(Player).Frame() % 16 >= 8)
+					{
+						CurrentFrameIndex = 16;
+					}
+					else if (Lvl.Players.get(Player).Frame() % 16 >= 4)
+					{
+						CurrentFrameIndex = 8;
+					}
+
+					Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
 
 					if (LookAngleDiff <= -337.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -292.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(5).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(5 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -247.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(6 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -202.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(7).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(7 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -157.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -112.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(1).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(1 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -67.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(2 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= -22.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(3 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 22.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 67.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(5).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(5 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 112.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(6).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(6 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 157.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(7).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(7 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 202.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 247.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(1).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(1 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 292.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(2).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(2 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 337.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(3).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(3 + CurrentFrameIndex).Bind();
 					}
 					else if (LookAngleDiff <= 382.5)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(4).Bind();
+						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
 					}
 				}
 
@@ -722,7 +737,8 @@ public class Camera
 					}
 
 					// Draw the scores
-					Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
+					//Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
+					Menu.DrawText(String.valueOf(CurrentPlayer().Frame()), 1, Lvl.Players.size() * 4 + 5, 3, 3);
 				}
 
 				/*
