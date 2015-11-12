@@ -34,9 +34,14 @@ import org.lwjgl.util.WaveData;
 public class Sound
 {
 	final int SfxVoices = 32;
+	final int Attenuator = 25; // A smaller value makes the players further
 	boolean Preload = false;
 
 	public float VolumeMultiplier = 1.0f;
+	final int MaxSoundPlayed = 60;
+	int NumberSoundPlayed = 0;
+
+	Player Hear = null;
 
 	// ArrayLists to store information about the sounds
 	ArrayList<String> LoadedFiles = new ArrayList<String>();
@@ -54,6 +59,11 @@ public class Sound
 	{
 		// Don't just close. DESTROY!
 		AL.destroy();
+	}
+
+	public void SetNewListener(Player Hear)
+	{
+		this.Hear = Hear;
 	}
 
 	public Sound(boolean Preload, ArrayList<Player> Listeners, SoundModes Mode)
@@ -94,12 +104,13 @@ public class Sound
 		}
 	}
 
-	public void PlaySound(Player Hear, String Name, float SoundPosX, float SoundPosY, float SoundPosZ)
+	public void PlaySound(String Name, Player Emitter)
 	{
 		boolean RightBufferIndex = false;
 		int SoundBuffersIndex = 0;
 		float Orientation = 1.0f;
 		boolean SoundIsThere = true;
+
 
 		Orientation = ConvertAngle(Hear.GetRadianAngle());
 
@@ -110,6 +121,32 @@ public class Sound
 
 		if(SoundIsThere)
 		{
+			// Reset all sound buffers
+			if(NumberSoundPlayed == MaxSoundPlayed)
+			{
+				NumberSoundPlayed = 0;
+				try
+				{
+					AL.destroy();
+					AL.create();
+				}
+				catch (Exception ex)
+				{
+					System.err.println(ex.getMessage());
+				}
+
+				for(int i = 0; i < SoundBuffers.size(); i++)
+				{
+					alDeleteBuffers(SoundBuffers.get(i));
+				}
+				SoundBuffers.clear();
+
+				for(int j = 0; j < LoadedFiles.size(); j++)
+				{
+					this.LoadSoundFromFile(LoadedFiles.get(j));
+				}
+			}
+			NumberSoundPlayed++;
 			// Find the right buffer for the sound
 			do
 			{
@@ -139,54 +176,46 @@ public class Sound
 			{
 				case Bi:
 					// Position of the source sound.
-					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { SoundPosX, SoundPosY, 0.0f }).rewind();
-					// Velocity of the source sound.
-					SourceVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f }).rewind();
+					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Emitter.PosX() / Attenuator, Emitter.PosY() / Attenuator, 0.0f }).rewind();
 
 					// Position of the listener.
-					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX(), Hear.PosY(), 0.0f }).rewind();
-					// Velocity of the listener.
-					ListenerVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f }).rewind();
-					//Orientation of the listener. (first 3 elements are "at", second 3 are "up")
-					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{Hear.PosX(), Hear.PosY(), 0.0f, (float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f }).rewind();
+					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX() / Attenuator, Hear.PosY() / Attenuator, 0.0f }).rewind();
 
+					// Orientation of the listener. (first 3 elements are "at" (nose), second 3 are "up" (hair top) )
+					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
 
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 					IntSource = alGenSources();
 					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 					alSource(IntSource, AL_POSITION, SourcePos);
-					alSource(IntSource, AL_VELOCITY, SourceVel);
 					// AL_GAIN Controle le volume
 					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
-					alListener(AL_VELOCITY,ListenerVel);
 					alListener(AL_ORIENTATION, ListenerOri);
 					alSourcePlay(IntSource);
 					break;
 
 				case Three:
 					// Position of the source sound.
-					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { SoundPosX,SoundPosY, SoundPosZ  }).rewind();
-					// Velocity of the source sound.
-					SourceVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f }).rewind();
+					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Emitter.PosX() / Attenuator, Emitter.PosY() / Attenuator, Emitter.PosZ() / Attenuator }).rewind();
+
 					// Position of the listener.
-					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX(),Hear.PosY() , Hear.PosZ() }).rewind();
-					// Velocity of the listener.
-					ListenerVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f }).rewind();
-					//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
-					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f,-Orientation , 0.0f, 1.0f, 0.0f }).rewind();
+					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX() / Attenuator, Hear.PosY() / Attenuator, Hear.PosZ() / Attenuator }).rewind();
+
+					// Orientation of the listener. (first 3 elements are "at" (nose), second 3 are "up" (hair top) )
+					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
+
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 					IntSource = alGenSources();
+					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 					alSource(IntSource, AL_POSITION, SourcePos);
-					alSource(IntSource, AL_VELOCITY, SourceVel);
 					// AL_GAIN Controle le volume
-					alSourcef(IntSource, AL_GAIN, 0.5f * VolumeMultiplier);
+					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
-					alListener(AL_VELOCITY,ListenerVel);
 					alListener(AL_ORIENTATION, ListenerOri);
 					alSourcePlay(IntSource);
 					break;
@@ -194,15 +223,15 @@ public class Sound
 				case Duppler:
 					// Same code as 3D for now!
 					// Position of the source sound.
-					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[]{SoundPosX, SoundPosY, SoundPosZ}).rewind();
+					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Emitter.PosX() / Attenuator, Emitter.PosY() / Attenuator, Emitter.PosZ() / Attenuator }).rewind();
 					// Velocity of the source sound.
 					SourceVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f }).rewind();
 					// Position of the listener.
-					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX(), Hear.PosY(), Hear.PosZ() }).rewind();
+					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX() / Attenuator, Hear.PosY() / Attenuator, Hear.PosZ() / Attenuator }).rewind();
 					// Velocity of the listener.
 					ListenerVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f}).rewind();
 					//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
-					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, -Orientation, 0.0f, 1.0f, 0.0f }).rewind();
+					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 					IntSource = alGenSources();
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
@@ -304,7 +333,9 @@ public class Sound
 			alBufferData(buffer, data.format, data.data, data.samplerate);
 			data.dispose();
 
-			LoadedFiles.add(File);
+			if(!LoadedFiles.contains(File))
+				LoadedFiles.add(File);
+
 			SoundBuffers.add(buffer);
 		}
 		catch (Exception ex)

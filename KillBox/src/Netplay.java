@@ -119,6 +119,7 @@ public class Netplay
     int GameMode = 0;
     int TimeLimit = 0;
     int KillLimit = 0;
+	String Map = "";
 
     public int GetTimeLimit()
     {
@@ -193,6 +194,7 @@ public class Netplay
             this.GameMode = Integer.parseInt(strings[3]);
             this.TimeLimit = Integer.parseInt(strings[4]);
             this.KillLimit = Integer.parseInt(strings[5]);
+			this.Map = strings[6];
 
             Connections.get(0).setSoTimeout(WaitLag);
 
@@ -297,7 +299,7 @@ public class Netplay
 		}
 	}
     // Constructor for the server with game condition
-    public Netplay(int Nodes,int NewGameMode,int NewTimeLimit,int NewKillLimit)
+    public Netplay(int Nodes, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
     {
         this.Nodes = Nodes;
 
@@ -370,7 +372,7 @@ public class Netplay
 						// After a player is connected, we send the number of connections.
 						// This way, we can start all the players at the same time.
 
-						SendFirstMessageToPlayers(this.Nodes - Player, this.Nodes, Player, NewGameMode, NewTimeLimit, NewKillLimit);
+						SendFirstMessageToPlayers(this.Nodes - Player, this.Nodes, Player, NewGameMode, NewTimeLimit, NewKillLimit, NewMap);
 					}
 					else
 					{
@@ -503,9 +505,9 @@ public class Netplay
             }
         }
     }
-    public void SendFirstMessageToPlayers(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber, int NewGameMode, int NewTimeLimit, int NewKillLimit)
+    public void SendFirstMessageToPlayers(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
     {
-        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGameMode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit);
+        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGameMode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit)  + Separator + NewMap;
 
         for (int Player = 0; Player < Connections.size(); Player++)
         {

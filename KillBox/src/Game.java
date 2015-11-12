@@ -38,6 +38,7 @@ public class Game
 		int View = 0;
 		String ConfigFileName = "default.cfg";
 		boolean InGame = false;
+		String DefaultMap = "test2.txt";
 
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
@@ -87,7 +88,7 @@ public class Game
 
 				System.out.println("Up to " + Nodes + " nodes can join.");
 
-				NetplayInfo = new Netplay(Nodes, 0, 10, 25);
+				NetplayInfo = new Netplay(Nodes, 0, 10, 25, DefaultMap);
 
 				// So the game starts.
 				InGame = true;
@@ -141,14 +142,6 @@ public class Game
 				}
 			}
 
-			// Sound (SFX)
-			Sound SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);;
-			// Whoa! That's an ugly way to do things...
-			for (int Player = 0; Player < Nodes; Player++)
-			{
-				Lvl.Players.add(new Player(Lvl, SndDriver));
-			}
-
 			// The game is all set up. Open the window.
 			try
 			{
@@ -164,9 +157,20 @@ public class Game
 				ex.printStackTrace();
 			}
 
+			// Sound (SFX)
+			Sound SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);;
+			// Whoa! That's an ugly way to do things...
+			for (int Player = 0; Player < Nodes; Player++)
+			{
+				Lvl.Players.add(new Player(Lvl, SndDriver));
+			}
+
 			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 			HeadCamera.Menu.InGame = InGame;
+
+			// Set Listener
+			SndDriver.SetNewListener(Lvl.Players.get(View));
 
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
@@ -190,7 +194,7 @@ public class Game
 				WallsFilter = GL_LINEAR;
 			}
 
-			Lvl.LoadLevel("res/maps/" + /*Reader.readLine()*//*"genlevel.txt"*/ "test2.txt", WallsFilter);
+			Lvl.LoadLevel("res/maps/" + /*Reader.readLine()*//*"genlevel.txt"*/ DefaultMap, WallsFilter);
 
 			// Players will spawn at random locations
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -246,6 +250,12 @@ public class Game
 				else
 				{
 					SndDriver.SndMode = SoundMode.Duppler;
+				}
+
+				// Give the right hear to the right players
+				if(NetplayInfo != null)
+				{
+					SndDriver.SetNewListener(Lvl.Players.get(NetplayInfo.View));
 				}
 
 				// Draw the screen
@@ -440,28 +450,23 @@ public class Game
 					// Sound test!!
 					if (Keyboard.isKeyDown(Keyboard.KEY_1))
 					{
-						SndDriver.PlaySound(Lvl.Players.get(View), "button.wav",
-								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+						SndDriver.PlaySound("button.wav", Lvl.Players.get(View));
 					}
 					if (Keyboard.isKeyDown(Keyboard.KEY_2))
 					{
-						SndDriver.PlaySound(Lvl.Players.get(View), "chat.wav",
-								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+						SndDriver.PlaySound("chat.wav", Lvl.Players.get(View));
 					}
 					if (Keyboard.isKeyDown(Keyboard.KEY_3))
 					{
-						SndDriver.PlaySound(Lvl.Players.get(View), "cocking.wav",
-								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+						SndDriver.PlaySound("cocking.wav", Lvl.Players.get(View));
 					}
 					if (Keyboard.isKeyDown(Keyboard.KEY_4))
 					{
-						SndDriver.PlaySound(Lvl.Players.get(View), "death.wav",
-								Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosX(), Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosY(), Lvl.Players.get(NetplayInfo.OtherPlayersCommand.get(0).PlayerNumber).PosZ());
+						SndDriver.PlaySound("death.wav", Lvl.Players.get(View));
 					}
 					if (Keyboard.isKeyDown(Keyboard.KEY_5))
 					{
-						SndDriver.PlaySound(Lvl.Players.get(View), "respawn.wav",
-								Lvl.Players.get(View).PosX(), Lvl.Players.get(View).PosY(), Lvl.Players.get(View).PosZ());
+						SndDriver.PlaySound("respawn.wav", Lvl.Players.get(View));
 					}
 
 					// Spy view
@@ -534,7 +539,7 @@ public class Game
 						Display.setTitle("KillBox (Server)");
 						Nodes = 2;
 
-						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit);
+						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
 							HeadCamera.Menu.InGame = true;
@@ -585,6 +590,7 @@ public class Game
 							HeadCamera.Menu.GameMode = NetplayInfo.GameMode;
 							HeadCamera.Menu.TimeLimit = NetplayInfo.TimeLimit;
 							HeadCamera.Menu.KillLimit = NetplayInfo.KillLimit;
+							HeadCamera.Menu.Map = NetplayInfo.Map;
 
 							// Change the player view
 							View = NetplayInfo.View;

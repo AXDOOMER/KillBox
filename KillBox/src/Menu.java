@@ -46,6 +46,7 @@ public class Menu
 	public boolean IsServer = false;
 	public boolean IsClient = false;
 	public boolean InGame = false;
+	public String Map = "";
 
 	private String Message = "";
 	private int MessageTime = 0;
@@ -2639,7 +2640,7 @@ public class Menu
 			Menu.this.KillLimit = this.KillLimit.Int();
 
 			// Get Map name
-			String Map = ((MenuItem_ComboBox)Items.get(PosComboBox[0]).get(PosComboBox[1])).CurrentItem();
+			Map = ((MenuItem_ComboBox)Items.get(PosComboBox[0]).get(PosComboBox[1])).CurrentItem();
 			IsServer = true;
 		}
 	}

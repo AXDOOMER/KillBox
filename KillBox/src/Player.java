@@ -207,6 +207,8 @@ public class Player
 	
 	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
 	{
+		Emitter.PlaySound("pistol.wav", this);
+
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
 		Shot = true;	// Set shot property tot he player so it's transmitted over the network
@@ -246,6 +248,8 @@ public class Player
 						{
 							// Got a point
 							Kills++;
+
+							Emitter.PlaySound("death.wav", Hit);
 
 							// Add one death to his counter
 							Hit.Deaths++;
