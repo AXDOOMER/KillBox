@@ -561,7 +561,7 @@ public class Camera
 						CurrentFrameIndex = 8;
 					}
 
-					Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
+					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
 
 					if (LookAngleDiff <= -337.5)
 					{
@@ -737,8 +737,7 @@ public class Camera
 					}
 
 					// Draw the scores
-					//Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
-					Menu.DrawText(String.valueOf(CurrentPlayer().Frame()), 1, Lvl.Players.size() * 4 + 5, 3, 3);
+					Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
 				}
 
 				/*
