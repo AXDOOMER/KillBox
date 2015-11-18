@@ -31,6 +31,7 @@ public class Player
 	int SelectedWeapon = 1;
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
+	Texture GunFire;
 
 	// Motion
 	float MoX = 0;
@@ -72,6 +73,7 @@ public class Player
 	byte SideMove = 0;
 	short AngleDiff = 0;
 	boolean Shot = false;
+	boolean JustShot = false;	// Used in camera for the gun fire
 
 	boolean HasFlag = false;
 	int Frame = 0;
@@ -95,6 +97,7 @@ public class Player
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
 		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_LINEAR);
+		GunFire = new Texture("res/sprites/gunfire.png", GL_LINEAR);
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
@@ -161,6 +164,7 @@ public class Player
 		}
 	}
 
+	// For the network code only
 	public int ActionIsHasShot()
 	{
 		// Check if player has shot
@@ -210,11 +214,21 @@ public class Player
 	
 	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
 	{
-		Emitter.PlaySound("pistol.wav", this);
+		// Play the good sound for the selected weapon
+		switch (SelectedWeapon)
+		{
+			case 1:
+				Emitter.PlaySound("pistol.wav", this);
+				break;
+			case 3:
+				Emitter.PlaySound("ak47.wav", this);
+				break;
+		}
 
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
 		Shot = true;	// Set shot property tot he player so it's transmitted over the network
+		JustShot = true;	// Set to true so the gun fire is displayed in the camera
 		
 		// Start scanning from the player's position
 		float TravelX = this.PosX();
@@ -517,6 +531,7 @@ public class Player
 								if (Found == false)
 								{
 									OwnedWeapons[3] = Thing.Names.Ak47;
+									Emitter.PlaySound("cocking.wav", this);
 									//Lvl.Things.remove(Thingie);	// Delete the thingy
 								}
 							}
@@ -1192,6 +1207,17 @@ public class Player
 				}
 			}
 		}
+	}
+
+	public boolean JustShot()
+	{
+		if (JustShot)
+		{
+			JustShot = false;
+			return true;
+		}
+
+		return false;
 	}
 
 	// Set X Position

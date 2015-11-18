@@ -704,8 +704,22 @@ public class Camera
 				// Draw a message if there is one
 				Menu.DrawMessage();
 
+				// Temporary solution to draw the gun fire
+				if (CurrentPlayer().JustShot())
+				{
+					Menu.DrawTexture(CurrentPlayer().GunFire, 33.2, 34, 32, 16);
+				}
+
 				// Draw a weapon
-				Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36, 0, 241 / 8 - CurrentPlayer().DiffrenceViewZ(), 293 / 7 - Plyr.DiffrenceViewZ());
+				switch (CurrentPlayer().SelectedWeapon)
+				{
+					case 1:
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 29, 0, 310 / 9.5 - CurrentPlayer().DiffrenceViewZ(), 358 / 8 - Plyr.DiffrenceViewZ());
+						break;
+					case 3:
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36, 0, 241 / 8 - CurrentPlayer().DiffrenceViewZ(), 293 / 7 - Plyr.DiffrenceViewZ());
+						break;
+				}
 
 				// Show the scores on the screen
 				if (Lvl.Players.size() > 1 && Menu.InGame == true)
