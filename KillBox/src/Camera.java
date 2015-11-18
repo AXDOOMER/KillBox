@@ -312,31 +312,19 @@ public class Camera
 		// Change weapon
 		if (Keyboard.isKeyDown(Keyboard.KEY_1))
 		{
-			if (CurrentPlayer().OwnedWeapons[1] != null)
-			{
-				CurrentPlayer().SelectedWeapon = 1;
-			}
+			CurrentPlayer().ChangeWeapon(1);
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
 		{
-			if (CurrentPlayer().OwnedWeapons[2] != null)
-			{
-				CurrentPlayer().SelectedWeapon = 2;
-			}
+			CurrentPlayer().ChangeWeapon(2);
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_3))
 		{
-			if (CurrentPlayer().OwnedWeapons[3] != null)
-			{
-				CurrentPlayer().SelectedWeapon = 3;
-			}
+			CurrentPlayer().ChangeWeapon(3);
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_4))
 		{
-			if (CurrentPlayer().OwnedWeapons[4] != null)
-			{
-				CurrentPlayer().SelectedWeapon = 4;
-			}
+			CurrentPlayer().ChangeWeapon(4);
 		}
 
 		// Update player's position even if it hasn't moved
@@ -716,6 +704,9 @@ public class Camera
 				// Draw a message if there is one
 				Menu.DrawMessage();
 
+				// Draw a weapon
+				Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36, 0, 241 / 8 - CurrentPlayer().DiffrenceViewZ(), 293 / 7 - Plyr.DiffrenceViewZ());
+
 				// Show the scores on the screen
 				if (Lvl.Players.size() > 1 && Menu.InGame == true)
 				{
@@ -740,10 +731,6 @@ public class Camera
 					Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
 				}
 
-				/*
-				// Draw texture here (Test to draw image at bottom left
-				Menu.DrawTexture((new Texture("res/bullet.png", GL_NEAREST)), 0, 0, 5, 5);
-*/
 				// Draw all element
 				glFlush();
 

@@ -15,6 +15,7 @@
 
 import java.util.ArrayList;
 
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 
 public class Player
@@ -91,9 +92,11 @@ public class Player
 			OwnedWeapons[i] = null;
 		}
 
-		// The player always has a pistol
+		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
+		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_LINEAR);
 
+		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
 	}
 
@@ -1161,6 +1164,32 @@ public class Player
 			if (ViewZ > HeadOnFloor)
 			{
 				ViewZ--;
+			}
+		}
+	}
+
+	public int DiffrenceViewZ()
+	{
+		return DefaultViewZ - ViewZ;
+	}
+
+	public void ChangeWeapon(int Weapon)
+	{
+		if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
+		{
+			if (OwnedWeapons[Weapon] != null)
+			{
+				SelectedWeapon = Weapon;
+
+				switch(Weapon)
+				{
+					case 1:
+						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
+						break;
+					case 3:
+						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", GL_NEAREST);
+						break;
+				}
 			}
 		}
 	}
