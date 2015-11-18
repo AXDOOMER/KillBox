@@ -448,7 +448,7 @@ public class Game
 					}
 
 					// Sound test!!
-					if (Keyboard.isKeyDown(Keyboard.KEY_1))
+					/*if (Keyboard.isKeyDown(Keyboard.KEY_1))
 					{
 						SndDriver.PlaySound("button.wav", Lvl.Players.get(View));
 					}
@@ -467,7 +467,7 @@ public class Game
 					if (Keyboard.isKeyDown(Keyboard.KEY_5))
 					{
 						SndDriver.PlaySound("respawn.wav", Lvl.Players.get(View));
-					}
+					}*/
 
 					// Spy view
 					if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
