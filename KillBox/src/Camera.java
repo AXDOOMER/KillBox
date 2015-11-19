@@ -290,6 +290,10 @@ public class Camera
 							System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
 							System.exit(1);
 						}
+						else
+						{
+							CurrentPlayer().Emitter.PlaySound("respawn.wav", CurrentPlayer());
+						}
 					}
 				}
 			}

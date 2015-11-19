@@ -15,8 +15,7 @@
 
 import java.util.ArrayList;
 
-import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Player
 {
@@ -96,8 +95,8 @@ public class Player
 
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
-		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_LINEAR);
-		GunFire = new Texture("res/sprites/gunfire.png", GL_LINEAR);
+		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
+		GunFire = new Texture("res/sprites/gunfire.png", GL_NEAREST);
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
@@ -1110,6 +1109,17 @@ public class Player
 		byte FrontMove = 0;
 		byte SideMove = 0;
 		short AngleDiff = 0;
+
+		// Reset owned weapons
+		for (int i = 0; i < MaxOwnedWeapons; i++)
+		{
+			OwnedWeapons[i] = null;
+		}
+
+		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
+		OwnedWeapons[1] = Thing.Names.Pistol;
+		SelectedWeapon = 1;
+		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
 	}
 
 	public boolean SpawnAtRandomSpot(boolean MustBeFree)
