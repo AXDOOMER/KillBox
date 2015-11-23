@@ -95,8 +95,8 @@ public class Player
 
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
-		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
-		GunFire = new Texture("res/sprites/gunfire.png", GL_NEAREST);
+		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+		GunFire = new Texture("res/sprites/gunfire.png", Game.WallsFilter);
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
@@ -1125,7 +1125,7 @@ public class Player
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
 		SelectedWeapon = 1;
-		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
+		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
 	}
 
 	public boolean SpawnAtRandomSpot(boolean MustBeFree)
@@ -1215,10 +1215,10 @@ public class Player
 				switch(Weapon)
 				{
 					case 1:
-						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", GL_NEAREST);
+						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
 						break;
 					case 3:
-						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", GL_NEAREST);
+						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
 						break;
 				}
 			}

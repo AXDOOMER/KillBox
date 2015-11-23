@@ -25,6 +25,7 @@ import java.io.*;
 public class Game
 {
 	static int TicksCount = 0;
+	static int WallsFilter = GL_NEAREST;
 
 	public static void main(String[] args)
 	{
@@ -180,18 +181,33 @@ public class Game
 
 			//Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
-			int WallsFilter = GL_NEAREST;
+			// Load the configuration file
+			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// Change the texture filter for the walls and other types of surface
 			if (CheckParam(args, "-near") >= 0)
 			{
 				// Doesn't do anything, but is here in case the default is changed.
+				HeadCamera.Menu.Filtering(false);
 				WallsFilter = GL_NEAREST;
 			}
 			else if (CheckParam(args, "-bi") >= 0)
 			{
 				// This is bilinear filtering
+				HeadCamera.Menu.Filtering(true);
 				WallsFilter = GL_LINEAR;
+			}
+			else
+			{
+				// Else it's set by the config file
+				if (HeadCamera.Menu.Filtering())
+				{
+					WallsFilter = GL_LINEAR;
+				}
+				else
+				{
+					WallsFilter = GL_NEAREST;
+				}
 			}
 
 			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);
@@ -224,9 +240,6 @@ public class Game
 			// Deactivate de menu and give back the control to the player
 			//HeadCamera.Menu.Active(false);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
-
-			// Load the configuration file
-			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// The main game loop
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)

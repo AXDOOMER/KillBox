@@ -46,7 +46,7 @@ public class Camera
 	private float Far;
 
 	public Texture CurrentTexture = null;
-	private Texture Crosshair = new Texture("res/sprites/crosshair.png", GL_NEAREST);
+	private Texture Crosshair = new Texture("res/sprites/crosshair.png", Game.WallsFilter);
 	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
