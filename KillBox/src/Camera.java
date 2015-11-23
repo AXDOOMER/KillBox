@@ -550,21 +550,28 @@ public class Camera
 					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
 
 					// Chose the correct frame for the movement
+					Lvl.Players.get(Player).WalkFrames.get(0).Bind();	// Default
 					int CurrentFrameIndex = 0;
-					if (Lvl.Players.get(Player).Frame() % 16 >= 12)
-					{
-						CurrentFrameIndex = 24;
-					}
-					else if (Lvl.Players.get(Player).Frame() % 16 >= 8)
-					{
-						CurrentFrameIndex = 16;
-					}
-					else if (Lvl.Players.get(Player).Frame() % 16 >= 4)
-					{
-						CurrentFrameIndex = 8;
-					}
 
-					Lvl.Players.get(Player).WalkFrames.get(0).Bind();
+					if (Lvl.Players.get(Player).JustShot())
+					{
+						CurrentFrameIndex = 40;
+					}
+					else
+					{
+						if (Lvl.Players.get(Player).Frame() % 16 >= 12)
+						{
+							CurrentFrameIndex = 24;
+						}
+						else if (Lvl.Players.get(Player).Frame() % 16 >= 8)
+						{
+							CurrentFrameIndex = 16;
+						}
+						else if (Lvl.Players.get(Player).Frame() % 16 >= 4)
+						{
+							CurrentFrameIndex = 8;
+						}
+					}
 
 					if (LookAngleDiff <= -337.5)
 					{
