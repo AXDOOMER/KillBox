@@ -219,6 +219,9 @@ public class Player
 			case 1:
 				Emitter.PlaySound("pistol.wav", this);
 				break;
+			case 2:
+				Emitter.PlaySound("assaultrifle.wav", this);
+				break;
 			case 3:
 				Emitter.PlaySound("ak47.wav", this);
 				break;
@@ -232,15 +235,15 @@ public class Player
 		// Start scanning from the player's position
 		float TravelX = this.PosX();
 		float TravelY = this.PosY();
-		float TravelZ = this.PosZ();
+		float TravelZ = this.ViewZ;
 
 		// Move the bullet and check for collision
 		for (int Point = 0; Point < MaxChecks; Point++)
 		{
 			// Increment bullet position
-			TravelX = TravelX + Step * (float)Math.cos(HorizontalAngle);
+			TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
 			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
-			TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
+			//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
 			// Check if a wall was hit. Check for wall on a line between the player and the hit point.
 			if (CheckWallCollision(TravelX, TravelY, Step) == null)
@@ -248,8 +251,11 @@ public class Player
 				Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
 
 				// Check if something was really hit
-				if (Hit != null)
+				if (Hit != null && Hit.Health > 0)
 				{
+					// Spawn blood
+					Lvl.Things.add(new Thing("Blood", TravelX, TravelY, TravelZ));
+
 					// If the player who was hit is not dead
 					if (Hit.Health > 0)
 					{

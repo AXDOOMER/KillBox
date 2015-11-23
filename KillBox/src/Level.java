@@ -397,13 +397,16 @@ public class Level
 	}
 
 	// Multi-thing cooperative system
-	public void UpdateLevel(ArrayList<Plane> Planes, ArrayList<Thing> Things)
+	public void UpdateLevel(/*ArrayList<Plane> Planes, ArrayList<Thing> Things*/)
 	{
 		// Nice article:  http://blog.noctua-software.com/entity-references.html
-		for (int i = 0; i < Things.size(); i++)
+		for (int Thing = 0; Thing < Things.size(); Thing++)
 		{
 			// Give a change to every thing to update itself
-			Things.get(i).Update(Planes, Things);
+			if (!Things.get(Thing).Update(/*Planes, Things*/))
+			{
+				Things.remove(Thing);
+			}
 		}
 	}
 	

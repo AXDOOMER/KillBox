@@ -35,12 +35,13 @@ public class Thing
 	boolean Impassable = false;
 	boolean CanBePickedUp = false;
 	String ResPath = "res/sprites/";
+	static int TextureFilter = GL_NEAREST;	// Selected texture filter
 
 	public enum Names
 	{
-		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47,
+		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47, Tek9,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
-		Flag, Unknown, Custom
+		Blood, Flag, Unknown, Custom
 	}
 
 	Names Type;
@@ -48,7 +49,7 @@ public class Thing
 	public Thing(String Sprite, float PosX, float PosY, float PosZ, int Light, int Radius, int Height, int Health)
 	{
 		Type = Names.Custom;
-		this.Sprite = new Texture(Sprite, GL_NEAREST);
+		this.Sprite = new Texture(Sprite, TextureFilter);
 
 		Impassable = true;
 		CanBePickedUp = false;
@@ -85,7 +86,7 @@ public class Thing
 					Radius = 16;
 					Health = 1000;
 					Height = 56;
-					Sprite = null; //new Texture("res/spawn/spawn1.png", GL_NEAREST);
+					Sprite = null; //new Texture("res/spawn/spawn1.png", TextureFilter);
 					break;
 
 				default:
@@ -135,7 +136,7 @@ public class Thing
 					Height = 24;
 					Impassable = true;
 					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Barrel.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Barrel.png", TextureFilter);
 					break;
 				case StimPack:
 					Radius = 16;
@@ -143,7 +144,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "StimPack.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "StimPack.png", TextureFilter);
 					break;
 				case MediPack:
 					Radius = 16;
@@ -151,7 +152,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "MediPack.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "MediPack.png", TextureFilter);
 					break;
 				case Chaingun:
 					Health = 10;
@@ -159,7 +160,7 @@ public class Thing
 					Height = 24;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Chaingun.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Chaingun.png", TextureFilter);
 					break;
 				case Ak47:
 					Health = 10;
@@ -167,7 +168,7 @@ public class Thing
 					Height = 24;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Ak47.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Ak47.png", TextureFilter);
 					break;
 				case Pistol:
 					Health = 10;
@@ -175,7 +176,7 @@ public class Thing
 					Height = 24;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Pistol.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Pistol.png", TextureFilter);
 					break;
 				case AmmoClip:
 					Radius = 16;
@@ -183,7 +184,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "AmmoClip.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "AmmoClip.png", TextureFilter);
 					break;
 				case AmmoBox:
 					Radius = 16;
@@ -191,7 +192,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "AmmoBox.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "AmmoBox.png", TextureFilter);
 					break;
 				case Shells:
 					Radius = 16;
@@ -199,7 +200,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Shells.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Shells.png", TextureFilter);
 					break;
 				case ShellBox:
 					Radius = 16;
@@ -207,7 +208,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "ShellBox.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "ShellBox.png", TextureFilter);
 					break;
 				case Rocket:
 					Radius = 16;
@@ -215,7 +216,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Rocket.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Rocket.png", TextureFilter);
 					break;
 				case RocketBox:
 					Radius = 16;
@@ -223,7 +224,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "RocketBox.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "RocketBox.png", TextureFilter);
 					break;
 				case Cells:
 					Radius = 16;
@@ -231,7 +232,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Cells.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Cells.png", TextureFilter);
 					break;
 				case Bullet:
 					Radius = 8;
@@ -239,7 +240,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Bullet.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Bullet.png", TextureFilter);
 					break;
 				case Plasma:
 					Radius = 12;
@@ -247,7 +248,7 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Plasma.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Plasma.png", TextureFilter);
 					break;
 				case Flag:
 					Radius = 16;
@@ -255,7 +256,15 @@ public class Thing
 					Health = 10;
 					Impassable = false;
 					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Flag.png", GL_NEAREST);
+					Sprite = new Texture(ResPath + "Flag.png", TextureFilter);
+					break;
+				case Blood:
+					Radius = 7;
+					Height = 14;
+					Health = 10;
+					Impassable = false;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "blood1.png", TextureFilter);
 					break;
 
 				default:
@@ -283,7 +292,7 @@ public class Thing
 		}
 	}
 
-	public void Update(ArrayList<Plane> Planes, ArrayList<Thing> Things)
+	public boolean Update(/*ArrayList<Plane> Planes, ArrayList<Thing> Things*/)
 	{
 		switch (Type)
 		{
@@ -296,8 +305,25 @@ public class Thing
 			case Plasma:
 				UpdatePlasma();
 				break;
+			case Blood:
+				Fall();
 
+				Frame++;
+				if (Frame == 2)
+					Sprite = new Texture(ResPath + "blood2.png", TextureFilter);
+				else if (Frame == 4)
+					Sprite = new Texture(ResPath + "blood3.png", TextureFilter);
+
+				// Check if it has completely fallen.
+				if (PosZ <= 0)
+				{
+					// The code in which this method is called should take care of deleting the reference
+					return false;
+				}
+				break;
 		}
+
+		return true;
 	}
 
 	public void Fall()
@@ -314,6 +340,7 @@ public class Thing
 			MoZ = MoZ * 2;
 		}
 
+		PosZ = PosZ - MoZ;
 	}
 
 	public void UpdateBarrel()

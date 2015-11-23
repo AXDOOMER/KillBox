@@ -269,6 +269,9 @@ public class Game
 						Lvl.Players.get(Player).UpdateIfDead();
 					}
 
+					// Update things
+					Lvl.UpdateLevel();
+
 					// Look for a winner
 					int Winner = 0;
 					int PlayerWithMostKills = 0;

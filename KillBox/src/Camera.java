@@ -20,6 +20,7 @@ import org.lwjgl.opengl.Display;
 import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 
 public class Camera
 {
@@ -424,6 +425,12 @@ public class Camera
 
 		// Enable translucidity before it starts drawing stuff
 		glEnable(GL_BLEND);	// Enable OpenGL's blending functionality
+
+		// Alpha sorting
+		glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+		glAlphaFunc(GL_GREATER, 0.0f);
+		glEnable(GL_ALPHA_TEST);
+
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
 
 		if (Lvl != null)
