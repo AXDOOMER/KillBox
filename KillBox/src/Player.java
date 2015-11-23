@@ -241,7 +241,7 @@ public class Player
 		for (int Point = 0; Point < MaxChecks; Point++)
 		{
 			// Increment bullet position
-			TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
+			TravelX = TravelX + Step * (float)Math.cos(HorizontalAngle);
 			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
 			//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 

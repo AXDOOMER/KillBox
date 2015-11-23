@@ -342,6 +342,9 @@ public class Camera
 			}
 		}
 
+		// Update things
+		Lvl.UpdateLevel();
+
 		// If menu is lock
 		if ((Menu.Locked() || Menu.HaveWindowActive()))
 		{

@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.??? (Beta)";
-	String LastUpdate = "october 22th 2015";
+	String LastUpdate = "november 22th 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -4093,7 +4093,18 @@ public class Menu
 		}
 		else if (MenuBarCursor == PosQuit[0] && SubMenuCursor == PosQuit[1]) // Quit Game
 		{
-			QuitGame();
+			// Can't quit a game if not in a game
+			if (InGame)
+			{
+				QuitGame();
+			}
+			else
+			{
+				// Display a message
+				this.NewMessageToShow("You're not in a game.");
+			}
+
+			// BUG: Still can't close the menu when 'quit game' is pressed without locking the game
 		}
 		else if (MenuBarCursor == PosExit[0] && SubMenuCursor == PosExit[1]) // Exit Game
 		{
