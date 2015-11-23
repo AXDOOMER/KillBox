@@ -46,6 +46,7 @@ public class Camera
 	private float Far;
 
 	public Texture CurrentTexture = null;
+	private Texture Crosshair = new Texture("res/sprites/crosshair.png", GL_NEAREST);
 	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
@@ -721,17 +722,17 @@ public class Camera
 				// Temporary solution to draw the gun fire
 				if (CurrentPlayer().JustShot())
 				{
-					Menu.DrawTexture(CurrentPlayer().GunFire, 33.2, 34, 32, 16);
+					Menu.DrawTexture(CurrentPlayer().GunFire, 34, 34, 32, 16);
 				}
 
 				// Draw a weapon
 				switch (CurrentPlayer().SelectedWeapon)
 				{
 					case 1:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 29, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 310 / 9.5, 358 / 8);
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 310 / 9.5, 358 / 8);
 						break;
 					case 3:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 241 / 8, 293 / 7);
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 241 / 8, 293 / 7);
 						break;
 				}
 
@@ -757,6 +758,11 @@ public class Camera
 
 					// Draw the scores
 					Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
+				}
+
+				if (Menu.FreeLook())
+				{
+					Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
 				}
 
 				// Draw all element
