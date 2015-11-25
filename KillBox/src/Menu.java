@@ -4267,6 +4267,7 @@ public class Menu
 
 	public void NewMessageToShow(String Text)
 	{
+		//PlaySound("chat.wav");
 		Message = Text;
 		MessageTime = 0;
 	}

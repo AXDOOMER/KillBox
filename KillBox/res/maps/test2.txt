@@ -642,3 +642,130 @@ thing:
 	z: 0;
 	angle: 0;
 }
+
+thing:
+{
+	type: tek9;
+	x: -100;
+	y: -400;
+	z: 0;
+	angle: 0;
+}
+
+
+wall017:
+{
+	texture: dungeon_wall.png;
+	2sided: true;
+	impassable: true;
+	# carré au sol
+	x: 50;
+	y: -700;
+	z: 0;
+
+	x: 50;
+	y: -740;
+	z: 0;
+
+	x: 0;
+	y: -740;
+	z: 0;
+
+	x: 0;
+	y: -700;
+	z: 0;
+}
+
+wall018:
+{
+	texture: dungeon_wall.png;
+	2sided: true;
+	impassable: true;
+	# carré dans les aires
+	x: 50;
+	y: -700;
+	z: 64;
+
+	x: 50;
+	y: -740;
+	z: 64;
+
+	x: 0;
+	y: -740;
+	z: 64;
+
+	x: 0;
+	y: -700;
+	z: 64;
+}
+
+wall019:
+{
+	texture: dungeon_wall.png;
+	2sided: true;
+	impassable: true;
+	# carré dans les aires
+	x: 100;
+	y: -700;
+	z: 56;
+
+	x: 100;
+	y: -740;
+	z: 56;
+
+	x: 50;
+	y: -740;
+	z: 56;
+
+	x: 50;
+	y: -700;
+	z: 56;
+}
+
+wall020:
+{
+	texture: dungeon_wall.png;
+	2sided: true;
+	impassable: true;
+	# carré dans les aires
+	x: 150;
+	y: -700;
+	z: 48;
+
+	x: 150;
+	y: -740;
+	z: 48;
+
+	x: 100;
+	y: -740;
+	z: 48;
+
+	x: 100;
+	y: -700;
+	z: 48;
+}
+
+wall021:
+{
+	texture: dungeon_wall.png;
+	2sided: true;
+	impassable: true;
+	# carré au sol
+	x: 0;
+	y: -700;
+	z: 8;
+
+	x: 0;
+	y: -740;
+	z: 8;
+
+	x: -50;
+	y: -740;
+	z: 8;
+
+	x: -50;;
+	y: -700;
+	z: 8;
+}
+
+

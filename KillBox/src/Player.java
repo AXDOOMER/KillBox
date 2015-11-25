@@ -73,8 +73,10 @@ public class Player
 	short AngleDiff = 0;
 	boolean Shot = false;
 	boolean JustShot = false;	// Used in camera for the gun fire
+	int WeaponHeight = 0;
+	boolean Reloading = false;
 
-	boolean HasFlag = false;
+	boolean HasFlag = false;	// For the flagtag game mode
 	int Frame = 0;
 	int LastFrame = 0;
 	Sound Emitter = null;	// Must get the already initialized SndDriver
@@ -132,6 +134,8 @@ public class Player
 	
 	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
 	{
+		Emitter.PlaySound("hurt.wav", this);
+
 		float Angle = (float) Math.atan2(DmgSrcY, DmgSrcX);
 		
 		HealthChange(-Damage);
@@ -540,6 +544,22 @@ public class Player
 									//Lvl.Things.remove(Thingie);	// Delete the thingy
 								}
 							}
+							else if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Tek9))
+							{
+								boolean Found = false;
+								for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
+								{
+									if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Tek9))
+									{
+										Found = true;
+									}
+								}
+								if (Found == false)
+								{
+									OwnedWeapons[2] = Thing.Names.Tek9;
+									Emitter.PlaySound("cocking.wav", this);
+								}
+							}
 						}
 					}
 				}
@@ -643,6 +663,18 @@ public class Player
 
 				if (DistanceToOneWallVertex <= WallLength + RadiusToUse * 2)
 				{
+					// Check if the wall is above or under the player so he can't enter in collision with it
+					if (Lvl.Planes.get(Plane).Vertices().get(2).equals(Lvl.Planes.get(Plane).Vertices().get(5)) &&
+							Lvl.Planes.get(Plane).Vertices().get(5).equals(Lvl.Planes.get(Plane).Vertices().get(8)))
+					{
+						// Still equal? Must be a floor or a ceiling.
+						if (StartZ <= this.PosZ() || StartZ >= this.PosZ() + this.Height())
+						{
+							// There is no collision. Skip to next wall for the checks.
+							continue;
+						}
+					}
+
 					// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
 					// Test for a vertical wall
 					if (StartX == EndX)
@@ -991,6 +1023,10 @@ public class Player
 			{
 				return 10;
 			}
+			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Tek9))
+			{
+				return 5;
+			}
 			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Ak47))
 			{
 				return 15;
@@ -1192,6 +1228,14 @@ public class Player
 	{
 		if (Health <= 0)
 		{
+			// Drop the flag if the player has it
+			if (HasFlag)
+			{
+				Lvl.Things.add(new Thing("Flag", this.PosX(), this.PosY(), this.PosZ()));
+				HasFlag = false;
+			}
+
+			// Drop the head on the ground
 			if (ViewZ > HeadOnFloor)
 			{
 				ViewZ--;
@@ -1199,7 +1243,7 @@ public class Player
 		}
 	}
 
-	public int DiffrenceViewZ()
+	public int DifferenceViewZ()
 	{
 		return DefaultViewZ - ViewZ;
 	}
@@ -1216,6 +1260,9 @@ public class Player
 				{
 					case 1:
 						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+						break;
+					case 2:
+						SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
 						break;
 					case 3:
 						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);

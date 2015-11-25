@@ -341,6 +341,12 @@ public class Level
 			System.err.println("The specified level cannot be found: " + LvlName);
 			System.exit(1);
 		}
+		catch (Exception e)
+		{
+			System.err.println("Failed to load the following level: " + LvlName);
+			System.err.println("The must be a syntax error in the file (missing closing accolade, etc.)");
+			System.exit(1);
+		}
 	}
 
 	// This method will load a texture. It will find it using the specified path.

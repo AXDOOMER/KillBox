@@ -736,10 +736,13 @@ public class Camera
 				switch (CurrentPlayer().SelectedWeapon)
 				{
 					case 1:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 310 / 9.5, 358 / 8);
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
+						break;
+					case 2:
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
 						break;
 					case 3:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, 0 - CurrentPlayer().DiffrenceViewZ() * 2, 241 / 8, 293 / 7);
+						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 241 / 8, 293 / 7);
 						break;
 				}
 

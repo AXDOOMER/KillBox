@@ -124,6 +124,14 @@ public class Thing
 			{
 				Type = "Ak47";
 			}
+			else if (Type.equals("tek9"))
+			{
+				Type = "Tek9";
+			}
+			else if (Type.equals("flag"))
+			{
+				Type = "Flag";
+			}
 
 			Names Value = Names.valueOf(Type);
 			this.Type = Value;
@@ -169,6 +177,14 @@ public class Thing
 					Impassable = false;
 					CanBePickedUp = true;
 					Sprite = new Texture(ResPath + "Ak47.png", TextureFilter);
+					break;
+				case Tek9:
+					Health = 10;
+					Radius = 10;
+					Height = 16;
+					Impassable = false;
+					CanBePickedUp = true;
+					Sprite = new Texture(ResPath + "Tek9.png", TextureFilter);
 					break;
 				case Pistol:
 					Health = 10;
