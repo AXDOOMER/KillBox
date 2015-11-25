@@ -119,7 +119,9 @@ public class Netplay
     int GameMode = 0;
     int TimeLimit = 0;
     int KillLimit = 0;
-	String Map = "";
+
+    String Map = "";
+
 
     public int GetTimeLimit()
     {
@@ -194,7 +196,7 @@ public class Netplay
             this.GameMode = Integer.parseInt(strings[3]);
             this.TimeLimit = Integer.parseInt(strings[4]);
             this.KillLimit = Integer.parseInt(strings[5]);
-			this.Map = strings[6];
+            this.Map = strings[6];
 
             Connections.get(0).setSoTimeout(WaitLag);
 

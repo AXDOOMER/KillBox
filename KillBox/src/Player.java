@@ -32,6 +32,8 @@ public class Player
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
 
+	int Action = 0;
+
 	// Motion
 	float MoX = 0;
 	float MoY = 0;
@@ -60,6 +62,7 @@ public class Player
 	int Health = 100;	// The player's life condition
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
+	int Bullets = 30;
 
 	// Scores
 	int Kills = 0;
@@ -214,7 +217,12 @@ public class Player
 		
 		return null;
 	}
-	
+
+	public void SetShotTrue()
+	{
+		Shot = true;
+	}
+
 	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
 	{
 		// Play the good sound for the selected weapon
@@ -230,6 +238,12 @@ public class Player
 				Emitter.PlaySound("ak47.wav", this);
 				break;
 		}
+
+		// Temp bullets var
+		if(Bullets == 0)
+			Bullets = 110;
+
+		Bullets--;
 
 		float Step = 2;		// Incremental steps at which the bullet checks for collision
 		int MaxChecks = 2048;		// Max check for the reach of a bullet
@@ -319,6 +333,11 @@ public class Player
 			}
 		}
 
+		//ExecuteForwardMove(FrontMove);
+	}
+
+	public void ExecuteForwardMove(byte Direction)
+	{
 		float NewX = MoX;
 		float NewY = MoY;
 
@@ -365,6 +384,12 @@ public class Player
 			}
 		}
 
+		//ExecuteLateralMove(SideMove);
+
+	}
+
+	public void ExecuteLateralMove(byte Direction)
+	{
 		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
 
 		float NewX = MoX;
@@ -986,6 +1011,12 @@ public class Player
 	public void AngleTurn(short AngleChange)
 	{
 		AngleDiff = AngleChange;
+
+		//ExecuteAngleTurn(AngleDiff);
+	}
+
+	public void ExecuteAngleTurn(short AngleChange)
+	{
 		// Our internal representation of angles goes from -16384 to 16383,
 		// so there are 32768 different angles possible.
 
