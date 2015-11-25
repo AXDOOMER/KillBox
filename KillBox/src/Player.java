@@ -275,7 +275,11 @@ public class Player
 							// Got a point
 							Kills++;
 
+							// Play death sound
 							Emitter.PlaySound("death.wav", Hit);
+
+							// Create a corpse
+							Lvl.Things.add(new Thing("DeadPlayer", Hit.PosX(), Hit.PosY(), Hit.PosZ()));
 
 							// Add one death to his counter
 							Hit.Deaths++;
@@ -499,6 +503,17 @@ public class Player
 	{
 		for (int Thingie = 0; Thingie < Lvl.Things.size(); Thingie++)
 		{
+			// Delete dead player corpses from memory while we're doing this
+			// Delete objects with a negative frame (player corpses are set to -1)
+			if (Lvl.Things.get(Thingie).Frame == -1)
+			{
+				Lvl.Things.remove(Thingie);
+
+				// Go to the next iteration, because the element is deleted...
+				continue;
+			}
+
+			// Distance calculation for the 2D collision test
 			float Distance = (float) Math.sqrt(
 					Math.pow(NewX - Lvl.Things.get(Thingie).PosX(), 2) +
 							Math.pow(NewY - Lvl.Things.get(Thingie).PosY(), 2));

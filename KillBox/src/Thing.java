@@ -41,7 +41,7 @@ public class Thing
 	{
 		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47, Tek9,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
-		Blood, Flag, Unknown, Custom
+		Blood, DeadPlayer, Flag, Unknown, Custom
 	}
 
 	Names Type;
@@ -282,6 +282,14 @@ public class Thing
 					CanBePickedUp = false;
 					Sprite = new Texture(ResPath + "blood1.png", TextureFilter);
 					break;
+				case DeadPlayer:
+					Radius = 22;
+					Height = 50;
+					Health = 10;
+					Impassable = false;
+					CanBePickedUp = false;
+					Sprite = new Texture("res/player/PLAYH0.png", TextureFilter);
+					break;
 
 				default:
 					Radius = 0;
@@ -335,6 +343,55 @@ public class Thing
 				{
 					// The code in which this method is called should take care of deleting the reference
 					return false;
+				}
+				break;
+
+			case DeadPlayer:
+				if (Frame == 3)
+				{
+					Sprite = new Texture("res/player/PLAYI0.png", TextureFilter);
+					Radius = 18;
+					Height = 43;
+				}
+				else if (Frame == 6)
+				{
+					Sprite = new Texture("res/player/PLAYJ0.png", TextureFilter);
+					Radius = 18;
+					Height = 46;
+				}
+				else if (Frame == 9)
+				{
+					Sprite = new Texture("res/player/PLAYK0.png", TextureFilter);
+					Radius = 20;
+					Height = 38;
+				}
+				else if (Frame == 12)
+				{
+					Sprite = new Texture("res/player/PLAYL0.png", TextureFilter);
+					Radius = 25;
+					Height = 14;
+				}
+				else if (Frame == 15)
+				{
+					Sprite = new Texture("res/player/PLAYM0.png", TextureFilter);
+					Radius = 25;
+					Height = 14;
+				}
+				else if (Frame == 18)
+				{
+					Sprite = new Texture("res/player/PLAYN0.png", TextureFilter);
+					Radius = 25;
+					Height = 14;
+				}
+
+				if (Frame < 40 && Frame >= 0)
+				{
+					Frame++;
+				}
+				else
+				{
+					Frame = -1;
+					Sprite = null;
 				}
 				break;
 		}
