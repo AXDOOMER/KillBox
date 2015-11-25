@@ -52,6 +52,13 @@ public class Menu
 	private int MessageTime = 0;
 	private int MaxMessageTime = 100;
 
+	public Sound SoundOut = null;
+
+	public void SetSoundOut(Sound NewSoundOut)
+	{
+		this.SoundOut = NewSoundOut;
+	}
+
 	// Inner class to have "pointer" of primitive type
 	class Menu_Boolean
 	{
@@ -465,10 +472,10 @@ public class Menu
 		int MaxValue; // Maximum value of HorSlider.
 		int MinValue; // Minimum value of HorSlider.
 		Menu_Integer CurrentValue; // Current value
-		int SquareValue; // Value for each square
+		public int SquareValue; // Value for each square
 
 		// Constant
-		final int NumberOfSquare = 5; // Number of Square to draw for the slider (20,40,60,80,100)%
+		final int NumberOfSquare = 5; // Number of Square to draw for the slider (20,40,60,80,100)
 		final double SquareWidth = 1; // % value, must be converted to either px or gl
 		final double SquareHeight = 3; // % value, must be converted to either px or gl
 		final double BorderX = 2; // Size of border for the box
@@ -3719,23 +3726,56 @@ public class Menu
 		// 1 = 3d
 		// 2 = 3d + Doppler effect
 		SoundMode.Int(Mode);
+		MenuItem_RadioButton Radio = (MenuItem_RadioButton)Items.get(3).get(3);
+		if (SoundMode.Int() == 0)
+		{
+			Radio.IsChecked(true);
+		}
+		else
+		{
+			Radio.IsChecked(false);
+		}
+
+		Radio = (MenuItem_RadioButton)Items.get(3).get(4);
+		if (SoundMode.Int() == 1)
+		{
+			Radio.IsChecked(true);
+		}
+		else
+		{
+			Radio.IsChecked(false);
+		}
+
+		Radio = (MenuItem_RadioButton)Items.get(3).get(5);
+		if (SoundMode.Int() == 2)
+		{
+			Radio.IsChecked(true);
+		}
+		else
+		{
+			Radio.IsChecked(false);
+		}
 	}
 
 	// Set SFXVolume value
 	public void SFXVolume(int Volume)
 	{
-		if (Volume >= 0 && Volume <= 5)
+		if (Volume >= 0 && Volume <= 100)
 		{
 			SFXVolume.Int(Volume);
+			MenuItem_HorSlider Slider = (MenuItem_HorSlider)Items.get(3).get(1);
+			Slider.CursorPos(SFXVolume.Int / Slider.SquareValue);
 		}
 	}
 
 	// Set MouseSensibility value
 	public void MouseSensibility(int Sensibility)
 	{
-		if (Sensibility >= 0 && Sensibility <= 5)
+		if (Sensibility >= 0 && Sensibility <= 100)
 		{
 			MouseSensitivity.Int(Sensibility);
+			MenuItem_HorSlider Slider = (MenuItem_HorSlider)Items.get(2).get(3);
+			Slider.CursorPos(MouseSensitivity.Int / Slider.SquareValue);
 		}
 	}
 
@@ -4244,7 +4284,7 @@ public class Menu
 
 		// Draw image
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		//glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
 
 		Image.Bind();
 
@@ -4262,7 +4302,7 @@ public class Menu
 		// Move drawing cursor back to center of window
 		glTranslatef(1, 1, 0);
 
-		//glDisable(GL_TEXTURE_2D);
+		glDisable(GL_TEXTURE_2D);
 	}
 
 	public void NewMessageToShow(String Text)
@@ -4270,6 +4310,125 @@ public class Menu
 		//PlaySound("chat.wav");
 		Message = Text;
 		MessageTime = 0;
+	}
+
+	public void ShowHUD(Player CurrentPlayer)
+	{
+		// HUD
+		int HealthBarWidth = 20;
+
+		Texture texture = new Texture("./res/sprites/bullet.png",GL_NEAREST);
+
+		// Bullet
+		DrawTexture(texture, 90, 5, 4, 24);
+		// Number of bullets
+		if(CurrentPlayer.Bullets >= 100)
+			DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
+		else if (CurrentPlayer.Bullets >= 10)
+			DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
+		else
+			DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+
+		// Health text
+		// DrawText("health", 2, 15, 3, 3);
+
+		// Health bar
+		// Move drawing cursor to bottom of window
+		glTranslatef(-1,-1,0);
+
+		// Var for the bars
+		double StartRectPosXGL;
+		double EndRectPosXGL;
+		double EndRectPosYGL;
+		double StartRectPosYGL;
+
+		// Initialize point of the black bar
+		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health*HealthBarWidth/100+1, true, GridWidth, GridHeight, false);
+		EndRectPosYGL = ConvertPercentToGL(19, false, GridWidth, GridHeight, false);
+		StartRectPosYGL = ConvertPercentToGL(9, false, GridWidth, GridHeight, false);
+
+		// Initialize polygon mode to FIll
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+
+		// Hide the black, if the player is dead
+		if(CurrentPlayer.Health == 0)
+			glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+
+		glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+
+		// Initialize point of the red bar (Health bar)
+		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health*HealthBarWidth/100, true, GridWidth, GridHeight, false);
+		EndRectPosYGL = ConvertPercentToGL(17, false, GridWidth, GridHeight, false);
+		StartRectPosYGL = ConvertPercentToGL(11, false, GridWidth, GridHeight, false);
+
+		// Initialize polygon mode to FIll
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+		glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+		// Move drawing cursor back to center of window
+		glTranslatef(1, 1, 0);
+	}
+
+	public void ShowScoreTable(ArrayList<Player> Players)
+	{
+		// Move drawing cursor to bottom of window
+		glTranslatef(-1,-1,0);
+
+		// Initialize point
+		double StartRectPosXGL = ConvertPercentToGL(5, true, GridWidth, GridHeight, false);
+		double EndRectPosXGL = ConvertPercentToGL(66, true, GridWidth, GridHeight, false);
+		double EndRectPosYGL = ConvertPercentToGL(85, false, GridWidth, GridHeight, false);
+		double StartRectPosYGL = ConvertPercentToGL(56, false, GridWidth, GridHeight, false);
+
+		// Initialize polygon mode to FIll
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+
+		glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+
+		glColor3f(0.0f, 0.0f, 0.0f);
+
+		glLineWidth(7.0f);
+
+		glBegin(GL_LINES);
+		glVertex2d(ConvertPercentToGL(6, true, GridWidth, GridHeight, false), ConvertPercentToGL(75, false, GridWidth, GridHeight, false));
+		glVertex2d(ConvertPercentToGL(65, true, GridWidth, GridHeight, false), ConvertPercentToGL(75, false, GridWidth, GridHeight, false));
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2d(ConvertPercentToGL(6, true, GridWidth, GridHeight, false), ConvertPercentToGL(67, false, GridWidth, GridHeight, false));
+		glVertex2d(ConvertPercentToGL(65, true, GridWidth, GridHeight, false), ConvertPercentToGL(67, false, GridWidth, GridHeight, false));
+		glEnd();
+
+		// Move drawing cursor back to center of window
+		glTranslatef(1, 1, 0);
+
+		// Draw the scores
+		DrawText("        Kills  Deaths  Accuracy", 10, Players.size() * 5 + 55, 2, 2);
+
+		for (int Player = Players.size() - 1; Player >= 0; Player--)
+		{
+			// Show the score of every player that is in the game
+			String PlayerScore = "Player" + (Player + 1) + "   " + Players.get(Player).Kills + "      " + Players.get(Player).Deaths;
+			String PlayerHits = "?";
+
+			if (Players.get(Player).Hits > 0)
+			{
+				int HitPercentage = (int) ((float) Players.get(Player).Hits * 100 / (Players.get(Player).Hits + Players.get(Player).Missed));
+				PlayerHits = HitPercentage + "%";
+			}
+
+			//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;
+
+			DrawText(PlayerScore + "        " + PlayerHits, 10, Players.size() * 4 - Player * 7 + 50, 2, 2);
+		}
 	}
 
 	public void DrawMessage()

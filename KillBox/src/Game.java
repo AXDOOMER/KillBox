@@ -160,6 +160,7 @@ public class Game
 
 			// Sound (SFX)
 			Sound SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);;
+
 			// Whoa! That's an ugly way to do things...
 			for (int Player = 0; Player < Nodes; Player++)
 			{
@@ -169,6 +170,7 @@ public class Game
 			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 			HeadCamera.Menu.InGame = InGame;
+			HeadCamera.Menu.SetSoundOut(SndDriver);
 
 			// Set Listener
 			SndDriver.SetNewListener(Lvl.Players.get(View));
@@ -240,6 +242,9 @@ public class Game
 			// Deactivate de menu and give back the control to the player
 			//HeadCamera.Menu.Active(false);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
+
+			// Load the configuration file
+			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// The main game loop
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
@@ -386,6 +391,7 @@ public class Game
 							NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
 							NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
 							NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
+							Lvl.Players.get(View).Action = NetplayInfo.PlayerCommand.Actions;
 
 							// Do the network communication through the socket
 							if (NetplayInfo.Update())
@@ -401,28 +407,135 @@ public class Game
 										Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
 										Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
 										Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
+										Lvl.Players.get(Number).Action = NetplayInfo.PlayerCommand.Actions;
+
+										// Move the server(player1) first and then the client(player2)
+										for (int PlayerToMove = 0; PlayerToMove < Lvl.Players.size(); PlayerToMove++)
+										{
+											Lvl.Players.get(PlayerToMove).ExecuteForwardMove(Lvl.Players.get(PlayerToMove).FrontMove);
+											Lvl.Players.get(PlayerToMove).ExecuteLateralMove(Lvl.Players.get(PlayerToMove).SideMove);
+											Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
+										}
 									}
 
-									if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+
+									/*for (int PlayerToMakeAction = 0; PlayerToMakeAction < Lvl.Players.size(); PlayerToMakeAction++)
 									{
-										if (Lvl.Players.get(Number).Health > 0)
+										if(Lvl.Players.get(PlayerToMakeAction).Action == 1)
 										{
-											// Don't shot at the first tick, the player shots for no reason. This was a bug.
-											if (TicksCount > 1)
+											if (Lvl.Players.get(PlayerToMakeAction).Health > 0)
 											{
-												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+												Lvl.Players.get(PlayerToMakeAction).HitScan(Lvl.Players.get(PlayerToMakeAction).GetRadianAngle(), 0, 10);
+											}
+											else
+											{
+												// Check if the player has completely dropped on the floor
+												if (Lvl.Players.get(PlayerToMakeAction).ViewZ == Lvl.Players.get(PlayerToMakeAction).HeadOnFloor)
+												{
+													// Spawn the player
+													if (!Lvl.Players.get(PlayerToMakeAction).SpawnAtRandomSpot(true))
+													{
+														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+														System.exit(1);
+													}
+												}
+											}
+											Lvl.Players.get(PlayerToMakeAction).Action = 0;
+										}
+									}*/
+									// Check the action of each player in order (PLayer1 then player2)
+									if(View == 0) // If im the server
+									{
+										if(NetplayInfo.PlayerCommand.Actions == 1) // Do my command first
+										{
+											if (Lvl.Players.get(View).Health > 0)
+											{
+												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else
+											{
+												// Check if the player has completely dropped on the floor
+												if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
+												{
+													// Spawn the player
+													if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
+													{
+														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+														System.exit(1);
+													}
+												}
 											}
 										}
-										else
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1) // Do the client command second
 										{
-											// Check if the player has completely dropped on the floor
-											if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+											if (Lvl.Players.get(Number).Health > 0)
 											{
-												// Spawn the player
-												if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+												// Don't shot at the first tick, the player shots for no reason. This was a bug.
+												if (TicksCount > 1)
 												{
-													System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-													System.exit(1);
+													Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+
+												}
+											}
+											else
+											{
+												// Check if the player has completely dropped on the floor
+												if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+												{
+													// Spawn the player
+													if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+													{
+														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+														System.exit(1);
+													}
+												}
+											}
+										}
+									}
+									else // If im the client
+									{
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1) // DO the server first
+										{
+											if (Lvl.Players.get(Number).Health > 0)
+											{
+												// Don't shot at the first tick, the player shots for no reason. This was a bug.
+												if (TicksCount > 1)
+												{
+													Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+
+												}
+											}
+											else
+											{
+												// Check if the player has completely dropped on the floor
+												if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+												{
+													// Spawn the player
+													if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+													{
+														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+														System.exit(1);
+													}
+												}
+											}
+										}
+										if(NetplayInfo.PlayerCommand.Actions == 1) // Do the client command second
+										{
+											if (Lvl.Players.get(View).Health > 0)
+											{
+												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else
+											{
+												// Check if the player has completely dropped on the floor
+												if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
+												{
+													// Spawn the player
+													if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
+													{
+														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+														System.exit(1);
+													}
 												}
 											}
 										}
@@ -480,6 +593,7 @@ public class Game
 					if (Keyboard.isKeyDown(Keyboard.KEY_5))
 					{
 						SndDriver.PlaySound("respawn.wav", Lvl.Players.get(View));
+					}
 					}*/
 
 					// Spy view
@@ -516,8 +630,20 @@ public class Game
 						JustPressedSpyKey = false;
 					}
 				}
-				else
+				else // Single player
 				{
+					// Make the player move even if it's not a multiplayer game
+					Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
+					Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
+					Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+
+					if (Lvl.Players.get(View).ActionIsHasShot() == 1)
+					{
+						if (Lvl.Players.get(View).Health > 0)
+						{
+							Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+						}
+					}
 					// Kill inactive players
 					/*for (int Player = 0; Player < Lvl.Players.size(); Player++)
 					{
@@ -555,6 +681,18 @@ public class Game
 						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
+							Lvl = null;
+							Lvl = new Level();
+
+							for (int Player = 0; Player < Nodes; Player++)
+							{
+								Lvl.Players.add(new Player(Lvl, SndDriver));
+							}
+
+							// Set Listener
+							SndDriver.SetNewListener(Lvl.Players.get(View));
+
+							Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
 
@@ -610,6 +748,19 @@ public class Game
 
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
+
+							Lvl = null;
+							Lvl = new Level();
+
+							for (int Player = 0; Player < Nodes; Player++)
+							{
+								Lvl.Players.add(new Player(Lvl, SndDriver));
+							}
+
+							// Set Listener
+							SndDriver.SetNewListener(Lvl.Players.get(View));
+
+							Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
 						}
 						else
 						{
@@ -640,6 +791,15 @@ public class Game
 					}
 				}
 
+				for (int Player = 0; Player < Lvl.Players.size(); Player++)
+				{
+					// BUG: Cheap fix player strafing not reset. FUCK!
+					Lvl.Players.get(Player).SideMove = 0;
+					Lvl.Players.get(Player).FrontMove = 0;
+					Lvl.Players.get(Player).AngleDiff = 0;
+					Lvl.Players.get(Player).Shot = false;
+				}
+
 				if (NetplayInfo != null)
 				{
 					// This may be repetitive
@@ -668,7 +828,7 @@ public class Game
 					}
 
 					// Make the game sleep depending on how much time it took to execute one tick
-					Thread.sleep((long)TimeFrameLimit - DeltaTime);
+					Thread.sleep((long) TimeFrameLimit - DeltaTime);
 					TicksCount++;
 				}
 				catch (InterruptedException ie)
@@ -714,6 +874,7 @@ public class Game
 
 		try
 		{
+			MenuSystem.Active(true);
 			// Load the file
 			BufferedReader ConfigFile = new BufferedReader(new FileReader("res/" + Name));
 
@@ -745,6 +906,8 @@ public class Game
 			MenuSystem.Fullscreen(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
 			MenuSystem.Filtering(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
 			MenuSystem.ViewDepth(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+
+			MenuSystem.Active(false);
 
 		}
 		catch (FileNotFoundException fnfe)
@@ -781,9 +944,9 @@ public class Game
 
 			ConfigFile.println("grab_mouse" + Spacing + MenuSystem.GrabMouse.Bool());
 			ConfigFile.println("enable_chat" + Spacing + MenuSystem.EnableChat.Bool());
-			ConfigFile.println("mouse_sensitivity" + Spacing + MenuSystem.MouseSensitivity.Int() / 20);
+			ConfigFile.println("mouse_sensitivity" + Spacing + MenuSystem.MouseSensitivity.Int());
 
-			ConfigFile.println("sfx_volume" + Spacing + MenuSystem.SFXVolume.Int() / 20);
+			ConfigFile.println("sfx_volume" + Spacing + MenuSystem.SFXVolume.Int());
 
 			// Can be '2d', '3d' or '3d+'.
 			if (SoundSystem.SndMode == Sound.SoundModes.Bi)

@@ -279,7 +279,8 @@ public class Camera
 				JustPressedFireKey = true;
 				if (CurrentPlayer().Health > 0)
 				{
-					CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+					CurrentPlayer().SetShotTrue();
 				}
 				else
 				{
@@ -723,7 +724,14 @@ public class Camera
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 
+				glDisable(GL_TEXTURE_2D);
+
+				// HUD
+				if(Menu.ShowHud.Bool())
+					Menu.ShowHUD(Plyr);
+
 				// Draw a message if there is one
+				if(Menu.ShowMessage.Bool())
 				Menu.DrawMessage();
 
 				// Temporary solution to draw the gun fire
@@ -749,30 +757,20 @@ public class Camera
 				// Show the scores on the screen
 				if (Lvl.Players.size() > 1 && Menu.InGame == true)
 				{
-					for (int Player = Lvl.Players.size() - 1; Player >= 0; Player--)
+					if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
 					{
-						// Show the score of every player that is in the game
-						String PlayerScore = "Player#" + (Player + 1) + ": " + Lvl.Players.get(Player).Kills;
-						String PlayerHits = "";
-
-						if (Lvl.Players.get(Player).Hits > 0)
-						{
-							int HitPercentage = (int) ((float) Lvl.Players.get(Player).Hits * 100 / (Lvl.Players.get(Player).Hits + Lvl.Players.get(Player).Missed));
-							PlayerHits = " (hit: " + HitPercentage + "%)";
-						}
-
-						//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;
-
-						Menu.DrawText(PlayerScore + PlayerHits, 1, Lvl.Players.size() * 4 - Player * 4, 3, 3);
+						Menu.ShowScoreTable(Lvl.Players());
 					}
-
-					// Draw the scores
-					Menu.DrawText("Score table:", 1, Lvl.Players.size() * 4 + 5, 3, 3);
 				}
 
 				if (Menu.FreeLook())
 				{
 					Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
+				}
+
+				if (Menu.ShowDebug())
+				{
+					Menu.DrawText("X:" + CurrentPlayer().PosX() + " Y:" + CurrentPlayer().PosY() + " A:" + CurrentPlayer().GetDegreeAngle(), 0, 0, 3, 3);
 				}
 
 				// Draw all element
