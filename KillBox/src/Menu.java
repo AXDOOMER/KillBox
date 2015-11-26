@@ -53,6 +53,7 @@ public class Menu
 	private int MaxMessageTime = 100;
 
 	public Sound SoundOut = null;
+	Texture BulletForHUD = new Texture("res/sprites/bullet.png", GL_NEAREST);
 
 	public void SetSoundOut(Sound NewSoundOut)
 	{
@@ -4307,7 +4308,7 @@ public class Menu
 
 	public void NewMessageToShow(String Text)
 	{
-		//PlaySound("chat.wav");
+		SoundOut.PlaySound("chat.wav");
 		Message = Text;
 		MessageTime = 0;
 	}
@@ -4317,10 +4318,8 @@ public class Menu
 		// HUD
 		int HealthBarWidth = 20;
 
-		Texture texture = new Texture("./res/sprites/bullet.png",GL_NEAREST);
-
 		// Bullet
-		DrawTexture(texture, 90, 5, 4, 24);
+		DrawTexture(BulletForHUD, 90, 5, 4, 24);
 		// Number of bullets
 		if(CurrentPlayer.Bullets >= 100)
 			DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
@@ -4344,9 +4343,9 @@ public class Menu
 
 		// Initialize point of the black bar
 		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health*HealthBarWidth/100+1, true, GridWidth, GridHeight, false);
-		EndRectPosYGL = ConvertPercentToGL(19, false, GridWidth, GridHeight, false);
-		StartRectPosYGL = ConvertPercentToGL(9, false, GridWidth, GridHeight, false);
+		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100 + 1, true, GridWidth, GridHeight, false);
+		EndRectPosYGL = ConvertPercentToGL(22, false, GridWidth, GridHeight, false);
+		StartRectPosYGL = ConvertPercentToGL(12, false, GridWidth, GridHeight, false);
 
 		// Initialize polygon mode to FIll
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -4361,9 +4360,9 @@ public class Menu
 
 		// Initialize point of the red bar (Health bar)
 		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health*HealthBarWidth/100, true, GridWidth, GridHeight, false);
-		EndRectPosYGL = ConvertPercentToGL(17, false, GridWidth, GridHeight, false);
-		StartRectPosYGL = ConvertPercentToGL(11, false, GridWidth, GridHeight, false);
+		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100, true, GridWidth, GridHeight, false);
+		EndRectPosYGL = ConvertPercentToGL(20, false, GridWidth, GridHeight, false);
+		StartRectPosYGL = ConvertPercentToGL(14, false, GridWidth, GridHeight, false);
 
 		// Initialize polygon mode to FIll
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

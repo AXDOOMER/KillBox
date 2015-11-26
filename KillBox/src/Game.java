@@ -386,9 +386,10 @@ public class Game
 								NetplayInfo.OtherPlayersCommand.get(Player).Reset();
 							}
 
-							// Init Action to 0
+							// Encode an action on this variable. Init to 0.
 							int Action = 0;
 
+							// Encode...
 							Action += Lvl.Players.get(View).ActionIsHasShot();
 							Action += Lvl.Players.get(View).ActionIsHasReload();
 							Action += Lvl.Players.get(View).SelectedWeapon;
@@ -426,33 +427,8 @@ public class Game
 										}
 									}
 
-
-									/*for (int PlayerToMakeAction = 0; PlayerToMakeAction < Lvl.Players.size(); PlayerToMakeAction++)
-									{
-										if(Lvl.Players.get(PlayerToMakeAction).Action == 1)
-										{
-											if (Lvl.Players.get(PlayerToMakeAction).Health > 0)
-											{
-												Lvl.Players.get(PlayerToMakeAction).HitScan(Lvl.Players.get(PlayerToMakeAction).GetRadianAngle(), 0, 10);
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(PlayerToMakeAction).ViewZ == Lvl.Players.get(PlayerToMakeAction).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(PlayerToMakeAction).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-											Lvl.Players.get(PlayerToMakeAction).Action = 0;
-										}
-									}*/
-									// Check the action of each player in order (PLayer1 then player2)
-									if (View == 0) // If im the server
+									// Check the action of each player in order (Player1 then Player2)
+									if (View == 0) // If I'm the server
 									{
 										// The server first (me)
 										// Reload
@@ -491,18 +467,22 @@ public class Game
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
 											Lvl.Players.get(View).ChangeWeapon(1);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 2)
 										{
 											Lvl.Players.get(View).ChangeWeapon(2);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 3)
 										{
 											Lvl.Players.get(View).ChangeWeapon(3);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 4)
 										{
 											Lvl.Players.get(View).ChangeWeapon(4);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 
 										// The client second
@@ -541,21 +521,25 @@ public class Game
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(1);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(2);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(3);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(4);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 									}
-									else // If im the client
+									else // If I'm the client
 									{
 										// The server first
 										// Reload
@@ -593,18 +577,22 @@ public class Game
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(1);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(2);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(3);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(4);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										// The client second (me)
 										// Reload
@@ -644,18 +632,22 @@ public class Game
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
 											Lvl.Players.get(View).ChangeWeapon(1);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 2)
 										{
 											Lvl.Players.get(View).ChangeWeapon(2);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 3)
 										{
 											Lvl.Players.get(View).ChangeWeapon(3);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 4)
 										{
 											Lvl.Players.get(View).ChangeWeapon(4);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 									}
 								}
@@ -691,29 +683,6 @@ public class Game
 							}
 						}
 					}
-
-					// Sound test!!
-					/*if (Keyboard.isKeyDown(Keyboard.KEY_1))
-					{
-						SndDriver.PlaySound("button.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_2))
-					{
-						SndDriver.PlaySound("chat.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_3))
-					{
-						SndDriver.PlaySound("cocking.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_4))
-					{
-						SndDriver.PlaySound("death.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_5))
-					{
-						SndDriver.PlaySound("respawn.wav", Lvl.Players.get(View));
-					}
-					}*/
 
 					// Spy view
 					if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
@@ -803,7 +772,6 @@ public class Game
 						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
-							Lvl = null;
 							Lvl = new Level();
 
 							for (int Player = 0; Player < Nodes; Player++)
@@ -871,7 +839,6 @@ public class Game
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
 
-							Lvl = null;
 							Lvl = new Level();
 
 							for (int Player = 0; Player < Nodes; Player++)

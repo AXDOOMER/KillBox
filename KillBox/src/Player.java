@@ -28,6 +28,7 @@ public class Player
 	// Weapon
 	final int MaxOwnedWeapons = 10;
 	int SelectedWeapon = 1;
+	int WeaponToSelect = 1;
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
@@ -344,8 +345,6 @@ public class Player
 				Frame++;
 			}
 		}
-
-		//ExecuteForwardMove(FrontMove);
 	}
 
 	public void ExecuteForwardMove(byte Direction)
@@ -395,9 +394,6 @@ public class Player
 				Frame++;
 			}
 		}
-
-		//ExecuteLateralMove(SideMove);
-
 	}
 
 	public void ExecuteLateralMove(byte Direction)
@@ -850,7 +846,7 @@ public class Player
 			}
 		}
 
-		// The player doesn't deviate. Its movement is not divergeant. Return nothing.
+		// The player doesn't deviate. Its movement is not divergent. Return nothing.
 		return null;
 	}
 
@@ -918,7 +914,7 @@ public class Player
 				 MovementDirection += Math.PI * 2;
 			}*/
 
-			// Fraction du mouvement qui appartient à chaques directions
+			// Fraction of the movement for each directions
 
 			//float X = Math.abs((float)Math.sin(MovementDirection));
 			//float Y = Math.abs((float)Math.cos(MovementDirection));
@@ -975,7 +971,7 @@ public class Player
 		{
 			// Supposed to make the player slide along the wall
 
-			// Change the postion according to the direction of the movement, because a wall was hit.
+			// Change the position according to the direction of the movement, because a wall was hit.
 			/*float PlayerAngle = this.GetRadianAngle();
 
 			// Make the angle positive if it is negative
@@ -1023,8 +1019,6 @@ public class Player
 	public void AngleTurn(short AngleChange)
 	{
 		AngleDiff = AngleChange;
-
-		//ExecuteAngleTurn(AngleDiff);
 	}
 
 	public void ExecuteAngleTurn(short AngleChange)
@@ -1312,26 +1306,35 @@ public class Player
 		{
 			if (OwnedWeapons[Weapon] != null)
 			{
-				SelectedWeapon = Weapon;
-
-				ExecuteChangeWeapon();
+				// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
+				if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+				{
+					WeaponToSelect = Weapon;
+				}
 			}
 		}
 	}
 
 	public void ExecuteChangeWeapon()
 	{
-		switch(SelectedWeapon)
+		System.err.println(WeaponToSelect + "	" + SelectedWeapon);
+
+		if (WeaponToSelect != SelectedWeapon)
 		{
-			case 1:
-				SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
-				break;
-			case 2:
-				SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
-				break;
-			case 3:
-				SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
-				break;
+			SelectedWeapon = WeaponToSelect;
+
+			switch (SelectedWeapon)
+			{
+				case 1:
+					SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+					break;
+				case 2:
+					SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+					break;
+				case 3:
+					SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+					break;
+			}
 		}
 	}
 
