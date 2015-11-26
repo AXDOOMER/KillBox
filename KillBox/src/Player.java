@@ -179,14 +179,30 @@ public class Player
 			// Reset the state of this action
 			Shot = false;
 
-			return 1;
+			return 100;
 		}
 		else
 		{
 			return 0;
 		}
 	}
-	
+
+	// For the network code only
+	public int ActionIsHasReload()
+	{
+		// Check if player has shot
+		if (Reloading)
+		{
+			// Reset the state of this action
+			Reloading = false;
+
+			return 1000;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 	// Check if this coordinate is inside a player then return this player
 	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
 	{
@@ -238,10 +254,6 @@ public class Player
 				Emitter.PlaySound("ak47.wav", this);
 				break;
 		}
-
-		// Temp bullets var
-		if(Bullets == 0)
-			Bullets = 110;
 
 		Bullets--;
 
@@ -1302,19 +1314,24 @@ public class Player
 			{
 				SelectedWeapon = Weapon;
 
-				switch(Weapon)
-				{
-					case 1:
-						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
-						break;
-					case 2:
-						SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
-						break;
-					case 3:
-						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
-						break;
-				}
+				ExecuteChangeWeapon();
 			}
+		}
+	}
+
+	public void ExecuteChangeWeapon()
+	{
+		switch(SelectedWeapon)
+		{
+			case 1:
+				SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+				break;
+			case 2:
+				SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+				break;
+			case 3:
+				SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+				break;
 		}
 	}
 

@@ -386,11 +386,19 @@ public class Game
 								NetplayInfo.OtherPlayersCommand.get(Player).Reset();
 							}
 
+							// Init Action to 0
+							int Action = 0;
+
+							Action += Lvl.Players.get(View).ActionIsHasShot();
+							Action += Lvl.Players.get(View).ActionIsHasReload();
+							Action += Lvl.Players.get(View).SelectedWeapon;
+
 							// Put the players' move in a command
 							NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
 							NetplayInfo.PlayerCommand.UpdateForwardMove(Lvl.Players.get(View).FrontMove);
 							NetplayInfo.PlayerCommand.UpdateSideMove(Lvl.Players.get(View).SideMove);
-							NetplayInfo.PlayerCommand.UpdateAction(Lvl.Players.get(View).ActionIsHasShot());
+							NetplayInfo.PlayerCommand.UpdateAction(Action);
+
 							Lvl.Players.get(View).Action = NetplayInfo.PlayerCommand.Actions;
 
 							// Do the network communication through the socket
@@ -444,9 +452,20 @@ public class Game
 										}
 									}*/
 									// Check the action of each player in order (PLayer1 then player2)
-									if(View == 0) // If im the server
+									if (View == 0) // If im the server
 									{
-										if(NetplayInfo.PlayerCommand.Actions == 1) // Do my command first
+										// The server first (me)
+										// Reload
+										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
+										{
+											if (Lvl.Players.get(View).Bullets != 30)
+											{
+												Lvl.Players.get(View).Bullets = 30;
+											}
+											NetplayInfo.PlayerCommand.Actions -= 1000;
+										}
+										// Command to shot
+										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
 											if (Lvl.Players.get(View).Health > 0)
 											{
@@ -465,17 +484,42 @@ public class Game
 													}
 												}
 											}
+
+											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1) // Do the client command second
+										// Change weapon 1
+										if (NetplayInfo.PlayerCommand.Actions == 1)
+										{
+											Lvl.Players.get(View).ChangeWeapon(1);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 2)
+										{
+											Lvl.Players.get(View).ChangeWeapon(2);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 3)
+										{
+											Lvl.Players.get(View).ChangeWeapon(3);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 4)
+										{
+											Lvl.Players.get(View).ChangeWeapon(4);
+										}
+
+										// The client second
+										// Reload
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
+										{
+											if (Lvl.Players.get(Number).Bullets != 30)
+											{
+												Lvl.Players.get(Number).Bullets = 30;
+											}
+											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
+										}
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
 											if (Lvl.Players.get(Number).Health > 0)
 											{
-												// Don't shot at the first tick, the player shots for no reason. This was a bug.
-												if (TicksCount > 1)
-												{
-													Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-
-												}
+												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
 											}
 											else
 											{
@@ -490,20 +534,44 @@ public class Game
 													}
 												}
 											}
+
+											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
+										}
+										// Change weapon 1
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(1);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(2);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(3);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(4);
 										}
 									}
 									else // If im the client
 									{
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1) // DO the server first
+										// The server first
+										// Reload
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
+										{
+											if (Lvl.Players.get(Number).Bullets != 30)
+											{
+												Lvl.Players.get(Number).Bullets = 30;
+											}
+											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
+										}
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
 											if (Lvl.Players.get(Number).Health > 0)
 											{
-												// Don't shot at the first tick, the player shots for no reason. This was a bug.
-												if (TicksCount > 1)
-												{
-													Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-
-												}
+												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
 											}
 											else
 											{
@@ -518,8 +586,39 @@ public class Game
 													}
 												}
 											}
+
+											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
-										if(NetplayInfo.PlayerCommand.Actions == 1) // Do the client command second
+										// Change weapon 1
+										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(1);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(2);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(3);
+										}
+										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
+										{
+											Lvl.Players.get(Number).ChangeWeapon(4);
+										}
+										// The client second (me)
+										// Reload
+										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
+										{
+
+											if (Lvl.Players.get(View).Bullets != 30)
+											{
+												Lvl.Players.get(View).Bullets = 30;
+											}
+											NetplayInfo.PlayerCommand.Actions -= 1000;
+										}
+										// Command to shot
+										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
 											if (Lvl.Players.get(View).Health > 0)
 											{
@@ -538,6 +637,25 @@ public class Game
 													}
 												}
 											}
+
+											NetplayInfo.PlayerCommand.Actions -= 100;
+										}
+										// Change weapon 1
+										if (NetplayInfo.PlayerCommand.Actions == 1)
+										{
+											Lvl.Players.get(View).ChangeWeapon(1);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 2)
+										{
+											Lvl.Players.get(View).ChangeWeapon(2);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 3)
+										{
+											Lvl.Players.get(View).ChangeWeapon(3);
+										}
+										else if(NetplayInfo.PlayerCommand.Actions == 4)
+										{
+											Lvl.Players.get(View).ChangeWeapon(4);
 										}
 									}
 								}
@@ -569,6 +687,7 @@ public class Game
 								Lvl.Players.get(Player).FrontMove = 0;
 								Lvl.Players.get(Player).AngleDiff = 0;
 								Lvl.Players.get(Player).Shot = false;
+								Lvl.Players.get(Player).Reloading = false;
 							}
 						}
 					}
@@ -632,16 +751,19 @@ public class Game
 				}
 				else // Single player
 				{
-					// Make the player move even if it's not a multiplayer game
-					Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
-					Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
-					Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
-
-					if (Lvl.Players.get(View).ActionIsHasShot() == 1)
+					if (TicksCount > 1)
 					{
-						if (Lvl.Players.get(View).Health > 0)
+						// Make the player move even if it's not a multiplayer game
+						Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
+						Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
+						Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+
+						if (Lvl.Players.get(View).ActionIsHasShot() == 100)
 						{
-							Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+							if (Lvl.Players.get(View).Health > 0)
+							{
+								Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+							}
 						}
 					}
 					// Kill inactive players
