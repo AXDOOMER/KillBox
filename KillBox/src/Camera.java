@@ -316,9 +316,14 @@ public class Camera
 			}
 		}
 
+		if (Keyboard.isKeyDown(Keyboard.KEY_R))
+		{
+			CurrentPlayer().Reloading = true;
+		}
 		// Change weapon
 		if (Keyboard.isKeyDown(Keyboard.KEY_1))
 		{
+
 			CurrentPlayer().ChangeWeapon(1);
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
