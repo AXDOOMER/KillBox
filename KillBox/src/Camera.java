@@ -277,7 +277,7 @@ public class Camera
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 			{
 				JustPressedFireKey = true;
-				if (CurrentPlayer().Health > 0)
+				if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
 				{
 					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
 					CurrentPlayer().SetShotTrue();

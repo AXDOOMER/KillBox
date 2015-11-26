@@ -434,10 +434,7 @@ public class Game
 										// Reload
 										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(View).Bullets != 30)
-											{
-												Lvl.Players.get(View).Bullets = 30;
-											}
+											Lvl.Players.get(View).ReloadWeapon();
 											NetplayInfo.PlayerCommand.Actions -= 1000;
 										}
 										// Command to shot
@@ -490,10 +487,7 @@ public class Game
 										// Reload
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(Number).Bullets != 30)
-											{
-												Lvl.Players.get(Number).Bullets = 30;
-											}
+											Lvl.Players.get(Number).ReloadWeapon();
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
@@ -547,10 +541,7 @@ public class Game
 										// Reload
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(Number).Bullets != 30)
-											{
-												Lvl.Players.get(Number).Bullets = 30;
-											}
+											Lvl.Players.get(Number).ReloadWeapon();
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
@@ -602,10 +593,7 @@ public class Game
 										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
 										{
 
-											if (Lvl.Players.get(View).Bullets != 30)
-											{
-												Lvl.Players.get(View).Bullets = 30;
-											}
+											Lvl.Players.get(View).ReloadWeapon();
 											NetplayInfo.PlayerCommand.Actions -= 1000;
 										}
 										// Command to shot

@@ -32,6 +32,8 @@ public class Player
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
+	int []MaxBulletsPerWeapon = {0, 10, 20, 30};
+	int Bullets = MaxBulletsPerWeapon[1];
 
 	int Action = 0;
 
@@ -63,7 +65,6 @@ public class Player
 	int Health = 100;	// The player's life condition
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
-	int Bullets = 30;
 
 	// Scores
 	int Kills = 0;
@@ -1197,6 +1198,7 @@ public class Player
 		MoX = 0;
 		MoY = 0;
 		MoZ = 0;
+		Bullets = MaxBulletsPerWeapon[1];
 
 		// Reset other stuff
 		HasMoved = false;
@@ -1327,14 +1329,42 @@ public class Player
 			{
 				case 1:
 					SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[1];
 					break;
 				case 2:
 					SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[2];
 					break;
 				case 3:
 					SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[3];
 					break;
 			}
+		}
+	}
+
+	public void ReloadWeapon()
+	{
+		switch (SelectedWeapon)
+		{
+			case 1:
+				if (Bullets != MaxBulletsPerWeapon[1])
+				{
+					Bullets = MaxBulletsPerWeapon[1];
+				}
+				break;
+			case 2:
+				if (Bullets != MaxBulletsPerWeapon[2])
+				{
+					Bullets = MaxBulletsPerWeapon[2];
+				}
+				break;
+			case 3:
+				if (Bullets != MaxBulletsPerWeapon[3])
+				{
+					Bullets = MaxBulletsPerWeapon[3];
+				}
+				break;
 		}
 	}
 
