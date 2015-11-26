@@ -463,6 +463,7 @@ public class Game
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+										System.err.println("1: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
@@ -517,6 +518,7 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+										System.err.println("2: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
@@ -573,6 +575,7 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+										System.err.println("3: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
@@ -628,6 +631,7 @@ public class Game
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
