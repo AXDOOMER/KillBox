@@ -487,6 +487,17 @@ public class Camera
 			// Draw sprites (things)
 			for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
 			{
+				// Only check for the first five weapons
+				if (Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[1] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[2] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[3] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[4] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[5])
+				{
+					// Don't draw the weapon on the map if it's owned
+					continue;
+				}
+
 				if (Lvl.Things.get(Thing).Sprite != null)
 				{
 					Lvl.Things.get(Thing).Sprite.Bind();

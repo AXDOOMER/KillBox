@@ -1304,14 +1304,17 @@ public class Player
 
 	public void ChangeWeapon(int Weapon)
 	{
-		if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
+		if (Health > 0)
 		{
-			if (OwnedWeapons[Weapon] != null)
+			if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
 			{
-				// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
-				if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+				if (OwnedWeapons[Weapon] != null)
 				{
-					WeaponToSelect = Weapon;
+					// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
+					if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+					{
+						WeaponToSelect = Weapon;
+					}
 				}
 			}
 		}

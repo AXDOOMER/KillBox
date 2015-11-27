@@ -4437,7 +4437,7 @@ public class Menu
 		{
 			if (MessageTime < MaxMessageTime)
 			{
-				DrawText(Message, 2, 50, 2, 2);
+				DrawText(Message, 2, 56, 2, 2);
 				MessageTime++;
 			}
 		}
