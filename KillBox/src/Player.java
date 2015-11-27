@@ -62,7 +62,8 @@ public class Player
 	final int Deceleration = 2;
 	final int Radius = 16;
 	final int Height = 56;
-	int Health = 100;	// The player's life condition
+	int MaxHealth = 100;
+	int Health = MaxHealth;	// The player's life condition
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
 
@@ -1195,7 +1196,7 @@ public class Player
 	// Come back to life
 	private void ResetPlayerForRespawn()
 	{
-		Health = 100;
+		Health = MaxHealth;
 		ViewZ = DefaultViewZ;
 		MoX = 0;
 		MoY = 0;

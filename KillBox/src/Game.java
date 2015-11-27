@@ -769,6 +769,18 @@ public class Game
 							for (int Player = 0; Player < Nodes; Player++)
 							{
 								Lvl.Players.add(new Player(Lvl, SndDriver));
+
+								if (HeadCamera.Menu.GameMode == 1)
+								{
+									// Gamemode is one-shot-kill, so set health to 1.
+									Lvl.Players.get(Player).MaxHealth = 1;
+									Lvl.Players.get(Player).Health = 1;
+								}
+								else
+								{
+									Lvl.Players.get(Player).MaxHealth = 100;
+									Lvl.Players.get(Player).Health = 100;
+								}
 							}
 
 							// Set Listener
@@ -836,6 +848,18 @@ public class Game
 							for (int Player = 0; Player < Nodes; Player++)
 							{
 								Lvl.Players.add(new Player(Lvl, SndDriver));
+
+								if (HeadCamera.Menu.GameMode == 1)
+								{
+									// Gamemode is one-shot-kill, so set health to 1.
+									Lvl.Players.get(Player).MaxHealth = 1;
+									Lvl.Players.get(Player).Health = 1;
+								}
+								else
+								{
+									Lvl.Players.get(Player).MaxHealth = 100;
+									Lvl.Players.get(Player).Health = 100;
+								}
 							}
 
 							// Set Listener

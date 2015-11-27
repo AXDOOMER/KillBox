@@ -4337,41 +4337,45 @@ public class Menu
 			// Move drawing cursor to bottom of window
 			glTranslatef(-1, -1, 0);
 
-			// Var for the bars
-			double StartRectPosXGL;
-			double EndRectPosXGL;
-			double EndRectPosYGL;
-			double StartRectPosYGL;
+			if (CurrentPlayer.Health != 1)
+			{
+				// Var for the bars
+				double StartRectPosXGL;
+				double EndRectPosXGL;
+				double EndRectPosYGL;
+				double StartRectPosYGL;
 
-			// Initialize point of the black bar
-			StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-			EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100 + 1, true, GridWidth, GridHeight, false);
-			EndRectPosYGL = ConvertPercentToGL(22, false, GridWidth, GridHeight, false);
-			StartRectPosYGL = ConvertPercentToGL(12, false, GridWidth, GridHeight, false);
+				// Initialize point of the black bar
+				StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+				EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100 + 1, true, GridWidth, GridHeight, false);
+				EndRectPosYGL = ConvertPercentToGL(22, false, GridWidth, GridHeight, false);
+				StartRectPosYGL = ConvertPercentToGL(12, false, GridWidth, GridHeight, false);
 
-			// Initialize polygon mode to FIll
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				// Initialize polygon mode to FIll
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-			glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+				glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
 
-			// Hide the black, if the player is dead
-			if (CurrentPlayer.Health == 0)
-				glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+				// Hide the black, if the player is dead
+				if (CurrentPlayer.Health == 0)
+					glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
 
-			glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+				glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
 
-			// Initialize point of the red bar (Health bar)
-			StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-			EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100, true, GridWidth, GridHeight, false);
-			EndRectPosYGL = ConvertPercentToGL(20, false, GridWidth, GridHeight, false);
-			StartRectPosYGL = ConvertPercentToGL(14, false, GridWidth, GridHeight, false);
+				// Initialize point of the red bar (Health bar)
+				StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+				EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100, true, GridWidth, GridHeight, false);
+				EndRectPosYGL = ConvertPercentToGL(20, false, GridWidth, GridHeight, false);
+				StartRectPosYGL = ConvertPercentToGL(14, false, GridWidth, GridHeight, false);
 
-			// Initialize polygon mode to FIll
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				// Initialize polygon mode to FIll
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+				glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 
-			glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+				glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+			}
+
 			// Move drawing cursor back to center of window
 			glTranslatef(1, 1, 0);
 		}
