@@ -589,6 +589,7 @@ public class Player
 								if (Found == false)
 								{
 									OwnedWeapons[3] = Thing.Names.Ak47;
+									ChangeWeapon(3);
 									Emitter.PlaySound("cocking.wav", this);
 									//Lvl.Things.remove(Thingie);	// Delete the thingy
 								}
@@ -606,6 +607,7 @@ public class Player
 								if (Found == false)
 								{
 									OwnedWeapons[2] = Thing.Names.Tek9;
+									ChangeWeapon(2);
 									Emitter.PlaySound("cocking.wav", this);
 								}
 							}

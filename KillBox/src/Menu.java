@@ -4315,63 +4315,66 @@ public class Menu
 
 	public void ShowHUD(Player CurrentPlayer)
 	{
-		// HUD
-		int HealthBarWidth = 20;
+		if (CurrentPlayer.Health > 0)
+		{
+			// HUD
+			int HealthBarWidth = 20;
 
-		// Bullet
-		DrawTexture(BulletForHUD, 90, 5, 4, 24);
-		// Number of bullets
-		if(CurrentPlayer.Bullets >= 100)
-			DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
-		else if (CurrentPlayer.Bullets >= 10)
-			DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
-		else
-			DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+			// Bullet
+			DrawTexture(BulletForHUD, 90, 5, 4, 24);
+			// Number of bullets
+			if (CurrentPlayer.Bullets >= 100)
+				DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
+			else if (CurrentPlayer.Bullets >= 10)
+				DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
+			else
+				DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
 
-		// Health text
-		// DrawText("health", 2, 15, 3, 3);
+			// Health text
+			// DrawText("health", 2, 15, 3, 3);
 
-		// Health bar
-		// Move drawing cursor to bottom of window
-		glTranslatef(-1,-1,0);
+			// Health bar
+			// Move drawing cursor to bottom of window
+			glTranslatef(-1, -1, 0);
 
-		// Var for the bars
-		double StartRectPosXGL;
-		double EndRectPosXGL;
-		double EndRectPosYGL;
-		double StartRectPosYGL;
+			// Var for the bars
+			double StartRectPosXGL;
+			double EndRectPosXGL;
+			double EndRectPosYGL;
+			double StartRectPosYGL;
 
-		// Initialize point of the black bar
-		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100 + 1, true, GridWidth, GridHeight, false);
-		EndRectPosYGL = ConvertPercentToGL(22, false, GridWidth, GridHeight, false);
-		StartRectPosYGL = ConvertPercentToGL(12, false, GridWidth, GridHeight, false);
+			// Initialize point of the black bar
+			StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+			EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100 + 1, true, GridWidth, GridHeight, false);
+			EndRectPosYGL = ConvertPercentToGL(22, false, GridWidth, GridHeight, false);
+			StartRectPosYGL = ConvertPercentToGL(12, false, GridWidth, GridHeight, false);
 
-		// Initialize polygon mode to FIll
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			// Initialize polygon mode to FIll
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+			glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
 
-		// Hide the black, if the player is dead
-		if(CurrentPlayer.Health == 0)
-			glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+			// Hide the black, if the player is dead
+			if (CurrentPlayer.Health == 0)
+				glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
 
-		glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+			glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
 
-		// Initialize point of the red bar (Health bar)
-		StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
-		EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100, true, GridWidth, GridHeight, false);
-		EndRectPosYGL = ConvertPercentToGL(20, false, GridWidth, GridHeight, false);
-		StartRectPosYGL = ConvertPercentToGL(14, false, GridWidth, GridHeight, false);
+			// Initialize point of the red bar (Health bar)
+			StartRectPosXGL = ConvertPercentToGL(0, true, GridWidth, GridHeight, false);
+			EndRectPosXGL = ConvertPercentToGL(CurrentPlayer.Health * HealthBarWidth / 100, true, GridWidth, GridHeight, false);
+			EndRectPosYGL = ConvertPercentToGL(20, false, GridWidth, GridHeight, false);
+			StartRectPosYGL = ConvertPercentToGL(14, false, GridWidth, GridHeight, false);
 
-		// Initialize polygon mode to FIll
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			// Initialize polygon mode to FIll
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 
-		glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
-		// Move drawing cursor back to center of window
-		glTranslatef(1, 1, 0);
+			glRectd(StartRectPosXGL, StartRectPosYGL, EndRectPosXGL, EndRectPosYGL);
+			// Move drawing cursor back to center of window
+			glTranslatef(1, 1, 0);
+		}
 	}
 
 	public void ShowScoreTable(ArrayList<Player> Players)
