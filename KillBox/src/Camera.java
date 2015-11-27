@@ -785,7 +785,9 @@ public class Camera
 
 				if (Menu.ShowDebug())
 				{
-					Menu.DrawText("X:" + CurrentPlayer().PosX() + " Y:" + CurrentPlayer().PosY() + " A:" + CurrentPlayer().GetDegreeAngle(), 0, 0, 3, 3);
+					Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
+					Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
+					Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
 				}
 
 				// Draw all element

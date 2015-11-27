@@ -612,6 +612,18 @@ public class Player
 									Emitter.PlaySound("cocking.wav", this);
 								}
 							}
+							else if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Flag))
+							{
+								if (Health > 0)
+								{
+									// Player has the flag!
+									HasFlag = true;
+									// Remove from the map
+									Lvl.Things.remove(Thingie);
+									// Play a special pickup sound
+									Emitter.PlaySound("chat.wav", this);
+								}
+							}
 						}
 					}
 				}

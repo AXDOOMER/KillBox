@@ -3560,10 +3560,10 @@ public class Menu
 
 		// Video Array
 		List<MenuItem> Video = new ArrayList<MenuItem>();
-		Video.add(new MenuItem("Video", true,false));
-		Video.add(new MenuItem_CheckBox("Fullscreen", true, false,Fullscreen));
-		Video.add(new MenuItem_CheckBox("Enable Filtering", true, false,Filtering));
-		Video.add(new MenuItem_NumberBox("View depth",true,false,ViewDepth,5,100,5));
+		Video.add(new MenuItem("Video", true, false));
+		Video.add(new MenuItem_CheckBox("Fullscreen", true, false, Fullscreen));
+		Video.add(new MenuItem_CheckBox("Enable Filtering", true, false, Filtering));
+		Video.add(new MenuItem_NumberBox("View depth", true, false, ViewDepth, 5, 100, 5));
 
 		// Adding array to menu
 		Items.add(Game);
