@@ -651,11 +651,11 @@ public class Game
 													}
 												}
 											}
-											if(Lvl.Players.get(View).Spawned)
-											{
-												Lvl.Players.get(View).Spawned = false;
-											}
 											NetplayInfo.PlayerCommand.Actions -= 100;
+										}
+										if(Lvl.Players.get(View).Spawned)
+										{
+											Lvl.Players.get(View).Spawned = false;
 										}
 										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
 										// Change weapon 1
