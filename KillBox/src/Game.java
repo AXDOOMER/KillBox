@@ -426,6 +426,10 @@ public class Game
 											Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
 										}
 									}
+									else // To enable the first shot at the start
+									{
+										Lvl.Players.get(Player).JustSpawned = false;
+									}
 
 									// Check the action of each player in order (Player1 then Player2)
 									if (View == 0) // If I'm the server
@@ -440,9 +444,13 @@ public class Game
 										// Command to shot
 										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
-											if (Lvl.Players.get(View).Health > 0)
+											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
 											{
 												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(View).JustSpawned)
+											{
+												Lvl.Players.get(View).JustSpawned = false;
 											}
 											else
 											{
@@ -460,6 +468,9 @@ public class Game
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+
+										Lvl.Players.get(View).JustSpawned = false;
+
 										System.err.println("1: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
@@ -492,9 +503,13 @@ public class Game
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
-											if (Lvl.Players.get(Number).Health > 0)
+											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(Number).JustSpawned)
+											{
+												Lvl.Players.get(Number).JustSpawned = false;
 											}
 											else
 											{
@@ -512,6 +527,9 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+
+										Lvl.Players.get(Number).JustSpawned = false;
+
 										System.err.println("2: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
@@ -546,9 +564,13 @@ public class Game
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
-											if (Lvl.Players.get(Number).Health > 0)
+											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(Number).JustSpawned)
+											{
+												Lvl.Players.get(Number).JustSpawned = false;
 											}
 											else
 											{
@@ -566,6 +588,9 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+
+										Lvl.Players.get(Number).JustSpawned = false;
+
 										System.err.println("3: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
@@ -599,9 +624,13 @@ public class Game
 										// Command to shot
 										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
-											if (Lvl.Players.get(View).Health > 0)
+											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
 											{
 												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(View).JustSpawned)
+											{
+												Lvl.Players.get(View).JustSpawned = false;
 											}
 											else
 											{
@@ -616,9 +645,11 @@ public class Game
 													}
 												}
 											}
-
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+
+										Lvl.Players.get(View).JustSpawned = false;
+										
 										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
@@ -903,6 +934,8 @@ public class Game
 					Lvl.Players.get(Player).FrontMove = 0;
 					Lvl.Players.get(Player).AngleDiff = 0;
 					Lvl.Players.get(Player).Shot = false;
+					Lvl.Players.get(Player).Reloading = false;
+
 				}
 
 				if (NetplayInfo != null)
