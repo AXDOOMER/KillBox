@@ -81,7 +81,7 @@ public class Player
 	boolean JustShot = false;	// Used in camera for the gun fire
 	int WeaponHeight = 0;
 	boolean Reloading = false;
-	boolean Spawned = false;
+	boolean JustSpawned = false;
 
 
 	boolean HasFlag = false;	// For the flagtag game mode
@@ -1256,7 +1256,7 @@ public class Player
 			}
 			Tries++;
 		}
-		this.Spawned = true;
+		this.JustSpawned = true;
 		return true;
 	}
 
