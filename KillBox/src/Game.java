@@ -386,9 +386,10 @@ public class Game
 								NetplayInfo.OtherPlayersCommand.get(Player).Reset();
 							}
 
-							// Init Action to 0
+							// Encode an action on this variable. Init to 0.
 							int Action = 0;
 
+							// Encode...
 							Action += Lvl.Players.get(View).ActionIsHasShot();
 							Action += Lvl.Players.get(View).ActionIsHasReload();
 							Action += Lvl.Players.get(View).SelectedWeapon;
@@ -426,42 +427,14 @@ public class Game
 										}
 									}
 
-
-									/*for (int PlayerToMakeAction = 0; PlayerToMakeAction < Lvl.Players.size(); PlayerToMakeAction++)
-									{
-										if(Lvl.Players.get(PlayerToMakeAction).Action == 1)
-										{
-											if (Lvl.Players.get(PlayerToMakeAction).Health > 0)
-											{
-												Lvl.Players.get(PlayerToMakeAction).HitScan(Lvl.Players.get(PlayerToMakeAction).GetRadianAngle(), 0, 10);
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(PlayerToMakeAction).ViewZ == Lvl.Players.get(PlayerToMakeAction).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(PlayerToMakeAction).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-											Lvl.Players.get(PlayerToMakeAction).Action = 0;
-										}
-									}*/
-									// Check the action of each player in order (PLayer1 then player2)
-									if (View == 0) // If im the server
+									// Check the action of each player in order (Player1 then Player2)
+									if (View == 0) // If I'm the server
 									{
 										// The server first (me)
 										// Reload
 										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(View).Bullets != 30)
-											{
-												Lvl.Players.get(View).Bullets = 30;
-											}
+											Lvl.Players.get(View).ReloadWeapon();
 											NetplayInfo.PlayerCommand.Actions -= 1000;
 										}
 										// Command to shot
@@ -487,32 +460,34 @@ public class Game
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+										System.err.println("1: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
 											Lvl.Players.get(View).ChangeWeapon(1);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 2)
 										{
 											Lvl.Players.get(View).ChangeWeapon(2);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 3)
 										{
 											Lvl.Players.get(View).ChangeWeapon(3);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 4)
 										{
 											Lvl.Players.get(View).ChangeWeapon(4);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 
 										// The client second
 										// Reload
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(Number).Bullets != 30)
-											{
-												Lvl.Players.get(Number).Bullets = 30;
-											}
+											Lvl.Players.get(Number).ReloadWeapon();
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
@@ -537,34 +512,36 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+										System.err.println("2: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(1);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(2);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(3);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(4);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 									}
-									else // If im the client
+									else // If I'm the client
 									{
 										// The server first
 										// Reload
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
 										{
-											if (Lvl.Players.get(Number).Bullets != 30)
-											{
-												Lvl.Players.get(Number).Bullets = 30;
-											}
+											Lvl.Players.get(Number).ReloadWeapon();
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
@@ -589,32 +566,34 @@ public class Game
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
 										}
+										System.err.println("3: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(1);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(2);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(3);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
 										{
 											Lvl.Players.get(Number).ChangeWeapon(4);
+											Lvl.Players.get(Number).ExecuteChangeWeapon();
 										}
 										// The client second (me)
 										// Reload
 										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
 										{
 
-											if (Lvl.Players.get(View).Bullets != 30)
-											{
-												Lvl.Players.get(View).Bullets = 30;
-											}
+											Lvl.Players.get(View).ReloadWeapon();
 											NetplayInfo.PlayerCommand.Actions -= 1000;
 										}
 										// Command to shot
@@ -640,22 +619,27 @@ public class Game
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
+										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
 											Lvl.Players.get(View).ChangeWeapon(1);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 2)
 										{
 											Lvl.Players.get(View).ChangeWeapon(2);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 3)
 										{
 											Lvl.Players.get(View).ChangeWeapon(3);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 										else if(NetplayInfo.PlayerCommand.Actions == 4)
 										{
 											Lvl.Players.get(View).ChangeWeapon(4);
+											Lvl.Players.get(View).ExecuteChangeWeapon();
 										}
 									}
 								}
@@ -691,29 +675,6 @@ public class Game
 							}
 						}
 					}
-
-					// Sound test!!
-					/*if (Keyboard.isKeyDown(Keyboard.KEY_1))
-					{
-						SndDriver.PlaySound("button.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_2))
-					{
-						SndDriver.PlaySound("chat.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_3))
-					{
-						SndDriver.PlaySound("cocking.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_4))
-					{
-						SndDriver.PlaySound("death.wav", Lvl.Players.get(View));
-					}
-					if (Keyboard.isKeyDown(Keyboard.KEY_5))
-					{
-						SndDriver.PlaySound("respawn.wav", Lvl.Players.get(View));
-					}
-					}*/
 
 					// Spy view
 					if (Keyboard.isKeyDown(Keyboard.KEY_F12) && !JustPressedSpyKey)
@@ -803,12 +764,23 @@ public class Game
 						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
-							Lvl = null;
 							Lvl = new Level();
 
 							for (int Player = 0; Player < Nodes; Player++)
 							{
 								Lvl.Players.add(new Player(Lvl, SndDriver));
+
+								if (HeadCamera.Menu.GameMode == 1)
+								{
+									// Gamemode is one-shot-kill, so set health to 1.
+									Lvl.Players.get(Player).MaxHealth = 1;
+									Lvl.Players.get(Player).Health = 1;
+								}
+								else
+								{
+									Lvl.Players.get(Player).MaxHealth = 100;
+									Lvl.Players.get(Player).Health = 100;
+								}
 							}
 
 							// Set Listener
@@ -871,12 +843,23 @@ public class Game
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
 
-							Lvl = null;
 							Lvl = new Level();
 
 							for (int Player = 0; Player < Nodes; Player++)
 							{
 								Lvl.Players.add(new Player(Lvl, SndDriver));
+
+								if (HeadCamera.Menu.GameMode == 1)
+								{
+									// Gamemode is one-shot-kill, so set health to 1.
+									Lvl.Players.get(Player).MaxHealth = 1;
+									Lvl.Players.get(Player).Health = 1;
+								}
+								else
+								{
+									Lvl.Players.get(Player).MaxHealth = 100;
+									Lvl.Players.get(Player).Health = 100;
+								}
 							}
 
 							// Set Listener

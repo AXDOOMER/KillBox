@@ -769,3 +769,13 @@ wall021:
 }
 
 
+thing:
+{
+	type: flag;
+	x: 300;
+	y: -400;
+	z: 0;
+	angle: 0;
+}
+
+

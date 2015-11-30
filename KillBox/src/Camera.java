@@ -277,7 +277,7 @@ public class Camera
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 			{
 				JustPressedFireKey = true;
-				if (CurrentPlayer().Health > 0)
+				if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
 				{
 					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
 					CurrentPlayer().SetShotTrue();
@@ -323,7 +323,6 @@ public class Camera
 		// Change weapon
 		if (Keyboard.isKeyDown(Keyboard.KEY_1))
 		{
-
 			CurrentPlayer().ChangeWeapon(1);
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
@@ -488,6 +487,17 @@ public class Camera
 			// Draw sprites (things)
 			for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
 			{
+				// Only check for the first five weapons
+				if (Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[1] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[2] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[3] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[4] ||
+					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[5])
+				{
+					// Don't draw the weapon on the map if it's owned
+					continue;
+				}
+
 				if (Lvl.Things.get(Thing).Sprite != null)
 				{
 					Lvl.Things.get(Thing).Sprite.Bind();
@@ -775,7 +785,9 @@ public class Camera
 
 				if (Menu.ShowDebug())
 				{
-					Menu.DrawText("X:" + CurrentPlayer().PosX() + " Y:" + CurrentPlayer().PosY() + " A:" + CurrentPlayer().GetDegreeAngle(), 0, 0, 3, 3);
+					Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
+					Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
+					Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
 				}
 
 				// Draw all element

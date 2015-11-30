@@ -48,7 +48,7 @@ public class Sound
 	ArrayList<Integer> SoundBuffers = new ArrayList<Integer>();
 
 	// How sound directions get calculated
-	// 'Bi' is two-dimensionnal, 'Three' is 3D and 'Doppler' is 3D + Doppler effect
+	// 'Bi' is two-dimensional, 'Three' is 3D and 'Doppler' is 3D + Doppler effect
 	public enum SoundModes
 	{
 		Bi, Three, Duppler
@@ -189,7 +189,7 @@ public class Sound
 					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 					alSource(IntSource, AL_POSITION, SourcePos);
-					// AL_GAIN Controle le volume
+					// AL_GAIN controls the volume
 					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
@@ -212,7 +212,7 @@ public class Sound
 					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
 					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 					alSource(IntSource, AL_POSITION, SourcePos);
-					// AL_GAIN Controle le volume
+					// AL_GAIN controls the volume
 					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
@@ -303,7 +303,7 @@ public class Sound
 			alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 			alSource(IntSource, AL_POSITION, SourcePos);
 			alSource(IntSource, AL_VELOCITY, SourceVel);
-			// AL_GAIN Controle le volume
+			// AL_GAIN controls the volume
 			alSourcef(IntSource, AL_GAIN, 0.3f * VolumeMultiplier);
 
 			alListener(AL_POSITION, ListenerPos);

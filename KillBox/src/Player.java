@@ -28,9 +28,12 @@ public class Player
 	// Weapon
 	final int MaxOwnedWeapons = 10;
 	int SelectedWeapon = 1;
+	int WeaponToSelect = 1;
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
+	int []MaxBulletsPerWeapon = {0, 10, 20, 30};
+	int Bullets = MaxBulletsPerWeapon[1];
 
 	int Action = 0;
 
@@ -59,10 +62,10 @@ public class Player
 	final int Deceleration = 2;
 	final int Radius = 16;
 	final int Height = 56;
-	int Health = 100;	// The player's life condition
+	int MaxHealth = 100;
+	int Health = MaxHealth;	// The player's life condition
 	int Armor = 100;	// Recharging Energy Shield
 	byte ArmorClass = 0;
-	int Bullets = 30;
 
 	// Scores
 	int Kills = 0;
@@ -344,8 +347,6 @@ public class Player
 				Frame++;
 			}
 		}
-
-		//ExecuteForwardMove(FrontMove);
 	}
 
 	public void ExecuteForwardMove(byte Direction)
@@ -395,9 +396,6 @@ public class Player
 				Frame++;
 			}
 		}
-
-		//ExecuteLateralMove(SideMove);
-
 	}
 
 	public void ExecuteLateralMove(byte Direction)
@@ -592,6 +590,7 @@ public class Player
 								if (Found == false)
 								{
 									OwnedWeapons[3] = Thing.Names.Ak47;
+									ChangeWeapon(3);
 									Emitter.PlaySound("cocking.wav", this);
 									//Lvl.Things.remove(Thingie);	// Delete the thingy
 								}
@@ -609,7 +608,20 @@ public class Player
 								if (Found == false)
 								{
 									OwnedWeapons[2] = Thing.Names.Tek9;
+									ChangeWeapon(2);
 									Emitter.PlaySound("cocking.wav", this);
+								}
+							}
+							else if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Flag))
+							{
+								if (Health > 0)
+								{
+									// Player has the flag!
+									HasFlag = true;
+									// Remove from the map
+									Lvl.Things.remove(Thingie);
+									// Play a special pickup sound
+									Emitter.PlaySound("chat.wav", this);
 								}
 							}
 						}
@@ -850,7 +862,7 @@ public class Player
 			}
 		}
 
-		// The player doesn't deviate. Its movement is not divergeant. Return nothing.
+		// The player doesn't deviate. Its movement is not divergent. Return nothing.
 		return null;
 	}
 
@@ -918,7 +930,7 @@ public class Player
 				 MovementDirection += Math.PI * 2;
 			}*/
 
-			// Fraction du mouvement qui appartient à chaques directions
+			// Fraction of the movement for each directions
 
 			//float X = Math.abs((float)Math.sin(MovementDirection));
 			//float Y = Math.abs((float)Math.cos(MovementDirection));
@@ -975,7 +987,7 @@ public class Player
 		{
 			// Supposed to make the player slide along the wall
 
-			// Change the postion according to the direction of the movement, because a wall was hit.
+			// Change the position according to the direction of the movement, because a wall was hit.
 			/*float PlayerAngle = this.GetRadianAngle();
 
 			// Make the angle positive if it is negative
@@ -1023,8 +1035,6 @@ public class Player
 	public void AngleTurn(short AngleChange)
 	{
 		AngleDiff = AngleChange;
-
-		//ExecuteAngleTurn(AngleDiff);
 	}
 
 	public void ExecuteAngleTurn(short AngleChange)
@@ -1198,11 +1208,12 @@ public class Player
 	// Come back to life
 	private void ResetPlayerForRespawn()
 	{
-		Health = 100;
+		Health = MaxHealth;
 		ViewZ = DefaultViewZ;
 		MoX = 0;
 		MoY = 0;
 		MoZ = 0;
+		Bullets = MaxBulletsPerWeapon[1];
 
 		// Reset other stuff
 		HasMoved = false;
@@ -1308,29 +1319,72 @@ public class Player
 
 	public void ChangeWeapon(int Weapon)
 	{
-		if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
+		if (Health > 0)
 		{
-			if (OwnedWeapons[Weapon] != null)
+			if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
 			{
-				SelectedWeapon = Weapon;
-
-				ExecuteChangeWeapon();
+				if (OwnedWeapons[Weapon] != null)
+				{
+					// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
+					if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+					{
+						WeaponToSelect = Weapon;
+					}
+				}
 			}
 		}
 	}
 
 	public void ExecuteChangeWeapon()
 	{
-		switch(SelectedWeapon)
+		System.err.println(WeaponToSelect + "	" + SelectedWeapon);
+
+		if (WeaponToSelect != SelectedWeapon)
+		{
+			SelectedWeapon = WeaponToSelect;
+
+			switch (SelectedWeapon)
+			{
+				case 1:
+					SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[1];
+					break;
+				case 2:
+					SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[2];
+					break;
+				case 3:
+					SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+					Bullets = MaxBulletsPerWeapon[3];
+					break;
+			}
+		}
+	}
+
+	public void ReloadWeapon()
+	{
+		switch (SelectedWeapon)
 		{
 			case 1:
-				SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+				if (Bullets != MaxBulletsPerWeapon[1])
+				{
+					Bullets = MaxBulletsPerWeapon[1];
+					Emitter.PlaySound("reload.wav", this);
+				}
 				break;
 			case 2:
-				SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+				if (Bullets != MaxBulletsPerWeapon[2])
+				{
+					Bullets = MaxBulletsPerWeapon[2];
+					Emitter.PlaySound("reload.wav", this);
+				}
 				break;
 			case 3:
-				SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+				if (Bullets != MaxBulletsPerWeapon[3])
+				{
+					Bullets = MaxBulletsPerWeapon[3];
+					Emitter.PlaySound("reload.wav", this);
+				}
 				break;
 		}
 	}
