@@ -426,6 +426,13 @@ public class Game
 											Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
 										}
 									}
+									else // To enable the first shot at the start
+									{
+										for (int a = 0; a < Lvl.Players.size(); a++)
+										{
+											Lvl.Players.get(a).Spawned = false;
+										}
+									}
 
 									// Check the action of each player in order (Player1 then Player2)
 									if (View == 0) // If I'm the server
@@ -440,9 +447,13 @@ public class Game
 										// Command to shot
 										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
-											if (Lvl.Players.get(View).Health > 0)
+											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).Spawned)
 											{
 												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(View).Spawned)
+											{
+												Lvl.Players.get(View).Spawned = false;
 											}
 											else
 											{
@@ -459,6 +470,10 @@ public class Game
 											}
 
 											NetplayInfo.PlayerCommand.Actions -= 100;
+										}
+										if(Lvl.Players.get(View).Spawned)
+										{
+											Lvl.Players.get(View).Spawned = false;
 										}
 										System.err.println("1: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the if)i'm the server");
 										// Change weapon 1
@@ -492,9 +507,13 @@ public class Game
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
-											if (Lvl.Players.get(Number).Health > 0)
+											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).Spawned)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(Number).Spawned)
+											{
+												Lvl.Players.get(Number).Spawned = false;
 											}
 											else
 											{
@@ -511,6 +530,10 @@ public class Game
 											}
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
+										}
+										if(Lvl.Players.get(Number).Spawned)
+										{
+											Lvl.Players.get(Number).Spawned = false;
 										}
 										System.err.println("2: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the if)i'm the server");
 										// Change weapon 1
@@ -546,9 +569,13 @@ public class Game
 										}
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
 										{
-											if (Lvl.Players.get(Number).Health > 0)
+											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).Spawned)
 											{
 												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(Number).Spawned)
+											{
+												Lvl.Players.get(Number).Spawned = false;
 											}
 											else
 											{
@@ -565,6 +592,10 @@ public class Game
 											}
 
 											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
+										}
+										if(Lvl.Players.get(Number).Spawned)
+										{
+											Lvl.Players.get(Number).Spawned = false;
 										}
 										System.err.println("3: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the else)I'm the client");
 										// Change weapon 1
@@ -599,9 +630,13 @@ public class Game
 										// Command to shot
 										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
 										{
-											if (Lvl.Players.get(View).Health > 0)
+											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).Spawned)
 											{
 												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+											}
+											else if(Lvl.Players.get(View).Spawned)
+											{
+												Lvl.Players.get(View).Spawned = false;
 											}
 											else
 											{
@@ -616,7 +651,10 @@ public class Game
 													}
 												}
 											}
-
+											if(Lvl.Players.get(View).Spawned)
+											{
+												Lvl.Players.get(View).Spawned = false;
+											}
 											NetplayInfo.PlayerCommand.Actions -= 100;
 										}
 										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
@@ -903,6 +941,8 @@ public class Game
 					Lvl.Players.get(Player).FrontMove = 0;
 					Lvl.Players.get(Player).AngleDiff = 0;
 					Lvl.Players.get(Player).Shot = false;
+					Lvl.Players.get(Player).Reloading = false;
+
 				}
 
 				if (NetplayInfo != null)
