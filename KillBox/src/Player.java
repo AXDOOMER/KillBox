@@ -1369,18 +1369,21 @@ public class Player
 				if (Bullets != MaxBulletsPerWeapon[1])
 				{
 					Bullets = MaxBulletsPerWeapon[1];
+					Emitter.PlaySound("reload.wav", this);
 				}
 				break;
 			case 2:
 				if (Bullets != MaxBulletsPerWeapon[2])
 				{
 					Bullets = MaxBulletsPerWeapon[2];
+					Emitter.PlaySound("reload.wav", this);
 				}
 				break;
 			case 3:
 				if (Bullets != MaxBulletsPerWeapon[3])
 				{
 					Bullets = MaxBulletsPerWeapon[3];
+					Emitter.PlaySound("reload.wav", this);
 				}
 				break;
 		}
