@@ -437,7 +437,7 @@ public class Camera
 
 		// Alpha sorting
 		glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-		glAlphaFunc(GL_GREATER, 0.0f);
+		glAlphaFunc(GL_GREATER, 0.9f);		// This value is for the walls
 		glEnable(GL_ALPHA_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
@@ -697,6 +697,9 @@ public class Camera
 				}
 				glPopMatrix();
 			}
+
+			// Change the alpha for the sprites that are drawn on the screen
+			glAlphaFunc(GL_GREATER, 0.0f);
 
 			// If menu is Show
 			if(Menu.Active())
