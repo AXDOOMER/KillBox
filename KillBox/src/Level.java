@@ -98,7 +98,7 @@ public class Level
 							}
 						}
 					}
-					else if (Line.contains("wall") || Line.contains("plane") || Line.contains("floor") || Line.contains("slope") || Line.contains("ceiling"))
+					else if (Line.contains("wall") || Line.contains("floor") || Line.contains("ceiling") || Line.contains("plane") || Line.contains("slope"))
 					{
 						Planes.add(new Plane());
 						boolean NameIsSet = false;
@@ -110,6 +110,18 @@ public class Level
 							if (Line.contains("{"))
 							{
 								continue;
+							}
+							else if (Line.contains("x: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";"))));
+							}
+							else if (Line.contains("y: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";"))));
+							}
+							else if (Line.contains("z: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";"))));
 							}
 							else if (Line.contains("2sided: "))
 							{
@@ -124,18 +136,6 @@ public class Level
 								{
 									Planes.get(Planes.size() - 1).Impassable(false);
 								}
-							}
-							else if (Line.contains("x: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";"))));
-							}
-							else if (Line.contains("y: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";"))));
-							}
-							else if (Line.contains("z: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";"))));
 							}
 							else if (Line.contains("texture: "))
 							{
