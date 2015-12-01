@@ -2816,6 +2816,7 @@ spawn:
 	x: 2208;
 	y: -160;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x35_y2_left:
@@ -3201,11 +3202,10 @@ wall_forblock_x0_y4_bottom:
 # Thing at X=3 and Y=4
 thing:
 {
-   type: tek9;
+	type: tek9;
 	x: 224;
 	y: -288;
 	z: 0;
-	angle: 90;
 }
 
 wall_forblock_x15_y4_left:
@@ -5114,6 +5114,7 @@ spawn:
 	x: 96;
 	y: -480;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x3_y7_left:
@@ -5803,11 +5804,10 @@ wall_forblock_x28_y7_bottom:
 # Thing at X=34 and Y=7
 thing:
 {
-   type: ak47;
+	type: ak47;
 	x: 2208;
 	y: -480;
 	z: 0;
-	angle: 90;
 }
 
 wall_forblock_x35_y7_left:
@@ -9388,6 +9388,7 @@ spawn:
 	x: 2272;
 	y: -864;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x36_y13_left:
@@ -14333,11 +14334,10 @@ wall_forblock_x6_y22_bottom:
 # Thing at X=20 and Y=22
 thing:
 {
-   type: ak47;
+	type: ak47;
 	x: 1312;
 	y: -1440;
 	z: 0;
-	angle: 90;
 }
 
 wall_forblock_x36_y22_left:
@@ -15790,6 +15790,7 @@ spawn:
 	x: 608;
 	y: -1632;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x12_y25_left:
@@ -17619,11 +17620,10 @@ wall_forblock_x28_y27_bottom:
 # Thing at X=29 and Y=27
 thing:
 {
-   type: tek9;
+	type: tek9;
 	x: 1888;
 	y: -1760;
 	z: 0;
-	angle: 90;
 }
 
 wall_forblock_x36_y27_left:
@@ -18848,6 +18848,7 @@ spawn:
 	x: 1824;
 	y: -1888;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x35_y29_left:
@@ -23395,7 +23396,7 @@ floor_forblock_x7_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 448;
 	y: -896;
 	z: 0;
@@ -23414,7 +23415,7 @@ floor_forblock_x8_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 512;
 	y: -896;
 	z: 0;
@@ -23433,7 +23434,7 @@ floor_forblock_x9_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 576;
 	y: -896;
 	z: 0;
@@ -23452,7 +23453,7 @@ floor_forblock_x10_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 640;
 	y: -896;
 	z: 0;
@@ -23471,7 +23472,7 @@ floor_forblock_x11_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 704;
 	y: -896;
 	z: 0;
@@ -23490,7 +23491,7 @@ floor_forblock_x12_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 768;
 	y: -896;
 	z: 0;
@@ -23509,7 +23510,7 @@ floor_forblock_x13_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 832;
 	y: -896;
 	z: 0;
@@ -23528,7 +23529,7 @@ floor_forblock_x14_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 896;
 	y: -896;
 	z: 0;
@@ -23547,7 +23548,7 @@ floor_forblock_x15_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 960;
 	y: -896;
 	z: 0;
@@ -23566,7 +23567,7 @@ floor_forblock_x16_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1024;
 	y: -896;
 	z: 0;
@@ -23585,7 +23586,7 @@ floor_forblock_x17_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1088;
 	y: -896;
 	z: 0;
@@ -23604,7 +23605,7 @@ floor_forblock_x18_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1152;
 	y: -896;
 	z: 0;
@@ -23623,7 +23624,7 @@ floor_forblock_x19_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1216;
 	y: -896;
 	z: 0;
@@ -23642,7 +23643,7 @@ floor_forblock_x20_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1280;
 	y: -896;
 	z: 0;
@@ -23661,7 +23662,7 @@ floor_forblock_x21_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1344;
 	y: -896;
 	z: 0;
@@ -23680,7 +23681,7 @@ floor_forblock_x22_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1408;
 	y: -896;
 	z: 0;
@@ -23699,7 +23700,7 @@ floor_forblock_x23_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1472;
 	y: -896;
 	z: 0;
@@ -23718,7 +23719,7 @@ floor_forblock_x24_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1536;
 	y: -896;
 	z: 0;
@@ -23737,7 +23738,7 @@ floor_forblock_x25_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1600;
 	y: -896;
 	z: 0;
@@ -23756,7 +23757,7 @@ floor_forblock_x26_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1664;
 	y: -896;
 	z: 0;
@@ -23775,7 +23776,7 @@ floor_forblock_x27_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1728;
 	y: -896;
 	z: 0;
@@ -23794,7 +23795,7 @@ floor_forblock_x28_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1792;
 	y: -896;
 	z: 0;
@@ -23813,7 +23814,7 @@ floor_forblock_x29_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1856;
 	y: -896;
 	z: 0;
@@ -23832,7 +23833,7 @@ floor_forblock_x30_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1920;
 	y: -896;
 	z: 0;
@@ -23851,7 +23852,7 @@ floor_forblock_x31_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1984;
 	y: -896;
 	z: 0;
@@ -23870,7 +23871,7 @@ floor_forblock_x32_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2048;
 	y: -896;
 	z: 0;
@@ -23889,7 +23890,7 @@ floor_forblock_x33_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2112;
 	y: -896;
 	z: 0;
@@ -23908,7 +23909,7 @@ floor_forblock_x34_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2176;
 	y: -896;
 	z: 0;
@@ -23927,7 +23928,7 @@ floor_forblock_x35_y13:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2240;
 	y: -896;
 	z: 0;
@@ -23946,7 +23947,7 @@ floor_forblock_x7_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 448;
 	y: -960;
 	z: 0;
@@ -23965,7 +23966,7 @@ floor_forblock_x8_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 512;
 	y: -960;
 	z: 0;
@@ -23984,7 +23985,7 @@ floor_forblock_x9_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 576;
 	y: -960;
 	z: 0;
@@ -24003,7 +24004,7 @@ floor_forblock_x10_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 640;
 	y: -960;
 	z: 0;
@@ -24022,7 +24023,7 @@ floor_forblock_x11_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 704;
 	y: -960;
 	z: 0;
@@ -24041,7 +24042,7 @@ floor_forblock_x12_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 768;
 	y: -960;
 	z: 0;
@@ -24060,7 +24061,7 @@ floor_forblock_x13_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 832;
 	y: -960;
 	z: 0;
@@ -24079,7 +24080,7 @@ floor_forblock_x14_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 896;
 	y: -960;
 	z: 0;
@@ -24098,7 +24099,7 @@ floor_forblock_x15_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 960;
 	y: -960;
 	z: 0;
@@ -24117,7 +24118,7 @@ floor_forblock_x16_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1024;
 	y: -960;
 	z: 0;
@@ -24136,7 +24137,7 @@ floor_forblock_x17_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1088;
 	y: -960;
 	z: 0;
@@ -24155,7 +24156,7 @@ floor_forblock_x18_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1152;
 	y: -960;
 	z: 0;
@@ -24174,7 +24175,7 @@ floor_forblock_x19_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1216;
 	y: -960;
 	z: 0;
@@ -24193,7 +24194,7 @@ floor_forblock_x20_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1280;
 	y: -960;
 	z: 0;
@@ -24212,7 +24213,7 @@ floor_forblock_x21_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1344;
 	y: -960;
 	z: 0;
@@ -24231,7 +24232,7 @@ floor_forblock_x22_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1408;
 	y: -960;
 	z: 0;
@@ -24250,7 +24251,7 @@ floor_forblock_x23_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1472;
 	y: -960;
 	z: 0;
@@ -24269,7 +24270,7 @@ floor_forblock_x24_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1536;
 	y: -960;
 	z: 0;
@@ -24288,7 +24289,7 @@ floor_forblock_x25_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1600;
 	y: -960;
 	z: 0;
@@ -24307,7 +24308,7 @@ floor_forblock_x26_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1664;
 	y: -960;
 	z: 0;
@@ -24326,7 +24327,7 @@ floor_forblock_x27_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1728;
 	y: -960;
 	z: 0;
@@ -24345,7 +24346,7 @@ floor_forblock_x28_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1792;
 	y: -960;
 	z: 0;
@@ -24364,7 +24365,7 @@ floor_forblock_x29_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1856;
 	y: -960;
 	z: 0;
@@ -24383,7 +24384,7 @@ floor_forblock_x30_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1920;
 	y: -960;
 	z: 0;
@@ -24402,7 +24403,7 @@ floor_forblock_x31_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1984;
 	y: -960;
 	z: 0;
@@ -24421,7 +24422,7 @@ floor_forblock_x32_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2048;
 	y: -960;
 	z: 0;
@@ -24440,7 +24441,7 @@ floor_forblock_x33_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2112;
 	y: -960;
 	z: 0;
@@ -24459,7 +24460,7 @@ floor_forblock_x34_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2176;
 	y: -960;
 	z: 0;
@@ -24478,7 +24479,7 @@ floor_forblock_x35_y14:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2240;
 	y: -960;
 	z: 0;
@@ -24497,7 +24498,7 @@ floor_forblock_x7_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 448;
 	y: -1024;
 	z: 0;
@@ -24516,7 +24517,7 @@ floor_forblock_x8_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 512;
 	y: -1024;
 	z: 0;
@@ -24535,7 +24536,7 @@ floor_forblock_x9_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 576;
 	y: -1024;
 	z: 0;
@@ -24554,7 +24555,7 @@ floor_forblock_x10_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 640;
 	y: -1024;
 	z: 0;
@@ -24573,7 +24574,7 @@ floor_forblock_x11_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 704;
 	y: -1024;
 	z: 0;
@@ -24592,7 +24593,7 @@ floor_forblock_x12_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 768;
 	y: -1024;
 	z: 0;
@@ -24611,7 +24612,7 @@ floor_forblock_x13_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 832;
 	y: -1024;
 	z: 0;
@@ -24630,7 +24631,7 @@ floor_forblock_x14_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 896;
 	y: -1024;
 	z: 0;
@@ -24649,7 +24650,7 @@ floor_forblock_x15_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 960;
 	y: -1024;
 	z: 0;
@@ -24668,7 +24669,7 @@ floor_forblock_x16_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1024;
 	y: -1024;
 	z: 0;
@@ -24687,7 +24688,7 @@ floor_forblock_x17_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1088;
 	y: -1024;
 	z: 0;
@@ -24706,7 +24707,7 @@ floor_forblock_x18_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1152;
 	y: -1024;
 	z: 0;
@@ -24725,7 +24726,7 @@ floor_forblock_x19_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1216;
 	y: -1024;
 	z: 0;
@@ -24744,7 +24745,7 @@ floor_forblock_x20_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1280;
 	y: -1024;
 	z: 0;
@@ -24763,7 +24764,7 @@ floor_forblock_x21_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1344;
 	y: -1024;
 	z: 0;
@@ -24782,7 +24783,7 @@ floor_forblock_x22_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1408;
 	y: -1024;
 	z: 0;
@@ -24801,7 +24802,7 @@ floor_forblock_x23_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1472;
 	y: -1024;
 	z: 0;
@@ -24820,7 +24821,7 @@ floor_forblock_x24_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1536;
 	y: -1024;
 	z: 0;
@@ -24839,7 +24840,7 @@ floor_forblock_x25_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1600;
 	y: -1024;
 	z: 0;
@@ -24858,7 +24859,7 @@ floor_forblock_x26_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1664;
 	y: -1024;
 	z: 0;
@@ -24877,7 +24878,7 @@ floor_forblock_x27_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1728;
 	y: -1024;
 	z: 0;
@@ -24896,7 +24897,7 @@ floor_forblock_x28_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1792;
 	y: -1024;
 	z: 0;
@@ -24915,7 +24916,7 @@ floor_forblock_x29_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1856;
 	y: -1024;
 	z: 0;
@@ -24934,7 +24935,7 @@ floor_forblock_x30_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1920;
 	y: -1024;
 	z: 0;
@@ -24953,7 +24954,7 @@ floor_forblock_x31_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1984;
 	y: -1024;
 	z: 0;
@@ -24972,7 +24973,7 @@ floor_forblock_x32_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2048;
 	y: -1024;
 	z: 0;
@@ -24991,7 +24992,7 @@ floor_forblock_x33_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2112;
 	y: -1024;
 	z: 0;
@@ -25010,7 +25011,7 @@ floor_forblock_x34_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2176;
 	y: -1024;
 	z: 0;
@@ -25029,7 +25030,7 @@ floor_forblock_x35_y15:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2240;
 	y: -1024;
 	z: 0;
@@ -25048,7 +25049,7 @@ floor_forblock_x7_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 448;
 	y: -1088;
 	z: 0;
@@ -25067,7 +25068,7 @@ floor_forblock_x8_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 512;
 	y: -1088;
 	z: 0;
@@ -25086,7 +25087,7 @@ floor_forblock_x9_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 576;
 	y: -1088;
 	z: 0;
@@ -25105,7 +25106,7 @@ floor_forblock_x10_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 640;
 	y: -1088;
 	z: 0;
@@ -25124,7 +25125,7 @@ floor_forblock_x11_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 704;
 	y: -1088;
 	z: 0;
@@ -25143,7 +25144,7 @@ floor_forblock_x12_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 768;
 	y: -1088;
 	z: 0;
@@ -25162,7 +25163,7 @@ floor_forblock_x13_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 832;
 	y: -1088;
 	z: 0;
@@ -25181,7 +25182,7 @@ floor_forblock_x14_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 896;
 	y: -1088;
 	z: 0;
@@ -25200,7 +25201,7 @@ floor_forblock_x15_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 960;
 	y: -1088;
 	z: 0;
@@ -25219,7 +25220,7 @@ floor_forblock_x16_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1024;
 	y: -1088;
 	z: 0;
@@ -25238,7 +25239,7 @@ floor_forblock_x17_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1088;
 	y: -1088;
 	z: 0;
@@ -25257,7 +25258,7 @@ floor_forblock_x18_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1152;
 	y: -1088;
 	z: 0;
@@ -25276,7 +25277,7 @@ floor_forblock_x19_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1216;
 	y: -1088;
 	z: 0;
@@ -25295,7 +25296,7 @@ floor_forblock_x20_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1280;
 	y: -1088;
 	z: 0;
@@ -25314,7 +25315,7 @@ floor_forblock_x21_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1344;
 	y: -1088;
 	z: 0;
@@ -25333,7 +25334,7 @@ floor_forblock_x22_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1408;
 	y: -1088;
 	z: 0;
@@ -25352,7 +25353,7 @@ floor_forblock_x23_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1472;
 	y: -1088;
 	z: 0;
@@ -25371,7 +25372,7 @@ floor_forblock_x24_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1536;
 	y: -1088;
 	z: 0;
@@ -25390,7 +25391,7 @@ floor_forblock_x25_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1600;
 	y: -1088;
 	z: 0;
@@ -25409,7 +25410,7 @@ floor_forblock_x26_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1664;
 	y: -1088;
 	z: 0;
@@ -25428,7 +25429,7 @@ floor_forblock_x27_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1728;
 	y: -1088;
 	z: 0;
@@ -25447,7 +25448,7 @@ floor_forblock_x28_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1792;
 	y: -1088;
 	z: 0;
@@ -25466,7 +25467,7 @@ floor_forblock_x29_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1856;
 	y: -1088;
 	z: 0;
@@ -25485,7 +25486,7 @@ floor_forblock_x30_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1920;
 	y: -1088;
 	z: 0;
@@ -25504,7 +25505,7 @@ floor_forblock_x31_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 1984;
 	y: -1088;
 	z: 0;
@@ -25523,7 +25524,7 @@ floor_forblock_x32_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2048;
 	y: -1088;
 	z: 0;
@@ -25542,7 +25543,7 @@ floor_forblock_x33_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2112;
 	y: -1088;
 	z: 0;
@@ -25561,7 +25562,7 @@ floor_forblock_x34_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2176;
 	y: -1088;
 	z: 0;
@@ -25580,7 +25581,7 @@ floor_forblock_x35_y16:
 {
 	2sided: false;
 	impassable: false;
-	texture: straw.jpg;
+	texture: straw_dark.jpg;
 	x: 2240;
 	y: -1088;
 	z: 0;

@@ -295,21 +295,37 @@ int main(int argc, char *argv[])
 										{
 											// It's a thing
 
-											// Say which element it is
-											OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
-											OutputMap << Elements.at(Search) << ":" << endl;
-											OutputMap << "{" << endl;
-
-											// Set thing's properties
-											OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
-
-											OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
-
-											OutputMap << Tab << "z: 0;" << endl;
-
-											if (Element.find("spawn"))
+											if (Elements.at(Search) == "spawn")
 											{
+												// Say which element it is
+												OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
+												OutputMap << Elements.at(Search) << ":" << endl;
+												OutputMap << "{" << endl;
+
+												// Set thing's properties
+												OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "z: 0;" << endl;
+
 												OutputMap << Tab << "angle: 90;" << endl;
+											}
+											else
+											{
+												// Say which element it is
+												OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
+												OutputMap << "thing" << ":" << endl;
+												OutputMap << "{" << endl;
+
+												OutputMap << Tab << "type: " << Elements.at(Search) << ";" << endl;
+
+												// Set thing's properties
+												OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "z: 0;" << endl;
 											}
 										}
 
@@ -563,9 +579,11 @@ int main(int argc, char *argv[])
 						// Close the output map
 						OutputMap.close();
 					}
-					catch (...)
+					catch (exception e)
 					{
 						cout << "ERROR: An exception has occured. Your text files don't follow the good format." << endl;
+						cout << "Here's a hint that may help to see where it occured in the source code: " << endl;
+						cout << e.what() << endl;
 					}
 
 					cout << "Closing the map file... ";
