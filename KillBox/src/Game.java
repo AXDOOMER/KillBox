@@ -212,6 +212,12 @@ public class Game
 				}
 			}
 
+			if (CheckParam(args, "-level") >= 0)
+			{
+				// Change the default level
+				DefaultMap = args[CheckParam(args, "-level") + 1];
+			}
+
 			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);
 
 			// Players will spawn at random locations
