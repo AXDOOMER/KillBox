@@ -510,19 +510,20 @@ public class Camera
 						glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 						glBegin(GL_QUADS);
 						{
-							//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
 							float LookAt = this.RotY * (float) Math.PI * 2 / 360;
 							float Divergent = LookAt - (float) Math.PI / 2;
+							float CosDivergent = (float)Math.cos(Divergent);
+							float SinDivergent = (float)Math.sin(Divergent);
 
-							float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+							float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() - CosDivergent * (float)Lvl.Things.get(Thing).Radius() };
 
-							float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+							float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() - SinDivergent * (float)Lvl.Things.get(Thing).Radius() };
 
 							float[] SpriteZ = {	Lvl.Things.get(Thing).PosZ(),
 									Lvl.Things.get(Thing).PosZ(),
@@ -559,8 +560,6 @@ public class Camera
 
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
-					//float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
-
 					float LookAngleDiff = (float)Math.atan2(this.CurrentPlayer().PosY() - Lvl.Players.get(Player).PosY(), this.CurrentPlayer().PosX() - Lvl.Players.get(Player).PosX());
 					// Convert to degrees
 					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
@@ -667,19 +666,20 @@ public class Camera
 					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 					glBegin(GL_QUADS);
 					{
-						//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
 						float LookAt = this.RotY * (float) Math.PI * 2 / 360;
 						float Divergent = LookAt - (float) Math.PI / 2;
+						float CosDivergent = (float)Math.cos(Divergent);
+						float SinDivergent = (float)Math.sin(Divergent);
 
-						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius() };
 
-						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius() };
 
 						float[] SpriteZ = {	Lvl.Players.get(Player).PosZ(),
 								Lvl.Players.get(Player).PosZ(),
