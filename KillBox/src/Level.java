@@ -98,7 +98,7 @@ public class Level
 							}
 						}
 					}
-					else if (Line.contains("wall") || Line.contains("plane") || Line.contains("floor") || Line.contains("slope"))
+					else if (Line.contains("wall") || Line.contains("plane") || Line.contains("floor") || Line.contains("slope") || Line.contains("ceiling"))
 					{
 						Planes.add(new Plane());
 						boolean NameIsSet = false;
