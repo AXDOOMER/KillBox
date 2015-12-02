@@ -824,6 +824,12 @@ public class Game
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
 
+							// If we are not playing flagtag
+							if (HeadCamera.Menu.GameMode != 2)
+							{
+								Lvl.RemoveTypeOfThingsFromLevel(Thing.Names.Flag);
+							}
+
 							// The game will start, don't need this anymore. Reset to default value.
 							HeadCamera.Menu.IsServer = false;
 
@@ -900,6 +906,12 @@ public class Game
 							SndDriver.SetNewListener(Lvl.Players.get(View));
 
 							Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
+
+							// If we are not playing flagtag
+							if (HeadCamera.Menu.GameMode != 2)
+							{
+								Lvl.RemoveTypeOfThingsFromLevel(Thing.Names.Flag);
+							}
 						}
 						else
 						{

@@ -327,7 +327,7 @@ public class Player
 				// Increment bullet position
 				TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
 				TravelY = TravelY + Step * (float) Math.sin(HorizontalAngle);
-				TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
+				//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
 				// Check if a wall was hit. Check for wall on a line between the player and the hit point.
 				if (CheckWallCollision(TravelX, TravelY, Step) == null)

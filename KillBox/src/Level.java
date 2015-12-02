@@ -409,6 +409,17 @@ public class Level
 			}
 		}
 	}
+
+	public void RemoveTypeOfThingsFromLevel(Thing.Names Type)
+	{
+		for (int Thing = 0; Thing < Things.size(); Thing++)
+		{
+			if (Things.get(Thing).Type == Type)
+			{
+				Things.remove(Thing);
+			}
+		}
+	}
 	
 	// Get the players list
 	public ArrayList<Player> Players()

@@ -721,6 +721,7 @@ public class Camera
 				if (!Menu.InGame)
 				{
 					Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
 				}
 
 				// Set Draw cursor to Top-Left
@@ -805,6 +806,7 @@ public class Camera
 				{
 					// Draw the title screen
 					Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+					Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
 					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
 				}
 
