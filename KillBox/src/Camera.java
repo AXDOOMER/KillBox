@@ -746,11 +746,11 @@ public class Camera
 
 				// HUD
 				if(Menu.ShowHud.Bool())
-					Menu.ShowHUD(Plyr);
+					Menu.ShowHUD(Plyr, Plyr.CanShot());
 
 				// Draw a message if there is one
 				if(Menu.ShowMessage.Bool())
-				Menu.DrawMessage();
+					Menu.DrawMessage();
 
 				// Temporary solution to draw the gun fire
 				if (CurrentPlayer().JustShot())
@@ -781,7 +781,7 @@ public class Camera
 					}
 				}
 
-				if (Menu.FreeLook())
+				if (Menu.FreeLook() && Plyr.CanShot())
 				{
 					Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
 				}

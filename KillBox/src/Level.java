@@ -357,7 +357,7 @@ public class Level
 	private Texture LoadTexture(String Path)
 	{
 		// Add texture to the list if it's not already loaded.
-		// Search through the texture list. They are in the alphanetical order of the file names.
+		// Search through the texture list. They are in the alphabetical order of the file names.
 		int Search = 0;
 		String Name = Path.substring(Path.lastIndexOf('/') + 1);
 		Texture NewTexture = null;
@@ -394,7 +394,7 @@ public class Level
 		}
 		else if (Search > 0)
 		{
-			// Add it there. Since the index of 'Search' is an element after the required position, one is substracted.
+			// Add it there. Since the index of 'Search' is an element after the required position, one is subtracted.
 			NewTexture = new Texture("res/" + Path, Filter);
 			Textures.add(Search - 1, NewTexture);
 		}

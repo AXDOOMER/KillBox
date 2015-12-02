@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.??? (Pre-final Beta)";
-	String LastUpdate = "november 30th 2015";
+	String LastUpdate = "december 1st 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -4313,7 +4313,7 @@ public class Menu
 		MessageTime = 0;
 	}
 
-	public void ShowHUD(Player CurrentPlayer)
+	public void ShowHUD(Player CurrentPlayer, boolean HideBulletCount)
 	{
 		if (CurrentPlayer.Health > 0)
 		{
@@ -4323,12 +4323,15 @@ public class Menu
 			// Bullet
 			DrawTexture(BulletForHUD, 90, 5, 4, 24);
 			// Number of bullets
-			if (CurrentPlayer.Bullets >= 100)
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
-			else if (CurrentPlayer.Bullets >= 10)
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
-			else
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+			if (HideBulletCount)
+			{
+				if (CurrentPlayer.Bullets >= 100)
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
+				else if (CurrentPlayer.Bullets >= 10)
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
+				else
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+			}
 
 			// Health text
 			// DrawText("health", 2, 15, 3, 3);
