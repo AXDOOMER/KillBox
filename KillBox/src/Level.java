@@ -364,39 +364,33 @@ public class Level
 
 		while (Search >= 0 && Search < Textures.size())
 		{
-			// Result is -1 if smaller than, is 0 is equals and is 1 if is bigger than the compared string.
-			int Result = Textures.get(Search).Name().compareTo(Name);
+			// Check if the texture name at this position is the same as the new texture
+			boolean Same = Textures.get(Search).Name().equals(Name);
 
-			if (Result < 0)
+			if (!Same)
 			{
-				// Put it farther, so increase search index.
+				// Increase the search index because this is not the good texture.
 				Search++;
-			}
-			else if (Result == 0)
-			{
-				// It's already there.
-				NewTexture = Textures.get(Search);
-				Search = -1;
 			}
 			else
 			{
-				// This means we are farther than the texture that was looked for.
-				// Break because the right place was found.
-				break;
+				// Take the reference to the texture that's already there.
+				NewTexture = Textures.get(Search);
+				Search = -1;
 			}
 		}
 
-		if (Search == 0)
-		{
-			// It's the only element, so it must be the first element.
-			NewTexture = new Texture("res/" + Path, Filter);
-			Textures.add(NewTexture);
-		}
-		else if (Search > 0)
+		if (Search > 0)
 		{
 			// Add it there. Since the index of 'Search' is an element after the required position, one is subtracted.
 			NewTexture = new Texture("res/" + Path, Filter);
 			Textures.add(Search - 1, NewTexture);
+		}
+		else if (Search == 0)
+		{
+			// It's the only element, so it must be the first element.
+			NewTexture = new Texture("res/" + Path, Filter);
+			Textures.add(NewTexture);
 		}
 
 		return NewTexture;
