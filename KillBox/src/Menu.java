@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.??? (Pre-final Beta)";
-	String LastUpdate = "december 1st 2015";
+	String LastUpdate = "december 2nd 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -54,6 +54,7 @@ public class Menu
 
 	public Sound SoundOut = null;
 	Texture BulletForHUD = new Texture("res/sprites/bullet.png", GL_NEAREST);
+	Texture TitleScreen = new Texture ("res/title.jpg", GL_LINEAR);	// Load the title screen
 
 	public void SetSoundOut(Sound NewSoundOut)
 	{

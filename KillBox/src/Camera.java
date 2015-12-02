@@ -713,6 +713,9 @@ public class Camera
 
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
+
+				Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+
 				// Set Draw cursor to Top-Left
 				glTranslatef(-1f, 1f, 0.0f);
 
@@ -744,54 +747,63 @@ public class Camera
 
 				glDisable(GL_TEXTURE_2D);
 
-				// HUD
-				if(Menu.ShowHud.Bool())
-					Menu.ShowHUD(Plyr, Plyr.CanShot());
+				if (Menu.InGame)
+				{
+					// HUD
+					if (Menu.ShowHud.Bool())
+						Menu.ShowHUD(Plyr, Plyr.CanShot());
+
+					// Temporary solution to draw the gun fire
+					if (CurrentPlayer().JustShot())
+					{
+						Menu.DrawTexture(CurrentPlayer().GunFire, 34, 34, 32, 16);
+					}
+
+					// Draw a weapon
+					switch (CurrentPlayer().SelectedWeapon)
+					{
+						case 1:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
+							break;
+						case 2:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
+							break;
+						case 3:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 241 / 8, 293 / 7);
+							break;
+					}
+
+					// Show the scores on the screen
+					if (Lvl.Players.size() > 1 && Menu.InGame == true)
+					{
+						if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
+						{
+							Menu.ShowScoreTable(Lvl.Players());
+						}
+					}
+
+					if (Menu.FreeLook() && Plyr.CanShot())
+					{
+						Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
+					}
+
+					if (Menu.ShowDebug())
+					{
+						Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
+						Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
+						Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
+					}
+				}
+				else
+				{
+					// Draw the title screen
+					Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
+				}
 
 				// Draw a message if there is one
 				if(Menu.ShowMessage.Bool())
 					Menu.DrawMessage();
-
-				// Temporary solution to draw the gun fire
-				if (CurrentPlayer().JustShot())
-				{
-					Menu.DrawTexture(CurrentPlayer().GunFire, 34, 34, 32, 16);
-				}
-
-				// Draw a weapon
-				switch (CurrentPlayer().SelectedWeapon)
-				{
-					case 1:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
-						break;
-					case 2:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
-						break;
-					case 3:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 241 / 8, 293 / 7);
-						break;
-				}
-
-				// Show the scores on the screen
-				if (Lvl.Players.size() > 1 && Menu.InGame == true)
-				{
-					if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
-					{
-						Menu.ShowScoreTable(Lvl.Players());
-					}
-				}
-
-				if (Menu.FreeLook() && Plyr.CanShot())
-				{
-					Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
-				}
-
-				if (Menu.ShowDebug())
-				{
-					Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
-					Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
-					Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
-				}
 
 				// Draw all element
 				glFlush();

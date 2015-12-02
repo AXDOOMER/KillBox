@@ -1369,7 +1369,7 @@ public class Player
 
 	public void ExecuteChangeWeapon()
 	{
-		System.err.println(WeaponToSelect + "	" + SelectedWeapon);
+		//System.err.println(WeaponToSelect + "	" + SelectedWeapon);
 
 		if (DroppingWeapon)
 		{

@@ -218,7 +218,7 @@ public class Game
 				DefaultMap = args[CheckParam(args, "-level") + 1];
 			}
 
-			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);
+			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);		// Load the level
 
 			// Players will spawn at random locations
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -752,13 +752,13 @@ public class Game
 						Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
 						Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
 
-						if (Lvl.Players.get(View).ActionIsHasShot() == 100)
+						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)
 						{
 							if (Lvl.Players.get(View).Health > 0)
 							{
 								Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
 							}
-						}
+						}*/
 					}
 					// Kill inactive players
 					/*for (int Player = 0; Player < Lvl.Players.size(); Player++)
