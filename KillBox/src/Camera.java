@@ -276,14 +276,16 @@ public class Camera
 			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 			{
-				JustPressedFireKey = true;
 				if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
 				{
 					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
 					CurrentPlayer().SetShotTrue();
+					Plyr.TriggerAlreadyPressed = true;
 				}
 				else
 				{
+					JustPressedFireKey = true;
+
 					// Check if the player has completely dropped on the floor
 					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
 					{
@@ -304,10 +306,12 @@ public class Camera
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
 			{
 				JustPressedFireKey = true;
+				Plyr.TriggerAlreadyPressed = true;
 			}
 			else
 			{
 				JustPressedFireKey = false;
+				Plyr.TriggerAlreadyPressed = false;
 			}
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
@@ -568,7 +572,7 @@ public class Camera
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();	// Default
 					int CurrentFrameIndex = 0;
 
-					if (Lvl.Players.get(Player).JustShot())
+					if (Lvl.Players.get(Player).JustShot() || Lvl.Players.get(Player).WeaponTimeSinceLastShot < 5)
 					{
 						CurrentFrameIndex = 40;
 					}
@@ -714,7 +718,10 @@ public class Camera
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
 
-				Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+				if (!Menu.InGame)
+				{
+					Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+				}
 
 				// Set Draw cursor to Top-Left
 				glTranslatef(-1f, 1f, 0.0f);

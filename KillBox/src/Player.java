@@ -33,7 +33,11 @@ public class Player
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
 	int []MaxBulletsPerWeapon = {0, 10, 20, 30};
+	float []WeaponAccuracy = {0, 1 * (float)Math.PI / 180, 5 * (float)Math.PI / 180, 10 * (float)Math.PI / 180};
+	int []WeaponSpeed = {0, -1, 4, 2};
+	int WeaponTimeSinceLastShot = GetHighestWeaponSpeedFromArray() + 1;
 	int Bullets = MaxBulletsPerWeapon[1];
+	public boolean TriggerAlreadyPressed = false;
 
 	int Action = 0;
 
@@ -112,6 +116,20 @@ public class Player
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
+	}
+
+	public int GetHighestWeaponSpeedFromArray()
+	{
+		int Max = 0;
+		for (int Index = 0; Index < WeaponSpeed.length; Index++)
+		{
+			if (WeaponSpeed[Index] > Max)
+			{
+				Max = WeaponSpeed[Index];
+			}
+		}
+
+		return Max;
 	}
 
 	public void LoadSprites()
@@ -245,7 +263,25 @@ public class Player
 	{
 		if (CanShot())
 		{
-			Shot = true;
+			if (WeaponSpeed[SelectedWeapon] < 0)
+			{
+				// Pistol
+				if (!TriggerAlreadyPressed)
+				{
+					Shot = true;
+					WeaponTimeSinceLastShot = 0;
+				}
+			}
+			else
+			{
+				// Tek9 and Ak47
+				if (WeaponTimeSinceLastShot >= WeaponSpeed[SelectedWeapon])
+				{
+					// If it wasn't shot for sometime, it can shot again.
+					Shot = true;
+					WeaponTimeSinceLastShot = 0;
+				}
+			}
 		}
 	}
 
@@ -268,6 +304,11 @@ public class Player
 					break;
 			}
 
+			// Pick the gun's accuracy. This will not create a cone, it will do a square.
+			//float HorizontalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
+			//float VerticalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
+
+			WeaponTimeSinceLastShot = 0;
 			Bullets--;
 
 			float Step = 2;        // Incremental steps at which the bullet checks for collision
@@ -286,7 +327,7 @@ public class Player
 				// Increment bullet position
 				TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
 				TravelY = TravelY + Step * (float) Math.sin(HorizontalAngle);
-				//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
+				TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
 				// Check if a wall was hit. Check for wall on a line between the player and the hit point.
 				if (CheckWallCollision(TravelX, TravelY, Step) == null)
@@ -297,7 +338,10 @@ public class Player
 					if (Hit != null && Hit.Health > 0)
 					{
 						// Spawn blood
-						Lvl.Things.add(new Thing("Blood", TravelX, TravelY, TravelZ));
+						Lvl.Things.add(new Thing("Blood",
+								TravelX + (Randomizer.GiveNumber() % 5) - 2,
+								TravelY + (Randomizer.GiveNumber() % 5) - 2,
+								TravelZ - (Randomizer.GiveNumber() % 5)));
 
 						// If the player who was hit is not dead
 						if (Hit.Health > 0)

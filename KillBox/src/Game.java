@@ -291,6 +291,7 @@ public class Game
 					for (int Player = 0; Player < Lvl.Players.size(); Player++)
 					{
 						Lvl.Players.get(Player).UpdateIfDead();
+						Lvl.Players.get(Player).WeaponTimeSinceLastShot++;
 					}
 
 					// Look for a winner
