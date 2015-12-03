@@ -963,6 +963,17 @@ public class Game
 					}
 				}
 
+				if (CheckParam(args, "-gc") >= 0)
+				{
+					// Asks for the garbage collector every 5 seconds.
+					// Java may choose not to do the garbage collection anyway.
+					if (TicksCount % (FrameRate * 5) == 0)
+					{
+						System.gc();
+						//System.runFinalization();
+					}
+				}
+
 				try
 				{
 					// Timer for sleep

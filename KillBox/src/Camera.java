@@ -797,7 +797,7 @@ public class Camera
 
 					if (Menu.ShowDebug())
 					{
-						Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
+						Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle() + "'", 0, 4, 3, 3);
 						Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
 						Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
 					}
@@ -806,7 +806,10 @@ public class Camera
 				{
 					// Draw the title screen
 					Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
-					Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+					if (!Menu.InGame && !Menu.IsServer && !Menu.IsClient && !Menu.MessageIsOnScreen())
+					{
+						Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+					}
 					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
 				}
 

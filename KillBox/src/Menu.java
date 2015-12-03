@@ -54,7 +54,7 @@ public class Menu
 
 	public Sound SoundOut = null;
 	Texture BulletForHUD = new Texture("res/sprites/bullet.png", GL_NEAREST);
-	Texture TitleScreen = new Texture ("res/title.jpg", GL_LINEAR);	// Load the title screen
+	Texture TitleScreen = new Texture ("res/textures/title.jpg", GL_LINEAR);	// Load the title screen
 
 	public void SetSoundOut(Sound NewSoundOut)
 	{
@@ -3012,6 +3012,10 @@ public class Menu
 							// Connect to server
 							ConnectToServer();
 							InGame = false;
+
+							// Message saying it's joining the server
+							NewMessageToShow("Joining the game...");
+							MessageTime = MaxMessageTime - 1;
 						}
 						else
 						{
@@ -4452,6 +4456,16 @@ public class Menu
 				MessageTime++;
 			}
 		}
+	}
+
+	public boolean MessageIsOnScreen()
+	{
+		if (MessageTime >= MaxMessageTime)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	// Can be used to draw messages on the screen (2D texture or menu must be initialized or it will cause glitches)

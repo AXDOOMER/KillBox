@@ -141,7 +141,7 @@ public class Level
 							{
 								Planes.get(Planes.size() - 1).SetTextureName(Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";")));
 								// The following line loads the textures if it needs to and sets a reference to it inside the plane.
-								Planes.get(Planes.size() - 1).SetReference(LoadTexture(Planes.get(Planes.size() - 1).TextureName));
+								Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/" + Planes.get(Planes.size() - 1).TextureName));
 								NameIsSet = true;
 							}
 							else if (Line.contains("light: "))
@@ -152,7 +152,7 @@ public class Level
 
 						if (!NameIsSet)
 						{
-							Planes.get(Planes.size() - 1).SetReference(LoadTexture("DOOR9_1.bmp"));
+							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/DOOR9_1.bmp"));
 						}
 					}
 					else if (Line.contains("spawn"))
@@ -322,7 +322,7 @@ public class Level
 							}
 						}
 
-						Things.add(new Thing("res/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
+						Things.add(new Thing("res/sprites/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
 					}
 					else
 					{
