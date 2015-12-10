@@ -1285,6 +1285,7 @@ public class Player
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
 		SelectedWeapon = 1;
+		WeaponToSelect = 1;
 		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
 	}
 

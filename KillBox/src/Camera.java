@@ -318,28 +318,28 @@ public class Camera
 			{
 				Menu.UserWantsToExit = true;
 			}
-		}
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_R))
-		{
-			CurrentPlayer().Reloading = true;
-		}
-		// Change weapon
-		if (Keyboard.isKeyDown(Keyboard.KEY_1))
-		{
-			CurrentPlayer().ChangeWeapon(1);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
-		{
-			CurrentPlayer().ChangeWeapon(2);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_3))
-		{
-			CurrentPlayer().ChangeWeapon(3);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_4))
-		{
-			CurrentPlayer().ChangeWeapon(4);
+			if (Keyboard.isKeyDown(Keyboard.KEY_R))
+			{
+				CurrentPlayer().Reloading = true;
+			}
+			// Change weapon
+			if (Keyboard.isKeyDown(Keyboard.KEY_1))
+			{
+				CurrentPlayer().ChangeWeapon(1);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_2))
+			{
+				CurrentPlayer().ChangeWeapon(2);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_3))
+			{
+				CurrentPlayer().ChangeWeapon(3);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_4))
+			{
+				CurrentPlayer().ChangeWeapon(4);
+			}
 		}
 
 		// Update player's position even if it hasn't moved
