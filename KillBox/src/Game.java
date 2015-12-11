@@ -216,6 +216,7 @@ public class Game
 			{
 				// Change the default level
 				DefaultMap = args[CheckParam(args, "-level") + 1];
+				HeadCamera.TestingMap = true;
 			}
 
 			if (CheckParam(args, "-demo") >= 0)
@@ -754,7 +755,7 @@ public class Game
 				{
 					if (TicksCount > 1)
 					{
-						if (!HeadCamera.DemoMode)
+						if (!HeadCamera.DemoMode || HeadCamera.TestingMap)
 						{
 							// Make the player move even if it's not a multiplayer game
 							Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
@@ -768,9 +769,9 @@ public class Game
 								Lvl.Players.get(View).PosY(Lvl.Players.get(View).PosY() - 2);
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
 							}
-							else if (Lvl.Players.get(View).GetDegreeAngle() < 50)
+							else if (Lvl.Players.get(View).GetDegreeAngle() < 50 || Lvl.Players.get(View).GetDegreeAngle() >= 270)
 							{
-								Lvl.Players.get(View).AngleTurn((short)100);
+								Lvl.Players.get(View).Angle = (short)((Lvl.Players.get(View).Angle + 100) % Short.MAX_VALUE);
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
 							}
 							else if (Lvl.Players.get(View).PosX() > -860)
@@ -782,8 +783,6 @@ public class Game
 							{
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
 							}
-
-							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
 						}
 
 						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)

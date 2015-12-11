@@ -54,6 +54,7 @@ public class Camera
 	private boolean HasControl = false;
 	private boolean MenuKeyPressed = false;
 	public boolean DemoMode = false;
+	public boolean TestingMap = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -721,7 +722,7 @@ public class Camera
 
 				if (!Menu.InGame)
 				{
-					if (!DemoMode)
+					if (!DemoMode && !TestingMap)
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
@@ -809,13 +810,16 @@ public class Camera
 				else
 				{
 					// Draw the title screen
-					if (!DemoMode)
+					if (!DemoMode && !TestingMap)
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
 					if (!Menu.InGame && !Menu.IsServer && !Menu.IsClient && !Menu.MessageIsOnScreen())
 					{
-						Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+						if (!TestingMap)
+						{
+							Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+						}
 					}
 					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
 				}

@@ -352,7 +352,7 @@ spawn:
 thing:
 {
 	type: ak47;
-	x: -530;
+	x: -563;
 	y: 300;
 	z: 0;
 	angle: 0;
@@ -445,12 +445,12 @@ wall
 	z: 0;
 	
 	#droite bas
-	x: -512;
+	x: -536;
 	y: 0;
 	z: 0;
 	
 	#droite haut
-	x: -512;
+	x: -536;
 	y: 0;
 	z: 64;
 	
