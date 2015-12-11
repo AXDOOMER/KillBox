@@ -33,7 +33,11 @@ public class Player
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
 	int []MaxBulletsPerWeapon = {0, 10, 20, 30};
+	float []WeaponAccuracy = {0, 1 * (float)Math.PI / 180, 5 * (float)Math.PI / 180, 10 * (float)Math.PI / 180};
+	int []WeaponSpeed = {0, -1, 4, 2};
+	int WeaponTimeSinceLastShot = GetHighestWeaponSpeedFromArray() + 1;
 	int Bullets = MaxBulletsPerWeapon[1];
+	public boolean TriggerAlreadyPressed = false;
 
 	int Action = 0;
 
@@ -81,8 +85,10 @@ public class Player
 	boolean JustShot = false;	// Used in camera for the gun fire
 	int WeaponHeight = 0;
 	boolean Reloading = false;
+	boolean RaisingWeapon = false;		// When the weapon is moving down on the screen
+	boolean DroppingWeapon = false;		// When the weapon is moving up on the screen
 	boolean JustSpawned = false;
-
+	final int WeaponActionSpeed = 5;
 
 	boolean HasFlag = false;	// For the flagtag game mode
 	int Frame = 0;
@@ -110,6 +116,20 @@ public class Player
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
+	}
+
+	public int GetHighestWeaponSpeedFromArray()
+	{
+		int Max = 0;
+		for (int Index = 0; Index < WeaponSpeed.length; Index++)
+		{
+			if (WeaponSpeed[Index] > Max)
+			{
+				Max = WeaponSpeed[Index];
+			}
+		}
+
+		return Max;
 	}
 
 	public void LoadSprites()
@@ -195,7 +215,7 @@ public class Player
 	// For the network code only
 	public int ActionIsHasReload()
 	{
-		// Check if player has shot
+		// Check if player has reloaded
 		if (Reloading)
 		{
 			// Reset the state of this action
@@ -241,94 +261,127 @@ public class Player
 
 	public void SetShotTrue()
 	{
-		Shot = true;
-	}
-
-	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
-	{
-		// Play the good sound for the selected weapon
-		switch (SelectedWeapon)
+		if (CanShot())
 		{
-			case 1:
-				Emitter.PlaySound("pistol.wav", this);
-				break;
-			case 2:
-				Emitter.PlaySound("assaultrifle.wav", this);
-				break;
-			case 3:
-				Emitter.PlaySound("ak47.wav", this);
-				break;
-		}
-
-		Bullets--;
-
-		float Step = 2;		// Incremental steps at which the bullet checks for collision
-		int MaxChecks = 2048;		// Max check for the reach of a bullet
-		Shot = true;	// Set shot property tot he player so it's transmitted over the network
-		JustShot = true;	// Set to true so the gun fire is displayed in the camera
-		
-		// Start scanning from the player's position
-		float TravelX = this.PosX();
-		float TravelY = this.PosY();
-		float TravelZ = this.ViewZ;
-
-		// Move the bullet and check for collision
-		for (int Point = 0; Point < MaxChecks; Point++)
-		{
-			// Increment bullet position
-			TravelX = TravelX + Step * (float)Math.cos(HorizontalAngle);
-			TravelY = TravelY + Step * (float)Math.sin(HorizontalAngle);
-			//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
-
-			// Check if a wall was hit. Check for wall on a line between the player and the hit point.
-			if (CheckWallCollision(TravelX, TravelY, Step) == null)
+			if (WeaponSpeed[SelectedWeapon] < 0)
 			{
-				Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
-
-				// Check if something was really hit
-				if (Hit != null && Hit.Health > 0)
+				// Pistol
+				if (!TriggerAlreadyPressed)
 				{
-					// Spawn blood
-					Lvl.Things.add(new Thing("Blood", TravelX, TravelY, TravelZ));
-
-					// If the player who was hit is not dead
-					if (Hit.Health > 0)
-					{
-						// Damage him
-						Hit.DamageSelf(Damage, this.PosX(), this.PosY());
-
-						// Bullet has hit
-						Hits++;
-
-						// If he's dead
-						if (Hit.Health <= 0)
-						{
-							// Got a point
-							Kills++;
-
-							// Play death sound
-							Emitter.PlaySound("death.wav", Hit);
-
-							// Create a corpse
-							Lvl.Things.add(new Thing("DeadPlayer", Hit.PosX(), Hit.PosY(), Hit.PosZ()));
-
-							// Add one death to his counter
-							Hit.Deaths++;
-						}
-
-						return Hit;
-					}
+					Shot = true;
+					WeaponTimeSinceLastShot = 0;
 				}
 			}
 			else
 			{
-				// A wall was hit.
-				break;
+				// Tek9 and Ak47
+				if (WeaponTimeSinceLastShot >= WeaponSpeed[SelectedWeapon])
+				{
+					// If it wasn't shot for sometime, it can shot again.
+					Shot = true;
+					WeaponTimeSinceLastShot = 0;
+				}
 			}
 		}
+	}
 
-		// Bullet missed
-		Missed++;
+	public Player HitScan(float HorizontalAngle, float VerticalAngle, int Damage)
+	{
+		// Check if the weapon is ready to shot
+		if (this.CanShot())
+		{
+			// Play the good sound for the selected weapon
+			switch (SelectedWeapon)
+			{
+				case 1:
+					Emitter.PlaySound("pistol.wav", this);
+					break;
+				case 2:
+					Emitter.PlaySound("assaultrifle.wav", this);
+					break;
+				case 3:
+					Emitter.PlaySound("ak47.wav", this);
+					break;
+			}
+
+			// Pick the gun's accuracy. This will not create a cone, it will do a square.
+			//float HorizontalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
+			//float VerticalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
+
+			WeaponTimeSinceLastShot = 0;
+			Bullets--;
+
+			float Step = 2;        // Incremental steps at which the bullet checks for collision
+			int MaxChecks = 2048;        // Max check for the reach of a bullet
+			Shot = true;    // Set shot property tot he player so it's transmitted over the network
+			JustShot = true;    // Set to true so the gun fire is displayed in the camera
+
+			// Start scanning from the player's position
+			float TravelX = this.PosX();
+			float TravelY = this.PosY();
+			float TravelZ = this.ViewZ;
+
+			// Move the bullet and check for collision
+			for (int Point = 0; Point < MaxChecks; Point++)
+			{
+				// Increment bullet position
+				TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
+				TravelY = TravelY + Step * (float) Math.sin(HorizontalAngle);
+				//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
+
+				// Check if a wall was hit. Check for wall on a line between the player and the hit point.
+				if (CheckWallCollision(TravelX, TravelY, Step) == null)
+				{
+					Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+
+					// Check if something was really hit
+					if (Hit != null && Hit.Health > 0)
+					{
+						// Spawn blood
+						Lvl.Things.add(new Thing("Blood",
+								TravelX + (Randomizer.GiveNumber() % 5) - 2,
+								TravelY + (Randomizer.GiveNumber() % 5) - 2,
+								TravelZ - (Randomizer.GiveNumber() % 5)));
+
+						// If the player who was hit is not dead
+						if (Hit.Health > 0)
+						{
+							// Damage him
+							Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+
+							// Bullet has hit
+							Hits++;
+
+							// If he's dead
+							if (Hit.Health <= 0)
+							{
+								// Got a point
+								Kills++;
+
+								// Play death sound
+								Emitter.PlaySound("death.wav", Hit);
+
+								// Create a corpse
+								Lvl.Things.add(new Thing("DeadPlayer", Hit.PosX(), Hit.PosY(), Hit.PosZ()));
+
+								// Add one death to his counter
+								Hit.Deaths++;
+							}
+
+							return Hit;
+						}
+					}
+				}
+				else
+				{
+					// A wall was hit.
+					break;
+				}
+			}
+
+			// Bullet missed
+			Missed++;
+		}
 
 		return null;
 	}
@@ -1232,6 +1285,7 @@ public class Player
 		// The player always has a pistol (weapon index matches with the numerical key with which it is selected)
 		OwnedWeapons[1] = Thing.Names.Pistol;
 		SelectedWeapon = 1;
+		WeaponToSelect = 1;
 		SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
 	}
 
@@ -1323,71 +1377,119 @@ public class Player
 	{
 		if (Health > 0)
 		{
-			if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
+			if (!RaisingWeapon)
 			{
-				if (OwnedWeapons[Weapon] != null)
+				if (Weapon >= 0 && Weapon < MaxOwnedWeapons)
 				{
-					// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
-					if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+					if (OwnedWeapons[Weapon] != null)
 					{
-						WeaponToSelect = Weapon;
+						// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
+						if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
+						{
+							WeaponToSelect = Weapon;
+							Reloading = true;
+							DroppingWeapon = true;
+
+							// We don't want the player to shot
+							Shot = false;
+							JustShot = false;
+						}
 					}
 				}
 			}
 		}
 	}
 
+	public boolean CanShot()
+	{
+		// Check if the weapon is at the height it should be when it's ready to fire
+		// And check if the weapon is not being dropped or raised.
+		if (WeaponHeight == 0 && !DroppingWeapon && !RaisingWeapon && Health > 0)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	public void ExecuteChangeWeapon()
 	{
-		System.err.println(WeaponToSelect + "	" + SelectedWeapon);
+		//System.err.println(WeaponToSelect + "	" + SelectedWeapon);
 
-		if (WeaponToSelect != SelectedWeapon)
+		if (DroppingWeapon)
 		{
-			SelectedWeapon = WeaponToSelect;
+			WeaponHeight -= WeaponActionSpeed;
 
-			switch (SelectedWeapon)
+			if (WeaponHeight == -DefaultViewZ)
 			{
-				case 1:
-					SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
-					Bullets = MaxBulletsPerWeapon[1];
-					break;
-				case 2:
-					SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
-					Bullets = MaxBulletsPerWeapon[2];
-					break;
-				case 3:
-					SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
-					Bullets = MaxBulletsPerWeapon[3];
-					break;
+				DroppingWeapon = false;
+				RaisingWeapon = true;
+			}
+			else if (WeaponHeight < -DefaultViewZ)
+			{
+				DroppingWeapon = false;
+				RaisingWeapon = true;
+				System.err.println("The weapon went too far down during its reload animation.");
+			}
+		}
+		else if (RaisingWeapon)
+		{
+			WeaponHeight += WeaponActionSpeed;
+
+			if (WeaponHeight == 0)
+			{
+				RaisingWeapon = false;
+				Reloading = false;
+			}
+			else if (WeaponHeight > 0)
+			{
+				WeaponHeight = 0;
+				RaisingWeapon = false;
+				System.err.println("The weapon went too far up after its reload animation.");
+			}
+
+			Reloading = false;
+		}
+
+		if (RaisingWeapon && WeaponHeight <= -DefaultViewZ)
+		{
+			if (WeaponToSelect != SelectedWeapon)
+			{
+				SelectedWeapon = WeaponToSelect;
+
+				switch (SelectedWeapon)
+				{
+					case 1:
+						SelectedWeaponSprite = new Texture("res/weapons/pistol.png", Game.WallsFilter);
+						Bullets = MaxBulletsPerWeapon[1];
+						break;
+					case 2:
+						SelectedWeaponSprite = new Texture("res/weapons/tek9rifle.png", Game.WallsFilter);
+						Bullets = MaxBulletsPerWeapon[2];
+						break;
+					case 3:
+						SelectedWeaponSprite = new Texture("res/weapons/ak47.png", Game.WallsFilter);
+						Bullets = MaxBulletsPerWeapon[3];
+						break;
+				}
 			}
 		}
 	}
 
 	public void ReloadWeapon()
 	{
-		switch (SelectedWeapon)
+		// Check if the weapon is already being reloaded or if its being changed
+		// Use the "CanShot" method.
+		if (CanShot())
 		{
-			case 1:
-				if (Bullets != MaxBulletsPerWeapon[1])
-				{
-					Bullets = MaxBulletsPerWeapon[1];
-					Emitter.PlaySound("reload.wav", this);
-				}
-				break;
-			case 2:
-				if (Bullets != MaxBulletsPerWeapon[2])
-				{
-					Bullets = MaxBulletsPerWeapon[2];
-					Emitter.PlaySound("reload.wav", this);
-				}
-				break;
-			case 3:
-				if (Bullets != MaxBulletsPerWeapon[3])
-				{
-					Bullets = MaxBulletsPerWeapon[3];
-					Emitter.PlaySound("reload.wav", this);
-				}
-				break;
+			if (Bullets != MaxBulletsPerWeapon[SelectedWeapon])
+			{
+				Bullets = MaxBulletsPerWeapon[SelectedWeapon];
+				Emitter.PlaySound("reload.wav", this);
+
+				// This activates the weapon reload animation
+				DroppingWeapon = true;
+			}
 		}
 	}
 

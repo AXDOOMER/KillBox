@@ -98,7 +98,7 @@ public class Level
 							}
 						}
 					}
-					else if (Line.contains("wall") || Line.contains("plane") || Line.contains("floor") || Line.contains("slope"))
+					else if (Line.contains("wall") || Line.contains("floor") || Line.contains("ceiling") || Line.contains("plane") || Line.contains("slope"))
 					{
 						Planes.add(new Plane());
 						boolean NameIsSet = false;
@@ -110,6 +110,18 @@ public class Level
 							if (Line.contains("{"))
 							{
 								continue;
+							}
+							else if (Line.contains("x: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";"))));
+							}
+							else if (Line.contains("y: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";"))));
+							}
+							else if (Line.contains("z: "))
+							{
+								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";"))));
 							}
 							else if (Line.contains("2sided: "))
 							{
@@ -125,23 +137,11 @@ public class Level
 									Planes.get(Planes.size() - 1).Impassable(false);
 								}
 							}
-							else if (Line.contains("x: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";"))));
-							}
-							else if (Line.contains("y: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";"))));
-							}
-							else if (Line.contains("z: "))
-							{
-								Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";"))));
-							}
 							else if (Line.contains("texture: "))
 							{
 								Planes.get(Planes.size() - 1).SetTextureName(Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";")));
 								// The following line loads the textures if it needs to and sets a reference to it inside the plane.
-								Planes.get(Planes.size() - 1).SetReference(LoadTexture(Planes.get(Planes.size() - 1).TextureName));
+								Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/" + Planes.get(Planes.size() - 1).TextureName));
 								NameIsSet = true;
 							}
 							else if (Line.contains("light: "))
@@ -152,7 +152,7 @@ public class Level
 
 						if (!NameIsSet)
 						{
-							Planes.get(Planes.size() - 1).SetReference(LoadTexture("DOOR9_1.bmp"));
+							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/DOOR9_1.bmp"));
 						}
 					}
 					else if (Line.contains("spawn"))
@@ -322,7 +322,7 @@ public class Level
 							}
 						}
 
-						Things.add(new Thing("res/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
+						Things.add(new Thing("res/sprites/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
 					}
 					else
 					{
@@ -357,46 +357,40 @@ public class Level
 	private Texture LoadTexture(String Path)
 	{
 		// Add texture to the list if it's not already loaded.
-		// Search through the texture list. They are in the alphanetical order of the file names.
+		// Search through the texture list. They are in the alphabetical order of the file names.
 		int Search = 0;
 		String Name = Path.substring(Path.lastIndexOf('/') + 1);
 		Texture NewTexture = null;
 
 		while (Search >= 0 && Search < Textures.size())
 		{
-			// Result is -1 if smaller than, is 0 is equals and is 1 if is bigger than the compared string.
-			int Result = Textures.get(Search).Name().compareTo(Name);
+			// Check if the texture name at this position is the same as the new texture
+			boolean Same = Textures.get(Search).Name().equals(Name);
 
-			if (Result < 0)
+			if (!Same)
 			{
-				// Put it farther, so increase search index.
+				// Increase the search index because this is not the good texture.
 				Search++;
-			}
-			else if (Result == 0)
-			{
-				// It's already there.
-				NewTexture = Textures.get(Search);
-				Search = -1;
 			}
 			else
 			{
-				// This means we are farther than the texture that was looked for.
-				// Break because the right place was found.
-				break;
+				// Take the reference to the texture that's already there.
+				NewTexture = Textures.get(Search);
+				Search = -1;
 			}
 		}
 
-		if (Search == 0)
+		if (Search > 0)
+		{
+			// Add it there. Since the index of 'Search' is an element after the required position, one is subtracted.
+			NewTexture = new Texture("res/" + Path, Filter);
+			Textures.add(Search - 1, NewTexture);
+		}
+		else if (Search == 0)
 		{
 			// It's the only element, so it must be the first element.
 			NewTexture = new Texture("res/" + Path, Filter);
 			Textures.add(NewTexture);
-		}
-		else if (Search > 0)
-		{
-			// Add it there. Since the index of 'Search' is an element after the required position, one is substracted.
-			NewTexture = new Texture("res/" + Path, Filter);
-			Textures.add(Search - 1, NewTexture);
 		}
 
 		return NewTexture;
@@ -410,6 +404,17 @@ public class Level
 		{
 			// Give a change to every thing to update itself
 			if (!Things.get(Thing).Update(/*Planes, Things*/))
+			{
+				Things.remove(Thing);
+			}
+		}
+	}
+
+	public void RemoveTypeOfThingsFromLevel(Thing.Names Type)
+	{
+		for (int Thing = 0; Thing < Things.size(); Thing++)
+		{
+			if (Things.get(Thing).Type == Type)
 			{
 				Things.remove(Thing);
 			}

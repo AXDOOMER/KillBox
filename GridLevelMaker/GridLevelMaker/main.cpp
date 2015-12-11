@@ -295,21 +295,37 @@ int main(int argc, char *argv[])
 										{
 											// It's a thing
 
-											// Say which element it is
-											OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
-											OutputMap << Elements.at(Search) << ":" << endl;
-											OutputMap << "{" << endl;
-
-											// Set thing's properties
-											OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
-
-											OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
-
-											OutputMap << Tab << "z: 0;" << endl;
-
-											if (Element.find("spawn"))
+											if (Elements.at(Search) == "spawn")
 											{
+												// Say which element it is
+												OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
+												OutputMap << Elements.at(Search) << ":" << endl;
+												OutputMap << "{" << endl;
+
+												// Set thing's properties
+												OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "z: 0;" << endl;
+
 												OutputMap << Tab << "angle: 90;" << endl;
+											}
+											else
+											{
+												// Say which element it is
+												OutputMap << "# Thing at X=" << HorizontalPos << " and Y=" << NumberOfReadLine << endl;
+												OutputMap << "thing" << ":" << endl;
+												OutputMap << "{" << endl;
+
+												OutputMap << Tab << "type: " << Elements.at(Search) << ";" << endl;
+
+												// Set thing's properties
+												OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize / 2 << ";" << endl;
+
+												OutputMap << Tab << "z: 0;" << endl;
 											}
 										}
 
@@ -329,11 +345,245 @@ int main(int argc, char *argv[])
 							}
 						}
 
+						// Do the floors and ceilings
+						// But first, do the floors
+						if (argc > 4)
+						{
+							ifstream FloorGrid(argv[4]);
+
+							// Open the floors file
+							if (FloorGrid.is_open())
+							{
+								cout << "Building floors..." << endl;
+
+								// Read line by line the floors to add to the level
+								int NumberOfReadLine = 0;
+								while (getline(FloorGrid, Line))
+								{
+									NumberOfReadLine++;
+
+									if (NumberOfReadLine <= Height)
+									{
+										if (Line.size() >= Width)
+										{
+											for (int HorizontalPos = 0; HorizontalPos < Width; HorizontalPos++)
+											{
+												// Get a character from the grid and create a floor.
+												int Search = 0;
+												bool Found = false;
+												string Element = "";
+
+												if (Line[HorizontalPos] == ' ')
+												{
+													// This is an empty block
+													continue;
+												}
+
+												while (Search < Symbols.size())
+												{
+													// Search for the symbol in our symbol list
+													if (Line[HorizontalPos] == Symbols.at(Search))
+													{
+														Found = true;
+
+														// Get the element's name
+														Element = Elements.at(Search);
+
+														break;
+													}
+
+													Search++;
+												}
+
+												if (!Found)
+												{
+													// Symbol was not found...
+													cout << "ERROR: A symbol was not defined. X=" << HorizontalPos << " Y=" << NumberOfReadLine << endl;
+												}
+												// Check if the element name has an extension. 
+												else if (Element.size() > 4 && Element.at(Element.size() - 4) == '.')
+												{
+													// It's a floor
+
+													// Say which element it is
+													OutputMap << "floor_forblock_x" << HorizontalPos << "_y" << NumberOfReadLine << ":" << endl;
+													OutputMap << "{" << endl;
+
+													// Set floor's properties
+													OutputMap << Tab << "2sided: false;" << endl;
+													OutputMap << Tab << "impassable: false;" << endl;
+													OutputMap << Tab << "texture: " << Element << ";" << endl;
+
+													// Vertex #1
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 0 << ";" << endl;
+
+													// Vertex #2
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 0 << ";" << endl;
+
+													// Vertex #3
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 0 << ";" << endl;
+
+													// Vertex #4
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 0 << ";" << endl;
+
+													// Close the element. 
+													OutputMap << "}" << endl;
+													OutputMap << endl;
+												}
+												// Check if were are not seeking for an invalid item
+												else
+												{
+													cout << "ERROR: Bad element read from floors file." << endl;
+												}
+											}
+										}
+										else
+										{
+											cout << "ERROR: Not enough elements on line for the specified grid width." << endl;
+										}
+									}
+									else
+									{
+										cout << "ERROR: Read to much lines for the specified map height." << endl;
+									}
+								}
+
+								// Close the file
+								FloorGrid.close();
+							}
+						}
+
+						// Now, do the ceilings
+						if (argc > 5)
+						{
+							ifstream CeilingGrid(argv[5]);
+
+							// Open the floors file
+							if (CeilingGrid.is_open())
+							{
+								cout << "Building ceilings..." << endl;
+
+								// Read line by line the floors to add to the level
+								int NumberOfReadLine = 0;
+								while (getline(CeilingGrid, Line))
+								{
+									NumberOfReadLine++;
+
+									if (NumberOfReadLine <= Height)
+									{
+										if (Line.size() >= Width)
+										{
+											for (int HorizontalPos = 0; HorizontalPos < Width; HorizontalPos++)
+											{
+												// Get a character from the grid and create a ceiling.
+												int Search = 0;
+												bool Found = false;
+												string Element = "";
+
+												if (Line[HorizontalPos] == ' ')
+												{
+													// This is an empty block
+													continue;
+												}
+
+												while (Search < Symbols.size())
+												{
+													// Search for the symbol in our symbol list
+													if (Line[HorizontalPos] == Symbols.at(Search))
+													{
+														Found = true;
+
+														// Get the element's name
+														Element = Elements.at(Search);
+
+														break;
+													}
+
+													Search++;
+												}
+
+												if (!Found)
+												{
+													// Symbol was not found...
+													cout << "ERROR: A symbol was not defined. X=" << HorizontalPos << " Y=" << NumberOfReadLine << endl;
+												}
+												// Check if the element name has an extension. 
+												else if (Element.size() > 4 && Element.at(Element.size() - 4) == '.')
+												{
+													// It's a ceiling
+
+													// Say which element it is
+													OutputMap << "ceiling_forblock_x" << HorizontalPos << "_y" << NumberOfReadLine << ":" << endl;
+													OutputMap << "{" << endl;
+
+													// Set ceiling's properties
+													OutputMap << Tab << "2sided: false;" << endl;
+													OutputMap << Tab << "impassable: false;" << endl;
+													OutputMap << Tab << "texture: " << Element << ";" << endl;
+
+													// Vertex #1
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 64 << ";" << endl;
+
+													// Vertex #2
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 64 << ";" << endl;
+
+													// Vertex #3
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 64 << ";" << endl;
+
+													// Vertex #4
+													OutputMap << Tab << "x: " << HorizontalPos * BlockSize + BlockSize << ";" << endl;
+													OutputMap << Tab << "y: -" << NumberOfReadLine * BlockSize << ";" << endl;
+													OutputMap << Tab << "z: " << 64 << ";" << endl;
+
+													// Close the element. 
+													OutputMap << "}" << endl;
+													OutputMap << endl;
+												}
+												// Check if were are not seeking for an invalid item
+												else
+												{
+													cout << "ERROR: Bad element read from ceilings file." << endl;
+												}
+											}
+										}
+										else
+										{
+											cout << "ERROR: Not enough elements on line for the specified grid width." << endl;
+										}
+									}
+									else
+									{
+										cout << "ERROR: Read to much lines for the specified map height." << endl;
+									}
+								}
+
+								// Close the file
+								CeilingGrid.close();
+							}
+						}
+
+						// Close the output map
 						OutputMap.close();
 					}
-					catch (...)
+					catch (exception e)
 					{
 						cout << "ERROR: An exception has occured. Your text files don't follow the good format." << endl;
+						cout << "Here's a hint that may help to see where it occured in the source code: " << endl;
+						cout << e.what() << endl;
 					}
 
 					cout << "Closing the map file... ";
@@ -360,9 +610,11 @@ int main(int argc, char *argv[])
 		cout << "Grid Level Maker" << endl << endl;
 		cout << "This tool converts grid level to a mesh a polygons for KillBox." << endl;
 		cout << "How to use: Open a console or a terminal and invoke the program." << endl << endl;
-		cout << "GridLevelMaker.exe [def] [lvl] [out]" << endl << endl;
+		cout << "GridLevelMaker.exe [def] [lvl] [out] [flr] [cel]" << endl << endl;
 		cout << "The 'def' file contains the definitions of objects on the grid." << endl;
 		cout << "The 'lvl' file contains the objects in a grid." << endl;
-		cout << "The 'out' file is were the resulting polygonal level will go." << endl << endl;
+		cout << "The 'out' file is were the resulting polygonal level will go."  << endl;
+		cout << "The 'flr' file is optinal and is used for the floors." << endl;
+		cout << "The 'cel' file is optinal and is used for the ceilings." << endl << endl;
 	}
 }

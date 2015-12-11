@@ -1,0 +1,8 @@
+#: cut-top_haystraw.png
+": cut-half_haystraw.png
+0: straw.jpg
+=: straw_dark.jpg
+
+^: spawn
+a: ak47
+t: tek9

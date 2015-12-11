@@ -53,6 +53,7 @@ public class Camera
 
 	private boolean HasControl = false;
 	private boolean MenuKeyPressed = false;
+	public boolean DemoMode = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -276,14 +277,16 @@ public class Camera
 			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 			{
-				JustPressedFireKey = true;
 				if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
 				{
 					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
 					CurrentPlayer().SetShotTrue();
+					Plyr.TriggerAlreadyPressed = true;
 				}
 				else
 				{
+					JustPressedFireKey = true;
+
 					// Check if the player has completely dropped on the floor
 					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
 					{
@@ -304,38 +307,40 @@ public class Camera
 					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
 			{
 				JustPressedFireKey = true;
+				Plyr.TriggerAlreadyPressed = true;
 			}
 			else
 			{
 				JustPressedFireKey = false;
+				Plyr.TriggerAlreadyPressed = false;
 			}
 
 			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
 			{
 				Menu.UserWantsToExit = true;
 			}
-		}
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_R))
-		{
-			CurrentPlayer().Reloading = true;
-		}
-		// Change weapon
-		if (Keyboard.isKeyDown(Keyboard.KEY_1))
-		{
-			CurrentPlayer().ChangeWeapon(1);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_2))
-		{
-			CurrentPlayer().ChangeWeapon(2);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_3))
-		{
-			CurrentPlayer().ChangeWeapon(3);
-		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_4))
-		{
-			CurrentPlayer().ChangeWeapon(4);
+			if (Keyboard.isKeyDown(Keyboard.KEY_R))
+			{
+				CurrentPlayer().Reloading = true;
+			}
+			// Change weapon
+			if (Keyboard.isKeyDown(Keyboard.KEY_1))
+			{
+				CurrentPlayer().ChangeWeapon(1);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_2))
+			{
+				CurrentPlayer().ChangeWeapon(2);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_3))
+			{
+				CurrentPlayer().ChangeWeapon(3);
+			}
+			else if (Keyboard.isKeyDown(Keyboard.KEY_4))
+			{
+				CurrentPlayer().ChangeWeapon(4);
+			}
 		}
 
 		// Update player's position even if it hasn't moved
@@ -437,7 +442,7 @@ public class Camera
 
 		// Alpha sorting
 		glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-		glAlphaFunc(GL_GREATER, 0.0f);
+		glAlphaFunc(GL_GREATER, 0.9f);		// This value is for the walls
 		glEnable(GL_ALPHA_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Tells how to calculate the color of blended pixels
@@ -510,19 +515,20 @@ public class Camera
 						glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 						glBegin(GL_QUADS);
 						{
-							//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
 							float LookAt = this.RotY * (float) Math.PI * 2 / 360;
 							float Divergent = LookAt - (float) Math.PI / 2;
+							float CosDivergent = (float)Math.cos(Divergent);
+							float SinDivergent = (float)Math.sin(Divergent);
 
-							float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+							float[] SpriteX = {	Lvl.Things.get(Thing).PosX() - CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() + CosDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosX() - CosDivergent * (float)Lvl.Things.get(Thing).Radius() };
 
-							float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius(),
-									Lvl.Things.get(Thing).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Things.get(Thing).Radius() };
+							float[] SpriteY = {	Lvl.Things.get(Thing).PosY() - SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() + SinDivergent * (float)Lvl.Things.get(Thing).Radius(),
+									Lvl.Things.get(Thing).PosY() - SinDivergent * (float)Lvl.Things.get(Thing).Radius() };
 
 							float[] SpriteZ = {	Lvl.Things.get(Thing).PosZ(),
 									Lvl.Things.get(Thing).PosZ(),
@@ -559,8 +565,6 @@ public class Camera
 
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
-					//float LookAngleDiff = this.RotY() - Lvl.Players.get(Player).GetDegreeAngle();
-
 					float LookAngleDiff = (float)Math.atan2(this.CurrentPlayer().PosY() - Lvl.Players.get(Player).PosY(), this.CurrentPlayer().PosX() - Lvl.Players.get(Player).PosX());
 					// Convert to degrees
 					LookAngleDiff = ((LookAngleDiff * 180 / (float)Math.PI) + (180 - Lvl.Players.get(Player).GetDegreeAngle())) % 360;
@@ -569,7 +573,7 @@ public class Camera
 					Lvl.Players.get(Player).WalkFrames.get(0).Bind();	// Default
 					int CurrentFrameIndex = 0;
 
-					if (Lvl.Players.get(Player).JustShot())
+					if (Lvl.Players.get(Player).JustShot() || Lvl.Players.get(Player).WeaponTimeSinceLastShot < 5)
 					{
 						CurrentFrameIndex = 40;
 					}
@@ -667,19 +671,20 @@ public class Camera
 					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 					glBegin(GL_QUADS);
 					{
-						//float LookAt = Plyr.Angle * (float) Math.PI * 2 / 32768;
 						float LookAt = this.RotY * (float) Math.PI * 2 / 360;
 						float Divergent = LookAt - (float) Math.PI / 2;
+						float CosDivergent = (float)Math.cos(Divergent);
+						float SinDivergent = (float)Math.sin(Divergent);
 
-						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() - (float)Math.cos(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius() };
 
-						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() - (float)Math.sin(Divergent) * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
+								Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius() };
 
 						float[] SpriteZ = {	Lvl.Players.get(Player).PosZ(),
 								Lvl.Players.get(Player).PosZ(),
@@ -698,6 +703,9 @@ public class Camera
 				glPopMatrix();
 			}
 
+			// Change the alpha for the sprites that are drawn on the screen
+			glAlphaFunc(GL_GREATER, 0.0f);
+
 			// If menu is Show
 			if(Menu.Active())
 			{
@@ -710,6 +718,16 @@ public class Camera
 
 				// Disable depth so that element are written on the same level
 				glDisable(GL_DEPTH_TEST);
+
+				if (!Menu.InGame)
+				{
+					if (!DemoMode)
+					{
+						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+					}
+					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
+				}
+
 				// Set Draw cursor to Top-Left
 				glTranslatef(-1f, 1f, 0.0f);
 
@@ -741,54 +759,70 @@ public class Camera
 
 				glDisable(GL_TEXTURE_2D);
 
-				// HUD
-				if(Menu.ShowHud.Bool())
-					Menu.ShowHUD(Plyr);
+				if (Menu.InGame)
+				{
+					// HUD
+					if (Menu.ShowHud.Bool())
+						Menu.ShowHUD(Plyr, Plyr.CanShot());
+
+					// Temporary solution to draw the gun fire
+					if (CurrentPlayer().JustShot())
+					{
+						Menu.DrawTexture(CurrentPlayer().GunFire, 34, 34, 32, 16);
+					}
+
+					// Draw a weapon
+					switch (CurrentPlayer().SelectedWeapon)
+					{
+						case 1:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
+							break;
+						case 2:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
+							break;
+						case 3:
+							Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 241 / 8, 293 / 7);
+							break;
+					}
+
+					// Show the scores on the screen
+					if (Lvl.Players.size() > 1 && Menu.InGame == true)
+					{
+						if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
+						{
+							Menu.ShowScoreTable(Lvl.Players());
+						}
+					}
+
+					if (Menu.FreeLook() && Plyr.CanShot())
+					{
+						Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
+					}
+
+					if (Menu.ShowDebug())
+					{
+						Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle() + "'", 0, 4, 3, 3);
+						Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
+						Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
+					}
+				}
+				else
+				{
+					// Draw the title screen
+					if (!DemoMode)
+					{
+						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
+					}
+					if (!Menu.InGame && !Menu.IsServer && !Menu.IsClient && !Menu.MessageIsOnScreen())
+					{
+						Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+					}
+					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
+				}
 
 				// Draw a message if there is one
 				if(Menu.ShowMessage.Bool())
-				Menu.DrawMessage();
-
-				// Temporary solution to draw the gun fire
-				if (CurrentPlayer().JustShot())
-				{
-					Menu.DrawTexture(CurrentPlayer().GunFire, 34, 34, 32, 16);
-				}
-
-				// Draw a weapon
-				switch (CurrentPlayer().SelectedWeapon)
-				{
-					case 1:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
-						break;
-					case 2:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 30.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 310 / 9.5, 358 / 8);
-						break;
-					case 3:
-						Menu.DrawTexture(CurrentPlayer().SelectedWeaponSprite, 36.5, CurrentPlayer().WeaponHeight - CurrentPlayer().DifferenceViewZ() * 2, 241 / 8, 293 / 7);
-						break;
-				}
-
-				// Show the scores on the screen
-				if (Lvl.Players.size() > 1 && Menu.InGame == true)
-				{
-					if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
-					{
-						Menu.ShowScoreTable(Lvl.Players());
-					}
-				}
-
-				if (Menu.FreeLook())
-				{
-					Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
-				}
-
-				if (Menu.ShowDebug())
-				{
-					Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle(), 0, 4, 3, 3);
-					Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
-					Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
-				}
+					Menu.DrawMessage();
 
 				// Draw all element
 				glFlush();

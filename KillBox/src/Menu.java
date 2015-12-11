@@ -36,8 +36,8 @@ public class Menu
 {
 	public boolean UserWantsToExit = false;
 
-	String GameVersion = "v2.??? (Beta)";
-	String LastUpdate = "november 22th 2015";
+	String GameVersion = "v2.??? (Pre-final Beta)";
+	String LastUpdate = "december 2nd 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -54,6 +54,7 @@ public class Menu
 
 	public Sound SoundOut = null;
 	Texture BulletForHUD = new Texture("res/sprites/bullet.png", GL_NEAREST);
+	Texture TitleScreen = new Texture ("res/textures/title.jpg", GL_LINEAR);	// Load the title screen
 
 	public void SetSoundOut(Sound NewSoundOut)
 	{
@@ -3011,6 +3012,10 @@ public class Menu
 							// Connect to server
 							ConnectToServer();
 							InGame = false;
+
+							// Message saying it's joining the server
+							NewMessageToShow("Joining the game...");
+							MessageTime = MaxMessageTime - 1;
 						}
 						else
 						{
@@ -4313,7 +4318,7 @@ public class Menu
 		MessageTime = 0;
 	}
 
-	public void ShowHUD(Player CurrentPlayer)
+	public void ShowHUD(Player CurrentPlayer, boolean HideBulletCount)
 	{
 		if (CurrentPlayer.Health > 0)
 		{
@@ -4323,12 +4328,15 @@ public class Menu
 			// Bullet
 			DrawTexture(BulletForHUD, 90, 5, 4, 24);
 			// Number of bullets
-			if (CurrentPlayer.Bullets >= 100)
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
-			else if (CurrentPlayer.Bullets >= 10)
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
-			else
-				DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+			if (HideBulletCount)
+			{
+				if (CurrentPlayer.Bullets >= 100)
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 70, 7, 5, 15);
+				else if (CurrentPlayer.Bullets >= 10)
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 75, 7, 5, 15);
+				else
+					DrawText(Integer.toString(CurrentPlayer.Bullets), 80, 7, 5, 15);
+			}
 
 			// Health text
 			// DrawText("health", 2, 15, 3, 3);
@@ -4448,6 +4456,16 @@ public class Menu
 				MessageTime++;
 			}
 		}
+	}
+
+	public boolean MessageIsOnScreen()
+	{
+		if (MessageTime >= MaxMessageTime)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	// Can be used to draw messages on the screen (2D texture or menu must be initialized or it will cause glitches)

@@ -1,0 +1,461 @@
+#maison
+wall006:
+{
+	texture: old_florence_building_2_20131004_1821733595.jpg;
+	2sided: true;
+	impassable: true;
+	# MUR 1
+	x: 100;
+	y: 1840;
+	z: 0;
+	x: 100;
+	y: 1200;
+	z: 0;
+	x: 100;
+	y: 1200;
+	z: 320;
+	x: 100;
+	y: 1840;
+	z: 320;
+}
+
+wall007:
+{
+	texture: old_florence_building_2_20131004_1821733595.jpg;
+	2sided: true;
+	impassable: true;
+	# MUR 2
+	x: 740;
+	y: 1840;
+	z: 0;
+	x: 740;
+	y: 1200;
+	z: 0;
+	x: 740;
+	y: 1200;
+	z: 320;
+	x: 740;
+	y: 1840;
+	z: 320;
+}
+
+wall008:
+{
+	texture: old_florence_building_2_20131004_1821733595.jpg;
+	2sided: true;
+	impassable: true;
+	# MUR 3
+	x: 100;
+	y: 1840;
+	z: 0;
+
+	x: 740;
+	y: 1840;
+	z: 0;
+
+	x: 740;
+	y: 1840;
+	z: 320;
+
+	x: 100;
+	y: 1840;
+	z: 320;
+}
+
+wall009:
+{
+	texture: old_florence_building_2_20131004_1821733595.jpg;
+	2sided: true;
+	impassable: true;
+	# MUR 4
+	x: 100;
+	y: 1200;
+	z: 0;
+
+	x: 740;
+	y: 1200;
+	z: 0;
+
+	x: 740;
+	y: 1200;
+	z: 320;
+
+	x: 100;
+	y: 1200;
+	z: 320;
+}
+
+wall010:
+{
+	texture: 27427831.jpg;
+	2sided: true;
+	impassable: true;
+	# TOIT 1
+	x: 100;
+	y: 1200;
+	z: 320;
+
+	x: 100;
+	y: 1840;
+	z: 320;
+
+	x: 420;
+	y: 1840;
+	z: 384;
+
+	x: 420;
+	y: 1200;
+	z: 384;
+}
+
+
+wall011:
+{
+	texture: 27427831.jpg;
+	2sided: true;
+	impassable: true;
+	# TOIT 2
+	x: 740;
+	y: 1200;
+	z: 320;
+
+	x: 740;
+	y: 1840;
+	z: 320;
+
+	x: 420;
+	y: 1840;
+	z: 384;
+
+	x: 420;
+	y: 1200;
+	z: 384;
+}
+
+
+
+plane019:
+{
+	# bas du mur
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#arrière
+	x: -1024;
+	y: 0;
+	z: 84;
+
+	#avant
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#avant en bas
+	x: -512;
+	y: 0;
+	z: 0;
+		
+	#arrière en bas
+	x: -1024;
+	y: 0;
+	z: 0;
+}
+
+plane020:
+{
+	#mur du top
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#droite bas
+	x: -1024;
+	y: 0;
+	z: 84;
+	
+	#droite haut
+	x: -1024;
+	y: -72;
+	z: 112;
+	
+	#gauche haut
+	x: -512;
+	y: -72;
+	z: 84;
+}
+
+plane021:
+{
+	#bouchon à l'avant
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: -72;
+	z: 0;
+	
+	#droite bas
+	x: -512;
+	y: 0;
+	z: 0;
+	
+	#droite haut
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#gauche haut
+	x: -512;
+	y: -72;
+	z: 84;
+}
+
+plane022:
+{
+	#côte à l'arrière
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -1024;
+	y: 0;
+	z: 0;
+	
+	#droite bas
+	x: -1024;
+	y: 512;
+	z: 0;
+	
+	#droite haut
+	x: -1218;
+	y: 512;
+	z: 152;
+	
+	#gauche haut
+	x: -1218;
+	y: -128;
+	z: 152;
+}
+
+plane023:
+{
+	#croche dans la section gauche
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	x: -1218;
+	y: -128;
+	z: 152;
+		
+	x: -1024;
+	y: -72;
+	z: 112;
+	
+	x: -1024;
+	y: 0;
+	z: 84;
+	
+	x: -1024;
+	y: 0;
+	z: 0;
+}
+
+plane0017
+{
+	texture: grass2.jpg;
+
+	2sided: false;
+	impassable: true;
+
+	#on doit déssinner dans le sens anti-horaire
+	x: -1024;
+	y: 0;
+	z: 0;
+
+	x: -512;
+	y: 0;
+	z: 0;
+
+	x: -512;
+	y: 512;
+	z: 0;
+
+	x: -1024;
+	y: 512;
+	z: 0;
+}
+
+palmtree
+{
+	impassable: true;
+	sprite: nyar40.png;
+	radius: 24;
+	light: 255;
+	x: -896;
+	y: 386;
+	z: 0;
+}
+
+smallpalmtree
+{
+	texture: palm_tree_PNG2494.png;
+	light: 255;
+	radius: 32;
+	x: -640;
+	y: 128;
+	z: 0;
+	impassable: true;
+}
+
+spawn:
+{
+	x: -700;
+	y: 400;
+	z: 0;
+	angle: 270;
+}
+
+spawn:
+{
+	x: -750;
+	y: 400;
+	z: 0;
+	angle: 270;
+}
+
+spawn:
+{
+	x: -800;
+	y: 400;
+	z: 0;
+	angle: 270;
+}
+
+spawn:
+{
+	x: -850;
+	y: 400;
+	z: 0;
+	angle: 270;
+}
+
+thing:
+{
+	type: ak47;
+	x: -530;
+	y: 300;
+	z: 0;
+	angle: 0;
+}
+
+thing:
+{
+	type: tek9;
+	x: -937;
+	y: 490;
+	z: 0;
+	angle: 0;
+}
+
+thing:
+{
+	type: flag;
+	x: -1000;
+	y: 10;
+	z: 0;
+	angle: 0;
+}
+
+wall
+{
+	#côte de la maison
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -1024;
+	y: 512;
+	z: 0;
+	
+	#droite bas
+	x: -512;
+	y: 512;
+	z: 0;
+	
+	#droite haut
+	x: -512;
+	y: 512;
+	z: 59;
+	
+	#gauche haut
+	x: -1218;
+	y: 512;
+	z: 114;
+}
+
+walldoor
+{
+	#gate: porte extérieure
+	texture: DOOR9_1.bmp;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: 512;
+	z: 0;
+	
+	#droite bas
+	x: -512;
+	y: 448;
+	z: 0;
+	
+	#droite haut
+	x: -512;
+	y: 448;
+	z: 64;
+	
+	#gauche haut
+	x: -512;
+	y: 512;
+	z: 64;
+}
+
+wall
+{
+	#côte de la maison mais plus vers l'extérieure
+	texture: Rust-Brown.jpg;
+	2sided: false;
+	impassable: true;
+	
+	#gauche bas
+	x: -512;
+	y: 448;
+	z: 0;
+	
+	#droite bas
+	x: -512;
+	y: 0;
+	z: 0;
+	
+	#droite haut
+	x: -512;
+	y: 0;
+	z: 64;
+	
+	#gauche haut
+	x: -512;
+	y: 448;
+	z: 59;
+}

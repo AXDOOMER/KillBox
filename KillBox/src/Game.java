@@ -29,8 +29,8 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox v2.??? (Bêta)");
-		System.out.println("			======================");
+		System.out.println("			KillBox v2.??? (Pre-Final Beta)");
+		System.out.println("			===============================");
 
 		// Nodes are computers where there is a player
 		int Nodes = 1;
@@ -212,7 +212,19 @@ public class Game
 				}
 			}
 
-			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);
+			if (CheckParam(args, "-level") >= 0)
+			{
+				// Change the default level
+				DefaultMap = args[CheckParam(args, "-level") + 1];
+			}
+
+			if (CheckParam(args, "-demo") >= 0)
+			{
+				HeadCamera.DemoMode = true;
+				DefaultMap = "demo-bidon.txt";
+			}
+
+			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);		// Load the level
 
 			// Players will spawn at random locations
 			for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -285,6 +297,7 @@ public class Game
 					for (int Player = 0; Player < Lvl.Players.size(); Player++)
 					{
 						Lvl.Players.get(Player).UpdateIfDead();
+						Lvl.Players.get(Player).WeaponTimeSinceLastShot++;
 					}
 
 					// Look for a winner
@@ -471,7 +484,6 @@ public class Game
 
 										Lvl.Players.get(View).JustSpawned = false;
 
-										System.err.println("1: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
@@ -530,7 +542,6 @@ public class Game
 
 										Lvl.Players.get(Number).JustSpawned = false;
 
-										System.err.println("2: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the if)i'm the server");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
@@ -591,7 +602,6 @@ public class Game
 
 										Lvl.Players.get(Number).JustSpawned = false;
 
-										System.err.println("3: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(Number) (the else)I'm the client");
 										// Change weapon 1
 										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
 										{
@@ -649,8 +659,7 @@ public class Game
 										}
 
 										Lvl.Players.get(View).JustSpawned = false;
-										
-										System.err.println("4: " + NetplayInfo.PlayerCommand.Actions + "		Lvl.Players.get(View) (the else)I'm the client");
+
 										// Change weapon 1
 										if (NetplayInfo.PlayerCommand.Actions == 1)
 										{
@@ -745,18 +754,45 @@ public class Game
 				{
 					if (TicksCount > 1)
 					{
-						// Make the player move even if it's not a multiplayer game
-						Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
-						Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
-						Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						if (!HeadCamera.DemoMode)
+						{
+							// Make the player move even if it's not a multiplayer game
+							Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
+							Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
+							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						}
+						else
+						{
+							if (Lvl.Players.get(View).PosY() > 100)
+							{
+								Lvl.Players.get(View).PosY(Lvl.Players.get(View).PosY() - 2);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
+							}
+							else if (Lvl.Players.get(View).GetDegreeAngle() < 50)
+							{
+								Lvl.Players.get(View).AngleTurn((short)100);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
+							}
+							else if (Lvl.Players.get(View).PosX() > -860)
+							{
+								Lvl.Players.get(View).PosX(Lvl.Players.get(View).PosX() - 2);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
+							}
+							else if (Lvl.Players.get(View).PosZ() > 0)
+							{
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
+							}
 
-						if (Lvl.Players.get(View).ActionIsHasShot() == 100)
+							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						}
+
+						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)
 						{
 							if (Lvl.Players.get(View).Health > 0)
 							{
 								Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
 							}
-						}
+						}*/
 					}
 					// Kill inactive players
 					/*for (int Player = 0; Player < Lvl.Players.size(); Player++)
@@ -820,6 +856,12 @@ public class Game
 							Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
+
+							// If we are not playing flagtag
+							if (HeadCamera.Menu.GameMode != 2)
+							{
+								Lvl.RemoveTypeOfThingsFromLevel(Thing.Names.Flag);
+							}
 
 							// The game will start, don't need this anymore. Reset to default value.
 							HeadCamera.Menu.IsServer = false;
@@ -897,6 +939,12 @@ public class Game
 							SndDriver.SetNewListener(Lvl.Players.get(View));
 
 							Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
+
+							// If we are not playing flagtag
+							if (HeadCamera.Menu.GameMode != 2)
+							{
+								Lvl.RemoveTypeOfThingsFromLevel(Thing.Names.Flag);
+							}
 						}
 						else
 						{
@@ -945,6 +993,17 @@ public class Game
 					{
 						// Set the control to its own view
 						HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
+					}
+				}
+
+				if (CheckParam(args, "-gc") >= 0)
+				{
+					// Asks for the garbage collector every 5 seconds.
+					// Java may choose not to do the garbage collection anyway.
+					if (TicksCount % (FrameRate * 5) == 0)
+					{
+						System.gc();
+						//System.runFinalization();
 					}
 				}
 
