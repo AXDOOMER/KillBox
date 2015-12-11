@@ -54,6 +54,7 @@ public class Camera
 	private boolean HasControl = false;
 	private boolean MenuKeyPressed = false;
 	public boolean DemoMode = false;
+	public boolean TestingMap = false;
 
 	// Key presses
 	private boolean JustPressedFilterKey = false;
@@ -327,19 +328,19 @@ public class Camera
 			// Change weapon
 			if (Keyboard.isKeyDown(Keyboard.KEY_1))
 			{
-				CurrentPlayer().ChangeWeapon(1);
+				CurrentPlayer().WeaponToUse = 1;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_2))
 			{
-				CurrentPlayer().ChangeWeapon(2);
+				CurrentPlayer().WeaponToUse = 2;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_3))
 			{
-				CurrentPlayer().ChangeWeapon(3);
+				CurrentPlayer().WeaponToUse = 3;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_4))
 			{
-				CurrentPlayer().ChangeWeapon(4);
+				CurrentPlayer().WeaponToUse = 4;
 			}
 		}
 
@@ -721,7 +722,7 @@ public class Camera
 
 				if (!Menu.InGame)
 				{
-					if (!DemoMode)
+					if (!DemoMode && !TestingMap)
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
@@ -763,7 +764,9 @@ public class Camera
 				{
 					// HUD
 					if (Menu.ShowHud.Bool())
+					{
 						Menu.ShowHUD(Plyr, Plyr.CanShot());
+					}
 
 					// Temporary solution to draw the gun fire
 					if (CurrentPlayer().JustShot())
@@ -809,13 +812,16 @@ public class Camera
 				else
 				{
 					// Draw the title screen
-					if (!DemoMode)
+					if (!DemoMode && !TestingMap)
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
 					if (!Menu.InGame && !Menu.IsServer && !Menu.IsClient && !Menu.MessageIsOnScreen())
 					{
-						Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+						if (!TestingMap)
+						{
+							Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
+						}
 					}
 					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
 				}

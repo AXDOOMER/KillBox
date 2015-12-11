@@ -216,6 +216,7 @@ public class Game
 			{
 				// Change the default level
 				DefaultMap = args[CheckParam(args, "-level") + 1];
+				HeadCamera.TestingMap = true;
 			}
 
 			if (CheckParam(args, "-demo") >= 0)
@@ -405,7 +406,7 @@ public class Game
 							// Encode...
 							Action += Lvl.Players.get(View).ActionIsHasShot();
 							Action += Lvl.Players.get(View).ActionIsHasReload();
-							Action += Lvl.Players.get(View).SelectedWeapon;
+							Action += Lvl.Players.get(View).WeaponToUse;
 
 							// Put the players' move in a command
 							NetplayInfo.PlayerCommand.UpdateAngleDiff(Lvl.Players.get(View).AngleDiff);
@@ -416,293 +417,7 @@ public class Game
 							Lvl.Players.get(View).Action = NetplayInfo.PlayerCommand.Actions;
 
 							// Do the network communication through the socket
-							if (NetplayInfo.Update())
-							{
-								// Update the other player movements
-								for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
-								{
-									int Number = NetplayInfo.OtherPlayersCommand.get(Player).PlayerNumber;
-
-									if (TicksCount > 1)
-									{
-										// Not allowing movements on the first tick prevents a bug when player may move before the game has even started.
-										Lvl.Players.get(Number).ForwardMove(NetplayInfo.OtherPlayersCommand.get(Player).FaceMove);
-										Lvl.Players.get(Number).LateralMove(NetplayInfo.OtherPlayersCommand.get(Player).SideMove);
-										Lvl.Players.get(Number).AngleTurn(NetplayInfo.OtherPlayersCommand.get(Player).AngleDiff);
-										Lvl.Players.get(Number).Action = NetplayInfo.PlayerCommand.Actions;
-
-										// Move the server(player1) first and then the client(player2)
-										for (int PlayerToMove = 0; PlayerToMove < Lvl.Players.size(); PlayerToMove++)
-										{
-											Lvl.Players.get(PlayerToMove).ExecuteForwardMove(Lvl.Players.get(PlayerToMove).FrontMove);
-											Lvl.Players.get(PlayerToMove).ExecuteLateralMove(Lvl.Players.get(PlayerToMove).SideMove);
-											Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
-										}
-									}
-									else // To enable the first shot at the start
-									{
-										Lvl.Players.get(Player).JustSpawned = false;
-									}
-
-									// Check the action of each player in order (Player1 then Player2)
-									if (View == 0) // If I'm the server
-									{
-										// The server first (me)
-										// Reload
-										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
-										{
-											Lvl.Players.get(View).ReloadWeapon();
-											NetplayInfo.PlayerCommand.Actions -= 1000;
-										}
-										// Command to shot
-										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
-										{
-											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
-											{
-												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
-											}
-											else if(Lvl.Players.get(View).JustSpawned)
-											{
-												Lvl.Players.get(View).JustSpawned = false;
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-
-											NetplayInfo.PlayerCommand.Actions -= 100;
-										}
-
-										Lvl.Players.get(View).JustSpawned = false;
-
-										// Change weapon 1
-										if (NetplayInfo.PlayerCommand.Actions == 1)
-										{
-											Lvl.Players.get(View).ChangeWeapon(1);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 2)
-										{
-											Lvl.Players.get(View).ChangeWeapon(2);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 3)
-										{
-											Lvl.Players.get(View).ChangeWeapon(3);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 4)
-										{
-											Lvl.Players.get(View).ChangeWeapon(4);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-
-										// The client second
-										// Reload
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
-										{
-											Lvl.Players.get(Number).ReloadWeapon();
-											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
-										}
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
-										{
-											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
-											{
-												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-											}
-											else if(Lvl.Players.get(Number).JustSpawned)
-											{
-												Lvl.Players.get(Number).JustSpawned = false;
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-
-											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
-										}
-
-										Lvl.Players.get(Number).JustSpawned = false;
-
-										// Change weapon 1
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(1);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(2);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(3);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(4);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-									}
-									else // If I'm the client
-									{
-										// The server first
-										// Reload
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 1000 == 1)
-										{
-											Lvl.Players.get(Number).ReloadWeapon();
-											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 1000;
-										}
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 1 || NetplayInfo.OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
-										{
-											if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
-											{
-												Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-											}
-											else if(Lvl.Players.get(Number).JustSpawned)
-											{
-												Lvl.Players.get(Number).JustSpawned = false;
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-
-											NetplayInfo.OtherPlayersCommand.get(Player).Actions -= 100;
-										}
-
-										Lvl.Players.get(Number).JustSpawned = false;
-
-										// Change weapon 1
-										if (NetplayInfo.OtherPlayersCommand.get(Player).Actions == 1)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(1);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 2)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(2);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 3)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(3);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.OtherPlayersCommand.get(Player).Actions == 4)
-										{
-											Lvl.Players.get(Number).ChangeWeapon(4);
-											Lvl.Players.get(Number).ExecuteChangeWeapon();
-										}
-										// The client second (me)
-										// Reload
-										if (NetplayInfo.PlayerCommand.Actions / 1000 == 1)
-										{
-
-											Lvl.Players.get(View).ReloadWeapon();
-											NetplayInfo.PlayerCommand.Actions -= 1000;
-										}
-										// Command to shot
-										if (NetplayInfo.PlayerCommand.Actions / 100 == 1 || NetplayInfo.PlayerCommand.Actions / 100 == 11) // Do my command first
-										{
-											if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
-											{
-												Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
-											}
-											else if(Lvl.Players.get(View).JustSpawned)
-											{
-												Lvl.Players.get(View).JustSpawned = false;
-											}
-											else
-											{
-												// Check if the player has completely dropped on the floor
-												if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
-												{
-													// Spawn the player
-													if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
-													{
-														System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-														System.exit(1);
-													}
-												}
-											}
-											NetplayInfo.PlayerCommand.Actions -= 100;
-										}
-
-										Lvl.Players.get(View).JustSpawned = false;
-
-										// Change weapon 1
-										if (NetplayInfo.PlayerCommand.Actions == 1)
-										{
-											Lvl.Players.get(View).ChangeWeapon(1);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 2)
-										{
-											Lvl.Players.get(View).ChangeWeapon(2);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 3)
-										{
-											Lvl.Players.get(View).ChangeWeapon(3);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-										else if(NetplayInfo.PlayerCommand.Actions == 4)
-										{
-											Lvl.Players.get(View).ChangeWeapon(4);
-											Lvl.Players.get(View).ExecuteChangeWeapon();
-										}
-									}
-								}
-							}
-							else
-							{
-								if (HeadCamera.Menu.InGame)
-								{
-									HeadCamera.Menu.NewMessageToShow("Multi-player game ended.");
-								}
-								HeadCamera.Menu.InGame = false;
-							}
-							/*else
-							{
-								// Couldn't get the command
-								for (int Player = 0; Player < Lvl.Players.size(); Player++)
-								{
-									if (Player != View)
-									{
-										Lvl.Players.get(Player).Health = 0;
-									}
-								}
-							}*/
+							NetplayInfo.AllTheCommunication(Lvl,HeadCamera,TicksCount);
 
 							for (int Player = 0; Player < Lvl.Players.size(); Player++)
 							{
@@ -754,7 +469,7 @@ public class Game
 				{
 					if (TicksCount > 1)
 					{
-						if (!HeadCamera.DemoMode)
+						if (!HeadCamera.DemoMode || HeadCamera.TestingMap)
 						{
 							// Make the player move even if it's not a multiplayer game
 							Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
@@ -768,9 +483,9 @@ public class Game
 								Lvl.Players.get(View).PosY(Lvl.Players.get(View).PosY() - 2);
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
 							}
-							else if (Lvl.Players.get(View).GetDegreeAngle() < 50)
+							else if (Lvl.Players.get(View).GetDegreeAngle() < 50 || Lvl.Players.get(View).GetDegreeAngle() >= 270)
 							{
-								Lvl.Players.get(View).AngleTurn((short)100);
+								Lvl.Players.get(View).Angle = (short)((Lvl.Players.get(View).Angle + 100) % Short.MAX_VALUE);
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
 							}
 							else if (Lvl.Players.get(View).PosX() > -860)
@@ -782,8 +497,6 @@ public class Game
 							{
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
 							}
-
-							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
 						}
 
 						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)
