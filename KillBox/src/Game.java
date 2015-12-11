@@ -218,6 +218,12 @@ public class Game
 				DefaultMap = args[CheckParam(args, "-level") + 1];
 			}
 
+			if (CheckParam(args, "-demo") >= 0)
+			{
+				HeadCamera.DemoMode = true;
+				DefaultMap = "demo-bidon.txt";
+			}
+
 			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);		// Load the level
 
 			// Players will spawn at random locations
@@ -748,10 +754,37 @@ public class Game
 				{
 					if (TicksCount > 1)
 					{
-						// Make the player move even if it's not a multiplayer game
-						Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
-						Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
-						Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						if (!HeadCamera.DemoMode)
+						{
+							// Make the player move even if it's not a multiplayer game
+							Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
+							Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
+							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						}
+						else
+						{
+							if (Lvl.Players.get(View).PosY() > 100)
+							{
+								Lvl.Players.get(View).PosY(Lvl.Players.get(View).PosY() - 2);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
+							}
+							else if (Lvl.Players.get(View).GetDegreeAngle() < 50)
+							{
+								Lvl.Players.get(View).AngleTurn((short)100);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
+							}
+							else if (Lvl.Players.get(View).PosX() > -860)
+							{
+								Lvl.Players.get(View).PosX(Lvl.Players.get(View).PosX() - 2);
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() + 0.1f);
+							}
+							else if (Lvl.Players.get(View).PosZ() > 0)
+							{
+								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
+							}
+
+							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+						}
 
 						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)
 						{
