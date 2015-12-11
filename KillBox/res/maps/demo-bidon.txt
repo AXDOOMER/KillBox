@@ -459,3 +459,141 @@ wall
 	y: 448;
 	z: 59;
 }
+
+
+#maison 2
+wall906:
+{
+	texture: Monmouth_Oak_House_Front.JPG;
+	2sided: true;
+	impassable: true;
+	# MUR 1
+	x: -200;
+	y: 192;
+	z: 0;
+	x: -200;
+	y: -248;
+	z: 0;
+	x: -200;
+	y: -248;
+	z: 190;
+	x: -200;
+	y: 192;
+	z: 190;
+}
+
+wall907:
+{
+	texture: Monmouth_Oak_House_Front.JPG;
+	2sided: true;
+	impassable: true;
+	# MUR 2
+	x: 40;
+	y: 192;
+	z: 0;
+	x: 40;
+	y: -248;
+	z: 0;
+	x: 40;
+	y: -248;
+	z: 190;
+	x: 240;
+	y: 192;
+	z: 190;
+}
+
+wall908:
+{
+	texture: Monmouth_Oak_House_Front.JPG;
+	2sided: true;
+	impassable: true;
+	# MUR 3
+	x: -200;
+	y: 192;
+	z: 0;
+
+	x: 240;
+	y: 192;
+	z: 0;
+
+	x: 240;
+	y: 192;
+	z: 190;
+
+	x: -200;
+	y: 192;
+	z: 190;
+}
+
+wall909:
+{
+	texture: Monmouth_Oak_House_Front.JPG;
+	2sided: true;
+	impassable: true;
+	# MUR 4
+	x: -200;
+	y: -248;
+	z: 0;
+
+	x: 240;
+	y: -248;
+	z: 0;
+
+	x: 240;
+	y: -248;
+	z: 190;
+
+	x: -200;
+	y: -248;
+	z: 190;
+}
+
+wall910:
+{
+	texture: 27427831.jpg;
+	2sided: true;
+	impassable: true;
+	# TOIT 1
+	x: -200;
+	y: -248;
+	z: 190;
+
+	x: -200;
+	y: 192;
+	z: 190;
+
+	x: 20;
+	y: 192;
+	z: 260;
+
+	x: 20;
+	y: -248;
+	z: 260;
+}
+
+
+wall911:
+{
+	texture: 27427831.jpg;
+	2sided: true;
+	impassable: true;
+	# TOIT 2
+	x: 240;
+	y: -248;
+	z: 190;
+
+	x: 240;
+	y: 192;
+	z: 190;
+
+	x: 20;
+	y: 192;
+	z: 260;
+
+	x: 20;
+	y: -248;
+	z: 260;
+}
+
+
+
