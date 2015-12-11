@@ -11910,7 +11910,7 @@ ceiling_forblock_x9_y17:
 
 wallceilingsupercool1
 {
-	2sided: true;
+	2sided: false;
 	impassable: false;
 	texture: Textured-Vinyl-Tile---Black-Mosaic-from-Homebase.jpg;
 	
@@ -11933,7 +11933,7 @@ wallceilingsupercool1
 
 wallceilingsupercool2
 {
-	2sided: true;
+	2sided: false;
 	impassable: false;
 	texture: Textured-Vinyl-Tile---Black-Mosaic-from-Homebase.jpg;
 	
@@ -11957,7 +11957,7 @@ wallceilingsupercool2
 
 wallceilingsupercool3
 {
-	2sided: true;
+	2sided: false;
 	impassable: false;
 	texture: Textured-Vinyl-Tile---Black-Mosaic-from-Homebase.jpg;
 	
@@ -11980,7 +11980,7 @@ wallceilingsupercool3
 
 wallceilingsupercool4
 {
-	2sided: true;
+	2sided: false;
 	impassable: false;
 	texture: Textured-Vinyl-Tile---Black-Mosaic-from-Homebase.jpg;
 	
@@ -12008,4 +12008,119 @@ thing:
 	y: -640;
 	z: 0;
 	angle: 0;
+}
+
+wallpit1:
+{
+	2sided: false;
+	impassable: false;
+	texture: concrete_wall_dark-pit.jpg;
+	
+	x: 832;
+	y: -384;
+	z: -256;
+	
+	x: 320;
+	y: -384;
+	z: -256;
+	
+	x: 320;
+	y: -384;
+	z: 0;
+	
+	x: 832;
+	y: -384;
+	z: 0;
+}
+
+wallpit2:
+{
+	2sided: false;
+	impassable: false;
+	texture: concrete_wall_dark-pit.jpg;
+	
+	x: 320;
+	y: -896;
+	z: -256;
+	
+	x: 832;
+	y: -896;
+	z: -256;
+	
+	x: 832;
+	y: -896;
+	z: 0;
+	
+	x: 320;
+	y: -896;
+	z: 0;
+}
+
+wallpit3:
+{
+	2sided: false;
+	impassable: false;
+	texture: concrete_wall_dark-pit.jpg;
+	
+	x: 832;
+	y: -384;
+	z: -256;
+	
+	x: 832;
+	y: -896;
+	z: -256;
+	
+	x: 832;
+	y: -896;
+	z: 0;
+	
+	x: 832;
+	y: -384;
+	z: 0;
+}
+
+wallpit4:
+{
+	2sided: false;
+	impassable: false;
+	texture: concrete_wall_dark-pit.jpg;
+	
+	x: 320;
+	y: -896;
+	z: -256;
+	
+	x: 320;
+	y: -384;
+	z: -256;
+	
+	x: 320;
+	y: -384;
+	z: 0;
+
+	x: 320;
+	y: -896;
+	z: 0;	
+}
+
+floorpitbottom: 
+{
+	2sided: false;
+	impassable: false;
+	texture: dark.bmp;
+	
+	x: 832;
+	y: -384;
+	z: -256;
+	
+	x: 832;
+	y: -896;
+	z: -256;
+	
+	x: 320;
+	y: -896;
+	z: -256;
+	
+	x: 320;
+	y: -384;
+	z: -256;
 }
