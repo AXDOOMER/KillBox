@@ -793,6 +793,36 @@ public class Player
 							continue;
 						}
 					}
+					else if (StartZ != EndZ)
+					{
+						float Lowest = Lvl.Planes.get(Plane).Vertices().get(2);
+						float Highest = Lvl.Planes.get(Plane).Vertices().get(2);
+
+						// Check each Z coordinate to get the highest and the lowest Z of a vertex
+						for (int Point = 2; Point < Lvl.Planes.get(Plane).Vertices().size(); Point += 3)
+						{
+							if (Lvl.Planes.get(Plane).Vertices().get(Point) <= Lowest)
+							{
+								Lowest = Lvl.Planes.get(Plane).Vertices().get(Point);
+							}
+							else if (Lvl.Planes.get(Plane).Vertices().get(Point) >= Highest)
+							{
+								Highest = Lvl.Planes.get(Plane).Vertices().get(Point);
+							}
+						}
+
+						// Compare to the player
+						if (Lowest >= this.PosZ() + this.Height() && Highest >= this.PosZ() + this.Height())
+						{
+							// The wall is far above the player
+							continue;
+						}
+						else if (Lowest <= this.PosZ() && Highest <= this.PosZ())
+						{
+							// The wall is below above the player
+							continue;
+						}
+					}
 
 					// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
 					// Test for a vertical wall

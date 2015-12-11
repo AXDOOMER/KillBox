@@ -1,0 +1,15 @@
+#: concrete_texture_10_by_agf81.jpg
+?: 0002fH-3672.jpg
+&: 4323914169_f9d4f1222d_o.jpg
+@: 4323914169_f9d4f1222d_o.jpg
++: grillage.png
+$: TroxPanels_bump.jpg
+*: TroxPanels_bump.jpg
+=: TroxPanels_bump.jpg
+": wall_texture_2_by_agf81.jpg
+[: DOOR9_1.bmp
+]: DOOR9_1.bmp
+
+!: spawn
+^: ak47
+%: tek9
