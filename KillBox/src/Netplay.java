@@ -545,7 +545,7 @@ public class Netplay
             {
                 Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
             }
-            else if(Lvl.Players.get(View).JustSpawned)
+            else if (Lvl.Players.get(View).JustSpawned)
             {
                 Lvl.Players.get(View).JustSpawned = false;
             }
@@ -586,7 +586,7 @@ public class Netplay
             {
                 Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
             }
-            else if(Lvl.Players.get(Number).JustSpawned)
+            else if (Lvl.Players.get(Number).JustSpawned)
             {
                 Lvl.Players.get(Number).JustSpawned = false;
             }
@@ -630,7 +630,7 @@ public class Netplay
             {
                 Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
             }
-            else if(Lvl.Players.get(Number).JustSpawned)
+            else if (Lvl.Players.get(Number).JustSpawned)
             {
                 Lvl.Players.get(Number).JustSpawned = false;
             }
@@ -673,7 +673,7 @@ public class Netplay
             {
                 Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
             }
-            else if(Lvl.Players.get(View).JustSpawned)
+            else if (Lvl.Players.get(View).JustSpawned)
             {
                 Lvl.Players.get(View).JustSpawned = false;
             }
@@ -701,7 +701,7 @@ public class Netplay
         PlayerCommand.Actions -= PlayerCommand.Actions;
     }
 
-    public void AllTheCommunication(Level Lvl,Camera HeadCamera,int TicksCount)
+    public void AllTheCommunication(Level Lvl, Camera HeadCamera, int TicksCount)
     {
         if (Update())
         {

@@ -2156,9 +2156,9 @@ public class Menu
 						.map(Path::toFile)
 						.collect(Collectors.toList());
 
-				for (int Map = 0; Map < FilesInFolder.size();Map++)
+				for (int Map = 0; Map < FilesInFolder.size(); Map++)
 				{
-					Maps.add(FilesInFolder.get(Map).getName().substring(0,FilesInFolder.get(Map).getName().indexOf(".")));
+					Maps.add(FilesInFolder.get(Map).getName().substring(0, FilesInFolder.get(Map).getName().indexOf(".")));
 				}
 			}
 			catch (IOException ex)
@@ -3335,11 +3335,11 @@ public class Menu
 		// Get value of FileName
 		public String FileName()
 		{
-			return  FileName;
+			return FileName;
 		}
 
 		// Constructor
-		public MenuItem_Dialog(String Text,boolean Enable,boolean KeepActiveColor,String Title,String Filter,String FileType)
+		public MenuItem_Dialog(String Text, boolean Enable, boolean KeepActiveColor, String Title, String Filter, String FileType)
 		{
 			// Initialize super attribute
 			super(Text, Enable, KeepActiveColor);

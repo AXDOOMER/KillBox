@@ -344,7 +344,7 @@ public class Level
 		catch (Exception e)
 		{
 			System.err.println("Failed to load the following level: " + LvlName);
-			System.err.println("The must be a syntax error in the file (missing closing accolade, etc.)");
+			System.err.println("The must be a syntax error in the file (missing closing accolade, colon, semicolon, etc.)");
 			System.exit(1);
 		}
 	}

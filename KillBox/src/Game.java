@@ -39,7 +39,7 @@ public class Game
 		int View = 0;
 		String ConfigFileName = "default.cfg";
 		boolean InGame = false;
-		String DefaultMap = "test2.txt";
+		String DefaultMap = "demo.txt";
 
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
@@ -222,7 +222,7 @@ public class Game
 			if (CheckParam(args, "-demo") >= 0)
 			{
 				HeadCamera.DemoMode = true;
-				DefaultMap = "demo-bidon.txt";
+				DefaultMap = "demo.txt";
 			}
 
 			Lvl.LoadLevel("res/maps/" + DefaultMap, WallsFilter);		// Load the level
@@ -417,7 +417,7 @@ public class Game
 							Lvl.Players.get(View).Action = NetplayInfo.PlayerCommand.Actions;
 
 							// Do the network communication through the socket
-							NetplayInfo.AllTheCommunication(Lvl,HeadCamera,TicksCount);
+							NetplayInfo.AllTheCommunication(Lvl, HeadCamera, TicksCount);
 
 							for (int Player = 0; Player < Lvl.Players.size(); Player++)
 							{

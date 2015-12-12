@@ -272,7 +272,7 @@ plane023:
 
 plane0017
 {
-	texture: grass2.jpg;
+	texture: grass.png;
 
 	2sided: false;
 	impassable: true;
