@@ -328,19 +328,19 @@ public class Camera
 			// Change weapon
 			if (Keyboard.isKeyDown(Keyboard.KEY_1))
 			{
-				CurrentPlayer().ChangeWeapon(1);
+				CurrentPlayer().WeaponToUse = 1;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_2))
 			{
-				CurrentPlayer().ChangeWeapon(2);
+				CurrentPlayer().WeaponToUse = 2;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_3))
 			{
-				CurrentPlayer().ChangeWeapon(3);
+				CurrentPlayer().WeaponToUse = 3;
 			}
 			else if (Keyboard.isKeyDown(Keyboard.KEY_4))
 			{
-				CurrentPlayer().ChangeWeapon(4);
+				CurrentPlayer().WeaponToUse = 4;
 			}
 		}
 
@@ -764,7 +764,9 @@ public class Camera
 				{
 					// HUD
 					if (Menu.ShowHud.Bool())
+					{
 						Menu.ShowHUD(Plyr, Plyr.CanShot());
+					}
 
 					// Temporary solution to draw the gun fire
 					if (CurrentPlayer().JustShot())

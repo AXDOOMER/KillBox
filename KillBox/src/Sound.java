@@ -36,6 +36,7 @@ public class Sound
 	final int SfxVoices = 32;
 	final int Attenuator = 25; // A smaller value makes the players further
 	boolean Preload = false;
+	int IntSource;
 
 	public float VolumeMultiplier = 1.0f;
 	final int MaxSoundPlayed = 60;
@@ -46,6 +47,7 @@ public class Sound
 	// ArrayLists to store information about the sounds
 	ArrayList<String> LoadedFiles = new ArrayList<String>();
 	ArrayList<Integer> SoundBuffers = new ArrayList<Integer>();
+	ArrayList<Integer> IntSources = new ArrayList<Integer>();
 
 	// How sound directions get calculated
 	// 'Bi' is two-dimensional, 'Three' is 3D and 'Doppler' is 3D + Doppler effect
@@ -71,6 +73,7 @@ public class Sound
 		try
 		{
 			AL.create();
+			IntSource = alGenSources();
 		}
 		catch (LWJGLException e)
 		{
@@ -114,34 +117,33 @@ public class Sound
 
 		Orientation = ConvertAngle(Hear.GetRadianAngle());
 
-		if(!LoadedFiles.contains(Name))
+		if (!LoadedFiles.contains(Name))
 		{
 			SoundIsThere = this.LoadSoundFromFile(Name);
 		}
 
-		if(SoundIsThere)
+		if (SoundIsThere)
 		{
 			// Reset all sound buffers
-			if(NumberSoundPlayed == MaxSoundPlayed)
+			if (NumberSoundPlayed == MaxSoundPlayed)
 			{
 				NumberSoundPlayed = 0;
-				try
-				{
-					AL.destroy();
-					AL.create();
-				}
-				catch (Exception ex)
-				{
-					System.err.println(ex.getMessage());
-				}
 
-				for(int i = 0; i < SoundBuffers.size(); i++)
+				// Delete all buffers
+				/*for(int i = 0; i < SoundBuffers.size(); i++)
 				{
 					alDeleteBuffers(SoundBuffers.get(i));
 				}
-				SoundBuffers.clear();
+				SoundBuffers.clear();*/
+				// Delete all sources
+				for (int i = 0; i < IntSources.size(); i++)
+				{
+					alDeleteSources(IntSources.get(i));
+				}
+				IntSources.clear();
 
-				for(int j = 0; j < LoadedFiles.size(); j++)
+				// LoadSoundFromFile will recreate all the buffers and all the sources
+				for (int j = 0; j < LoadedFiles.size(); j++)
 				{
 					this.LoadSoundFromFile(LoadedFiles.get(j));
 				}
@@ -150,7 +152,7 @@ public class Sound
 			// Find the right buffer for the sound
 			do
 			{
-				if(LoadedFiles.get(SoundBuffersIndex).equals(Name))
+				if (LoadedFiles.get(SoundBuffersIndex).equals(Name))
 				{
 					RightBufferIndex = true;
 				}
@@ -158,7 +160,7 @@ public class Sound
 				{
 					SoundBuffersIndex++;
 				}
-			} while(!RightBufferIndex && SoundBuffersIndex < LoadedFiles.size());
+			} while (!RightBufferIndex && SoundBuffersIndex < LoadedFiles.size());
 
 			// Position of the source sound.
 			FloatBuffer SourcePos;
@@ -170,7 +172,6 @@ public class Sound
 			FloatBuffer ListenerVel;
 			//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
 			FloatBuffer ListenerOri;
-			int IntSource;
 
 			switch (SndMode)
 			{
@@ -185,16 +186,15 @@ public class Sound
 					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
 
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
-					IntSource = alGenSources();
-					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
-					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-					alSource(IntSource, AL_POSITION, SourcePos);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_SOURCE_RELATIVE, AL_FALSE);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
+					alSource(IntSources.get(SoundBuffersIndex), AL_POSITION, SourcePos);
 					// AL_GAIN controls the volume
-					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
+					alSourcef(IntSources.get(SoundBuffersIndex), AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
 					alListener(AL_ORIENTATION, ListenerOri);
-					alSourcePlay(IntSource);
+					alSourcePlay(IntSources.get(SoundBuffersIndex));
 					break;
 
 				case Three:
@@ -208,16 +208,15 @@ public class Sound
 					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
 
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
-					IntSource = alGenSources();
-					alSourcei(IntSource, AL_SOURCE_RELATIVE, AL_FALSE);
-					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-					alSource(IntSource, AL_POSITION, SourcePos);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_SOURCE_RELATIVE, AL_FALSE);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
+					alSource(IntSources.get(SoundBuffersIndex), AL_POSITION, SourcePos);
 					// AL_GAIN controls the volume
-					alSourcef(IntSource, AL_GAIN, 1.0f * VolumeMultiplier);
+					alSourcef(IntSources.get(SoundBuffersIndex), AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
 					alListener(AL_ORIENTATION, ListenerOri);
-					alSourcePlay(IntSource);
+					alSourcePlay(IntSources.get(SoundBuffersIndex));
 					break;
 
 				case Duppler:
@@ -232,18 +231,19 @@ public class Sound
 					ListenerVel = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f}).rewind();
 					//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
 					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
+
 					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
-					IntSource = alGenSources();
-					alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-					alSource(IntSource, AL_POSITION, SourcePos);
-					alSource(IntSource, AL_VELOCITY, SourceVel);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_SOURCE_RELATIVE, AL_FALSE);
+					alSourcei(IntSources.get(SoundBuffersIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
+					alSource(IntSources.get(SoundBuffersIndex), AL_POSITION, SourcePos);
+					alSource(IntSources.get(SoundBuffersIndex), AL_VELOCITY, SourceVel);
 					// AL_GAIN controls the volume
-					alSourcef(IntSource, AL_GAIN, 0.5f * VolumeMultiplier);
+					alSourcef(IntSources.get(SoundBuffersIndex), AL_GAIN, 1.0f * VolumeMultiplier);
 
 					alListener(AL_POSITION, ListenerPos);
 					alListener(AL_VELOCITY, ListenerVel);
 					alListener(AL_ORIENTATION, ListenerOri);
-					alSourcePlay(IntSource);
+					alSourcePlay(IntSources.get(SoundBuffersIndex));
 					break;
 			}
 		}
@@ -286,7 +286,6 @@ public class Sound
 			FloatBuffer ListenerVel;
 			//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
 			FloatBuffer ListenerOri;
-			int IntSource;
 
 			// Position of the source sound.
 			SourcePos = (FloatBuffer) BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f}).rewind();
@@ -298,8 +297,9 @@ public class Sound
 			ListenerVel = (FloatBuffer) BufferUtils.createFloatBuffer(3).put(new float[]{0.0f, 0.0f, 0.0f}).rewind();
 			//Orientation of the listener. (first 3 elements are "at", second 3 are "up")
 			ListenerOri = (FloatBuffer) BufferUtils.createFloatBuffer(6).put(new float[]{0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f}).rewind();
+
+			alSourceStop(IntSource);
 			// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
-			IntSource = alGenSources();
 			alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
 			alSource(IntSource, AL_POSITION, SourcePos);
 			alSource(IntSource, AL_VELOCITY, SourceVel);
@@ -333,10 +333,13 @@ public class Sound
 			alBufferData(buffer, data.format, data.data, data.samplerate);
 			data.dispose();
 
-			if(!LoadedFiles.contains(File))
+			if (!LoadedFiles.contains(File))
+			{
 				LoadedFiles.add(File);
+				SoundBuffers.add(buffer);
+			}
 
-			SoundBuffers.add(buffer);
+			IntSources.add(alGenSources());
 		}
 		catch (Exception ex)
 		{

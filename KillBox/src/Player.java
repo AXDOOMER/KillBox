@@ -29,6 +29,7 @@ public class Player
 	final int MaxOwnedWeapons = 10;
 	int SelectedWeapon = 1;
 	int WeaponToSelect = 1;
+	int WeaponToUse = 1;
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
@@ -1416,6 +1417,7 @@ public class Player
 						// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
 						if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
 						{
+							WeaponToUse = Weapon;
 							WeaponToSelect = Weapon;
 							Reloading = true;
 							DroppingWeapon = true;
