@@ -594,73 +594,16 @@ public class Camera
 						}
 					}
 
-					if (LookAngleDiff <= -337.5)
+					// Find the good frame to display the player correctly
+					int RotationFrame = 4;
+					for (float RotationAngle = -337.5f; RotationFrame <= 382.5f; RotationFrame += 45)
 					{
-						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -292.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(5 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -247.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(6 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -202.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(7 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -157.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -112.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(1 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -67.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(2 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= -22.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(3 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 22.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 67.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(5 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 112.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(6 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 157.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(7 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 202.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(0 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 247.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(1 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 292.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(2 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 337.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(3 + CurrentFrameIndex).Bind();
-					}
-					else if (LookAngleDiff <= 382.5)
-					{
-						Lvl.Players.get(Player).WalkFrames.get(4 + CurrentFrameIndex).Bind();
+						if (LookAngleDiff <= RotationFrame)
+						{
+							Lvl.Players.get(Player).WalkFrames.get(RotationFrame % 8 + CurrentFrameIndex).Bind();
+							break;
+						}
+						RotationFrame++;
 					}
 				}
 
