@@ -596,9 +596,9 @@ public class Camera
 
 					// Find the good frame to display the player correctly
 					int RotationFrame = 4;
-					for (float RotationAngle = -337.5f; RotationFrame <= 382.5f; RotationFrame += 45)
+					for (float RotationAngle = -337.5f; RotationAngle <= 382.5f; RotationAngle += 45)
 					{
-						if (LookAngleDiff <= RotationFrame)
+						if (LookAngleDiff <= RotationAngle)
 						{
 							Lvl.Players.get(Player).WalkFrames.get(RotationFrame % 8 + CurrentFrameIndex).Bind();
 							break;
@@ -669,7 +669,7 @@ public class Camera
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
-					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
+					Menu.DrawText(Menu.GameVersion, 50, 0, 2, 2);
 				}
 
 				// Set Draw cursor to Top-Left
@@ -766,7 +766,7 @@ public class Camera
 							Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
 						}
 					}
-					Menu.DrawText(Menu.GameVersion, 40, 0, 2, 2);
+					Menu.DrawText(Menu.GameVersion, 50, 0, 2, 2);
 				}
 
 				// Draw a message if there is one

@@ -1399,6 +1399,19 @@ public class Player
 		}
 	}
 
+	public void UpdateFlagTime()
+	{
+		if (HasFlag)
+		{
+			FlagTime++;
+		}
+	}
+
+	public void UpdateTimeSinceLastShot()
+	{
+		WeaponTimeSinceLastShot++;
+	}
+
 	public int DifferenceViewZ()
 	{
 		return DefaultViewZ - ViewZ;

@@ -29,8 +29,8 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox v2.??? (Pre-Final Beta)");
-		System.out.println("			===============================");
+		System.out.println("			KillBox v2.??? (Final Beta)");
+		System.out.println("			===========================");
 
 		// Nodes are computers where there is a player
 		int Nodes = 1;
@@ -298,7 +298,8 @@ public class Game
 					for (int Player = 0; Player < Lvl.Players.size(); Player++)
 					{
 						Lvl.Players.get(Player).UpdateIfDead();
-						Lvl.Players.get(Player).WeaponTimeSinceLastShot++;
+						Lvl.Players.get(Player).UpdateTimeSinceLastShot();
+						Lvl.Players.get(Player).UpdateFlagTime();
 					}
 
 					// Look for a winner

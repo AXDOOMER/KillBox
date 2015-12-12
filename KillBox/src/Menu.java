@@ -36,8 +36,8 @@ public class Menu
 {
 	public boolean UserWantsToExit = false;
 
-	String GameVersion = "v2.??? (Pre-final Beta)";
-	String LastUpdate = "december 2nd 2015";
+	String GameVersion = "v2.??? (Final Beta)";
+	String LastUpdate = "december 11th 2015";
 
 	public String Address = null;
 	public int GameMode = 0;
