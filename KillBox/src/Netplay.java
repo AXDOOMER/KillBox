@@ -24,6 +24,8 @@ import java.net.ServerSocket;
 
 public class Netplay
 {
+    public static int FrameRate = 30;  // Fuck you, that's why!
+
     public class NetCommand
     {
         public int Number;
@@ -304,6 +306,11 @@ public class Netplay
     public Netplay(int Nodes, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
     {
         this.Nodes = Nodes;
+
+        // Initialize game limits
+        this.TimeLimit = NewTimeLimit;
+        this.KillLimit = NewKillLimit;
+        this.GameMode = NewGameMode;
 
         // Check if we are in a multiplayer game
         if (Nodes > 1)
@@ -751,8 +758,104 @@ public class Netplay
             if (HeadCamera.Menu.InGame)
             {
                 HeadCamera.Menu.NewMessageToShow("Multi-player game ended.");
+                TestEndGame(this, Lvl, HeadCamera);
             }
             HeadCamera.Menu.InGame = false;
+        }
+    }
+
+    static void TestEndGame(Netplay NetContext, Level Lvl, Camera Cam)
+    {
+        // Look for a winner
+        int Winner = 0;     // Player that wins any of the game modes
+        int PlayerWithMostKills = 0;    // Player that has the most kills
+        boolean Tie = true;    // If some players have the same score
+
+        // Find the player with the most kills.
+        for (int Player = 0; Player < Lvl.Players.size(); Player++)
+        {
+            if (Lvl.Players().get(Player).Kills > Lvl.Players().get(0).Kills)
+            {
+                PlayerWithMostKills = Player;
+            }
+        }
+
+        // Check if someone may have won. First check if the game is infinite.
+        if (NetContext.TimeLimit != 0 || NetContext.KillLimit != 0)
+        {
+            // Check if we have one of the two cases where the game would end
+            if (Game.TicksCount / FrameRate >= NetContext.GetTimeLimit() || Lvl.Players().get(PlayerWithMostKills).Kills >= NetContext.GetKillLimit())
+            {
+                // Check if GameMode is "FlagTag"
+                if (NetContext.GameMode == 2)
+                {
+                    // Search for the player that had the flag for the longest time
+                    for (int Player = 0; Player < Lvl.Players.size(); Player++)
+                    {
+                        // Search for player with most flag time
+                        if (Lvl.Players().get(Player).FlagTime > Lvl.Players().get(Winner).FlagTime)
+                        {
+                            Winner = Player;
+
+                            // When we're done going through every players
+                            if (Player == Lvl.Players.size() - 1)
+                            {
+                                // Search a player that has the same score
+                                for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
+                                {
+                                    // Don't test the winner against himself
+                                    if (PlayerScoreEqual != Winner)
+                                    {
+                                        if (Lvl.Players().get(PlayerScoreEqual).FlagTime != Lvl.Players().get(Winner).FlagTime)
+                                        {
+                                            Tie = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else	// A player wins when he has the most kills
+                {
+                    // Get the player that has the most kills
+                    Winner = PlayerWithMostKills;
+
+                    // Search for a player that has the same score
+                    for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
+                    {
+                        if (PlayerScoreEqual != Winner)
+                        {
+                            // If another player has the same score
+                            if (Lvl.Players().get(PlayerScoreEqual).Kills != Lvl.Players().get(Winner).Kills)
+                            {
+                                // Tie !
+                                Tie = false;
+                            }
+                        }
+                    }
+                }
+
+                // End the game
+                Cam.Menu.InGame = false;
+
+                // Someone wins. Tell if it's a tie.
+                if (Tie)
+                {
+                    Cam.Menu.NewMessageToShow("Game is a tie.");
+                }
+                else
+                {
+                    if (NetContext.View == Winner)
+                    {
+                        Cam.Menu.NewMessageToShow("You win!");
+                    }
+                    else
+                    {
+                        Cam.Menu.NewMessageToShow("The other player wins.");
+                    }
+                }
+            }
         }
     }
 }

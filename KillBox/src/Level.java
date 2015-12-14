@@ -318,7 +318,7 @@ public class Level
 							}
 							else
 							{
-								System.out.println("Invalid property: " + Line);
+								System.err.println("Invalid property: " + Line);
 							}
 						}
 
@@ -326,7 +326,7 @@ public class Level
 					}
 					else
 					{
-						System.out.println("Unknown data: " + Line);
+						System.err.println("Unknown data: " + Line);
 					}
 				}
 			}

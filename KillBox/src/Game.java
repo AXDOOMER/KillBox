@@ -46,6 +46,7 @@ public class Game
 		final double TimeFrameLimit = (1 / (double)FrameRate) * 1000;
 
 		Netplay NetplayInfo = null;
+		NetplayInfo.FrameRate = FrameRate;
 
 		System.out.print("Enter a level's name (including the extension): ");
 		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
@@ -302,92 +303,8 @@ public class Game
 						Lvl.Players.get(Player).UpdateFlagTime();
 					}
 
-					// Look for a winner
-					int Winner = 0;
-					int PlayerWithMostKills = 0;
-
-					// Find the player with the most kills.
-					for (int Player = 0; Player < Lvl.Players.size(); Player++)
-					{
-						if (Lvl.Players().get(Player).Kills > Lvl.Players().get(0).Kills)
-						{
-							PlayerWithMostKills = Player;
-						}
-					}
-
-					// Check if someone may have won. First check if the game is infinite.
-					if (NetplayInfo.TimeLimit != 0 || NetplayInfo.KillLimit != 0)
-					{
-						// Check if we have one of the two cases where the game would end
-						if (TicksCount / FrameRate >= NetplayInfo.GetTimeLimit() || Lvl.Players().get(PlayerWithMostKills).Kills >= NetplayInfo.GetKillLimit())
-						{
-							// Check if GameMode is "FlagTag"
-							if (NetplayInfo.GameMode == 2)
-							{
-								// Search for the player that had the flag for the longest time
-								for (int Player = 0; Player < Lvl.Players.size(); Player++)
-								{
-									if (Lvl.Players().get(Player).FlagTime > Lvl.Players().get(Winner).FlagTime)
-									{
-										Winner = Player;
-
-										if (Player == Lvl.Players.size() - 1)
-										{
-											// Search a player that has the same score
-											for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
-											{
-												if (Winner != -1 && PlayerScoreEqual != Winner)
-												{
-													if (Lvl.Players().get(PlayerScoreEqual).FlagTime == Lvl.Players().get(Winner).FlagTime)
-													{
-														Winner = -1;
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-							else	// A player wins when he has the most kills
-							{
-								// get the player that has the most kills
-								Winner = PlayerWithMostKills;
-
-								// Search for a player that has the same score
-								for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
-								{
-									if (Winner != -1 && PlayerScoreEqual != Winner)
-									{
-										if (Lvl.Players().get(PlayerScoreEqual).Kills == Lvl.Players().get(Winner).Kills)
-										{
-											// Tie !
-											Winner = -1;
-										}
-									}
-								}
-							}
-
-							// End the game
-							HeadCamera.Menu.InGame = false;
-
-							// Someone wins. Tell if it's a tie.
-							if (Winner == -1)
-							{
-								HeadCamera.Menu.NewMessageToShow("Game is a tie.");
-							}
-							else
-							{
-								if (NetplayInfo.View == Winner)
-								{
-									HeadCamera.Menu.NewMessageToShow("You win!");
-								}
-								else
-								{
-									HeadCamera.Menu.NewMessageToShow("The other player wins.");
-								}
-							}
-						}
-					}
+					// Look for a winner and end the game if needed
+					NetplayInfo.TestEndGame(NetplayInfo, Lvl, HeadCamera);
 
 					// Check if we're in a multiplayer game
 					if (Nodes > 1)
@@ -423,6 +340,7 @@ public class Game
 							for (int Player = 0; Player < Lvl.Players.size(); Player++)
 							{
 								// BUG: Cheap fix player strafing not reset. FUCK!
+								Lvl.Players.get(Player).WeaponToUse = 0;
 								Lvl.Players.get(Player).SideMove = 0;
 								Lvl.Players.get(Player).FrontMove = 0;
 								Lvl.Players.get(Player).AngleDiff = 0;
