@@ -220,127 +220,130 @@ public class Camera
 
 		if (HasControl && !Menu.Active())    // If I am this player
 		{
-			//CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
+			if (Plyr.ShouldMove())
+			{
+				//CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
-			// If keys for opposite movements are held, don't do anything.
-			if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
-				&& (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))))
-			{
-				if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+				// If keys for opposite movements are held, don't do anything.
+				if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP)) && (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))))
 				{
-					CurrentPlayer().ForwardMove((byte) 1);
+					if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+					{
+						CurrentPlayer().ForwardMove((byte) 1);
+					}
+					if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+					{
+						CurrentPlayer().ForwardMove((byte) -1);
+					}
 				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))
-				{
-					CurrentPlayer().ForwardMove((byte) -1);
-				}
-			}
 
-			// If keys for opposite movements are held, don't do anything.
-			if (!(Keyboard.isKeyDown(Keyboard.KEY_A) && Keyboard.isKeyDown(Keyboard.KEY_D)))
-			{
-				if (Keyboard.isKeyDown(Keyboard.KEY_A))
+				// If keys for opposite movements are held, don't do anything.
+				if (!(Keyboard.isKeyDown(Keyboard.KEY_A) && Keyboard.isKeyDown(Keyboard.KEY_D)))
 				{
-					CurrentPlayer().LateralMove((byte) -1);
+					if (Keyboard.isKeyDown(Keyboard.KEY_A))
+					{
+						CurrentPlayer().LateralMove((byte) -1);
+					}
+					if (Keyboard.isKeyDown(Keyboard.KEY_D))
+					{
+						CurrentPlayer().LateralMove((byte) 1);
+					}
 				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_D))
-				{
-					CurrentPlayer().LateralMove((byte) 1);
-				}
-			}
 
-			// If both keys are held at the same time, don't do anything.
-			if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
-			{
-				if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+				// If both keys are held at the same time, don't do anything.
+				if (!(Keyboard.isKeyDown(Keyboard.KEY_LEFT) && Keyboard.isKeyDown(Keyboard.KEY_RIGHT)))
 				{
-					CurrentPlayer().AngleTurn((short) 500);
+					if (Plyr.ShouldMove())
+					{
+						if (Keyboard.isKeyDown(Keyboard.KEY_LEFT))
+						{
+							CurrentPlayer().AngleTurn((short) 500);
+						}
+						else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+						{
+							CurrentPlayer().AngleTurn((short) -500);
+						}
+						else
+						{
+							CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
+						}
+					}
 				}
-				else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+				if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 				{
-					CurrentPlayer().AngleTurn((short) -500);
+					//CurrentPlayer().MoveUp();
 				}
-				else
+				if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
 				{
-					CurrentPlayer().AngleTurn((short) -(MouseTurnH * 20));
+					//CurrentPlayer().MoveDown();
 				}
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-			{
-				//CurrentPlayer().MoveUp();
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
-			{
-				//CurrentPlayer().MoveDown();
-			}
 
-			// Right now, it can only shot like a pistol...
-			if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
-					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
-			{
-				if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
+				// Right now, it can only shot like a pistol...
+				if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 				{
-					//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
-					CurrentPlayer().SetShotTrue();
+					if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
+					{
+						//CurrentPlayer().HitScan(CurrentPlayer().GetRadianAngle(), 0, 10);
+						CurrentPlayer().SetShotTrue();
+						Plyr.TriggerAlreadyPressed = true;
+					}
+					else
+					{
+						JustPressedFireKey = true;
+
+						// Check if the player has completely dropped on the floor
+						if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
+						{
+							// Spawn the player
+							if (!CurrentPlayer().SpawnAtRandomSpot(true))
+							{
+								System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+								System.exit(1);
+							}
+							else
+							{
+								CurrentPlayer().Emitter.PlaySound("respawn.wav", CurrentPlayer());
+							}
+						}
+					}
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
+				{
+					JustPressedFireKey = true;
 					Plyr.TriggerAlreadyPressed = true;
 				}
 				else
 				{
-					JustPressedFireKey = true;
-
-					// Check if the player has completely dropped on the floor
-					if (CurrentPlayer().ViewZ == CurrentPlayer().HeadOnFloor)
-					{
-						// Spawn the player
-						if (!CurrentPlayer().SpawnAtRandomSpot(true))
-						{
-							System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-							System.exit(1);
-						}
-						else
-						{
-							CurrentPlayer().Emitter.PlaySound("respawn.wav", CurrentPlayer());
-						}
-					}
+					JustPressedFireKey = false;
+					Plyr.TriggerAlreadyPressed = false;
 				}
-			}
-			else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)
-					|| (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
-			{
-				JustPressedFireKey = true;
-				Plyr.TriggerAlreadyPressed = true;
-			}
-			else
-			{
-				JustPressedFireKey = false;
-				Plyr.TriggerAlreadyPressed = false;
-			}
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_F10))
-			{
-				Menu.UserWantsToExit = true;
-			}
+				if (Keyboard.isKeyDown(Keyboard.KEY_F10))
+				{
+					Menu.UserWantsToExit = true;
+				}
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_R))
-			{
-				CurrentPlayer().Reloading = true;
-			}
-			// Change weapon
-			if (Keyboard.isKeyDown(Keyboard.KEY_1))
-			{
-				CurrentPlayer().WeaponToUse = 1;
-			}
-			else if (Keyboard.isKeyDown(Keyboard.KEY_2))
-			{
-				CurrentPlayer().WeaponToUse = 2;
-			}
-			else if (Keyboard.isKeyDown(Keyboard.KEY_3))
-			{
-				CurrentPlayer().WeaponToUse = 3;
-			}
-			else if (Keyboard.isKeyDown(Keyboard.KEY_4))
-			{
-				CurrentPlayer().WeaponToUse = 4;
+				if (Keyboard.isKeyDown(Keyboard.KEY_R))
+				{
+					CurrentPlayer().Reloading = true;
+				}
+				// Change weapon
+				if (Keyboard.isKeyDown(Keyboard.KEY_1))
+				{
+					CurrentPlayer().WeaponToUse = 1;
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_2))
+				{
+					CurrentPlayer().WeaponToUse = 2;
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_3))
+				{
+					CurrentPlayer().WeaponToUse = 3;
+				}
+				else if (Keyboard.isKeyDown(Keyboard.KEY_4))
+				{
+					CurrentPlayer().WeaponToUse = 4;
+				}
 			}
 		}
 

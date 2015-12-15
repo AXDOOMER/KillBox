@@ -301,6 +301,7 @@ public class Game
 						Lvl.Players.get(Player).UpdateIfDead();
 						Lvl.Players.get(Player).UpdateTimeSinceLastShot();
 						Lvl.Players.get(Player).UpdateFlagTime();
+						Lvl.Players.get(Player).UpdateTickCount();
 					}
 
 					// Look for a winner and end the game if needed
