@@ -6,3 +6,4 @@
 ^: spawn
 a: ak47
 t: tek9
++: flag

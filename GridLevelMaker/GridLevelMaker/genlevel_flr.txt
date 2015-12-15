@@ -1,0 +1,16 @@
+                                    
+         f  ffffffff                
+         f  ffffffff                
+         f  ff    ff                
+      ffffffff    ff                
+    fffffffffffffffff               
+      fffff ffffffff                
+        y     f                     
+       yyy  tttttttt &&&&           
+       yyyyytttttttt^^^^& &&&&&&&   
+       yyyyytttttttt &&^&&&^^^^^&   
+       yyy  tttttttt  &^^^^^^^-^&   
+            tttttttt  &&&&&^^^^^&   
+               y          &&&&&&&   
+                                    
+                                    

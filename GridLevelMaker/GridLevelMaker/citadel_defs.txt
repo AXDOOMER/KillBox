@@ -13,3 +13,4 @@ $: TroxPanels_bump.jpg
 !: spawn
 ^: ak47
 %: tek9
++: flag

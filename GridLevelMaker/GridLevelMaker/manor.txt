@@ -1,0 +1,15283 @@
+wall_forblock_x8_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -64;
+	z: 0;
+	x: 512;
+	y: -128;
+	z: 0;
+	x: 512;
+	y: -128;
+	z: 64;
+	x: 512;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x8_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -64;
+	z: 0;
+	x: 512;
+	y: -64;
+	z: 0;
+	x: 512;
+	y: -64;
+	z: 64;
+	x: 576;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x8_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -64;
+	z: 0;
+	x: 576;
+	y: -64;
+	z: 64;
+	x: 576;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x8_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 64;
+	x: 512;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x9_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal79.jpg;
+	x: 576;
+	y: -64;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 64;
+	x: 576;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x9_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal79.jpg;
+	x: 640;
+	y: -64;
+	z: 0;
+	x: 576;
+	y: -64;
+	z: 0;
+	x: 576;
+	y: -64;
+	z: 64;
+	x: 640;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x9_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal79.jpg;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -64;
+	z: 0;
+	x: 640;
+	y: -64;
+	z: 64;
+	x: 640;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x9_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal79.jpg;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 64;
+	x: 576;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x10_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -64;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 64;
+	x: 640;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x10_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -64;
+	z: 0;
+	x: 640;
+	y: -64;
+	z: 0;
+	x: 640;
+	y: -64;
+	z: 64;
+	x: 704;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x10_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -64;
+	z: 0;
+	x: 704;
+	y: -64;
+	z: 64;
+	x: 704;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x10_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 64;
+	x: 640;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x11_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 704;
+	y: -64;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 64;
+	x: 704;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x11_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -64;
+	z: 0;
+	x: 704;
+	y: -64;
+	z: 0;
+	x: 704;
+	y: -64;
+	z: 64;
+	x: 768;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x11_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -64;
+	z: 0;
+	x: 768;
+	y: -64;
+	z: 64;
+	x: 768;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x11_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 64;
+	x: 704;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x12_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -64;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 64;
+	x: 768;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x12_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 832;
+	y: -64;
+	z: 0;
+	x: 768;
+	y: -64;
+	z: 0;
+	x: 768;
+	y: -64;
+	z: 64;
+	x: 832;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x12_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 832;
+	y: -128;
+	z: 0;
+	x: 832;
+	y: -64;
+	z: 0;
+	x: 832;
+	y: -64;
+	z: 64;
+	x: 832;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x12_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 64;
+	x: 768;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x13_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 832;
+	y: -64;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 64;
+	x: 832;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x13_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 896;
+	y: -64;
+	z: 0;
+	x: 832;
+	y: -64;
+	z: 0;
+	x: 832;
+	y: -64;
+	z: 64;
+	x: 896;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x13_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 896;
+	y: -128;
+	z: 0;
+	x: 896;
+	y: -64;
+	z: 0;
+	x: 896;
+	y: -64;
+	z: 64;
+	x: 896;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x13_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 832;
+	y: -128;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 64;
+	x: 832;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x14_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 896;
+	y: -64;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 64;
+	x: 896;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x14_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 960;
+	y: -64;
+	z: 0;
+	x: 896;
+	y: -64;
+	z: 0;
+	x: 896;
+	y: -64;
+	z: 64;
+	x: 960;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x14_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 960;
+	y: -128;
+	z: 0;
+	x: 960;
+	y: -64;
+	z: 0;
+	x: 960;
+	y: -64;
+	z: 64;
+	x: 960;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x14_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 896;
+	y: -128;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 64;
+	x: 896;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x15_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 960;
+	y: -64;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 64;
+	x: 960;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x15_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1024;
+	y: -64;
+	z: 0;
+	x: 960;
+	y: -64;
+	z: 0;
+	x: 960;
+	y: -64;
+	z: 64;
+	x: 1024;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x15_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1024;
+	y: -128;
+	z: 0;
+	x: 1024;
+	y: -64;
+	z: 0;
+	x: 1024;
+	y: -64;
+	z: 64;
+	x: 1024;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x15_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 960;
+	y: -128;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 64;
+	x: 960;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x16_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1024;
+	y: -64;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 64;
+	x: 1024;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x16_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1088;
+	y: -64;
+	z: 0;
+	x: 1024;
+	y: -64;
+	z: 0;
+	x: 1024;
+	y: -64;
+	z: 64;
+	x: 1088;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x16_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1088;
+	y: -128;
+	z: 0;
+	x: 1088;
+	y: -64;
+	z: 0;
+	x: 1088;
+	y: -64;
+	z: 64;
+	x: 1088;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x16_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1024;
+	y: -128;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 64;
+	x: 1024;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x17_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1088;
+	y: -64;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 64;
+	x: 1088;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x17_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1152;
+	y: -64;
+	z: 0;
+	x: 1088;
+	y: -64;
+	z: 0;
+	x: 1088;
+	y: -64;
+	z: 64;
+	x: 1152;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x17_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1152;
+	y: -128;
+	z: 0;
+	x: 1152;
+	y: -64;
+	z: 0;
+	x: 1152;
+	y: -64;
+	z: 64;
+	x: 1152;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x17_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1088;
+	y: -128;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 64;
+	x: 1088;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x18_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1152;
+	y: -64;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 64;
+	x: 1152;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x18_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1216;
+	y: -64;
+	z: 0;
+	x: 1152;
+	y: -64;
+	z: 0;
+	x: 1152;
+	y: -64;
+	z: 64;
+	x: 1216;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x18_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1216;
+	y: -128;
+	z: 0;
+	x: 1216;
+	y: -64;
+	z: 0;
+	x: 1216;
+	y: -64;
+	z: 64;
+	x: 1216;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x18_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1152;
+	y: -128;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 64;
+	x: 1152;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x19_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1216;
+	y: -64;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 64;
+	x: 1216;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x19_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -64;
+	z: 0;
+	x: 1216;
+	y: -64;
+	z: 0;
+	x: 1216;
+	y: -64;
+	z: 64;
+	x: 1280;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x19_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -64;
+	z: 0;
+	x: 1280;
+	y: -64;
+	z: 64;
+	x: 1280;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x19_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1216;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 64;
+	x: 1216;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x20_y1_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -64;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 64;
+	x: 1280;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x20_y1_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -64;
+	z: 0;
+	x: 1280;
+	y: -64;
+	z: 0;
+	x: 1280;
+	y: -64;
+	z: 64;
+	x: 1344;
+	y: -64;
+	z: 64;
+}
+
+wall_forblock_x20_y1_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -128;
+	z: 0;
+	x: 1344;
+	y: -64;
+	z: 0;
+	x: 1344;
+	y: -64;
+	z: 64;
+	x: 1344;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x20_y1_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1344;
+	y: -128;
+	z: 0;
+	x: 1344;
+	y: -128;
+	z: 64;
+	x: 1280;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x8_y2_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -128;
+	z: 0;
+	x: 512;
+	y: -192;
+	z: 0;
+	x: 512;
+	y: -192;
+	z: 64;
+	x: 512;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x8_y2_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 512;
+	y: -128;
+	z: 0;
+	x: 512;
+	y: -128;
+	z: 64;
+	x: 576;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x8_y2_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -192;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 64;
+	x: 576;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x8_y2_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -192;
+	z: 0;
+	x: 576;
+	y: -192;
+	z: 0;
+	x: 576;
+	y: -192;
+	z: 64;
+	x: 512;
+	y: -192;
+	z: 64;
+}
+
+# Thing at X=9 and Y=2
+thing:
+{
+	type: ak47;
+	x: 608;
+	y: -160;
+	z: 0;
+}
+
+wall_forblock_x10_y2_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 64;
+	x: 640;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x10_y2_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 64;
+	x: 704;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x10_y2_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 64;
+	x: 704;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x10_y2_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 64;
+	x: 640;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x11_y2_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 64;
+	x: 704;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x11_y2_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 0;
+	x: 704;
+	y: -128;
+	z: 64;
+	x: 768;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x11_y2_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 768;
+	y: -192;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 64;
+	x: 768;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x11_y2_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 768;
+	y: -192;
+	z: 0;
+	x: 768;
+	y: -192;
+	z: 64;
+	x: 704;
+	y: -192;
+	z: 64;
+}
+
+# Thing at X=12 and Y=2
+thing:
+{
+	type: tek9;
+	x: 800;
+	y: -160;
+	z: 0;
+}
+
+# Thing at X=16 and Y=2
+spawn:
+{
+	x: 1056;
+	y: -160;
+	z: 0;
+	angle: 90;
+}
+
+wall_forblock_x20_y2_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 64;
+	x: 1280;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x20_y2_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 64;
+	x: 1344;
+	y: -128;
+	z: 64;
+}
+
+wall_forblock_x20_y2_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -192;
+	z: 0;
+	x: 1344;
+	y: -128;
+	z: 0;
+	x: 1344;
+	y: -128;
+	z: 64;
+	x: 1344;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x20_y2_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1344;
+	y: -192;
+	z: 0;
+	x: 1344;
+	y: -192;
+	z: 64;
+	x: 1280;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x8_y3_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -192;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 64;
+	x: 512;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x8_y3_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -192;
+	z: 0;
+	x: 512;
+	y: -192;
+	z: 0;
+	x: 512;
+	y: -192;
+	z: 64;
+	x: 576;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x8_y3_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -256;
+	z: 0;
+	x: 576;
+	y: -192;
+	z: 0;
+	x: 576;
+	y: -192;
+	z: 64;
+	x: 576;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x8_y3_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 576;
+	y: -256;
+	z: 0;
+	x: 576;
+	y: -256;
+	z: 64;
+	x: 512;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x10_y3_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 64;
+	x: 640;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x10_y3_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 64;
+	x: 704;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x10_y3_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 64;
+	x: 704;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x10_y3_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 64;
+	x: 640;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x11_y3_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 64;
+	x: 704;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x11_y3_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 0;
+	x: 704;
+	y: -192;
+	z: 64;
+	x: 768;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x11_y3_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -256;
+	z: 0;
+	x: 768;
+	y: -192;
+	z: 0;
+	x: 768;
+	y: -192;
+	z: 64;
+	x: 768;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x11_y3_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 768;
+	y: -256;
+	z: 0;
+	x: 768;
+	y: -256;
+	z: 64;
+	x: 704;
+	y: -256;
+	z: 64;
+}
+
+}
+
+wall_forblock_x20_y3_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 64;
+	x: 1280;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x20_y3_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 64;
+	x: 1344;
+	y: -192;
+	z: 64;
+}
+
+wall_forblock_x20_y3_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -256;
+	z: 0;
+	x: 1344;
+	y: -192;
+	z: 0;
+	x: 1344;
+	y: -192;
+	z: 64;
+	x: 1344;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x20_y3_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1344;
+	y: -256;
+	z: 0;
+	x: 1344;
+	y: -256;
+	z: 64;
+	x: 1280;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x5_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -256;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 64;
+	x: 320;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x5_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -256;
+	z: 0;
+	x: 320;
+	y: -256;
+	z: 0;
+	x: 320;
+	y: -256;
+	z: 64;
+	x: 384;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x5_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -256;
+	z: 0;
+	x: 384;
+	y: -256;
+	z: 64;
+	x: 384;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x5_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 64;
+	x: 320;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x6_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -256;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 64;
+	x: 384;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x6_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 448;
+	y: -256;
+	z: 0;
+	x: 384;
+	y: -256;
+	z: 0;
+	x: 384;
+	y: -256;
+	z: 64;
+	x: 448;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x6_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 448;
+	y: -320;
+	z: 0;
+	x: 448;
+	y: -256;
+	z: 0;
+	x: 448;
+	y: -256;
+	z: 64;
+	x: 448;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x6_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 64;
+	x: 384;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x7_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 448;
+	y: -256;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 64;
+	x: 448;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x7_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 448;
+	y: -256;
+	z: 0;
+	x: 448;
+	y: -256;
+	z: 64;
+	x: 512;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x7_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -320;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 64;
+	x: 512;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x7_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 448;
+	y: -320;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 64;
+	x: 448;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x8_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 64;
+	x: 512;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x8_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -256;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 0;
+	x: 512;
+	y: -256;
+	z: 64;
+	x: 576;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x8_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 576;
+	y: -320;
+	z: 0;
+	x: 576;
+	y: -256;
+	z: 0;
+	x: 576;
+	y: -256;
+	z: 64;
+	x: 576;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x8_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 512;
+	y: -320;
+	z: 0;
+	x: 576;
+	y: -320;
+	z: 0;
+	x: 576;
+	y: -320;
+	z: 64;
+	x: 512;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x10_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 64;
+	x: 640;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x10_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 64;
+	x: 704;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x10_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x10_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 64;
+	x: 640;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x11_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 64;
+	x: 704;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x11_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 0;
+	x: 704;
+	y: -256;
+	z: 64;
+	x: 768;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x11_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 768;
+	y: -256;
+	z: 0;
+	x: 768;
+	y: -256;
+	z: 64;
+	x: 768;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x11_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x14_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 896;
+	y: -256;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 64;
+	x: 896;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x14_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 896;
+	y: -256;
+	z: 0;
+	x: 896;
+	y: -256;
+	z: 64;
+	x: 960;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x14_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -256;
+	z: 64;
+	x: 960;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x14_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 64;
+	x: 896;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x15_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 64;
+	x: 960;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x15_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -256;
+	z: 64;
+	x: 1024;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x15_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -256;
+	z: 64;
+	x: 1024;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x15_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 64;
+	x: 960;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x16_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 64;
+	x: 1024;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x16_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -256;
+	z: 64;
+	x: 1088;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x16_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -256;
+	z: 64;
+	x: 1088;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x16_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 64;
+	x: 1024;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x17_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 64;
+	x: 1088;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x17_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1152;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -256;
+	z: 64;
+	x: 1152;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x17_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1152;
+	y: -320;
+	z: 0;
+	x: 1152;
+	y: -256;
+	z: 0;
+	x: 1152;
+	y: -256;
+	z: 64;
+	x: 1152;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x17_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1152;
+	y: -320;
+	z: 0;
+	x: 1152;
+	y: -320;
+	z: 64;
+	x: 1088;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x20_y4_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 64;
+	x: 1280;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x20_y4_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 64;
+	x: 1344;
+	y: -256;
+	z: 64;
+}
+
+wall_forblock_x20_y4_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -256;
+	z: 0;
+	x: 1344;
+	y: -256;
+	z: 64;
+	x: 1344;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x20_y4_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 64;
+	x: 1280;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x4_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 256;
+	y: -320;
+	z: 0;
+	x: 256;
+	y: -384;
+	z: 0;
+	x: 256;
+	y: -384;
+	z: 64;
+	x: 256;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x4_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 256;
+	y: -320;
+	z: 0;
+	x: 256;
+	y: -320;
+	z: 64;
+	x: 320;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x4_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 64;
+	x: 320;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x4_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 256;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 64;
+	x: 256;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x5_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 64;
+	x: 320;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x5_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 0;
+	x: 320;
+	y: -320;
+	z: 64;
+	x: 384;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x5_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -384;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 64;
+	x: 384;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x5_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 384;
+	y: -384;
+	z: 0;
+	x: 384;
+	y: -384;
+	z: 64;
+	x: 320;
+	y: -384;
+	z: 64;
+}
+
+# Thing at X=6 and Y=5
+spawn:
+{
+	x: 416;
+	y: -352;
+	z: 0;
+	angle: 90;
+}
+
+wall_forblock_x10_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -384;
+	z: 0;
+	x: 640;
+	y: -384;
+	z: 64;
+	x: 640;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x10_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x10_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 64;
+	x: 704;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x10_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 640;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 64;
+	x: 640;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x11_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x11_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 64;
+	x: 768;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x11_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 64;
+	x: 768;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x11_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -384;
+	z: 64;
+	x: 704;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x14_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -384;
+	z: 0;
+	x: 896;
+	y: -384;
+	z: 64;
+	x: 896;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x14_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 64;
+	x: 960;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x14_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -384;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 64;
+	x: 960;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x14_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 896;
+	y: -384;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 64;
+	x: 896;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x15_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 64;
+	x: 960;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x15_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 0;
+	x: 960;
+	y: -320;
+	z: 64;
+	x: 1024;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x15_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -384;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 64;
+	x: 1024;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x15_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 960;
+	y: -384;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 64;
+	x: 960;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x16_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 64;
+	x: 1024;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x16_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 0;
+	x: 1024;
+	y: -320;
+	z: 64;
+	x: 1088;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x16_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -384;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 64;
+	x: 1088;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x16_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1024;
+	y: -384;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 64;
+	x: 1024;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x17_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 64;
+	x: 1088;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x17_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1152;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 0;
+	x: 1088;
+	y: -320;
+	z: 64;
+	x: 1152;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x17_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1152;
+	y: -384;
+	z: 0;
+	x: 1152;
+	y: -320;
+	z: 0;
+	x: 1152;
+	y: -320;
+	z: 64;
+	x: 1152;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x17_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_texture948.jpg;
+	x: 1088;
+	y: -384;
+	z: 0;
+	x: 1152;
+	y: -384;
+	z: 0;
+	x: 1152;
+	y: -384;
+	z: 64;
+	x: 1088;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x20_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -384;
+	z: 0;
+	x: 1280;
+	y: -384;
+	z: 64;
+	x: 1280;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x20_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 64;
+	x: 1344;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x20_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 64;
+	x: 1344;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x20_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 64;
+	x: 1280;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x21_y5_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 64;
+	x: 1344;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x21_y5_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1408;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 0;
+	x: 1344;
+	y: -320;
+	z: 64;
+	x: 1408;
+	y: -320;
+	z: 64;
+}
+
+wall_forblock_x21_y5_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1408;
+	y: -384;
+	z: 0;
+	x: 1408;
+	y: -320;
+	z: 0;
+	x: 1408;
+	y: -320;
+	z: 64;
+	x: 1408;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x21_y5_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1408;
+	y: -384;
+	z: 0;
+	x: 1408;
+	y: -384;
+	z: 64;
+	x: 1344;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x4_y6_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal68.jpg;
+	x: 256;
+	y: -384;
+	z: 0;
+	x: 256;
+	y: -448;
+	z: 0;
+	x: 256;
+	y: -448;
+	z: 64;
+	x: 256;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x4_y6_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal68.jpg;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 256;
+	y: -384;
+	z: 0;
+	x: 256;
+	y: -384;
+	z: 64;
+	x: 320;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x4_y6_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal68.jpg;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 64;
+	x: 320;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x4_y6_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal68.jpg;
+	x: 256;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 64;
+	x: 256;
+	y: -448;
+	z: 64;
+}
+
+}
+
+}
+
+wall_forblock_x21_y6_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 64;
+	x: 1344;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x21_y6_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1408;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 64;
+	x: 1408;
+	y: -384;
+	z: 64;
+}
+
+wall_forblock_x21_y6_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1408;
+	y: -448;
+	z: 0;
+	x: 1408;
+	y: -384;
+	z: 0;
+	x: 1408;
+	y: -384;
+	z: 64;
+	x: 1408;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x21_y6_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1408;
+	y: -448;
+	z: 0;
+	x: 1408;
+	y: -448;
+	z: 64;
+	x: 1344;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x4_y7_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 256;
+	y: -448;
+	z: 0;
+	x: 256;
+	y: -512;
+	z: 0;
+	x: 256;
+	y: -512;
+	z: 64;
+	x: 256;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x4_y7_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 256;
+	y: -448;
+	z: 0;
+	x: 256;
+	y: -448;
+	z: 64;
+	x: 320;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x4_y7_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -512;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 64;
+	x: 320;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x4_y7_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 256;
+	y: -512;
+	z: 0;
+	x: 320;
+	y: -512;
+	z: 0;
+	x: 320;
+	y: -512;
+	z: 64;
+	x: 256;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x5_y7_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -512;
+	z: 0;
+	x: 320;
+	y: -512;
+	z: 64;
+	x: 320;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x5_y7_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 64;
+	x: 384;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x5_y7_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 384;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -448;
+	z: 0;
+	x: 384;
+	y: -448;
+	z: 64;
+	x: 384;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x5_y7_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick-tile1.jpg;
+	x: 320;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -512;
+	z: 64;
+	x: 320;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x11_y7_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -448;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 64;
+	x: 704;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x11_y7_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -448;
+	z: 0;
+	x: 704;
+	y: -448;
+	z: 0;
+	x: 704;
+	y: -448;
+	z: 64;
+	x: 768;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x11_y7_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -448;
+	z: 0;
+	x: 768;
+	y: -448;
+	z: 64;
+	x: 768;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x11_y7_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: stone_lion_ornament_2_20131006_1293952883.jpg;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 64;
+	x: 704;
+	y: -512;
+	z: 64;
+}
+
+}
+
+wall_forblock_x20_y7_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -448;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 64;
+	x: 1280;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x20_y7_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1280;
+	y: -448;
+	z: 0;
+	x: 1280;
+	y: -448;
+	z: 64;
+	x: 1344;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x20_y7_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 64;
+	x: 1344;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x20_y7_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 64;
+	x: 1280;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x21_y7_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 64;
+	x: 1344;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x21_y7_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1408;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 64;
+	x: 1408;
+	y: -448;
+	z: 64;
+}
+
+wall_forblock_x21_y7_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1408;
+	y: -512;
+	z: 0;
+	x: 1408;
+	y: -448;
+	z: 0;
+	x: 1408;
+	y: -448;
+	z: 64;
+	x: 1408;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x21_y7_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: brick1.jpg;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1408;
+	y: -512;
+	z: 0;
+	x: 1408;
+	y: -512;
+	z: 64;
+	x: 1344;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x6_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -576;
+	z: 0;
+	x: 384;
+	y: -576;
+	z: 64;
+	x: 384;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x6_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -512;
+	z: 0;
+	x: 384;
+	y: -512;
+	z: 64;
+	x: 448;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x6_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -512;
+	z: 64;
+	x: 448;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x6_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 64;
+	x: 384;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x7_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 64;
+	x: 448;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x7_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -512;
+	z: 64;
+	x: 512;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x7_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -576;
+	z: 0;
+	x: 512;
+	y: -512;
+	z: 0;
+	x: 512;
+	y: -512;
+	z: 64;
+	x: 512;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x7_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 512;
+	y: -576;
+	z: 0;
+	x: 512;
+	y: -576;
+	z: 64;
+	x: 448;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x9_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -512;
+	z: 0;
+	x: 576;
+	y: -576;
+	z: 0;
+	x: 576;
+	y: -576;
+	z: 64;
+	x: 576;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x9_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 576;
+	y: -512;
+	z: 0;
+	x: 576;
+	y: -512;
+	z: 64;
+	x: 640;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x9_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -512;
+	z: 64;
+	x: 640;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x9_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 64;
+	x: 576;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x10_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 64;
+	x: 640;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x10_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -512;
+	z: 64;
+	x: 704;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x10_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 64;
+	x: 704;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x10_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 64;
+	x: 640;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x11_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 64;
+	x: 704;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x11_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 64;
+	x: 768;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x11_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 64;
+	x: 768;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x11_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 64;
+	x: 704;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x12_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 64;
+	x: 768;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x12_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 768;
+	y: -512;
+	z: 64;
+	x: 832;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x12_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 832;
+	y: -576;
+	z: 0;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -512;
+	z: 64;
+	x: 832;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x12_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 64;
+	x: 768;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x13_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 64;
+	x: 832;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x13_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 896;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -512;
+	z: 64;
+	x: 896;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x13_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 896;
+	y: -576;
+	z: 0;
+	x: 896;
+	y: -512;
+	z: 0;
+	x: 896;
+	y: -512;
+	z: 64;
+	x: 896;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x13_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 832;
+	y: -576;
+	z: 0;
+	x: 896;
+	y: -576;
+	z: 0;
+	x: 896;
+	y: -576;
+	z: 64;
+	x: 832;
+	y: -576;
+	z: 64;
+}
+
+# Thing at X=14 and Y=8
+thing:
+{
+	type: flag;
+	x: 928;
+	y: -544;
+	z: 0;
+}
+
+wall_forblock_x15_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -512;
+	z: 0;
+	x: 960;
+	y: -576;
+	z: 0;
+	x: 960;
+	y: -576;
+	z: 64;
+	x: 960;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x15_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 960;
+	y: -512;
+	z: 0;
+	x: 960;
+	y: -512;
+	z: 64;
+	x: 1024;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x15_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -576;
+	z: 0;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -512;
+	z: 64;
+	x: 1024;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x15_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -576;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 64;
+	x: 960;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x16_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 64;
+	x: 1024;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x16_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -512;
+	z: 64;
+	x: 1088;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x16_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -576;
+	z: 0;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -512;
+	z: 64;
+	x: 1088;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x16_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -576;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 64;
+	x: 1024;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x17_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 64;
+	x: 1088;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x17_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -512;
+	z: 64;
+	x: 1152;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x17_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -576;
+	z: 0;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -512;
+	z: 64;
+	x: 1152;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x17_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -576;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 64;
+	x: 1088;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x18_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 64;
+	x: 1152;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x18_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -512;
+	z: 64;
+	x: 1216;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x18_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -576;
+	z: 0;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -512;
+	z: 64;
+	x: 1216;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x18_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -576;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 64;
+	x: 1152;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x19_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 64;
+	x: 1216;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x19_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -512;
+	z: 64;
+	x: 1280;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x19_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 64;
+	x: 1280;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x19_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 64;
+	x: 1216;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x20_y8_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 64;
+	x: 1280;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x20_y8_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 64;
+	x: 1344;
+	y: -512;
+	z: 64;
+}
+
+wall_forblock_x20_y8_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 0;
+	x: 1344;
+	y: -512;
+	z: 64;
+	x: 1344;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x20_y8_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 64;
+	x: 1280;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x6_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -576;
+	z: 0;
+	x: 384;
+	y: -640;
+	z: 0;
+	x: 384;
+	y: -640;
+	z: 64;
+	x: 384;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x6_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 384;
+	y: -576;
+	z: 0;
+	x: 384;
+	y: -576;
+	z: 64;
+	x: 448;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x6_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -640;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 64;
+	x: 448;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x6_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -640;
+	z: 0;
+	x: 448;
+	y: -640;
+	z: 0;
+	x: 448;
+	y: -640;
+	z: 64;
+	x: 384;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x10_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -640;
+	z: 0;
+	x: 640;
+	y: -640;
+	z: 64;
+	x: 640;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x10_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 64;
+	x: 704;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x10_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -640;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 64;
+	x: 704;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x10_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -640;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 64;
+	x: 640;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x11_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 64;
+	x: 704;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x11_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 0;
+	x: 704;
+	y: -576;
+	z: 64;
+	x: 768;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x11_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 768;
+	y: -640;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 64;
+	x: 768;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x11_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -640;
+	z: 0;
+	x: 768;
+	y: -640;
+	z: 0;
+	x: 768;
+	y: -640;
+	z: 64;
+	x: 704;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x20_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -640;
+	z: 0;
+	x: 1280;
+	y: -640;
+	z: 64;
+	x: 1280;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x20_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 64;
+	x: 1344;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x20_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 64;
+	x: 1344;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x20_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1280;
+	y: -640;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 64;
+	x: 1280;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x21_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 64;
+	x: 1344;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x21_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 64;
+	x: 1408;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x21_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 64;
+	x: 1408;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x21_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 64;
+	x: 1344;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x22_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -576;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 64;
+	x: 1408;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x22_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -576;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 64;
+	x: 1472;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x22_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 64;
+	x: 1472;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x22_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 64;
+	x: 1408;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x23_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -576;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 64;
+	x: 1472;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x23_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -576;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 64;
+	x: 1536;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x23_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 64;
+	x: 1536;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x23_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1472;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x24_y9_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -576;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1536;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x24_y9_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -576;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 64;
+	x: 1600;
+	y: -576;
+	z: 64;
+}
+
+wall_forblock_x24_y9_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -576;
+	z: 0;
+	x: 1600;
+	y: -576;
+	z: 64;
+	x: 1600;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x24_y9_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 64;
+	x: 1536;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x6_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -640;
+	z: 0;
+	x: 384;
+	y: -704;
+	z: 0;
+	x: 384;
+	y: -704;
+	z: 64;
+	x: 384;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x6_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -640;
+	z: 0;
+	x: 384;
+	y: -640;
+	z: 0;
+	x: 384;
+	y: -640;
+	z: 64;
+	x: 448;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x6_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -704;
+	z: 0;
+	x: 448;
+	y: -640;
+	z: 0;
+	x: 448;
+	y: -640;
+	z: 64;
+	x: 448;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x6_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -704;
+	z: 0;
+	x: 448;
+	y: -704;
+	z: 0;
+	x: 448;
+	y: -704;
+	z: 64;
+	x: 384;
+	y: -704;
+	z: 64;
+}
+
+# Thing at X=15 and Y=10
+thing:
+{
+	type: tek9;
+	x: 992;
+	y: -672;
+	z: 0;
+}
+
+wall_forblock_x24_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 64;
+	x: 1536;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x24_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1600;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x24_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 64;
+	x: 1600;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x24_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 64;
+	x: 1536;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x26_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -640;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x26_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -640;
+	z: 0;
+	x: 1664;
+	y: -640;
+	z: 0;
+	x: 1664;
+	y: -640;
+	z: 64;
+	x: 1728;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x26_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 64;
+	x: 1728;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x26_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x27_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -640;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x27_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -640;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 64;
+	x: 1792;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x27_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 64;
+	x: 1792;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x27_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x28_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -640;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 64;
+	x: 1792;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x28_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -640;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 64;
+	x: 1856;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x28_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 64;
+	x: 1856;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x28_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 64;
+	x: 1792;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x29_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -640;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 64;
+	x: 1856;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x29_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -640;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 64;
+	x: 1920;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x29_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 64;
+	x: 1920;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x29_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 64;
+	x: 1856;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x30_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -640;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 64;
+	x: 1920;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x30_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -640;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 64;
+	x: 1984;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x30_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 64;
+	x: 1984;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x30_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 64;
+	x: 1920;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x31_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -640;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 64;
+	x: 1984;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x31_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -640;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 64;
+	x: 2048;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x31_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 64;
+	x: 2048;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x31_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 1984;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x32_y10_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -640;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 2048;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x32_y10_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -640;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 64;
+	x: 2112;
+	y: -640;
+	z: 64;
+}
+
+wall_forblock_x32_y10_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -640;
+	z: 0;
+	x: 2112;
+	y: -640;
+	z: 64;
+	x: 2112;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x32_y10_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 64;
+	x: 2048;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x6_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -704;
+	z: 0;
+	x: 384;
+	y: -768;
+	z: 0;
+	x: 384;
+	y: -768;
+	z: 64;
+	x: 384;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x6_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -704;
+	z: 0;
+	x: 384;
+	y: -704;
+	z: 0;
+	x: 384;
+	y: -704;
+	z: 64;
+	x: 448;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x6_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -768;
+	z: 0;
+	x: 448;
+	y: -704;
+	z: 0;
+	x: 448;
+	y: -704;
+	z: 64;
+	x: 448;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x6_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -768;
+	z: 0;
+	x: 448;
+	y: -768;
+	z: 0;
+	x: 448;
+	y: -768;
+	z: 64;
+	x: 384;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x20_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1280;
+	y: -704;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 64;
+	x: 1280;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x20_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1280;
+	y: -704;
+	z: 0;
+	x: 1280;
+	y: -704;
+	z: 64;
+	x: 1344;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x20_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 64;
+	x: 1344;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x20_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: container.png;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 64;
+	x: 1280;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x21_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x21_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 64;
+	x: 1408;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x21_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 64;
+	x: 1408;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x21_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x22_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1408;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x22_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 64;
+	x: 1472;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x22_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -704;
+	z: 0;
+	x: 1472;
+	y: -704;
+	z: 64;
+	x: 1472;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x22_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 64;
+	x: 1408;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x24_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -768;
+	z: 0;
+	x: 1536;
+	y: -768;
+	z: 64;
+	x: 1536;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x24_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 64;
+	x: 1600;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x24_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 64;
+	x: 1600;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x24_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 64;
+	x: 1536;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x25_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 64;
+	x: 1600;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x25_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x25_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x25_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 64;
+	x: 1600;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x26_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x26_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x26_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x26_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -768;
+	z: 64;
+	x: 1664;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x32_y11_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 64;
+	x: 2048;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x32_y11_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 2112;
+	y: -704;
+	z: 64;
+}
+
+wall_forblock_x32_y11_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 64;
+	x: 2112;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x32_y11_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 64;
+	x: 2048;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x6_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -768;
+	z: 0;
+	x: 384;
+	y: -832;
+	z: 0;
+	x: 384;
+	y: -832;
+	z: 64;
+	x: 384;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x6_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -768;
+	z: 0;
+	x: 384;
+	y: -768;
+	z: 0;
+	x: 384;
+	y: -768;
+	z: 64;
+	x: 448;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x6_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -768;
+	z: 0;
+	x: 448;
+	y: -768;
+	z: 64;
+	x: 448;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x6_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 64;
+	x: 384;
+	y: -832;
+	z: 64;
+}
+
+# Thing at X=8 and Y=12
+thing:
+{
+	type: ak47;
+	x: 544;
+	y: -800;
+	z: 0;
+}
+
+wall_forblock_x10_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -768;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 64;
+	x: 640;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x10_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 640;
+	y: -768;
+	z: 0;
+	x: 640;
+	y: -768;
+	z: 64;
+	x: 704;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x10_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -768;
+	z: 64;
+	x: 704;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x10_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 64;
+	x: 640;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x11_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 64;
+	x: 704;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x11_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -768;
+	z: 64;
+	x: 768;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x11_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -832;
+	z: 0;
+	x: 768;
+	y: -768;
+	z: 0;
+	x: 768;
+	y: -768;
+	z: 64;
+	x: 768;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x11_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 768;
+	y: -832;
+	z: 0;
+	x: 768;
+	y: -832;
+	z: 64;
+	x: 704;
+	y: -832;
+	z: 64;
+}
+
+}
+
+wall_forblock_x20_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 64;
+	x: 1280;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x20_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x20_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -832;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1344;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x20_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1344;
+	y: -832;
+	z: 0;
+	x: 1344;
+	y: -832;
+	z: 64;
+	x: 1280;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x22_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -832;
+	z: 0;
+	x: 1408;
+	y: -832;
+	z: 64;
+	x: 1408;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x22_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1472;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x22_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 64;
+	x: 1472;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x22_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 64;
+	x: 1408;
+	y: -832;
+	z: 64;
+}
+
+}
+
+# Thing at X=29 and Y=12
+spawn:
+{
+	x: 1888;
+	y: -800;
+	z: 0;
+	angle: 90;
+}
+
+wall_forblock_x30_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1920;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -832;
+	z: 0;
+	x: 1920;
+	y: -832;
+	z: 64;
+	x: 1920;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x30_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1984;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -768;
+	z: 64;
+	x: 1984;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x30_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1984;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -768;
+	z: 0;
+	x: 1984;
+	y: -768;
+	z: 64;
+	x: 1984;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x30_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1920;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -832;
+	z: 64;
+	x: 1920;
+	y: -832;
+	z: 64;
+}
+
+# Thing at X=31 and Y=12
+thing:
+{
+	type: ak47;
+	x: 2016;
+	y: -800;
+	z: 0;
+}
+
+wall_forblock_x32_y12_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 64;
+	x: 2048;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x32_y12_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 64;
+	x: 2112;
+	y: -768;
+	z: 64;
+}
+
+wall_forblock_x32_y12_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 64;
+	x: 2112;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x32_y12_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 64;
+	x: 2048;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x6_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -832;
+	z: 0;
+	x: 384;
+	y: -896;
+	z: 0;
+	x: 384;
+	y: -896;
+	z: 64;
+	x: 384;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x6_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 384;
+	y: -832;
+	z: 0;
+	x: 384;
+	y: -832;
+	z: 64;
+	x: 448;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x6_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -896;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 64;
+	x: 448;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x6_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 384;
+	y: -896;
+	z: 0;
+	x: 448;
+	y: -896;
+	z: 0;
+	x: 448;
+	y: -896;
+	z: 64;
+	x: 384;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x7_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -896;
+	z: 0;
+	x: 448;
+	y: -896;
+	z: 64;
+	x: 448;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x7_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 448;
+	y: -832;
+	z: 64;
+	x: 512;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x7_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -896;
+	z: 0;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -832;
+	z: 64;
+	x: 512;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x7_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 448;
+	y: -896;
+	z: 0;
+	x: 512;
+	y: -896;
+	z: 0;
+	x: 512;
+	y: -896;
+	z: 64;
+	x: 448;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x8_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -896;
+	z: 0;
+	x: 512;
+	y: -896;
+	z: 64;
+	x: 512;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x8_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -832;
+	z: 64;
+	x: 576;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x8_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -896;
+	z: 0;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -832;
+	z: 64;
+	x: 576;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x8_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 512;
+	y: -896;
+	z: 0;
+	x: 576;
+	y: -896;
+	z: 0;
+	x: 576;
+	y: -896;
+	z: 64;
+	x: 512;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x9_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -896;
+	z: 0;
+	x: 576;
+	y: -896;
+	z: 64;
+	x: 576;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x9_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -832;
+	z: 64;
+	x: 640;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x9_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -896;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 64;
+	x: 640;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x9_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 576;
+	y: -896;
+	z: 0;
+	x: 640;
+	y: -896;
+	z: 0;
+	x: 640;
+	y: -896;
+	z: 64;
+	x: 576;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x10_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -896;
+	z: 0;
+	x: 640;
+	y: -896;
+	z: 64;
+	x: 640;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x10_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 64;
+	x: 704;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x10_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 64;
+	x: 704;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x10_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: boring_wall.jpg;
+	x: 640;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 64;
+	x: 640;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x11_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 64;
+	x: 704;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x11_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 0;
+	x: 704;
+	y: -832;
+	z: 64;
+	x: 768;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x11_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -832;
+	z: 0;
+	x: 768;
+	y: -832;
+	z: 64;
+	x: 768;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x11_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 64;
+	x: 704;
+	y: -896;
+	z: 64;
+}
+
+# Thing at X=15 and Y=13
+spawn:
+{
+	x: 992;
+	y: -864;
+	z: 0;
+	angle: 90;
+}
+
+wall_forblock_x20_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 64;
+	x: 1280;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x20_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 64;
+	x: 1344;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x20_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -896;
+	z: 0;
+	x: 1344;
+	y: -832;
+	z: 0;
+	x: 1344;
+	y: -832;
+	z: 64;
+	x: 1344;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x20_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1344;
+	y: -896;
+	z: 0;
+	x: 1344;
+	y: -896;
+	z: 64;
+	x: 1280;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x22_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -832;
+	z: 0;
+	x: 1408;
+	y: -896;
+	z: 0;
+	x: 1408;
+	y: -896;
+	z: 64;
+	x: 1408;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x22_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1408;
+	y: -832;
+	z: 0;
+	x: 1408;
+	y: -832;
+	z: 64;
+	x: 1472;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x22_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 64;
+	x: 1472;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x22_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -896;
+	z: 64;
+	x: 1408;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x23_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -896;
+	z: 64;
+	x: 1472;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x23_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 64;
+	x: 1536;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x23_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 64;
+	x: 1536;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x23_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -896;
+	z: 64;
+	x: 1472;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x24_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -896;
+	z: 64;
+	x: 1536;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x24_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 64;
+	x: 1600;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x24_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 64;
+	x: 1600;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x24_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -896;
+	z: 64;
+	x: 1536;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x25_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -896;
+	z: 64;
+	x: 1600;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x25_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 64;
+	x: 1664;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x25_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 64;
+	x: 1664;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x25_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1600;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x26_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1664;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x26_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 64;
+	x: 1728;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x26_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -832;
+	z: 0;
+	x: 1728;
+	y: -832;
+	z: 64;
+	x: 1728;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x26_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 64;
+	x: 1664;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x32_y13_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x32_y13_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 64;
+	x: 2112;
+	y: -832;
+	z: 64;
+}
+
+wall_forblock_x32_y13_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 64;
+	x: 2112;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x32_y13_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x11_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -960;
+	z: 0;
+	x: 704;
+	y: -960;
+	z: 64;
+	x: 704;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x11_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 0;
+	x: 704;
+	y: -896;
+	z: 64;
+	x: 768;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x11_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -960;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 64;
+	x: 768;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x11_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 704;
+	y: -960;
+	z: 0;
+	x: 768;
+	y: -960;
+	z: 0;
+	x: 768;
+	y: -960;
+	z: 64;
+	x: 704;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x12_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -960;
+	z: 0;
+	x: 768;
+	y: -960;
+	z: 64;
+	x: 768;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x12_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 768;
+	y: -896;
+	z: 64;
+	x: 832;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x12_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 832;
+	y: -960;
+	z: 0;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -896;
+	z: 64;
+	x: 832;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x12_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 768;
+	y: -960;
+	z: 0;
+	x: 832;
+	y: -960;
+	z: 0;
+	x: 832;
+	y: -960;
+	z: 64;
+	x: 768;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x13_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -960;
+	z: 0;
+	x: 832;
+	y: -960;
+	z: 64;
+	x: 832;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x13_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -896;
+	z: 64;
+	x: 896;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x13_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -896;
+	z: 64;
+	x: 896;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x13_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 832;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 64;
+	x: 832;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x14_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 64;
+	x: 896;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x14_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -896;
+	z: 64;
+	x: 960;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x14_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -896;
+	z: 0;
+	x: 960;
+	y: -896;
+	z: 64;
+	x: 960;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x14_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 64;
+	x: 896;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x16_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -896;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 64;
+	x: 1024;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x16_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1024;
+	y: -896;
+	z: 0;
+	x: 1024;
+	y: -896;
+	z: 64;
+	x: 1088;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x16_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -896;
+	z: 64;
+	x: 1088;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x16_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 64;
+	x: 1024;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x17_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 64;
+	x: 1088;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x17_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -896;
+	z: 64;
+	x: 1152;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x17_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -960;
+	z: 0;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -896;
+	z: 64;
+	x: 1152;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x17_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1152;
+	y: -960;
+	z: 0;
+	x: 1152;
+	y: -960;
+	z: 64;
+	x: 1088;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x18_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -960;
+	z: 0;
+	x: 1152;
+	y: -960;
+	z: 64;
+	x: 1152;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x18_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -896;
+	z: 64;
+	x: 1216;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x18_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -960;
+	z: 0;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -896;
+	z: 64;
+	x: 1216;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x18_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1152;
+	y: -960;
+	z: 0;
+	x: 1216;
+	y: -960;
+	z: 0;
+	x: 1216;
+	y: -960;
+	z: 64;
+	x: 1152;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x19_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -960;
+	z: 0;
+	x: 1216;
+	y: -960;
+	z: 64;
+	x: 1216;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x19_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -896;
+	z: 64;
+	x: 1280;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x19_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -960;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 64;
+	x: 1280;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x19_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1216;
+	y: -960;
+	z: 0;
+	x: 1280;
+	y: -960;
+	z: 0;
+	x: 1280;
+	y: -960;
+	z: 64;
+	x: 1216;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x20_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -960;
+	z: 0;
+	x: 1280;
+	y: -960;
+	z: 64;
+	x: 1280;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x20_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 64;
+	x: 1344;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x20_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1344;
+	y: -960;
+	z: 0;
+	x: 1344;
+	y: -896;
+	z: 0;
+	x: 1344;
+	y: -896;
+	z: 64;
+	x: 1344;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x20_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1280;
+	y: -960;
+	z: 0;
+	x: 1344;
+	y: -960;
+	z: 0;
+	x: 1344;
+	y: -960;
+	z: 64;
+	x: 1280;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x26_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -960;
+	z: 0;
+	x: 1664;
+	y: -960;
+	z: 64;
+	x: 1664;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x26_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1728;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x26_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 64;
+	x: 1728;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x26_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -960;
+	z: 64;
+	x: 1664;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x27_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -960;
+	z: 64;
+	x: 1728;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x27_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 64;
+	x: 1792;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x27_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 64;
+	x: 1792;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x27_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -960;
+	z: 64;
+	x: 1728;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x28_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -960;
+	z: 64;
+	x: 1792;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x28_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 64;
+	x: 1856;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x28_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 64;
+	x: 1856;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x28_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -960;
+	z: 64;
+	x: 1792;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x29_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -960;
+	z: 64;
+	x: 1856;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x29_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 64;
+	x: 1920;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x29_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 64;
+	x: 1920;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x29_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -960;
+	z: 64;
+	x: 1856;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x30_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -960;
+	z: 64;
+	x: 1920;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x30_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 64;
+	x: 1984;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x30_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 64;
+	x: 1984;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x30_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -960;
+	z: 64;
+	x: 1920;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x31_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -960;
+	z: 64;
+	x: 1984;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x31_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x31_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x31_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -960;
+	z: 64;
+	x: 1984;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x32_y14_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -960;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x32_y14_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 64;
+	x: 2112;
+	y: -896;
+	z: 64;
+}
+
+wall_forblock_x32_y14_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -960;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 64;
+	x: 2112;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x32_y14_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2112;
+	y: -960;
+	z: 0;
+	x: 2112;
+	y: -960;
+	z: 64;
+	x: 2048;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x14_y15_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -1024;
+	z: 0;
+	x: 896;
+	y: -1024;
+	z: 64;
+	x: 896;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x14_y15_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 0;
+	x: 896;
+	y: -960;
+	z: 64;
+	x: 960;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x14_y15_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 960;
+	y: -1024;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 64;
+	x: 960;
+	y: -1024;
+	z: 64;
+}
+
+wall_forblock_x14_y15_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 896;
+	y: -1024;
+	z: 0;
+	x: 960;
+	y: -1024;
+	z: 0;
+	x: 960;
+	y: -1024;
+	z: 64;
+	x: 896;
+	y: -1024;
+	z: 64;
+}
+
+wall_forblock_x15_y15_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal50.jpg;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -1024;
+	z: 0;
+	x: 960;
+	y: -1024;
+	z: 64;
+	x: 960;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x15_y15_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal50.jpg;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 960;
+	y: -960;
+	z: 64;
+	x: 1024;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x15_y15_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal50.jpg;
+	x: 1024;
+	y: -1024;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 64;
+	x: 1024;
+	y: -1024;
+	z: 64;
+}
+
+wall_forblock_x15_y15_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: DoorMetal50.jpg;
+	x: 960;
+	y: -1024;
+	z: 0;
+	x: 1024;
+	y: -1024;
+	z: 0;
+	x: 1024;
+	y: -1024;
+	z: 64;
+	x: 960;
+	y: -1024;
+	z: 64;
+}
+
+wall_forblock_x16_y15_left:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -1024;
+	z: 0;
+	x: 1024;
+	y: -1024;
+	z: 64;
+	x: 1024;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x16_y15_top:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 64;
+	x: 1088;
+	y: -960;
+	z: 64;
+}
+
+wall_forblock_x16_y15_right:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1088;
+	y: -1024;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 0;
+	x: 1088;
+	y: -960;
+	z: 64;
+	x: 1088;
+	y: -1024;
+	z: 64;
+}
+
+wall_forblock_x16_y15_bottom:
+{
+	2sided: false;
+	impassable: true;
+	texture: concrete_wall_2_by_agf81.jpg;
+	x: 1024;
+	y: -1024;
+	z: 0;
+	x: 1088;
+	y: -1024;
+	z: 0;
+	x: 1088;
+	y: -1024;
+	z: 64;
+	x: 1024;
+	y: -1024;
+	z: 64;
+}
+
+floor_forblock_x9_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 640;
+	y: -128;
+	z: 0;
+	x: 576;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x12_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -192;
+	z: 0;
+	x: 832;
+	y: -192;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 0;
+	x: 768;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x13_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -192;
+	z: 0;
+	x: 896;
+	y: -192;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 0;
+	x: 832;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x14_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 896;
+	y: -192;
+	z: 0;
+	x: 960;
+	y: -192;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 0;
+	x: 896;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x15_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 960;
+	y: -192;
+	z: 0;
+	x: 1024;
+	y: -192;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 0;
+	x: 960;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x16_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1024;
+	y: -192;
+	z: 0;
+	x: 1088;
+	y: -192;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 0;
+	x: 1024;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x17_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1088;
+	y: -192;
+	z: 0;
+	x: 1152;
+	y: -192;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 0;
+	x: 1088;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x18_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -192;
+	z: 0;
+	x: 1216;
+	y: -192;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 0;
+	x: 1152;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x19_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1280;
+	y: -128;
+	z: 0;
+	x: 1216;
+	y: -128;
+	z: 0;
+}
+
+floor_forblock_x9_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 640;
+	y: -192;
+	z: 0;
+	x: 576;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x12_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -256;
+	z: 0;
+	x: 832;
+	y: -256;
+	z: 0;
+	x: 832;
+	y: -192;
+	z: 0;
+	x: 768;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x13_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -256;
+	z: 0;
+	x: 896;
+	y: -256;
+	z: 0;
+	x: 896;
+	y: -192;
+	z: 0;
+	x: 832;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x14_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 896;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 960;
+	y: -192;
+	z: 0;
+	x: 896;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x15_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 960;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 1024;
+	y: -192;
+	z: 0;
+	x: 960;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x16_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1024;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1088;
+	y: -192;
+	z: 0;
+	x: 1024;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x17_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1088;
+	y: -256;
+	z: 0;
+	x: 1152;
+	y: -256;
+	z: 0;
+	x: 1152;
+	y: -192;
+	z: 0;
+	x: 1088;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x18_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -256;
+	z: 0;
+	x: 1216;
+	y: -256;
+	z: 0;
+	x: 1216;
+	y: -192;
+	z: 0;
+	x: 1152;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x19_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1280;
+	y: -192;
+	z: 0;
+	x: 1216;
+	y: -192;
+	z: 0;
+}
+
+floor_forblock_x9_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -256;
+	z: 0;
+	x: 576;
+	y: -256;
+	z: 0;
+}
+
+floor_forblock_x12_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 832;
+	y: -320;
+	z: 0;
+	x: 832;
+	y: -256;
+	z: 0;
+	x: 768;
+	y: -256;
+	z: 0;
+}
+
+floor_forblock_x13_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 896;
+	y: -256;
+	z: 0;
+	x: 832;
+	y: -256;
+	z: 0;
+}
+
+floor_forblock_x18_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -320;
+	z: 0;
+	x: 1216;
+	y: -320;
+	z: 0;
+	x: 1216;
+	y: -256;
+	z: 0;
+	x: 1152;
+	y: -256;
+	z: 0;
+}
+
+floor_forblock_x19_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1280;
+	y: -256;
+	z: 0;
+	x: 1216;
+	y: -256;
+	z: 0;
+}
+
+floor_forblock_x6_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 384;
+	y: -384;
+	z: 0;
+	x: 448;
+	y: -384;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 0;
+	x: 384;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x7_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 448;
+	y: -384;
+	z: 0;
+	x: 512;
+	y: -384;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 0;
+	x: 448;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x8_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 512;
+	y: -384;
+	z: 0;
+	x: 576;
+	y: -384;
+	z: 0;
+	x: 576;
+	y: -320;
+	z: 0;
+	x: 512;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x9_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -384;
+	z: 0;
+	x: 640;
+	y: -384;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 0;
+	x: 576;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x10_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 640;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+	x: 640;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x11_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 0;
+	x: 704;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x12_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -384;
+	z: 0;
+	x: 832;
+	y: -384;
+	z: 0;
+	x: 832;
+	y: -320;
+	z: 0;
+	x: 768;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x13_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -384;
+	z: 0;
+	x: 896;
+	y: -384;
+	z: 0;
+	x: 896;
+	y: -320;
+	z: 0;
+	x: 832;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x18_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -384;
+	z: 0;
+	x: 1216;
+	y: -384;
+	z: 0;
+	x: 1216;
+	y: -320;
+	z: 0;
+	x: 1152;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x19_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -384;
+	z: 0;
+	x: 1280;
+	y: -384;
+	z: 0;
+	x: 1280;
+	y: -320;
+	z: 0;
+	x: 1216;
+	y: -320;
+	z: 0;
+}
+
+floor_forblock_x4_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 256;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 0;
+	x: 256;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x5_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 320;
+	y: -448;
+	z: 0;
+	x: 384;
+	y: -448;
+	z: 0;
+	x: 384;
+	y: -384;
+	z: 0;
+	x: 320;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x6_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 384;
+	y: -448;
+	z: 0;
+	x: 448;
+	y: -448;
+	z: 0;
+	x: 448;
+	y: -384;
+	z: 0;
+	x: 384;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x7_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 448;
+	y: -448;
+	z: 0;
+	x: 512;
+	y: -448;
+	z: 0;
+	x: 512;
+	y: -384;
+	z: 0;
+	x: 448;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x8_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 512;
+	y: -448;
+	z: 0;
+	x: 576;
+	y: -448;
+	z: 0;
+	x: 576;
+	y: -384;
+	z: 0;
+	x: 512;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x9_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -448;
+	z: 0;
+	x: 640;
+	y: -448;
+	z: 0;
+	x: 640;
+	y: -384;
+	z: 0;
+	x: 576;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x10_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 640;
+	y: -448;
+	z: 0;
+	x: 704;
+	y: -448;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 0;
+	x: 640;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x11_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 704;
+	y: -448;
+	z: 0;
+	x: 768;
+	y: -448;
+	z: 0;
+	x: 768;
+	y: -384;
+	z: 0;
+	x: 704;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x12_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -448;
+	z: 0;
+	x: 832;
+	y: -448;
+	z: 0;
+	x: 832;
+	y: -384;
+	z: 0;
+	x: 768;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x13_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -448;
+	z: 0;
+	x: 896;
+	y: -448;
+	z: 0;
+	x: 896;
+	y: -384;
+	z: 0;
+	x: 832;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x14_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 896;
+	y: -448;
+	z: 0;
+	x: 960;
+	y: -448;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 0;
+	x: 896;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x15_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 960;
+	y: -448;
+	z: 0;
+	x: 1024;
+	y: -448;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 0;
+	x: 960;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x16_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1024;
+	y: -448;
+	z: 0;
+	x: 1088;
+	y: -448;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 0;
+	x: 1024;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x17_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1088;
+	y: -448;
+	z: 0;
+	x: 1152;
+	y: -448;
+	z: 0;
+	x: 1152;
+	y: -384;
+	z: 0;
+	x: 1088;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x18_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -448;
+	z: 0;
+	x: 1216;
+	y: -448;
+	z: 0;
+	x: 1216;
+	y: -384;
+	z: 0;
+	x: 1152;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x19_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -448;
+	z: 0;
+	x: 1280;
+	y: -448;
+	z: 0;
+	x: 1280;
+	y: -384;
+	z: 0;
+	x: 1216;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x20_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1280;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -448;
+	z: 0;
+	x: 1344;
+	y: -384;
+	z: 0;
+	x: 1280;
+	y: -384;
+	z: 0;
+}
+
+floor_forblock_x6_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 384;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 448;
+	y: -448;
+	z: 0;
+	x: 384;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x7_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 448;
+	y: -512;
+	z: 0;
+	x: 512;
+	y: -512;
+	z: 0;
+	x: 512;
+	y: -448;
+	z: 0;
+	x: 448;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x8_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 512;
+	y: -512;
+	z: 0;
+	x: 576;
+	y: -512;
+	z: 0;
+	x: 576;
+	y: -448;
+	z: 0;
+	x: 512;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x9_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 576;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 640;
+	y: -448;
+	z: 0;
+	x: 576;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x10_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 640;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -512;
+	z: 0;
+	x: 704;
+	y: -448;
+	z: 0;
+	x: 640;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x12_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 768;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 832;
+	y: -448;
+	z: 0;
+	x: 768;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x13_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 832;
+	y: -512;
+	z: 0;
+	x: 896;
+	y: -512;
+	z: 0;
+	x: 896;
+	y: -448;
+	z: 0;
+	x: 832;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x14_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 896;
+	y: -512;
+	z: 0;
+	x: 960;
+	y: -512;
+	z: 0;
+	x: 960;
+	y: -448;
+	z: 0;
+	x: 896;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x15_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 960;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 1024;
+	y: -448;
+	z: 0;
+	x: 960;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x16_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1024;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1088;
+	y: -448;
+	z: 0;
+	x: 1024;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x17_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1088;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1152;
+	y: -448;
+	z: 0;
+	x: 1088;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x18_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1152;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1216;
+	y: -448;
+	z: 0;
+	x: 1152;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x19_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 1216;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -512;
+	z: 0;
+	x: 1280;
+	y: -448;
+	z: 0;
+	x: 1216;
+	y: -448;
+	z: 0;
+}
+
+floor_forblock_x8_y8:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -576;
+	z: 0;
+	x: 576;
+	y: -576;
+	z: 0;
+	x: 576;
+	y: -512;
+	z: 0;
+	x: 512;
+	y: -512;
+	z: 0;
+}
+
+floor_forblock_x14_y8:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble-floor-tile.jpg;
+	x: 896;
+	y: -576;
+	z: 0;
+	x: 960;
+	y: -576;
+	z: 0;
+	x: 960;
+	y: -512;
+	z: 0;
+	x: 896;
+	y: -512;
+	z: 0;
+}
+
+floor_forblock_x7_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 448;
+	y: -640;
+	z: 0;
+	x: 512;
+	y: -640;
+	z: 0;
+	x: 512;
+	y: -576;
+	z: 0;
+	x: 448;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x8_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -640;
+	z: 0;
+	x: 576;
+	y: -640;
+	z: 0;
+	x: 576;
+	y: -576;
+	z: 0;
+	x: 512;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x9_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -640;
+	z: 0;
+	x: 640;
+	y: -640;
+	z: 0;
+	x: 640;
+	y: -576;
+	z: 0;
+	x: 576;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x12_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -640;
+	z: 0;
+	x: 832;
+	y: -640;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 0;
+	x: 768;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x13_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 832;
+	y: -640;
+	z: 0;
+	x: 896;
+	y: -640;
+	z: 0;
+	x: 896;
+	y: -576;
+	z: 0;
+	x: 832;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x14_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 896;
+	y: -640;
+	z: 0;
+	x: 960;
+	y: -640;
+	z: 0;
+	x: 960;
+	y: -576;
+	z: 0;
+	x: 896;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x15_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 960;
+	y: -640;
+	z: 0;
+	x: 1024;
+	y: -640;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 0;
+	x: 960;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x16_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1024;
+	y: -640;
+	z: 0;
+	x: 1088;
+	y: -640;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 0;
+	x: 1024;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x17_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1088;
+	y: -640;
+	z: 0;
+	x: 1152;
+	y: -640;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 0;
+	x: 1088;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x18_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1152;
+	y: -640;
+	z: 0;
+	x: 1216;
+	y: -640;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 0;
+	x: 1152;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x19_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1216;
+	y: -640;
+	z: 0;
+	x: 1280;
+	y: -640;
+	z: 0;
+	x: 1280;
+	y: -576;
+	z: 0;
+	x: 1216;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x21_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 0;
+	x: 1344;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x22_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 0;
+	x: 1408;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x23_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 0;
+	x: 1472;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x24_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1600;
+	y: -576;
+	z: 0;
+	x: 1536;
+	y: -576;
+	z: 0;
+}
+
+floor_forblock_x7_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 448;
+	y: -704;
+	z: 0;
+	x: 512;
+	y: -704;
+	z: 0;
+	x: 512;
+	y: -640;
+	z: 0;
+	x: 448;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x8_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -704;
+	z: 0;
+	x: 576;
+	y: -704;
+	z: 0;
+	x: 576;
+	y: -640;
+	z: 0;
+	x: 512;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x9_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -704;
+	z: 0;
+	x: 640;
+	y: -704;
+	z: 0;
+	x: 640;
+	y: -640;
+	z: 0;
+	x: 576;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x10_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -704;
+	z: 0;
+	x: 704;
+	y: -704;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 0;
+	x: 640;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x11_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 704;
+	y: -704;
+	z: 0;
+	x: 768;
+	y: -704;
+	z: 0;
+	x: 768;
+	y: -640;
+	z: 0;
+	x: 704;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x12_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -704;
+	z: 0;
+	x: 832;
+	y: -704;
+	z: 0;
+	x: 832;
+	y: -640;
+	z: 0;
+	x: 768;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x13_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 832;
+	y: -704;
+	z: 0;
+	x: 896;
+	y: -704;
+	z: 0;
+	x: 896;
+	y: -640;
+	z: 0;
+	x: 832;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x14_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 896;
+	y: -704;
+	z: 0;
+	x: 960;
+	y: -704;
+	z: 0;
+	x: 960;
+	y: -640;
+	z: 0;
+	x: 896;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x15_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 960;
+	y: -704;
+	z: 0;
+	x: 1024;
+	y: -704;
+	z: 0;
+	x: 1024;
+	y: -640;
+	z: 0;
+	x: 960;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x16_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1024;
+	y: -704;
+	z: 0;
+	x: 1088;
+	y: -704;
+	z: 0;
+	x: 1088;
+	y: -640;
+	z: 0;
+	x: 1024;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x17_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1088;
+	y: -704;
+	z: 0;
+	x: 1152;
+	y: -704;
+	z: 0;
+	x: 1152;
+	y: -640;
+	z: 0;
+	x: 1088;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x18_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1152;
+	y: -704;
+	z: 0;
+	x: 1216;
+	y: -704;
+	z: 0;
+	x: 1216;
+	y: -640;
+	z: 0;
+	x: 1152;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x19_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1216;
+	y: -704;
+	z: 0;
+	x: 1280;
+	y: -704;
+	z: 0;
+	x: 1280;
+	y: -640;
+	z: 0;
+	x: 1216;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x20_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1280;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 0;
+	x: 1280;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x21_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1344;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 0;
+	x: 1344;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x22_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1472;
+	y: -704;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 0;
+	x: 1408;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x23_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1472;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+	x: 1472;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x24_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -640;
+	z: 0;
+	x: 1536;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x26_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 0;
+	x: 1664;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x27_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 0;
+	x: 1728;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x28_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 0;
+	x: 1792;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x29_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 0;
+	x: 1856;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x30_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 0;
+	x: 1920;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x31_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 0;
+	x: 1984;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x32_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2112;
+	y: -640;
+	z: 0;
+	x: 2048;
+	y: -640;
+	z: 0;
+}
+
+floor_forblock_x7_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 448;
+	y: -768;
+	z: 0;
+	x: 512;
+	y: -768;
+	z: 0;
+	x: 512;
+	y: -704;
+	z: 0;
+	x: 448;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x8_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -768;
+	z: 0;
+	x: 576;
+	y: -768;
+	z: 0;
+	x: 576;
+	y: -704;
+	z: 0;
+	x: 512;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x9_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -768;
+	z: 0;
+	x: 640;
+	y: -768;
+	z: 0;
+	x: 640;
+	y: -704;
+	z: 0;
+	x: 576;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x10_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 704;
+	y: -704;
+	z: 0;
+	x: 640;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x11_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 704;
+	y: -768;
+	z: 0;
+	x: 768;
+	y: -768;
+	z: 0;
+	x: 768;
+	y: -704;
+	z: 0;
+	x: 704;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x12_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -768;
+	z: 0;
+	x: 832;
+	y: -768;
+	z: 0;
+	x: 832;
+	y: -704;
+	z: 0;
+	x: 768;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x13_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 832;
+	y: -768;
+	z: 0;
+	x: 896;
+	y: -768;
+	z: 0;
+	x: 896;
+	y: -704;
+	z: 0;
+	x: 832;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x14_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 896;
+	y: -768;
+	z: 0;
+	x: 960;
+	y: -768;
+	z: 0;
+	x: 960;
+	y: -704;
+	z: 0;
+	x: 896;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x15_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 960;
+	y: -768;
+	z: 0;
+	x: 1024;
+	y: -768;
+	z: 0;
+	x: 1024;
+	y: -704;
+	z: 0;
+	x: 960;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x16_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1024;
+	y: -768;
+	z: 0;
+	x: 1088;
+	y: -768;
+	z: 0;
+	x: 1088;
+	y: -704;
+	z: 0;
+	x: 1024;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x17_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1088;
+	y: -768;
+	z: 0;
+	x: 1152;
+	y: -768;
+	z: 0;
+	x: 1152;
+	y: -704;
+	z: 0;
+	x: 1088;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x18_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1152;
+	y: -768;
+	z: 0;
+	x: 1216;
+	y: -768;
+	z: 0;
+	x: 1216;
+	y: -704;
+	z: 0;
+	x: 1152;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x19_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1216;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1280;
+	y: -704;
+	z: 0;
+	x: 1216;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x21_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1344;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 0;
+	x: 1344;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x22_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -704;
+	z: 0;
+	x: 1408;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x23_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1536;
+	y: -768;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 0;
+	x: 1472;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x24_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+	x: 1536;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x25_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 0;
+	x: 1600;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x26_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+	x: 1664;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x27_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1728;
+	y: -768;
+	z: 0;
+	x: 1792;
+	y: -768;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 0;
+	x: 1728;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x28_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1792;
+	y: -768;
+	z: 0;
+	x: 1856;
+	y: -768;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 0;
+	x: 1792;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x29_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1856;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 0;
+	x: 1856;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x30_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1920;
+	y: -768;
+	z: 0;
+	x: 1984;
+	y: -768;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 0;
+	x: 1920;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x31_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1984;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+	x: 1984;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x32_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2112;
+	y: -704;
+	z: 0;
+	x: 2048;
+	y: -704;
+	z: 0;
+}
+
+floor_forblock_x7_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 448;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 512;
+	y: -768;
+	z: 0;
+	x: 448;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x8_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 576;
+	y: -768;
+	z: 0;
+	x: 512;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x9_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -832;
+	z: 0;
+	x: 640;
+	y: -768;
+	z: 0;
+	x: 576;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x12_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -832;
+	z: 0;
+	x: 832;
+	y: -832;
+	z: 0;
+	x: 832;
+	y: -768;
+	z: 0;
+	x: 768;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x13_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 832;
+	y: -832;
+	z: 0;
+	x: 896;
+	y: -832;
+	z: 0;
+	x: 896;
+	y: -768;
+	z: 0;
+	x: 832;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x14_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 896;
+	y: -832;
+	z: 0;
+	x: 960;
+	y: -832;
+	z: 0;
+	x: 960;
+	y: -768;
+	z: 0;
+	x: 896;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x15_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 960;
+	y: -832;
+	z: 0;
+	x: 1024;
+	y: -832;
+	z: 0;
+	x: 1024;
+	y: -768;
+	z: 0;
+	x: 960;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x16_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1024;
+	y: -832;
+	z: 0;
+	x: 1088;
+	y: -832;
+	z: 0;
+	x: 1088;
+	y: -768;
+	z: 0;
+	x: 1024;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x17_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1088;
+	y: -832;
+	z: 0;
+	x: 1152;
+	y: -832;
+	z: 0;
+	x: 1152;
+	y: -768;
+	z: 0;
+	x: 1088;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x18_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1152;
+	y: -832;
+	z: 0;
+	x: 1216;
+	y: -832;
+	z: 0;
+	x: 1216;
+	y: -768;
+	z: 0;
+	x: 1152;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x19_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1216;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1280;
+	y: -768;
+	z: 0;
+	x: 1216;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x22_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 0;
+	x: 1408;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x23_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -768;
+	z: 0;
+	x: 1472;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x24_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 0;
+	x: 1536;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x25_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 0;
+	x: 1600;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x26_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1728;
+	y: -832;
+	z: 0;
+	x: 1728;
+	y: -768;
+	z: 0;
+	x: 1664;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x27_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1728;
+	y: -832;
+	z: 0;
+	x: 1792;
+	y: -832;
+	z: 0;
+	x: 1792;
+	y: -768;
+	z: 0;
+	x: 1728;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x28_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1792;
+	y: -832;
+	z: 0;
+	x: 1856;
+	y: -832;
+	z: 0;
+	x: 1856;
+	y: -768;
+	z: 0;
+	x: 1792;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x29_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1856;
+	y: -832;
+	z: 0;
+	x: 1920;
+	y: -832;
+	z: 0;
+	x: 1920;
+	y: -768;
+	z: 0;
+	x: 1856;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x30_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1920;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -768;
+	z: 0;
+	x: 1920;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x31_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1984;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 0;
+	x: 1984;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x32_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2112;
+	y: -768;
+	z: 0;
+	x: 2048;
+	y: -768;
+	z: 0;
+}
+
+floor_forblock_x12_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 832;
+	y: -832;
+	z: 0;
+	x: 768;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x13_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 832;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 896;
+	y: -832;
+	z: 0;
+	x: 832;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x14_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 896;
+	y: -896;
+	z: 0;
+	x: 960;
+	y: -896;
+	z: 0;
+	x: 960;
+	y: -832;
+	z: 0;
+	x: 896;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x15_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 960;
+	y: -896;
+	z: 0;
+	x: 1024;
+	y: -896;
+	z: 0;
+	x: 1024;
+	y: -832;
+	z: 0;
+	x: 960;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x16_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1024;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1088;
+	y: -832;
+	z: 0;
+	x: 1024;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x17_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1088;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1152;
+	y: -832;
+	z: 0;
+	x: 1088;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x18_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1152;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1216;
+	y: -832;
+	z: 0;
+	x: 1152;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x19_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 1216;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -896;
+	z: 0;
+	x: 1280;
+	y: -832;
+	z: 0;
+	x: 1216;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x22_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+	x: 1408;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x23_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 0;
+	x: 1472;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x24_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 0;
+	x: 1536;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x25_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 0;
+	x: 1600;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x26_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -832;
+	z: 0;
+	x: 1664;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x27_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -832;
+	z: 0;
+	x: 1728;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x28_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -832;
+	z: 0;
+	x: 1792;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x29_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -832;
+	z: 0;
+	x: 1856;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x30_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -832;
+	z: 0;
+	x: 1920;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x31_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass.png;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 0;
+	x: 1984;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x32_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2112;
+	y: -832;
+	z: 0;
+	x: 2048;
+	y: -832;
+	z: 0;
+}
+
+floor_forblock_x15_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 960;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -960;
+	z: 0;
+	x: 1024;
+	y: -896;
+	z: 0;
+	x: 960;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x26_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+	x: 1664;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x27_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 0;
+	x: 1728;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x28_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 0;
+	x: 1792;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x29_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 0;
+	x: 1856;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x30_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 0;
+	x: 1920;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x31_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+	x: 1984;
+	y: -896;
+	z: 0;
+}
+
+floor_forblock_x32_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -960;
+	z: 0;
+	x: 2112;
+	y: -960;
+	z: 0;
+	x: 2112;
+	y: -896;
+	z: 0;
+	x: 2048;
+	y: -896;
+	z: 0;
+}
+
+ceiling_forblock_x9_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -192;
+	z: 64;
+	x: 576;
+	y: -192;
+	z: 64;
+	x: 576;
+	y: -128;
+	z: 64;
+	x: 640;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x12_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -192;
+	z: 64;
+	x: 768;
+	y: -192;
+	z: 64;
+	x: 768;
+	y: -128;
+	z: 64;
+	x: 832;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x13_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -192;
+	z: 64;
+	x: 832;
+	y: -192;
+	z: 64;
+	x: 832;
+	y: -128;
+	z: 64;
+	x: 896;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x14_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 960;
+	y: -192;
+	z: 64;
+	x: 896;
+	y: -192;
+	z: 64;
+	x: 896;
+	y: -128;
+	z: 64;
+	x: 960;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x15_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1024;
+	y: -192;
+	z: 64;
+	x: 960;
+	y: -192;
+	z: 64;
+	x: 960;
+	y: -128;
+	z: 64;
+	x: 1024;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x16_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1088;
+	y: -192;
+	z: 64;
+	x: 1024;
+	y: -192;
+	z: 64;
+	x: 1024;
+	y: -128;
+	z: 64;
+	x: 1088;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x17_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1152;
+	y: -192;
+	z: 64;
+	x: 1088;
+	y: -192;
+	z: 64;
+	x: 1088;
+	y: -128;
+	z: 64;
+	x: 1152;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x18_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -192;
+	z: 64;
+	x: 1152;
+	y: -192;
+	z: 64;
+	x: 1152;
+	y: -128;
+	z: 64;
+	x: 1216;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x19_y2:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -192;
+	z: 64;
+	x: 1216;
+	y: -192;
+	z: 64;
+	x: 1216;
+	y: -128;
+	z: 64;
+	x: 1280;
+	y: -128;
+	z: 64;
+}
+
+ceiling_forblock_x9_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -256;
+	z: 64;
+	x: 576;
+	y: -256;
+	z: 64;
+	x: 576;
+	y: -192;
+	z: 64;
+	x: 640;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x12_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -256;
+	z: 64;
+	x: 768;
+	y: -256;
+	z: 64;
+	x: 768;
+	y: -192;
+	z: 64;
+	x: 832;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x13_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -256;
+	z: 64;
+	x: 832;
+	y: -256;
+	z: 64;
+	x: 832;
+	y: -192;
+	z: 64;
+	x: 896;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x14_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 960;
+	y: -256;
+	z: 64;
+	x: 896;
+	y: -256;
+	z: 64;
+	x: 896;
+	y: -192;
+	z: 64;
+	x: 960;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x15_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1024;
+	y: -256;
+	z: 64;
+	x: 960;
+	y: -256;
+	z: 64;
+	x: 960;
+	y: -192;
+	z: 64;
+	x: 1024;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x16_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1088;
+	y: -256;
+	z: 64;
+	x: 1024;
+	y: -256;
+	z: 64;
+	x: 1024;
+	y: -192;
+	z: 64;
+	x: 1088;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x17_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1152;
+	y: -256;
+	z: 64;
+	x: 1088;
+	y: -256;
+	z: 64;
+	x: 1088;
+	y: -192;
+	z: 64;
+	x: 1152;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x18_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -256;
+	z: 64;
+	x: 1152;
+	y: -256;
+	z: 64;
+	x: 1152;
+	y: -192;
+	z: 64;
+	x: 1216;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x19_y3:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -256;
+	z: 64;
+	x: 1216;
+	y: -256;
+	z: 64;
+	x: 1216;
+	y: -192;
+	z: 64;
+	x: 1280;
+	y: -192;
+	z: 64;
+}
+
+ceiling_forblock_x9_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -320;
+	z: 64;
+	x: 576;
+	y: -320;
+	z: 64;
+	x: 576;
+	y: -256;
+	z: 64;
+	x: 640;
+	y: -256;
+	z: 64;
+}
+
+ceiling_forblock_x12_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -320;
+	z: 64;
+	x: 768;
+	y: -320;
+	z: 64;
+	x: 768;
+	y: -256;
+	z: 64;
+	x: 832;
+	y: -256;
+	z: 64;
+}
+
+ceiling_forblock_x13_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -320;
+	z: 64;
+	x: 832;
+	y: -320;
+	z: 64;
+	x: 832;
+	y: -256;
+	z: 64;
+	x: 896;
+	y: -256;
+	z: 64;
+}
+
+ceiling_forblock_x18_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -320;
+	z: 64;
+	x: 1152;
+	y: -320;
+	z: 64;
+	x: 1152;
+	y: -256;
+	z: 64;
+	x: 1216;
+	y: -256;
+	z: 64;
+}
+
+ceiling_forblock_x19_y4:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -320;
+	z: 64;
+	x: 1216;
+	y: -320;
+	z: 64;
+	x: 1216;
+	y: -256;
+	z: 64;
+	x: 1280;
+	y: -256;
+	z: 64;
+}
+
+ceiling_forblock_x6_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 448;
+	y: -384;
+	z: 64;
+	x: 384;
+	y: -384;
+	z: 64;
+	x: 384;
+	y: -320;
+	z: 64;
+	x: 448;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x7_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 512;
+	y: -384;
+	z: 64;
+	x: 448;
+	y: -384;
+	z: 64;
+	x: 448;
+	y: -320;
+	z: 64;
+	x: 512;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x8_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 576;
+	y: -384;
+	z: 64;
+	x: 512;
+	y: -384;
+	z: 64;
+	x: 512;
+	y: -320;
+	z: 64;
+	x: 576;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x9_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -384;
+	z: 64;
+	x: 576;
+	y: -384;
+	z: 64;
+	x: 576;
+	y: -320;
+	z: 64;
+	x: 640;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x10_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 704;
+	y: -384;
+	z: 64;
+	x: 640;
+	y: -384;
+	z: 64;
+	x: 640;
+	y: -320;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x11_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -384;
+	z: 64;
+	x: 704;
+	y: -384;
+	z: 64;
+	x: 704;
+	y: -320;
+	z: 64;
+	x: 768;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x12_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -384;
+	z: 64;
+	x: 768;
+	y: -384;
+	z: 64;
+	x: 768;
+	y: -320;
+	z: 64;
+	x: 832;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x13_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -384;
+	z: 64;
+	x: 832;
+	y: -384;
+	z: 64;
+	x: 832;
+	y: -320;
+	z: 64;
+	x: 896;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x18_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -384;
+	z: 64;
+	x: 1152;
+	y: -384;
+	z: 64;
+	x: 1152;
+	y: -320;
+	z: 64;
+	x: 1216;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x19_y5:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -384;
+	z: 64;
+	x: 1216;
+	y: -384;
+	z: 64;
+	x: 1216;
+	y: -320;
+	z: 64;
+	x: 1280;
+	y: -320;
+	z: 64;
+}
+
+ceiling_forblock_x4_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 320;
+	y: -448;
+	z: 64;
+	x: 256;
+	y: -448;
+	z: 64;
+	x: 256;
+	y: -384;
+	z: 64;
+	x: 320;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x5_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 384;
+	y: -448;
+	z: 64;
+	x: 320;
+	y: -448;
+	z: 64;
+	x: 320;
+	y: -384;
+	z: 64;
+	x: 384;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x6_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 448;
+	y: -448;
+	z: 64;
+	x: 384;
+	y: -448;
+	z: 64;
+	x: 384;
+	y: -384;
+	z: 64;
+	x: 448;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x7_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 512;
+	y: -448;
+	z: 64;
+	x: 448;
+	y: -448;
+	z: 64;
+	x: 448;
+	y: -384;
+	z: 64;
+	x: 512;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x8_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 576;
+	y: -448;
+	z: 64;
+	x: 512;
+	y: -448;
+	z: 64;
+	x: 512;
+	y: -384;
+	z: 64;
+	x: 576;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x9_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -448;
+	z: 64;
+	x: 576;
+	y: -448;
+	z: 64;
+	x: 576;
+	y: -384;
+	z: 64;
+	x: 640;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x10_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 704;
+	y: -448;
+	z: 64;
+	x: 640;
+	y: -448;
+	z: 64;
+	x: 640;
+	y: -384;
+	z: 64;
+	x: 704;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x11_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 768;
+	y: -448;
+	z: 64;
+	x: 704;
+	y: -448;
+	z: 64;
+	x: 704;
+	y: -384;
+	z: 64;
+	x: 768;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x12_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -448;
+	z: 64;
+	x: 768;
+	y: -448;
+	z: 64;
+	x: 768;
+	y: -384;
+	z: 64;
+	x: 832;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x13_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -448;
+	z: 64;
+	x: 832;
+	y: -448;
+	z: 64;
+	x: 832;
+	y: -384;
+	z: 64;
+	x: 896;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x14_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 960;
+	y: -448;
+	z: 64;
+	x: 896;
+	y: -448;
+	z: 64;
+	x: 896;
+	y: -384;
+	z: 64;
+	x: 960;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x15_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1024;
+	y: -448;
+	z: 64;
+	x: 960;
+	y: -448;
+	z: 64;
+	x: 960;
+	y: -384;
+	z: 64;
+	x: 1024;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x16_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1088;
+	y: -448;
+	z: 64;
+	x: 1024;
+	y: -448;
+	z: 64;
+	x: 1024;
+	y: -384;
+	z: 64;
+	x: 1088;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x17_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1152;
+	y: -448;
+	z: 64;
+	x: 1088;
+	y: -448;
+	z: 64;
+	x: 1088;
+	y: -384;
+	z: 64;
+	x: 1152;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x18_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -448;
+	z: 64;
+	x: 1152;
+	y: -448;
+	z: 64;
+	x: 1152;
+	y: -384;
+	z: 64;
+	x: 1216;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x19_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -448;
+	z: 64;
+	x: 1216;
+	y: -448;
+	z: 64;
+	x: 1216;
+	y: -384;
+	z: 64;
+	x: 1280;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x20_y6:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1344;
+	y: -448;
+	z: 64;
+	x: 1280;
+	y: -448;
+	z: 64;
+	x: 1280;
+	y: -384;
+	z: 64;
+	x: 1344;
+	y: -384;
+	z: 64;
+}
+
+ceiling_forblock_x6_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 448;
+	y: -512;
+	z: 64;
+	x: 384;
+	y: -512;
+	z: 64;
+	x: 384;
+	y: -448;
+	z: 64;
+	x: 448;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x7_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 512;
+	y: -512;
+	z: 64;
+	x: 448;
+	y: -512;
+	z: 64;
+	x: 448;
+	y: -448;
+	z: 64;
+	x: 512;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x8_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 576;
+	y: -512;
+	z: 64;
+	x: 512;
+	y: -512;
+	z: 64;
+	x: 512;
+	y: -448;
+	z: 64;
+	x: 576;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x9_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 640;
+	y: -512;
+	z: 64;
+	x: 576;
+	y: -512;
+	z: 64;
+	x: 576;
+	y: -448;
+	z: 64;
+	x: 640;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x10_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: tile_texture3059.jpg;
+	x: 704;
+	y: -512;
+	z: 64;
+	x: 640;
+	y: -512;
+	z: 64;
+	x: 640;
+	y: -448;
+	z: 64;
+	x: 704;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x12_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 832;
+	y: -512;
+	z: 64;
+	x: 768;
+	y: -512;
+	z: 64;
+	x: 768;
+	y: -448;
+	z: 64;
+	x: 832;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x13_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 896;
+	y: -512;
+	z: 64;
+	x: 832;
+	y: -512;
+	z: 64;
+	x: 832;
+	y: -448;
+	z: 64;
+	x: 896;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x14_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 960;
+	y: -512;
+	z: 64;
+	x: 896;
+	y: -512;
+	z: 64;
+	x: 896;
+	y: -448;
+	z: 64;
+	x: 960;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x15_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1024;
+	y: -512;
+	z: 64;
+	x: 960;
+	y: -512;
+	z: 64;
+	x: 960;
+	y: -448;
+	z: 64;
+	x: 1024;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x16_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1088;
+	y: -512;
+	z: 64;
+	x: 1024;
+	y: -512;
+	z: 64;
+	x: 1024;
+	y: -448;
+	z: 64;
+	x: 1088;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x17_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1152;
+	y: -512;
+	z: 64;
+	x: 1088;
+	y: -512;
+	z: 64;
+	x: 1088;
+	y: -448;
+	z: 64;
+	x: 1152;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x18_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1216;
+	y: -512;
+	z: 64;
+	x: 1152;
+	y: -512;
+	z: 64;
+	x: 1152;
+	y: -448;
+	z: 64;
+	x: 1216;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x19_y7:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 1280;
+	y: -512;
+	z: 64;
+	x: 1216;
+	y: -512;
+	z: 64;
+	x: 1216;
+	y: -448;
+	z: 64;
+	x: 1280;
+	y: -448;
+	z: 64;
+}
+
+ceiling_forblock_x8_y8:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -576;
+	z: 64;
+	x: 512;
+	y: -576;
+	z: 64;
+	x: 512;
+	y: -512;
+	z: 64;
+	x: 576;
+	y: -512;
+	z: 64;
+}
+
+ceiling_forblock_x14_y8:
+{
+	2sided: false;
+	impassable: false;
+	texture: marble_162231.jpg;
+	x: 960;
+	y: -576;
+	z: 64;
+	x: 896;
+	y: -576;
+	z: 64;
+	x: 896;
+	y: -512;
+	z: 64;
+	x: 960;
+	y: -512;
+	z: 64;
+}
+
+ceiling_forblock_x7_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -640;
+	z: 64;
+	x: 448;
+	y: -640;
+	z: 64;
+	x: 448;
+	y: -576;
+	z: 64;
+	x: 512;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x8_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -640;
+	z: 64;
+	x: 512;
+	y: -640;
+	z: 64;
+	x: 512;
+	y: -576;
+	z: 64;
+	x: 576;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x9_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -640;
+	z: 64;
+	x: 576;
+	y: -640;
+	z: 64;
+	x: 576;
+	y: -576;
+	z: 64;
+	x: 640;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x21_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -640;
+	z: 64;
+	x: 1344;
+	y: -640;
+	z: 64;
+	x: 1344;
+	y: -576;
+	z: 64;
+	x: 1408;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x22_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -640;
+	z: 64;
+	x: 1408;
+	y: -640;
+	z: 64;
+	x: 1408;
+	y: -576;
+	z: 64;
+	x: 1472;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x23_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1472;
+	y: -640;
+	z: 64;
+	x: 1472;
+	y: -576;
+	z: 64;
+	x: 1536;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x24_y9:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -640;
+	z: 64;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1536;
+	y: -576;
+	z: 64;
+	x: 1600;
+	y: -576;
+	z: 64;
+}
+
+ceiling_forblock_x7_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -704;
+	z: 64;
+	x: 448;
+	y: -704;
+	z: 64;
+	x: 448;
+	y: -640;
+	z: 64;
+	x: 512;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x8_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -704;
+	z: 64;
+	x: 512;
+	y: -704;
+	z: 64;
+	x: 512;
+	y: -640;
+	z: 64;
+	x: 576;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x9_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -704;
+	z: 64;
+	x: 576;
+	y: -704;
+	z: 64;
+	x: 576;
+	y: -640;
+	z: 64;
+	x: 640;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x10_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 704;
+	y: -704;
+	z: 64;
+	x: 640;
+	y: -704;
+	z: 64;
+	x: 640;
+	y: -640;
+	z: 64;
+	x: 704;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x11_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 768;
+	y: -704;
+	z: 64;
+	x: 704;
+	y: -704;
+	z: 64;
+	x: 704;
+	y: -640;
+	z: 64;
+	x: 768;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x24_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -704;
+	z: 64;
+	x: 1536;
+	y: -704;
+	z: 64;
+	x: 1536;
+	y: -640;
+	z: 64;
+	x: 1600;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x26_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -640;
+	z: 64;
+	x: 1728;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x27_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -640;
+	z: 64;
+	x: 1792;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x28_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -704;
+	z: 64;
+	x: 1792;
+	y: -704;
+	z: 64;
+	x: 1792;
+	y: -640;
+	z: 64;
+	x: 1856;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x29_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -704;
+	z: 64;
+	x: 1856;
+	y: -704;
+	z: 64;
+	x: 1856;
+	y: -640;
+	z: 64;
+	x: 1920;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x30_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -704;
+	z: 64;
+	x: 1920;
+	y: -704;
+	z: 64;
+	x: 1920;
+	y: -640;
+	z: 64;
+	x: 1984;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x31_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 1984;
+	y: -704;
+	z: 64;
+	x: 1984;
+	y: -640;
+	z: 64;
+	x: 2048;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x32_y10:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -704;
+	z: 64;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 2048;
+	y: -640;
+	z: 64;
+	x: 2112;
+	y: -640;
+	z: 64;
+}
+
+ceiling_forblock_x7_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -768;
+	z: 64;
+	x: 448;
+	y: -768;
+	z: 64;
+	x: 448;
+	y: -704;
+	z: 64;
+	x: 512;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x8_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -768;
+	z: 64;
+	x: 512;
+	y: -768;
+	z: 64;
+	x: 512;
+	y: -704;
+	z: 64;
+	x: 576;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x9_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -768;
+	z: 64;
+	x: 576;
+	y: -768;
+	z: 64;
+	x: 576;
+	y: -704;
+	z: 64;
+	x: 640;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x10_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 704;
+	y: -768;
+	z: 64;
+	x: 640;
+	y: -768;
+	z: 64;
+	x: 640;
+	y: -704;
+	z: 64;
+	x: 704;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x11_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 768;
+	y: -768;
+	z: 64;
+	x: 704;
+	y: -768;
+	z: 64;
+	x: 704;
+	y: -704;
+	z: 64;
+	x: 768;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x21_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -768;
+	z: 64;
+	x: 1344;
+	y: -704;
+	z: 64;
+	x: 1408;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x22_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -768;
+	z: 64;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1408;
+	y: -704;
+	z: 64;
+	x: 1472;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x24_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -768;
+	z: 64;
+	x: 1536;
+	y: -768;
+	z: 64;
+	x: 1536;
+	y: -704;
+	z: 64;
+	x: 1600;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x25_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -768;
+	z: 64;
+	x: 1600;
+	y: -768;
+	z: 64;
+	x: 1600;
+	y: -704;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x26_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -768;
+	z: 64;
+	x: 1664;
+	y: -768;
+	z: 64;
+	x: 1664;
+	y: -704;
+	z: 64;
+	x: 1728;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x32_y11:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -768;
+	z: 64;
+	x: 2048;
+	y: -768;
+	z: 64;
+	x: 2048;
+	y: -704;
+	z: 64;
+	x: 2112;
+	y: -704;
+	z: 64;
+}
+
+ceiling_forblock_x7_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 512;
+	y: -832;
+	z: 64;
+	x: 448;
+	y: -832;
+	z: 64;
+	x: 448;
+	y: -768;
+	z: 64;
+	x: 512;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x8_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 576;
+	y: -832;
+	z: 64;
+	x: 512;
+	y: -832;
+	z: 64;
+	x: 512;
+	y: -768;
+	z: 64;
+	x: 576;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x9_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 640;
+	y: -832;
+	z: 64;
+	x: 576;
+	y: -832;
+	z: 64;
+	x: 576;
+	y: -768;
+	z: 64;
+	x: 640;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x22_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -832;
+	z: 64;
+	x: 1408;
+	y: -832;
+	z: 64;
+	x: 1408;
+	y: -768;
+	z: 64;
+	x: 1472;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x30_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: Ancient-Egyptian-Wall-4-394.jpg;
+	x: 1984;
+	y: -832;
+	z: 64;
+	x: 1920;
+	y: -832;
+	z: 64;
+	x: 1920;
+	y: -768;
+	z: 64;
+	x: 1984;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x32_y12:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -832;
+	z: 64;
+	x: 2048;
+	y: -832;
+	z: 64;
+	x: 2048;
+	y: -768;
+	z: 64;
+	x: 2112;
+	y: -768;
+	z: 64;
+}
+
+ceiling_forblock_x22_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1472;
+	y: -896;
+	z: 64;
+	x: 1408;
+	y: -896;
+	z: 64;
+	x: 1408;
+	y: -832;
+	z: 64;
+	x: 1472;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x23_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1536;
+	y: -896;
+	z: 64;
+	x: 1472;
+	y: -896;
+	z: 64;
+	x: 1472;
+	y: -832;
+	z: 64;
+	x: 1536;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x24_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1600;
+	y: -896;
+	z: 64;
+	x: 1536;
+	y: -896;
+	z: 64;
+	x: 1536;
+	y: -832;
+	z: 64;
+	x: 1600;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x25_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1600;
+	y: -896;
+	z: 64;
+	x: 1600;
+	y: -832;
+	z: 64;
+	x: 1664;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x26_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -896;
+	z: 64;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1664;
+	y: -832;
+	z: 64;
+	x: 1728;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x32_y13:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -832;
+	z: 64;
+	x: 2112;
+	y: -832;
+	z: 64;
+}
+
+ceiling_forblock_x15_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	x: 1024;
+	y: -960;
+	z: 64;
+	x: 960;
+	y: -960;
+	z: 64;
+	x: 960;
+	y: -896;
+	z: 64;
+	x: 1024;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x26_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1728;
+	y: -960;
+	z: 64;
+	x: 1664;
+	y: -960;
+	z: 64;
+	x: 1664;
+	y: -896;
+	z: 64;
+	x: 1728;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x27_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1792;
+	y: -960;
+	z: 64;
+	x: 1728;
+	y: -960;
+	z: 64;
+	x: 1728;
+	y: -896;
+	z: 64;
+	x: 1792;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x28_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1856;
+	y: -960;
+	z: 64;
+	x: 1792;
+	y: -960;
+	z: 64;
+	x: 1792;
+	y: -896;
+	z: 64;
+	x: 1856;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x29_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1920;
+	y: -960;
+	z: 64;
+	x: 1856;
+	y: -960;
+	z: 64;
+	x: 1856;
+	y: -896;
+	z: 64;
+	x: 1920;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x30_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 1984;
+	y: -960;
+	z: 64;
+	x: 1920;
+	y: -960;
+	z: 64;
+	x: 1920;
+	y: -896;
+	z: 64;
+	x: 1984;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x31_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2048;
+	y: -960;
+	z: 64;
+	x: 1984;
+	y: -960;
+	z: 64;
+	x: 1984;
+	y: -896;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+}
+
+ceiling_forblock_x32_y14:
+{
+	2sided: false;
+	impassable: false;
+	texture: grass2.jpg;
+	x: 2112;
+	y: -960;
+	z: 64;
+	x: 2048;
+	y: -960;
+	z: 64;
+	x: 2048;
+	y: -896;
+	z: 64;
+	x: 2112;
+	y: -896;
+	z: 64;
+}
+
