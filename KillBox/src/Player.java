@@ -314,7 +314,7 @@ public class Player
 			WeaponTimeSinceLastShot = 0;
 			Bullets--;
 
-			float Step = 2;        // Incremental steps at which the bullet checks for collision
+			float Step = 8;        // Incremental steps at which the bullet checks for collision
 			int MaxChecks = 2048;        // Max check for the reach of a bullet
 			Shot = true;    // Set shot property tot he player so it's transmitted over the network
 			JustShot = true;    // Set to true so the gun fire is displayed in the camera
@@ -822,11 +822,11 @@ public class Player
 						// Check each Z coordinate to get the highest and the lowest Z of a vertex
 						for (int Point = 2; Point < Lvl.Planes.get(Plane).Vertices().size(); Point += 3)
 						{
-							if (Lvl.Planes.get(Plane).Vertices().get(Point) <= Lowest)
+							if (Lvl.Planes.get(Plane).Vertices().get(Point) < Lowest)
 							{
 								Lowest = Lvl.Planes.get(Plane).Vertices().get(Point);
 							}
-							else if (Lvl.Planes.get(Plane).Vertices().get(Point) >= Highest)
+							else if (Lvl.Planes.get(Plane).Vertices().get(Point) > Highest)
 							{
 								Highest = Lvl.Planes.get(Plane).Vertices().get(Point);
 							}
@@ -1472,6 +1472,7 @@ public class Player
 							// We don't want the player to shot
 							Shot = false;
 							JustShot = false;
+							//Emitter.PlaySound("reload.wav", this);
 						}
 					}
 				}
