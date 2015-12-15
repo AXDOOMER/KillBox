@@ -770,8 +770,10 @@ public class Camera
 				}
 
 				// Draw a message if there is one
-				if(Menu.ShowMessage.Bool())
+				if (Menu.ShowMessage.Bool())
+				{
 					Menu.DrawMessage();
+				}
 
 				// Draw all element
 				glFlush();

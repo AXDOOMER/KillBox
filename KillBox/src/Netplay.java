@@ -227,7 +227,7 @@ public class Netplay
 		}
         catch (SocketTimeoutException sto)
         {
-            System.out.println("Other player may have disconnected or connection was interrupted.");
+            System.err.println("Other player may have disconnected or connection was interrupted.");
         }
 		catch(IOException e)
 		{

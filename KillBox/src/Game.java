@@ -386,6 +386,8 @@ public class Game
 				}
 				else // Single player
 				{
+					Display.setTitle("KillBox");	// In single player mode, use this window title.
+
 					if (TicksCount > 1)
 					{
 						if (!HeadCamera.DemoMode || HeadCamera.TestingMap)

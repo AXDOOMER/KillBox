@@ -1,0 +1,18 @@
+%: boring_wall.jpg
+*: dungeon_wall.png
+x: container.png
+": wooden-fence-Texture-1236088308_18.png
+1: bush_leaves_d6q8rt8.png
+=: brick-tile1.jpg
+g: grass2.jpg
+3: seamless_28_fhmhx.jpg
+4: seamless_28_fhmhx.jpg
+5: cement.jpg
+6: wood-rectangle.jpg
+': Wood-Fence.png
+
+
+t: tek9
+a: ak47
+
+@: spawn
