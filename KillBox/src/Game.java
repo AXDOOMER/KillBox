@@ -391,6 +391,8 @@ public class Game
 
 					if (TicksCount > 1)
 					{
+						Lvl.Players.get(View).UpdateTickCount();
+
 						if (!HeadCamera.DemoMode || HeadCamera.TestingMap)
 						{
 							// Make the player move even if it's not a multiplayer game
