@@ -30,6 +30,9 @@ public class Plane
 	byte Green = 0;
 	byte Blue = 0;
 
+	// 2-Dimensional length
+	float FlatLength = 0;
+
 	public void SetReference(Texture Reference)
 	{
 		this.Reference = Reference;
@@ -141,6 +144,28 @@ public class Plane
 
 		// Can't calculate the wall's orientation
 		return Float.NaN;
+	}
+
+	// Doesn't work
+	public float GetMaxFlatLength()
+	{
+		float MaxFlatLengthFound = 0;
+		int NumberOfTest = Vertices.size() / 4;
+
+		for (int Point = 0; Point < NumberOfTest; Point++)
+		{
+			for (int PointToTestAgainst = 0; PointToTestAgainst < NumberOfTest; PointToTestAgainst++)
+			{
+				float Distance = (float)Math.sqrt(Math.pow(Vertices.get(Point * 3) - Vertices.get(PointToTestAgainst * 3), 2) + Math.pow(Vertices.get((Point + 1) * 3) - Vertices.get((PointToTestAgainst + 1) * 3), 2));
+
+				if (Distance > MaxFlatLengthFound)
+				{
+					MaxFlatLengthFound = Distance;
+				}
+			}
+		}
+
+		return MaxFlatLengthFound;
 	}
 
 	public void AddVertex(float Vertex)

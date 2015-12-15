@@ -791,6 +791,12 @@ public class Player
 					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
 				}
 
+				// May be a floor or a straight ceiling, so don't care.
+				if (StartZ == EndZ)
+				{
+					continue;
+				}
+
 				// Test the distance to one vertex and if there is a possibility that the player can hit the wall
 				float WallLength = (float)Math.sqrt(Math.pow(StartX - EndX, 2) + Math.pow(StartY - EndY, 2));
 				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
