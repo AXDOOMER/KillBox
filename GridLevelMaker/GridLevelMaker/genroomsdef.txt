@@ -14,5 +14,5 @@ g: grass2.jpg
 
 t: tek9
 a: ak47
-
+9: flag
 @: spawn
