@@ -669,7 +669,7 @@ public class Camera
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
-					Menu.DrawText(Menu.GameVersion, 50, 0, 2, 2);
+					Menu.DrawText(Menu.GameVersion, 90, 0, 2, 2);
 				}
 
 				// Set Draw cursor to Top-Left
@@ -766,7 +766,7 @@ public class Camera
 							Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
 						}
 					}
-					Menu.DrawText(Menu.GameVersion, 50, 0, 2, 2);
+					Menu.DrawText(Menu.GameVersion, 90, 0, 2, 2);
 				}
 
 				// Draw a message if there is one

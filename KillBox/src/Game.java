@@ -29,8 +29,8 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox v2.??? (Final Beta)");
-		System.out.println("			===========================");
+		System.out.println("			KillBox v2.0");
+		System.out.println("			============");
 
 		// Nodes are computers where there is a player
 		int Nodes = 1;

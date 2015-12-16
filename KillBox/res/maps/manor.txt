@@ -1238,7 +1238,7 @@ spawn:
 	x: 1056;
 	y: -160;
 	z: 0;
-	angle: 90;
+	angle: 225;
 }
 
 wall_forblock_x20_y2_left:
@@ -2617,7 +2617,7 @@ spawn:
 	x: 416;
 	y: -352;
 	z: 0;
-	angle: 90;
+	angle: 315;
 }
 
 wall_forblock_x10_y5_left:
@@ -7071,7 +7071,7 @@ spawn:
 	x: 1888;
 	y: -800;
 	z: 0;
-	angle: 90;
+	angle: 270;
 }
 
 wall_forblock_x30_y12_left:
@@ -7087,10 +7087,10 @@ wall_forblock_x30_y12_left:
 	z: 0;
 	x: 1920;
 	y: -832;
-	z: 64;
+	z: 96;
 	x: 1920;
 	y: -768;
-	z: 64;
+	z: 96;
 }
 
 wall_forblock_x30_y12_top:
@@ -7106,10 +7106,10 @@ wall_forblock_x30_y12_top:
 	z: 0;
 	x: 1920;
 	y: -768;
-	z: 64;
+	z: 96;
 	x: 1984;
 	y: -768;
-	z: 64;
+	z: 96;
 }
 
 wall_forblock_x30_y12_right:
@@ -7125,10 +7125,10 @@ wall_forblock_x30_y12_right:
 	z: 0;
 	x: 1984;
 	y: -768;
-	z: 64;
+	z: 96;
 	x: 1984;
 	y: -832;
-	z: 64;
+	z: 96;
 }
 
 wall_forblock_x30_y12_bottom:
@@ -7144,10 +7144,10 @@ wall_forblock_x30_y12_bottom:
 	z: 0;
 	x: 1984;
 	y: -832;
-	z: 64;
+	z: 96;
 	x: 1920;
 	y: -832;
-	z: 64;
+	z: 96;
 }
 
 # Thing at X=31 and Y=12
@@ -14984,16 +14984,16 @@ ceiling_forblock_x30_y12:
 	texture: Ancient-Egyptian-Wall-4-394.jpg;
 	x: 1984;
 	y: -832;
-	z: 64;
+	z: 96;
 	x: 1920;
 	y: -832;
-	z: 64;
+	z: 96;
 	x: 1920;
 	y: -768;
-	z: 64;
+	z: 96;
 	x: 1984;
 	y: -768;
-	z: 64;
+	z: 96;
 }
 
 ceiling_forblock_x32_y12:
@@ -15280,4 +15280,120 @@ ceiling_forblock_x32_y14:
 	y: -896;
 	z: 64;
 }
+
+ceiling_custom_tile1:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	
+	x: 1280;
+	y: -576;
+	z: 64;
+	
+	x: 1280;
+	y: -704;
+	z: 128;
+	
+	x: 768;
+	y: -704;
+	z: 128;
+	
+	x: 768;
+	y: -576;
+	z: 64;
+}
+
+ceiling_custom_tile2:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	
+	x: 1280;
+	y: -704;
+	z: 128;
+	
+	x: 1280;
+	y: -768;
+	z: 128;
+	
+	x: 768;
+	y: -768;
+	z: 128;
+	
+	x: 768;
+	y: -704;
+	z: 128;
+}
+
+ceiling_custom_tile3:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	
+	x: 1280;
+	y: -768;
+	z: 128;
+	
+	x: 1280;
+	y: -896;
+	z: 64;
+	
+	x: 768;
+	y: -896;
+	z: 64;
+	
+	x: 768;
+	y: -768;
+	z: 128;
+}
+
+wall_for_ceiling_custom_tile4:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	
+	x: 1280;
+	y: -576;
+	z: 64;
+	
+	x: 1280;
+	y: -704;
+	z: 128;
+	
+	x: 1280;
+	y: -768;
+	z: 128;
+	
+	x: 1280;
+	y: -896;
+	z: 64;
+}
+
+wall_for_ceiling_custom_tile5:
+{
+	2sided: false;
+	impassable: false;
+	texture: cement.jpg;
+	
+	x: 768;
+	y: -576;
+	z: 64;
+	
+	x: 768;
+	y: -704;
+	z: 128;
+	
+	x: 768;
+	y: -768;
+	z: 128;
+	
+	x: 768;
+	y: -896;
+	z: 64;
+}
+
 

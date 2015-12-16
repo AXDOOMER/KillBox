@@ -750,6 +750,7 @@ public class Player
 	// Check for collision against walls
 	public Plane CheckWallCollision(float NewX, float NewY, float RadiusToUse)
 	{
+		// Test collision against each planes
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
 			// Add a function to the plane to see if it is valid instead

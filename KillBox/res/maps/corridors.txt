@@ -2360,6 +2360,7 @@ spawn:
 	x: 288;
 	y: -224;
 	z: 0;
+	angle: 315;
 }
 
 wall_forblock_x9_y3_left:
@@ -8372,6 +8373,7 @@ spawn:
 	x: 1056;
 	y: -800;
 	z: 0;
+	angle: 0;
 }
 
 wall_forblock_x22_y12_left:
@@ -8912,6 +8914,7 @@ spawn:
 	x: 352;
 	y: -928;
 	z: 0;
+	angle: 90;
 }
 
 wall_forblock_x7_y14_left:
@@ -11504,6 +11507,7 @@ spawn:
 	x: 736;
 	y: -1120;
 	z: 0;
+	angle: 0;
 }
 
 wall_forblock_x19_y17_left:
@@ -33318,3 +33322,42 @@ ceiling_forblock_x25_y20:
 	z: 64;
 }
 
+thing:
+{
+	type: tek9;
+	x: 224;
+	y: -480;
+	z: 0;
+}
+
+thing:
+{
+	type: tek9;
+	x: 1568;
+	y: -352;
+	z: 0;
+}
+
+thing:
+{
+	type: tek9;
+	x: 480;
+	y: -1248;
+	z: 0;
+}
+
+thing:
+{
+	type: ak47;
+	x: 928;
+	y: -864;
+	z: 0;
+}
+
+thing:
+{
+	type: flag;
+	x: 800;
+	y: -672;
+	z: 0;
+}

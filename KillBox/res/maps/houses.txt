@@ -3433,7 +3433,7 @@ spawn:
 	x: 224;
 	y: -224;
 	z: 0;
-	angle: 90;
+	angle: 315;
 }
 
 wall_forblock_x9_y3_left:
@@ -3670,7 +3670,7 @@ spawn:
 	x: 2144;
 	y: -224;
 	z: 0;
-	angle: 90;
+	angle: 315;
 }
 
 wall_forblock_x37_y3_left:
@@ -10005,7 +10005,7 @@ spawn:
 	x: 1312;
 	y: -736;
 	z: 0;
-	angle: 90;
+	angle: 0;
 }
 
 wall_forblock_x37_y11_left:
@@ -10394,7 +10394,7 @@ spawn:
 	x: 224;
 	y: -864;
 	z: 0;
-	angle: 90;
+	angle: 0;
 }
 
 wall_forblock_x9_y13_left:
@@ -27959,5 +27959,149 @@ ceiling_forblock_x25_y16:
 	x: 1664;
 	y: -1024;
 	z: 64;
+}
+
+# maison 1
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+	
+	x: 2304;
+	y: -512;
+	z: 64;
+	
+	x: 2240;
+	y: -512;
+	z: 64;
+	
+	x: 2240;
+	y: -528;
+	z: 56;
+	
+	x: 2304;
+	y: -528;
+	z: 56;
+}
+
+# maison 2
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+	
+	x: 1536;
+	y: -448;
+	z: 64;
+	
+	x: 1408;
+	y: -448;
+	z: 64;
+	
+	x: 1408;
+	y: -464;
+	z: 56;
+	
+	x: 1536;
+	y: -464;
+	z: 56;
+}
+
+# maison 3
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+
+	x: 1344;
+	y: -816;
+	z: 56;
+	
+	x: 1408;
+	y: -816;
+	z: 56;
+	
+	x: 1408;
+	y: -832;
+	z: 64;
+	
+	x: 1344;
+	y: -832;
+	z: 64;
+}
+
+# maison 2 - toit 2
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+
+	x: 944;
+	y: -192;
+	z: 56;
+	
+	x: 944;
+	y: -256;
+	z: 56;
+	
+	x: 960;
+	y: -256;
+	z: 64;
+	
+	x: 960;
+	y: -192;
+	z: 64;
+}
+
+# maison 4
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+
+	x: 640;
+	y: -384;
+	z: 64;
+	
+	x: 640;
+	y: -320;
+	z: 64;
+	
+	x: 656;
+	y: -320;
+	z: 56;
+	
+	x: 656;
+	y: -384;
+	z: 56;
+}
+
+# maison 5
+wall:
+{
+	2sided: true;
+	impassable: false;
+	texture: cast_iron_blk_nat760.jpg;
+
+	x: 640;
+	y: -768;
+	z: 64;
+	
+	x: 640;
+	y: -704;
+	z: 64;
+	
+	x: 656;
+	y: -704;
+	z: 56;
+	
+	x: 656;
+	y: -768;
+	z: 56;
 }
 
