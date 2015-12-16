@@ -41,6 +41,8 @@ public class Player
 	public boolean TriggerAlreadyPressed = false;
 
 	int Action = 0;
+	int Tick = 0;
+	int MinTickBeforeCanMove = 5;
 
 	// Motion
 	float MoX = 0;
@@ -312,7 +314,7 @@ public class Player
 			WeaponTimeSinceLastShot = 0;
 			Bullets--;
 
-			float Step = 2;        // Incremental steps at which the bullet checks for collision
+			float Step = 8;        // Incremental steps at which the bullet checks for collision
 			int MaxChecks = 2048;        // Max check for the reach of a bullet
 			Shot = true;    // Set shot property tot he player so it's transmitted over the network
 			JustShot = true;    // Set to true so the gun fire is displayed in the camera
@@ -389,102 +391,114 @@ public class Player
 
 	public void ForwardMove(byte Direction)
 	{
-		// Cancels the opposite direction when both keys are held
-		if(FrontMove == -Direction)
+		if (ShouldMove())
 		{
-			FrontMove = 0;
-		}
-		else
-		{
-			FrontMove = Direction;
-
-			if (Frame - LastFrame <= 0)
+			// Cancels the opposite direction when both keys are held
+			if (FrontMove == -Direction)
 			{
-				Frame++;
+				FrontMove = 0;
+			}
+			else
+			{
+				FrontMove = Direction;
+
+				if (Frame - LastFrame <= 0)
+				{
+					Frame++;
+				}
 			}
 		}
 	}
 
 	public void ExecuteForwardMove(byte Direction)
 	{
-		float NewX = MoX;
-		float NewY = MoY;
-
-		if (Direction > 0)
+		if (ShouldMove())
 		{
-			if (Health > 0)
+			float NewX = MoX;
+			float NewY = MoY;
+
+			if (Direction > 0)
 			{
-				NewX = MoX + Acceleration * (float) Math.cos(GetRadianAngle());
-				NewY = MoY + Acceleration * (float) Math.sin(GetRadianAngle());
-			}
+				if (Health > 0)
+				{
+					NewX = MoX + Acceleration * (float) Math.cos(GetRadianAngle());
+					NewY = MoY + Acceleration * (float) Math.sin(GetRadianAngle());
+				}
 
-			TryMove(NewX, NewY);
-		}
-		else if (Direction < 0)
-		{
-			if (Health > 0)
+				TryMove(NewX, NewY);
+			}
+			else if (Direction < 0)
 			{
-				NewX = MoX - Acceleration * (float) Math.cos(GetRadianAngle());
-				NewY = MoY - Acceleration * (float) Math.sin(GetRadianAngle());
+				if (Health > 0)
+				{
+					NewX = MoX - Acceleration * (float) Math.cos(GetRadianAngle());
+					NewY = MoY - Acceleration * (float) Math.sin(GetRadianAngle());
+				}
+
+				TryMove(NewX, NewY);
 			}
+			// Don't do anything when 'Direction' is equal to zero
 
-			TryMove(NewX, NewY);
+			// Flag so it is known that the player wants to move
+			HasMoved = true;
 		}
-		// Don't do anything when 'Direction' is equal to zero
-
-		// Flag so it is known that the player wants to move
-		HasMoved = true;
 	}
 
 	public void LateralMove(byte Direction)
 	{
-		// Cancels the opposite direction
-		if(SideMove == -Direction)
+		if (ShouldMove())
 		{
-			SideMove = 0;
-		}
-		else
-		{
-			SideMove = Direction;
-
-			if (Frame - LastFrame <= 0)
+			// Cancels the opposite direction
+			if (SideMove == -Direction)
 			{
-				Frame++;
+				SideMove = 0;
+			}
+			else
+			{
+				SideMove = Direction;
+
+				if (Frame - LastFrame <= 0)
+				{
+					Frame++;
+				}
 			}
 		}
 	}
 
 	public void ExecuteLateralMove(byte Direction)
 	{
-		float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
-
-		float NewX = MoX;
-		float NewY = MoY;
-
-		if (Direction > 0)
+		if (ShouldMove())
 		{
-			if (Health > 0)
+			float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
+
+			float NewX = MoX;
+			float NewY = MoY;
+
+			if (Direction > 0)
 			{
-				NewX = MoX + Acceleration * (float) Math.cos(AdjustedAngle);
-				NewY = MoY + Acceleration * (float) Math.sin(AdjustedAngle);
-			}
+				if (Health > 0)
+				{
+					NewX = MoX + Acceleration * (float) Math.cos(AdjustedAngle);
+					NewY = MoY + Acceleration * (float) Math.sin(AdjustedAngle);
+				}
 
-			TryMove(NewX, NewY);
-		}
-		else if (Direction < 0)
-		{
-			if (Health > 0)
+				TryMove(NewX, NewY);
+			}
+			else if (Direction < 0)
 			{
-				NewX = MoX - Acceleration * (float) Math.cos(AdjustedAngle);
-				NewY = MoY - Acceleration * (float) Math.sin(AdjustedAngle);
+				if (Health > 0)
+				{
+					NewX = MoX - Acceleration * (float) Math.cos(AdjustedAngle);
+					NewY = MoY - Acceleration * (float) Math.sin(AdjustedAngle);
+				}
+
+				TryMove(NewX, NewY);
 			}
+			// Don't do anything when 'Direction' is equal to zero
 
-			TryMove(NewX, NewY);
+			// Flag so it is known that the player wants to move
+			HasMoved = true;
 		}
-		// Don't do anything when 'Direction' is equal to zero
-
-		// Flag so it is known that the player wants to move
-		HasMoved = true;
 	}
 
 	// Try every type of collision.
@@ -778,6 +792,12 @@ public class Player
 					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
 				}
 
+				// May be a floor or a straight ceiling, so don't care.
+				if (StartZ == EndZ)
+				{
+					continue;
+				}
+
 				// Test the distance to one vertex and if there is a possibility that the player can hit the wall
 				float WallLength = (float)Math.sqrt(Math.pow(StartX - EndX, 2) + Math.pow(StartY - EndY, 2));
 				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
@@ -803,11 +823,11 @@ public class Player
 						// Check each Z coordinate to get the highest and the lowest Z of a vertex
 						for (int Point = 2; Point < Lvl.Planes.get(Plane).Vertices().size(); Point += 3)
 						{
-							if (Lvl.Planes.get(Plane).Vertices().get(Point) <= Lowest)
+							if (Lvl.Planes.get(Plane).Vertices().get(Point) < Lowest)
 							{
 								Lowest = Lvl.Planes.get(Plane).Vertices().get(Point);
 							}
-							else if (Lvl.Planes.get(Plane).Vertices().get(Point) >= Highest)
+							else if (Lvl.Planes.get(Plane).Vertices().get(Point) > Highest)
 							{
 								Highest = Lvl.Planes.get(Plane).Vertices().get(Point);
 							}
@@ -1126,22 +1146,25 @@ public class Player
 
 	public void ExecuteAngleTurn(short AngleChange)
 	{
-		// Our internal representation of angles goes from -16384 to 16383,
-		// so there are 32768 different angles possible.
-
-		// If you turn bigger than 180 degrees on one side,
-		// why didn't you turn the other side?
-		if (AngleChange < 16383 && AngleChange > -16384)
+		if (ShouldMove())
 		{
-			Angle += AngleChange;
+			// Our internal representation of angles goes from -16384 to 16383,
+			// so there are 32768 different angles possible.
 
-			if (Angle > 16383)
+			// If you turn bigger than 180 degrees on one side,
+			// why didn't you turn the other side?
+			if (AngleChange < 16383 && AngleChange > -16384)
 			{
-				Angle = (short) ((int) Angle - 32768);
-			}
-			else if (Angle < -16384)
-			{
-				Angle = (short) ((int) Angle + 32768);
+				Angle += AngleChange;
+
+				if (Angle > 16383)
+				{
+					Angle = (short) ((int) Angle - 32768);
+				}
+				else if (Angle < -16384)
+				{
+					Angle = (short) ((int) Angle + 32768);
+				}
 			}
 		}
 	}
@@ -1301,6 +1324,7 @@ public class Player
 		MoY = 0;
 		MoZ = 0;
 		Bullets = MaxBulletsPerWeapon[1];
+		Tick = 0;
 
 		// Reset other stuff
 		HasMoved = false;
@@ -1408,6 +1432,16 @@ public class Player
 		}
 	}
 
+	public void UpdateTickCount()
+	{
+		Tick++;
+	}
+
+	public boolean ShouldMove()
+	{
+		return Tick >= MinTickBeforeCanMove;
+	}
+
 	public void UpdateTimeSinceLastShot()
 	{
 		WeaponTimeSinceLastShot++;
@@ -1439,6 +1473,7 @@ public class Player
 							// We don't want the player to shot
 							Shot = false;
 							JustShot = false;
+							//Emitter.PlaySound("reload.wav", this);
 						}
 					}
 				}

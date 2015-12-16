@@ -793,23 +793,19 @@ public class Netplay
                     for (int Player = 0; Player < Lvl.Players.size(); Player++)
                     {
                         // Search for player with most flag time
-                        if (Lvl.Players().get(Player).FlagTime > Lvl.Players().get(Winner).FlagTime)
+                        if (Lvl.Players().get(Player).FlagTime >= Lvl.Players().get(Winner).FlagTime)
                         {
                             Winner = Player;
 
-                            // When we're done going through every players
-                            if (Player == Lvl.Players.size() - 1)
+                            // Search a player that has the same score
+                            for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
                             {
-                                // Search a player that has the same score
-                                for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
+                                // Don't test the winner against himself
+                                if (PlayerScoreEqual != Winner)
                                 {
-                                    // Don't test the winner against himself
-                                    if (PlayerScoreEqual != Winner)
+                                    if (Lvl.Players().get(PlayerScoreEqual).FlagTime != Lvl.Players().get(Winner).FlagTime)
                                     {
-                                        if (Lvl.Players().get(PlayerScoreEqual).FlagTime != Lvl.Players().get(Winner).FlagTime)
-                                        {
-                                            Tie = false;
-                                        }
+                                        Tie = false;
                                     }
                                 }
                             }

@@ -9543,6 +9543,15 @@ wall_forblock_x6_y14_bottom:
 	z: 64;
 }
 
+# Thing at X=10 and Y=14
+thing:
+{
+	type: flag;
+	x: 672;
+	y: -928;
+	z: 0;
+}
+
 wall_forblock_x12_y14_left:
 {
 	2sided: false;
