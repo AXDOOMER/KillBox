@@ -7071,7 +7071,7 @@ spawn:
 	x: 1888;
 	y: -800;
 	z: 0;
-	angle: 270;
+	angle: 180;
 }
 
 wall_forblock_x30_y12_left:
@@ -15352,7 +15352,7 @@ ceiling_custom_tile3:
 
 wall_for_ceiling_custom_tile4:
 {
-	2sided: false;
+	2sided: true;
 	impassable: false;
 	texture: cement.jpg;
 	
