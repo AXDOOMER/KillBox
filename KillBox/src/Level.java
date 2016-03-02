@@ -150,6 +150,9 @@ public class Level
 							}
 						}
 
+						// Calculate the plane's flat size
+						Planes.get(Planes.size() - 1).FlatLength = Planes.get(Planes.size() - 1).CalculateMaxFlatLength();
+
 						if (!NameIsSet)
 						{
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/DOOR9_1.bmp"));

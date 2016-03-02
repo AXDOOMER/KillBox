@@ -799,7 +799,7 @@ public class Player
 				}
 
 				// Test the distance to one vertex and if there is a possibility that the player can hit the wall
-				float WallLength = (float)Math.sqrt(Math.pow(StartX - EndX, 2) + Math.pow(StartY - EndY, 2));
+				float WallLength = Lvl.Planes.get(Plane).FlatLength;
 				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
 
 				if (DistanceToOneWallVertex <= WallLength + RadiusToUse * 2)

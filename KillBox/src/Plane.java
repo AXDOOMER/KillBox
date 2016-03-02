@@ -146,17 +146,17 @@ public class Plane
 		return Float.NaN;
 	}
 
-	// Doesn't work
-	public float GetMaxFlatLength()
+	// Max distance from one vertex to another (X and Y)
+	public float CalculateMaxFlatLength()
 	{
 		float MaxFlatLengthFound = 0;
-		int NumberOfTest = Vertices.size() / 4;
+		int NumberOfTest = Vertices.size() / 3;
 
 		for (int Point = 0; Point < NumberOfTest; Point++)
 		{
 			for (int PointToTestAgainst = 0; PointToTestAgainst < NumberOfTest; PointToTestAgainst++)
 			{
-				float Distance = (float)Math.sqrt(Math.pow(Vertices.get(Point * 3) - Vertices.get(PointToTestAgainst * 3), 2) + Math.pow(Vertices.get((Point + 1) * 3) - Vertices.get((PointToTestAgainst + 1) * 3), 2));
+				float Distance = (float)Math.sqrt(Math.pow(Vertices.get(Point * 3) - Vertices.get(PointToTestAgainst * 3), 2) + Math.pow(Vertices.get(Point * 3 + 1) - Vertices.get(PointToTestAgainst * 3 + 1), 2));
 
 				if (Distance > MaxFlatLengthFound)
 				{
