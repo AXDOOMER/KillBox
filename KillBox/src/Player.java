@@ -328,6 +328,7 @@ public class Player
 
 			// Check if the bullet could hit a player
 			Player Which = null;
+			float Distance = 0;		// Zero is ok, because when the hit fails, the next calculations are not done.
 			for (int Point = 0; Point < MaxChecks; Point++)
 			{
 				// Increment bullet position
@@ -340,6 +341,8 @@ public class Player
 				if (Hit != null && Hit.Health > 0)
 				{
 					Which = Hit;
+					Distance = Point * Step;
+					break;
 				}
 			}
 
@@ -350,6 +353,12 @@ public class Player
 			// If a player could be hit, check if the bullet would hit a wall before it would hit the player.
 			if (Which != null)
 			{
+				// Use bigger steps for walls
+				/*if (Lvl.ShortestWall > Step * 2)
+				{
+					Step = Lvl.ShortestWall / 2;
+				}*/
+
 				// Move the bullet and check for collision
 				for (int Point = 0; Point < MaxChecks; Point++)
 				{
@@ -359,18 +368,19 @@ public class Player
 					//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
 					// Check if a wall was hit. Check for wall on a line between the player and the hit point.
-					if (CheckWallCollision(TravelX, TravelY, Step) == null)
+					if (Point * Step >= Distance)
 					{
-						Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+						// The bullet has been able to go far enough (not hitting walls) so it could hit the player.
+						Player Hit = Which;
 
 						// Check if something was really hit
 						if (Hit != null && Hit.Health > 0)
 						{
 							// Spawn blood
 							Lvl.Things.add(new Thing("Blood",
-									TravelX + (Randomizer.GiveNumber() % 5) - 2,
-									TravelY + (Randomizer.GiveNumber() % 5) - 2,
-									TravelZ - (Randomizer.GiveNumber() % 5)));
+									this.PosX() + ((Distance - Radius() / 4) * (float) Math.cos(HorizontalAngle)) + (Randomizer.GiveNumber() % 5) - 2,
+									this.PosY() + ((Distance - Radius() / 4) * (float) Math.sin(HorizontalAngle)) + (Randomizer.GiveNumber() % 5) - 2,
+									Hit.ViewZ - (Randomizer.GiveNumber() % 5)));
 
 							// If the player who was hit is not dead
 							if (Hit.Health > 0)
@@ -401,7 +411,7 @@ public class Player
 							}
 						}
 					}
-					else
+					else if (CheckWallCollision(TravelX, TravelY, Step) != null)
 					{
 						// A wall was hit.
 						break;

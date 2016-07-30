@@ -25,7 +25,7 @@ public class Level
 	String Fog = "black";
 	int Visibility = 0;
 	int Filter = GL_NEAREST;
-	float ShortestWall = Integer.MAX_VALUE;	// Arbitrary value
+	public float ShortestWall = Integer.MAX_VALUE;	// Arbitrary value
 
 	ArrayList<Plane> Planes = new ArrayList<Plane>();
 	ArrayList<Thing> Things = new ArrayList<Thing>();
