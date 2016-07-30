@@ -93,6 +93,8 @@ public class Player
 	boolean JustSpawned = false;
 	final int WeaponActionSpeed = 5;
 
+	Player LastHit = null;		// Last player that shot this player
+
 	boolean HasFlag = false;	// For the flagtag game mode
 	int Frame = 0;
 	int LastFrame = 0;
@@ -314,7 +316,7 @@ public class Player
 			WeaponTimeSinceLastShot = 0;
 			Bullets--;
 
-			float Step = 8;        // Incremental steps at which the bullet checks for collision
+			float Step = 4;        // Incremental steps at which the bullet checks for collision
 			int MaxChecks = 2048;        // Max check for the reach of a bullet
 			Shot = true;    // Set shot property tot he player so it's transmitted over the network
 			JustShot = true;    // Set to true so the gun fire is displayed in the camera
@@ -324,7 +326,8 @@ public class Player
 			float TravelY = this.PosY();
 			float TravelZ = this.ViewZ;
 
-			// Move the bullet and check for collision
+			// Check if the bullet could hit a player
+			Player Which = null;
 			for (int Point = 0; Point < MaxChecks; Point++)
 			{
 				// Increment bullet position
@@ -332,53 +335,77 @@ public class Player
 				TravelY = TravelY + Step * (float) Math.sin(HorizontalAngle);
 				//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
 
-				// Check if a wall was hit. Check for wall on a line between the player and the hit point.
-				if (CheckWallCollision(TravelX, TravelY, Step) == null)
+				Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+
+				if (Hit != null && Hit.Health > 0)
 				{
-					Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
+					Which = Hit;
+				}
+			}
 
-					// Check if something was really hit
-					if (Hit != null && Hit.Health > 0)
+			// Reset the position to scan from the player's position
+			TravelX = this.PosX();
+			TravelY = this.PosY();
+
+			// If a player could be hit, check if the bullet would hit a wall before it would hit the player.
+			if (Which != null)
+			{
+				// Move the bullet and check for collision
+				for (int Point = 0; Point < MaxChecks; Point++)
+				{
+					// Increment bullet position
+					TravelX = TravelX + Step * (float) Math.cos(HorizontalAngle);
+					TravelY = TravelY + Step * (float) Math.sin(HorizontalAngle);
+					//TravelZ = TravelZ + Step * (float)Math.sin(VerticalAngle);
+
+					// Check if a wall was hit. Check for wall on a line between the player and the hit point.
+					if (CheckWallCollision(TravelX, TravelY, Step) == null)
 					{
-						// Spawn blood
-						Lvl.Things.add(new Thing("Blood",
-								TravelX + (Randomizer.GiveNumber() % 5) - 2,
-								TravelY + (Randomizer.GiveNumber() % 5) - 2,
-								TravelZ - (Randomizer.GiveNumber() % 5)));
+						Player Hit = PointInPlayer(TravelX, TravelY, TravelZ);
 
-						// If the player who was hit is not dead
-						if (Hit.Health > 0)
+						// Check if something was really hit
+						if (Hit != null && Hit.Health > 0)
 						{
-							// Damage him
-							Hit.DamageSelf(Damage, this.PosX(), this.PosY());
+							// Spawn blood
+							Lvl.Things.add(new Thing("Blood",
+									TravelX + (Randomizer.GiveNumber() % 5) - 2,
+									TravelY + (Randomizer.GiveNumber() % 5) - 2,
+									TravelZ - (Randomizer.GiveNumber() % 5)));
 
-							// Bullet has hit
-							Hits++;
-
-							// If he's dead
-							if (Hit.Health <= 0)
+							// If the player who was hit is not dead
+							if (Hit.Health > 0)
 							{
-								// Got a point
-								Kills++;
+								// Damage him
+								Hit.DamageSelf(Damage, this.PosX(), this.PosY());
 
-								// Play death sound
-								Emitter.PlaySound("death.wav", Hit);
+								// Bullet has hit
+								Hits++;
 
-								// Create a corpse
-								Lvl.Things.add(new Thing("DeadPlayer", Hit.PosX(), Hit.PosY(), Hit.PosZ()));
+								// If he's dead
+								if (Hit.Health <= 0)
+								{
+									// Got a point
+									Kills++;
 
-								// Add one death to his counter
-								Hit.Deaths++;
+									// Play death sound
+									Emitter.PlaySound("death.wav", Hit);
+
+									// Create a corpse
+									Lvl.Things.add(new Thing("DeadPlayer", Hit.PosX(), Hit.PosY(), Hit.PosZ()));
+
+									// Add one death to his counter
+									Hit.Deaths++;
+								}
+
+								return Hit;
 							}
-
-							return Hit;
 						}
 					}
-				}
-				else
-				{
-					// A wall was hit.
-					break;
+					else
+					{
+						// A wall was hit.
+						break;
+					}
 				}
 			}
 
