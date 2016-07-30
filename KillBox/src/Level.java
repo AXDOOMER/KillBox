@@ -25,6 +25,7 @@ public class Level
 	String Fog = "black";
 	int Visibility = 0;
 	int Filter = GL_NEAREST;
+	float ShortestWall = Integer.MAX_VALUE;	// Arbitrary value
 
 	ArrayList<Plane> Planes = new ArrayList<Plane>();
 	ArrayList<Thing> Things = new ArrayList<Thing>();
@@ -39,6 +40,7 @@ public class Level
 	public void LoadLevel(String LvlName, int PlaneFilter)
 	{
 		Filter = PlaneFilter;
+		ShortestWall = Integer.MAX_VALUE;
 
 		try
 		{
@@ -152,6 +154,10 @@ public class Level
 
 						// Calculate the plane's flat size
 						Planes.get(Planes.size() - 1).FlatLength = Planes.get(Planes.size() - 1).CalculateMaxFlatLength();
+						if (Planes.get(Planes.size() - 1).FlatLength < ShortestWall && Planes.get(Planes.size() - 1).FlatLength != 0)
+						{
+							ShortestWall = Planes.get(Planes.size() - 1).FlatLength;
+						}
 
 						if (!NameIsSet)
 						{
