@@ -1,4 +1,4 @@
-﻿//Copyright (C) 2014-2016 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2016 Alexandre-Xavier Labonté-Lamoureux
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -309,14 +309,11 @@ public class Player
 					break;
 			}
 
-			// Pick the gun's accuracy. This will not create a cone, it will do a square.
-			//float HorizontalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
-			//float VerticalDeviation = ((Randomizer.GiveNumber() % (WeaponAccuracy[SelectedWeapon] + 1)) / 5);
-
 			WeaponTimeSinceLastShot = 0;
 			Bullets--;
 
 			float Step = 4;        // Incremental steps at which the bullet checks for collision
+			float BulletRadius = Step;
 			int MaxChecks = 2048;        // Max check for the reach of a bullet
 			Shot = true;    // Set shot property tot he player so it's transmitted over the network
 			JustShot = true;    // Set to true so the gun fire is displayed in the camera
@@ -346,18 +343,18 @@ public class Player
 				}
 			}
 
-			// Reset the position to scan from the player's position
-			TravelX = this.PosX();
-			TravelY = this.PosY();
-
 			// If a player could be hit, check if the bullet would hit a wall before it would hit the player.
 			if (Which != null)
 			{
+				// Reset the position to scan from the player's position
+				TravelX = this.PosX();
+				TravelY = this.PosY();
+
 				// Use bigger steps for walls
-				/*if (Lvl.ShortestWall > Step * 2)
+				if (Step <= 4)
 				{
-					Step = Lvl.ShortestWall / 2;
-				}*/
+					Step *= 2;
+				}
 
 				// Move the bullet and check for collision
 				for (int Point = 0; Point < MaxChecks; Point++)
@@ -411,7 +408,7 @@ public class Player
 							}
 						}
 					}
-					else if (CheckWallCollision(TravelX, TravelY, Step) != null)
+					else if (CheckWallCollision(TravelX, TravelY, BulletRadius) != null)
 					{
 						// A wall was hit.
 						break;
