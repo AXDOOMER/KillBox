@@ -68,7 +68,6 @@ public class Game
 					// It's just another parameter...
 					Demo = null;
 				}
-
 			}
 
 			// Check if we specify the number of players. It will be a normal game.
@@ -97,7 +96,7 @@ public class Game
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
-			if(CheckParam(args, "-connect") >= 0)
+			if (CheckParam(args, "-connect") >= 0)
 			{
 				String HostIP = null;
 
@@ -127,17 +126,17 @@ public class Game
 			Sound.SoundModes SoundMode = null;
 			if (CheckParam(args, "-sound") >= 0)
 			{
-				if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("2d"))
+				if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("2d"))
 				{
 					// Sound will be bi-dimensional
 					SoundMode = Sound.SoundModes.Bi;
 				}
-				else if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("3d"))
+				else if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("3d"))
 				{
 					// Sound will be in 3D
 					SoundMode = Sound.SoundModes.Three;
 				}
-				else if(args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("doppler"))
+				else if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("doppler"))
 				{
 					// Sound will be in 3D with the doppler effect
 					SoundMode = Sound.SoundModes.Duppler;
@@ -271,7 +270,7 @@ public class Game
 				SndDriver.VolumeMultiplier = ((float)(HeadCamera.Menu.SFXVolume.Int()))/100;
 
 				// Get sound mode
-				if(HeadCamera.Menu.SoundMode.Int() == 0)
+				if (HeadCamera.Menu.SoundMode.Int() == 0)
 				{
 					SndDriver.SndMode = SoundMode.Bi;
 				}
@@ -285,7 +284,7 @@ public class Game
 				}
 
 				// Give the right hear to the right players
-				if(NetplayInfo != null)
+				if (NetplayInfo != null)
 				{
 					SndDriver.SetNewListener(Lvl.Players.get(NetplayInfo.View));
 				}
@@ -422,23 +421,7 @@ public class Game
 								Lvl.Players.get(View).PosZ(Lvl.Players.get(View).PosZ() - 0.1f);
 							}
 						}
-
-						/*if (Lvl.Players.get(View).ActionIsHasShot() == 100)
-						{
-							if (Lvl.Players.get(View).Health > 0)
-							{
-								Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
-							}
-						}*/
 					}
-					// Kill inactive players
-					/*for (int Player = 0; Player < Lvl.Players.size(); Player++)
-					{
-						if (Lvl.Players.get(Player) != HeadCamera.CurrentPlayer())
-						{
-							Lvl.Players.get(Player).Health = 0;
-						}
-					}*/
 
 					// Close sockets
 					if (NetplayInfo != null)
