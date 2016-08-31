@@ -567,6 +567,8 @@ public class Camera
 					continue;
 				}
 
+				float FrameWidth = Lvl.Players.get(Player).Radius();
+
 				if (Lvl.Players.get(Player).WalkFrames.get(0) != null)
 				{
 					float LookAngleDiff = (float)Math.atan2(this.CurrentPlayer().PosY() - Lvl.Players.get(Player).PosY(), this.CurrentPlayer().PosX() - Lvl.Players.get(Player).PosX());
@@ -604,6 +606,9 @@ public class Camera
 						if (LookAngleDiff <= RotationAngle)
 						{
 							Lvl.Players.get(Player).WalkFrames.get(RotationFrame % 8 + CurrentFrameIndex).Bind();
+							FrameWidth = Lvl.Players.get(Player).Height() /
+									Lvl.Players.get(Player).WalkFrames.get(RotationFrame % 8 + CurrentFrameIndex).Height() *
+									Lvl.Players.get(Player).WalkFrames.get(RotationFrame % 8 + CurrentFrameIndex).Width() / 2;
 							break;
 						}
 						RotationFrame++;
@@ -623,15 +628,15 @@ public class Camera
 						float CosDivergent = (float)Math.cos(Divergent);
 						float SinDivergent = (float)Math.sin(Divergent);
 
-						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() + CosDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosX() - CosDivergent * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteX = {	Lvl.Players.get(Player).PosX() - CosDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosX() + CosDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosX() + CosDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosX() - CosDivergent * FrameWidth };
 
-						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() + SinDivergent * (float)Lvl.Players.get(Player).Radius(),
-								Lvl.Players.get(Player).PosY() - SinDivergent * (float)Lvl.Players.get(Player).Radius() };
+						float[] SpriteY = {	Lvl.Players.get(Player).PosY() - SinDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosY() + SinDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosY() + SinDivergent * FrameWidth,
+								Lvl.Players.get(Player).PosY() - SinDivergent * FrameWidth };
 
 						float[] SpriteZ = {	Lvl.Players.get(Player).PosZ(),
 								Lvl.Players.get(Player).PosZ(),
