@@ -343,7 +343,6 @@ public class Level
 			{
 				System.err.println(ioe.getStackTrace());
 			}
-
 		}
 		catch (FileNotFoundException fnfe)
 		{
