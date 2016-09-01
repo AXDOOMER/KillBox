@@ -24,148 +24,147 @@ import java.net.ServerSocket;
 
 public class Netplay
 {
-    public static int FrameRate = 30;  // Fuck you, that's why!
+	public static int FrameRate = 30;  // Fuck you, that's why!
 
-    public class NetCommand
-    {
-        public int Number;
-        public byte PlayerNumber;
-        public short AngleDiff;
-        public byte FaceMove;
-        public byte SideMove;
-        public int Actions;
-        public int CheckSum;
-        public String Chat;
+	public class NetCommand
+	{
+		public int Number;
+		public byte PlayerNumber;
+		public short AngleDiff;
+		public byte FaceMove;
+		public byte SideMove;
+		public int Actions;
+		public int CheckSum;
+		public String Chat;
 
-        public NetCommand(byte PlayerNumber)
-        {
-            this.Number = 0;
-            this.AngleDiff = 0;
-            this.FaceMove = 0;
-            this.SideMove = 0;
-            this.Actions = 0;
-            this.CheckSum = 0;
-            this.Chat = " ";
-            this.PlayerNumber = PlayerNumber;
-        }
+		public NetCommand(byte PlayerNumber)
+		{
+			this.Number = 0;
+			this.AngleDiff = 0;
+			this.FaceMove = 0;
+			this.SideMove = 0;
+			this.Actions = 0;
+			this.CheckSum = 0;
+			this.Chat = " ";
+			this.PlayerNumber = PlayerNumber;
+		}
 
-        public void Update(short AngleDiff, byte FaceMove, byte SideMove, int Actions, int CheckSum, String Chat)
-        {
-            this.AngleDiff = AngleDiff;
-            this.FaceMove = FaceMove;
-            this.SideMove = SideMove;
-            this.Actions = Actions;
-            this.CheckSum = CheckSum;
-            this.Chat = Chat;
-        }
+		public void Update(short AngleDiff, byte FaceMove, byte SideMove, int Actions, int CheckSum, String Chat)
+		{
+			this.AngleDiff = AngleDiff;
+			this.FaceMove = FaceMove;
+			this.SideMove = SideMove;
+			this.Actions = Actions;
+			this.CheckSum = CheckSum;
+			this.Chat = Chat;
+		}
 
-        public void UpdateAngleDiff(short AngleDiff)
-        {
-            this.AngleDiff = AngleDiff;
-        }
+		public void UpdateAngleDiff(short AngleDiff)
+		{
+			this.AngleDiff = AngleDiff;
+		}
 
-        public void UpdateForwardMove(byte FaceMove)
-        {
-            this.FaceMove = FaceMove;
-        }
+		public void UpdateForwardMove(byte FaceMove)
+		{
+			this.FaceMove = FaceMove;
+		}
 
-        public void UpdateSideMove(byte SideMove)
-        {
-            this.SideMove = SideMove;
-        }
+		public void UpdateSideMove(byte SideMove)
+		{
+			this.SideMove = SideMove;
+		}
 
-        public void UpdateAction(int Actions)
-        {
-            this.Actions = Actions;
-        }
+		public void UpdateAction(int Actions)
+		{
+			this.Actions = Actions;
+		}
 
-        public void UpdateCheckSum(int CheckSum)
-        {
-            this.CheckSum = CheckSum;
-        }
+		public void UpdateCheckSum(int CheckSum)
+		{
+			this.CheckSum = CheckSum;
+		}
 
-        public void UpdateChat(String Chat)
-        {
-            this.Chat = Chat;
-        }
+		public void UpdateChat(String Chat)
+		{
+			this.Chat = Chat;
+		}
 
-        public void UpdatePlayerViaNetCommand(Player Plyr)
-        {
-            Plyr.ForwardMove(FaceMove);
+		public void UpdatePlayerViaNetCommand(Player Plyr)
+		{
+			Plyr.ForwardMove(FaceMove);
 
-            Plyr.LateralMove(SideMove);
-        }
+			Plyr.LateralMove(SideMove);
+		}
 
-        public void Reset()
-        {
-            this.AngleDiff = 0;
-            this.FaceMove = 0;
-            this.SideMove = 0;
-            this.Actions = 0;
-            this.CheckSum = 0;
-            this.Chat = " ";
-        }
+		public void Reset()
+		{
+			this.AngleDiff = 0;
+			this.FaceMove = 0;
+			this.SideMove = 0;
+			this.Actions = 0;
+			this.CheckSum = 0;
+			this.Chat = " ";
+		}
 
-        // Print NetCommand
-        public String toString()
-        {
-            return  Number + Separator + PlayerNumber + Separator + AngleDiff + Separator + FaceMove +
-                    Separator + SideMove + Separator + Actions + Separator + CheckSum + Separator + Chat;
-        }
-    }
+		// Print NetCommand
+		public String toString()
+		{
+			return  Number + Separator + PlayerNumber + Separator + AngleDiff + Separator + FaceMove +
+					Separator + SideMove + Separator + Actions + Separator + CheckSum + Separator + Chat;
+		}
+	}
 
-    // Object NetCommand
-    NetCommand PlayerCommand = null;
+	// Object NetCommand
+	NetCommand PlayerCommand = null;
 
-    // Game conditions
-    int GameMode = 0;
-    int TimeLimit = 0;
-    int KillLimit = 0;
+	// Game conditions
+	int GameMode = 0;
+	int TimeLimit = 0;
+	int KillLimit = 0;
 
-    String Map = "";
+	String Map = "";
 
+	public int GetTimeLimit()
+	{
+		if (TimeLimit <= 0)
+		{
+			return Integer.MAX_VALUE;
+		}
 
-    public int GetTimeLimit()
-    {
-        if (TimeLimit <= 0)
-        {
-            return Integer.MAX_VALUE;
-        }
+		return TimeLimit * 60;
+	}
 
-        return TimeLimit * 60;
-    }
+	public int GetKillLimit()
+	{
+		if (KillLimit <= 0)
+		{
+			return Integer.MAX_VALUE;
+		}
 
-    public int GetKillLimit()
-    {
-        if (KillLimit <= 0)
-        {
-            return Integer.MAX_VALUE;
-        }
+		return KillLimit;
+	}
 
-        return KillLimit;
-    }
+	// For now, only for one player
+	ArrayList<NetCommand> OtherPlayersCommand = new ArrayList<NetCommand>();
 
-    // For now, only for one player
-    ArrayList<NetCommand> OtherPlayersCommand = new ArrayList<NetCommand>();
+	int Nodes = 1;
+	String ServerAddress = "127.0.0.1";
+	final int Port = 8167;
+	final int Wait = 120000;	// 2 minutes
+	final int WaitLag = 5000;
 
-    int Nodes = 1;
-    String ServerAddress = "127.0.0.1";
-    final int Port = 8167;
-    final int Wait = 120000;	// 2 minutes
-    final int WaitLag = 5000;
+	private String Chat = null;
+	String Line = null;
 
-    private String Chat = null;
-    String Line = null;
+	public int View = 0;
 
-    public int View = 0;
+	ServerSocket Server = null;
+	ArrayList<Socket> Connections = new ArrayList<Socket>();
 
-    ServerSocket Server = null;
-    ArrayList<Socket> Connections = new ArrayList<Socket>();
+	public BufferedReader Reader = null;
+	public PrintWriter Writer = null;
 
-    public BufferedReader Reader = null;
-    public PrintWriter Writer = null;
-
-    private String Separator = ";";
+	private String Separator = ";";
 
 	// Constructor for the clients
 	public Netplay(int Nodes, String IpAddress)
@@ -195,12 +194,12 @@ public class Netplay
 			NumberOfPlayers = Integer.parseInt(strings[0]);
 			RemainingNumberOfPlayers = Integer.parseInt(strings[1]);
 			PlayerNumber = Integer.parseInt(strings[2]);
-            this.GameMode = Integer.parseInt(strings[3]);
-            this.TimeLimit = Integer.parseInt(strings[4]);
-            this.KillLimit = Integer.parseInt(strings[5]);
-            this.Map = strings[6];
+			this.GameMode = Integer.parseInt(strings[3]);
+			this.TimeLimit = Integer.parseInt(strings[4]);
+			this.KillLimit = Integer.parseInt(strings[5]);
+			this.Map = strings[6];
 
-            Connections.get(0).setSoTimeout(WaitLag);
+			Connections.get(0).setSoTimeout(WaitLag);
 
 			// It gives the right view to the right player
 			View = PlayerNumber;
@@ -225,10 +224,10 @@ public class Netplay
 				System.out.println("Remaining players: " + RemainingNumberOfPlayers);
 			}
 		}
-        catch (SocketTimeoutException sto)
-        {
-            System.err.println("Other player may have disconnected or connection was interrupted.");
-        }
+		catch (SocketTimeoutException sto)
+		{
+			System.err.println("Other player may have disconnected or connection was interrupted.");
+		}
 		catch(IOException e)
 		{
 			System.err.println(e.getStackTrace());
@@ -240,8 +239,8 @@ public class Netplay
 	}
 
 	// Constructor for the server
-    public Netplay(int Nodes)
-    {
+	public Netplay(int Nodes)
+	{
 		this.Nodes = Nodes;
 
 		// Check if we are in a multiplayer game
@@ -279,7 +278,7 @@ public class Netplay
 					System.err.println("Waiting for " + (this.Nodes - Player) + " more node(s)...");
 					Socket Client = Server.accept();
 
-                    Client.setSoTimeout(WaitLag);
+					Client.setSoTimeout(WaitLag);
 
 					System.err.println("A client has connected.");
 					Connections.add(Client);
@@ -292,31 +291,32 @@ public class Netplay
 					SendNodesToPlayer(this.Nodes - Player, this.Nodes, Player/*Player's number*/);
 				}
 			}
-            catch (SocketTimeoutException sto)
-            {
-                System.out.println("Other player may have disconnected or connection was interrupted.");
-            }
+			catch (SocketTimeoutException sto)
+			{
+				System.out.println("Other player may have disconnected or connection was interrupted.");
+			}
 			catch (IOException ioe)
 			{
 				System.err.println(ioe);
 			}
 		}
 	}
-    // Constructor for the server with game condition
-    public Netplay(int Nodes, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
-    {
-        this.Nodes = Nodes;
 
-        // Initialize game limits
-        this.TimeLimit = NewTimeLimit;
-        this.KillLimit = NewKillLimit;
-        this.GameMode = NewGameMode;
+	// Constructor for the server with game condition
+	public Netplay(int Nodes, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
+	{
+		this.Nodes = Nodes;
 
-        // Check if we are in a multiplayer game
-        if (Nodes > 1)
-        {
-            try
-            {
+		// Initialize game limits
+		this.TimeLimit = NewTimeLimit;
+		this.KillLimit = NewKillLimit;
+		this.GameMode = NewGameMode;
+
+		// Check if we are in a multiplayer game
+		if (Nodes > 1)
+		{
+			try
+			{
 				if (Server != null)
 				{
 					if (!Server.isClosed())
@@ -337,33 +337,33 @@ public class Netplay
 					}
 				}
 
-                Server = new ServerSocket(Port);
+				Server = new ServerSocket(Port);
 
 				// Wait for others to connect
 				Server.setSoTimeout(Wait);
-            }
+			}
 			catch (SocketException se)
 			{
 				System.err.println("Socket problem. This port may already be in use. ");
 				System.err.println(se.getMessage());
 			}
-            catch (IOException ioe)
+			catch (IOException ioe)
 			{
 				System.err.println("Server Socket Input-Output Exception. ");
 				System.err.println(ioe.getStackTrace());
 				System.err.println(ioe.getMessage());
 			}
 
-            try
-            {
-                // Server is 0
-                PlayerCommand = new NetCommand((byte)0/*Player number*/);
-                // The other player is 1
-                OtherPlayersCommand.add(new NetCommand((byte) 1));
+			try
+			{
+				// Server is 0
+				PlayerCommand = new NetCommand((byte)0/*Player number*/);
+				// The other player is 1
+				OtherPlayersCommand.add(new NetCommand((byte) 1));
 
-                for (int Player = 1; Player < this.Nodes; Player++)
-                {
-                    System.out.println("Waiting for " + (this.Nodes - Player) + " more nodes");
+				for (int Player = 1; Player < this.Nodes; Player++)
+				{
+					System.out.println("Waiting for " + (this.Nodes - Player) + " more nodes");
 
 					Socket Client;
 
@@ -387,34 +387,35 @@ public class Netplay
 					{
 						System.err.println("Server socket still 'null'. This means the connection wasn't established.");
 					}
-                }
-            }
-            catch (SocketTimeoutException sto)
-            {
-                System.err.println("Other player may have disconnected or connection was interrupted.");
-            }
-            catch (IOException ioe)
-            {
+				}
+			}
+			catch (SocketTimeoutException sto)
+			{
+				System.err.println("Other player may have disconnected or connection was interrupted.");
+			}
+			catch (IOException ioe)
+			{
 				System.err.println("Client Socket Input-Output Exception.");
 				System.err.println(ioe.getMessage());
-                System.err.println(ioe);
-            }
-        }
-    }
-    public NetCommand GetReferenceNetCommand()
-    {
-        return PlayerCommand;
-    }
+				System.err.println(ioe);
+			}
+		}
+	}
+
+	public NetCommand GetReferenceNetCommand()
+	{
+		return PlayerCommand;
+	}
 
 	public boolean ServerSocketIsNull()
 	{
 		return (Server == null);
 	}
 
-    public boolean Update()
-    {
-        // Send his command to players
-        try
+	public boolean Update()
+	{
+		// Send his command to players
+		try
 		{
 			// Write his command
 			if (Writer != null)
@@ -427,7 +428,7 @@ public class Netplay
 				return false;
 			}
 
-            // Read the other player's command
+			// Read the other player's command
 			if (Reader != null)
 			{
 				Line = Reader.readLine();
@@ -454,404 +455,406 @@ public class Netplay
 			{
 				return false;
 			}
-        }
-        catch (SocketTimeoutException sto)
-        {
-            System.out.println("Other player may have disconnected or connection was interrupted.");
+		}
+		catch (SocketTimeoutException sto)
+		{
+			System.out.println("Other player may have disconnected or connection was interrupted.");
 			sto.printStackTrace();
 			return false;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 			return false;
-        }
+		}
 
 		return true;
-    }
+	}
 
-    public void SendNodesToPlayer(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber)
-    {
-        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber);
+	public void SendNodesToPlayer(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber)
+	{
+		String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber);
 
-        for (int Player = 0; Player < Connections.size(); Player++)
-        {
-            try
-            {
-                if (Connections.get(Player).isConnected())
-                {
-                    PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(Connections.get(Player).getOutputStream()));
+		for (int Player = 0; Player < Connections.size(); Player++)
+		{
+			try
+			{
+				if (Connections.get(Player).isConnected())
+				{
+					PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(Connections.get(Player).getOutputStream()));
 
-                    PlayerWriter.println(Message);
-                    PlayerWriter.flush();
-                }
-            }
-            catch (Exception e)
-            {
-                System.err.println(e.getStackTrace());
-            }
-        }
-    }
+					PlayerWriter.println(Message);
+					PlayerWriter.flush();
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e.getStackTrace());
+			}
+		}
+	}
 
-    public void SendMessageToPlayer(String message)
-    {
-        for (int Player = 0; Player < Connections.size(); Player++)
-        {
-            Socket player = Connections.get(Player);
-            try
-            {
-                if (player.isConnected())
-                {
-                    PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(player.getOutputStream()));
+	public void SendMessageToPlayer(String message)
+	{
+		for (int Player = 0; Player < Connections.size(); Player++)
+		{
+			Socket player = Connections.get(Player);
+			try
+			{
+				if (player.isConnected())
+				{
+					PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(player.getOutputStream()));
 
-                    PlayerWriter.println(message);
-                    PlayerWriter.flush();
-                }
-            }
-            catch (Exception e)
-            {
-                System.err.println(e.getStackTrace());
-            }
-        }
-    }
-    public void SendFirstMessageToPlayers(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
-    {
-        String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGameMode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit)  + Separator + NewMap;
+					PlayerWriter.println(message);
+					PlayerWriter.flush();
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e.getStackTrace());
+			}
+		}
+	}
 
-        for (int Player = 0; Player < Connections.size(); Player++)
-        {
-            try
-            {
-                if (Connections.get(Player).isConnected())
-                {
-                    PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(Connections.get(Player).getOutputStream()));
+	public void SendFirstMessageToPlayers(int NumberOfPlayersRemaining, int NumberOfPlayers, int PlayerNumber, int NewGameMode, int NewTimeLimit, int NewKillLimit, String NewMap)
+	{
+		String Message = Integer.toString(NumberOfPlayers) + Separator + Integer.toString(NumberOfPlayersRemaining) + Separator + Integer.toString(PlayerNumber) + Separator + Integer.toString(NewGameMode) + Separator + Integer.toString(NewTimeLimit) + Separator + Integer.toString(NewKillLimit)  + Separator + NewMap;
 
-                    PlayerWriter.println(Message);
-                    PlayerWriter.flush();
-                }
-            }
-            catch (Exception e)
-            {
-                System.err.println(e.getStackTrace());
-            }
-        }
-    }
-    public void TheServerScreen(Level Lvl, int Number, int Player)
-    {
-        // The server first (me)
-        // Reload
-        if (PlayerCommand.Actions / 1000 == 1)
-        {
-            Lvl.Players.get(View).ReloadWeapon();
-            PlayerCommand.Actions -= 1000;
-        }
-        // Command to shot
-        if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
-        {
-            if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
-            {
-                Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
-            }
-            else if (Lvl.Players.get(View).JustSpawned)
-            {
-                Lvl.Players.get(View).JustSpawned = false;
-            }
-            else
-            {
-                // Check if the player has completely dropped on the floor
-                if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
-                {
-                    // Spawn the player
-                    if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
-                    {
-                        System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-                        System.exit(1);
-                    }
-                }
-            }
+		for (int Player = 0; Player < Connections.size(); Player++)
+		{
+			try
+			{
+				if (Connections.get(Player).isConnected())
+				{
+					PrintWriter PlayerWriter = new PrintWriter(new OutputStreamWriter(Connections.get(Player).getOutputStream()));
 
-            PlayerCommand.Actions -= 100;
-        }
+					PlayerWriter.println(Message);
+					PlayerWriter.flush();
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e.getStackTrace());
+			}
+		}
+	}
 
-        Lvl.Players.get(View).JustSpawned = false;
+	public void TheServerScreen(Level Lvl, int Number, int Player)
+	{
+		// The server first (me)
+		// Reload
+		if (PlayerCommand.Actions / 1000 == 1)
+		{
+			Lvl.Players.get(View).ReloadWeapon();
+			PlayerCommand.Actions -= 1000;
+		}
+		// Command to shot
+		if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
+		{
+			if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
+			{
+				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+			}
+			else if (Lvl.Players.get(View).JustSpawned)
+			{
+				Lvl.Players.get(View).JustSpawned = false;
+			}
+			else
+			{
+				// Check if the player has completely dropped on the floor
+				if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
+				{
+					// Spawn the player
+					if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
+					{
+						System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+						System.exit(1);
+					}
+				}
+			}
 
-        // Change weapon 1
-        Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
-        Lvl.Players.get(View).ExecuteChangeWeapon();
-        PlayerCommand.Actions -= PlayerCommand.Actions;
+			PlayerCommand.Actions -= 100;
+		}
 
-        // The client second
-        // Reload
-        if (OtherPlayersCommand.get(Player).Actions / 1000 == 1)
-        {
-            Lvl.Players.get(Number).ReloadWeapon();
-            OtherPlayersCommand.get(Player).Actions -= 1000;
-        }
-        if (OtherPlayersCommand.get(Player).Actions / 100 == 1 || OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
-        {
-            if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
-            {
-                Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-            }
-            else if (Lvl.Players.get(Number).JustSpawned)
-            {
-                Lvl.Players.get(Number).JustSpawned = false;
-            }
-            else
-            {
-                // Check if the player has completely dropped on the floor
-                if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
-                {
-                    // Spawn the player
-                    if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
-                    {
-                        System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-                        System.exit(1);
-                    }
-                }
-            }
+		Lvl.Players.get(View).JustSpawned = false;
 
-            OtherPlayersCommand.get(Player).Actions -= 100;
-        }
+		// Change weapon 1
+		Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
+		Lvl.Players.get(View).ExecuteChangeWeapon();
+		PlayerCommand.Actions -= PlayerCommand.Actions;
 
-        Lvl.Players.get(Number).JustSpawned = false;
+		// The client second
+		// Reload
+		if (OtherPlayersCommand.get(Player).Actions / 1000 == 1)
+		{
+			Lvl.Players.get(Number).ReloadWeapon();
+			OtherPlayersCommand.get(Player).Actions -= 1000;
+		}
+		if (OtherPlayersCommand.get(Player).Actions / 100 == 1 || OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
+		{
+			if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
+			{
+				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+			}
+			else if (Lvl.Players.get(Number).JustSpawned)
+			{
+				Lvl.Players.get(Number).JustSpawned = false;
+			}
+			else
+			{
+				// Check if the player has completely dropped on the floor
+				if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+				{
+					// Spawn the player
+					if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+					{
+						System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+						System.exit(1);
+					}
+				}
+			}
 
-        // Change weapon 1
-        Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
-        Lvl.Players.get(Number).ExecuteChangeWeapon();
-        OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
-    }
+			OtherPlayersCommand.get(Player).Actions -= 100;
+		}
 
-    public void TheClientScreen(Level Lvl, int Number, int Player)
-    {
-        // The server first
-        // Reload
-        if (OtherPlayersCommand.get(Player).Actions / 1000 == 1)
-        {
-            Lvl.Players.get(Number).ReloadWeapon();
-            OtherPlayersCommand.get(Player).Actions -= 1000;
-        }
-        if (OtherPlayersCommand.get(Player).Actions / 100 == 1 || OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
-        {
-            if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
-            {
-                Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
-            }
-            else if (Lvl.Players.get(Number).JustSpawned)
-            {
-                Lvl.Players.get(Number).JustSpawned = false;
-            }
-            else
-            {
-                // Check if the player has completely dropped on the floor
-                if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
-                {
-                    // Spawn the player
-                    if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
-                    {
-                        System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-                        System.exit(1);
-                    }
-                }
-            }
+		Lvl.Players.get(Number).JustSpawned = false;
 
-            OtherPlayersCommand.get(Player).Actions -= 100;
-        }
+		// Change weapon 1
+		Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
+		Lvl.Players.get(Number).ExecuteChangeWeapon();
+		OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
+	}
 
-        Lvl.Players.get(Number).JustSpawned = false;
+	public void TheClientScreen(Level Lvl, int Number, int Player)
+	{
+		// The server first
+		// Reload
+		if (OtherPlayersCommand.get(Player).Actions / 1000 == 1)
+		{
+			Lvl.Players.get(Number).ReloadWeapon();
+			OtherPlayersCommand.get(Player).Actions -= 1000;
+		}
+		if (OtherPlayersCommand.get(Player).Actions / 100 == 1 || OtherPlayersCommand.get(Player).Actions / 100 == 11) // Do the client command second
+		{
+			if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
+			{
+				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+			}
+			else if (Lvl.Players.get(Number).JustSpawned)
+			{
+				Lvl.Players.get(Number).JustSpawned = false;
+			}
+			else
+			{
+				// Check if the player has completely dropped on the floor
+				if (Lvl.Players.get(Number).ViewZ == Lvl.Players.get(Number).HeadOnFloor)
+				{
+					// Spawn the player
+					if (!Lvl.Players.get(Number).SpawnAtRandomSpot(true))
+					{
+						System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+						System.exit(1);
+					}
+				}
+			}
 
-        // Change weapon 1
-        Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
-        Lvl.Players.get(Number).ExecuteChangeWeapon();
-        OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
+			OtherPlayersCommand.get(Player).Actions -= 100;
+		}
 
-        // The client second (me)
-        // Reload
-        if (PlayerCommand.Actions / 1000 == 1)
-        {
+		Lvl.Players.get(Number).JustSpawned = false;
 
-            Lvl.Players.get(View).ReloadWeapon();
-            PlayerCommand.Actions -= 1000;
-        }
-        // Command to shot
-        if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
-        {
-            if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
-            {
-                Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
-            }
-            else if (Lvl.Players.get(View).JustSpawned)
-            {
-                Lvl.Players.get(View).JustSpawned = false;
-            }
-            else
-            {
-                // Check if the player has completely dropped on the floor
-                if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
-                {
-                    // Spawn the player
-                    if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
-                    {
-                        System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
-                        System.exit(1);
-                    }
-                }
-            }
-            PlayerCommand.Actions -= 100;
-        }
+		// Change weapon 1
+		Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
+		Lvl.Players.get(Number).ExecuteChangeWeapon();
+		OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
 
-        Lvl.Players.get(View).JustSpawned = false;
+		// The client second (me)
+		// Reload
+		if (PlayerCommand.Actions / 1000 == 1)
+		{
 
-        // Change weapon 1
-        Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
-        Lvl.Players.get(View).ExecuteChangeWeapon();
-        PlayerCommand.Actions -= PlayerCommand.Actions;
-    }
+			Lvl.Players.get(View).ReloadWeapon();
+			PlayerCommand.Actions -= 1000;
+		}
+		// Command to shot
+		if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
+		{
+			if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
+			{
+				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+			}
+			else if (Lvl.Players.get(View).JustSpawned)
+			{
+				Lvl.Players.get(View).JustSpawned = false;
+			}
+			else
+			{
+				// Check if the player has completely dropped on the floor
+				if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
+				{
+					// Spawn the player
+					if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
+					{
+						System.err.println("Can't find a free spot to respawn. The map may not have enough of them.");
+						System.exit(1);
+					}
+				}
+			}
+			PlayerCommand.Actions -= 100;
+		}
 
-    public void AllTheCommunication(Level Lvl, Camera HeadCamera, int TicksCount)
-    {
-        if (Update())
-        {
-            // Update the other player movements
-            for (int Player = 0; Player < OtherPlayersCommand.size(); Player++)
-            {
-                int Number = OtherPlayersCommand.get(Player).PlayerNumber;
+		Lvl.Players.get(View).JustSpawned = false;
 
-                if (TicksCount > 1)
-                {
-                    // Not allowing movements on the first tick prevents a bug when player may move before the game has even started.
-                    Lvl.Players.get(Number).ForwardMove(OtherPlayersCommand.get(Player).FaceMove);
-                    Lvl.Players.get(Number).LateralMove(OtherPlayersCommand.get(Player).SideMove);
-                    Lvl.Players.get(Number).AngleTurn(OtherPlayersCommand.get(Player).AngleDiff);
-                    Lvl.Players.get(Number).Action = PlayerCommand.Actions;
+		// Change weapon 1
+		Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
+		Lvl.Players.get(View).ExecuteChangeWeapon();
+		PlayerCommand.Actions -= PlayerCommand.Actions;
+	}
 
-                    // Move the server(player1) first and then the client(player2)
-                    for (int PlayerToMove = 0; PlayerToMove < Lvl.Players.size(); PlayerToMove++)
-                    {
-                        Lvl.Players.get(PlayerToMove).ExecuteForwardMove(Lvl.Players.get(PlayerToMove).FrontMove);
-                        Lvl.Players.get(PlayerToMove).ExecuteLateralMove(Lvl.Players.get(PlayerToMove).SideMove);
-                        Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
-                    }
-                }
-                else // To enable the first shot at the start
-                {
-                    Lvl.Players.get(Player).JustSpawned = false;
-                }
+	public void AllTheCommunication(Level Lvl, Camera HeadCamera, int TicksCount)
+	{
+		if (Update())
+		{
+			// Update the other player movements
+			for (int Player = 0; Player < OtherPlayersCommand.size(); Player++)
+			{
+				int Number = OtherPlayersCommand.get(Player).PlayerNumber;
 
-                // Check the action of each player in order (Player1 then Player2)
-                if (View == 0) // If I'm the server
-                {
-                    TheServerScreen(Lvl, Number, Player);
-                }
-                else // If I'm the client
-                {
-                    TheClientScreen(Lvl, Number, Player);
-                }
+				if (TicksCount > 1)
+				{
+					// Not allowing movements on the first tick prevents a bug when player may move before the game has even started.
+					Lvl.Players.get(Number).ForwardMove(OtherPlayersCommand.get(Player).FaceMove);
+					Lvl.Players.get(Number).LateralMove(OtherPlayersCommand.get(Player).SideMove);
+					Lvl.Players.get(Number).AngleTurn(OtherPlayersCommand.get(Player).AngleDiff);
+					Lvl.Players.get(Number).Action = PlayerCommand.Actions;
 
-                PlayerCommand.Actions = 0;
-                OtherPlayersCommand.get(0).Actions = 0;
+					// Move the server(player1) first and then the client(player2)
+					for (int PlayerToMove = 0; PlayerToMove < Lvl.Players.size(); PlayerToMove++)
+					{
+						Lvl.Players.get(PlayerToMove).ExecuteForwardMove(Lvl.Players.get(PlayerToMove).FrontMove);
+						Lvl.Players.get(PlayerToMove).ExecuteLateralMove(Lvl.Players.get(PlayerToMove).SideMove);
+						Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
+					}
+				}
+				else // To enable the first shot at the start
+				{
+					Lvl.Players.get(Player).JustSpawned = false;
+				}
 
-            }
-        }
-        else
-        {
-            if (HeadCamera.Menu.InGame)
-            {
-                HeadCamera.Menu.NewMessageToShow("Multi-player game ended.");
-                TestEndGame(this, Lvl, HeadCamera);
-            }
-            HeadCamera.Menu.InGame = false;
-        }
-    }
+				// Check the action of each player in order (Player1 then Player2)
+				if (View == 0) // If I'm the server
+				{
+					TheServerScreen(Lvl, Number, Player);
+				}
+				else // If I'm the client
+				{
+					TheClientScreen(Lvl, Number, Player);
+				}
 
-    static void TestEndGame(Netplay NetContext, Level Lvl, Camera Cam)
-    {
-        // Look for a winner
-        int Winner = 0;     // Player that wins any of the game modes
-        int PlayerWithMostKills = 0;    // Player that has the most kills
-        boolean Tie = true;    // If some players have the same score
+				PlayerCommand.Actions = 0;
+				OtherPlayersCommand.get(0).Actions = 0;
 
-        // Find the player with the most kills.
-        for (int Player = 0; Player < Lvl.Players.size(); Player++)
-        {
-            if (Lvl.Players().get(Player).Kills > Lvl.Players().get(0).Kills)
-            {
-                PlayerWithMostKills = Player;
-            }
-        }
+			}
+		}
+		else
+		{
+			if (HeadCamera.Menu.InGame)
+			{
+				HeadCamera.Menu.NewMessageToShow("Multi-player game ended.");
+				TestEndGame(this, Lvl, HeadCamera);
+			}
+			HeadCamera.Menu.InGame = false;
+		}
+	}
 
-        // Check if someone may have won. First check if the game is infinite.
-        if (NetContext.TimeLimit != 0 || NetContext.KillLimit != 0)
-        {
-            // Check if we have one of the two cases where the game would end
-            if (Game.TicksCount / FrameRate >= NetContext.GetTimeLimit() || Lvl.Players().get(PlayerWithMostKills).Kills >= NetContext.GetKillLimit())
-            {
-                // Check if GameMode is "FlagTag"
-                if (NetContext.GameMode == 2)
-                {
-                    // Search for the player that had the flag for the longest time
-                    for (int Player = 0; Player < Lvl.Players.size(); Player++)
-                    {
-                        // Search for player with most flag time
-                        if (Lvl.Players().get(Player).FlagTime >= Lvl.Players().get(Winner).FlagTime)
-                        {
-                            Winner = Player;
+	static void TestEndGame(Netplay NetContext, Level Lvl, Camera Cam)
+	{
+		// Look for a winner
+		int Winner = 0;     // Player that wins any of the game modes
+		int PlayerWithMostKills = 0;    // Player that has the most kills
+		boolean Tie = true;    // If some players have the same score
 
-                            // Search a player that has the same score
-                            for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
-                            {
-                                // Don't test the winner against himself
-                                if (PlayerScoreEqual != Winner)
-                                {
-                                    if (Lvl.Players().get(PlayerScoreEqual).FlagTime != Lvl.Players().get(Winner).FlagTime)
-                                    {
-                                        Tie = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else	// A player wins when he has the most kills
-                {
-                    // Get the player that has the most kills
-                    Winner = PlayerWithMostKills;
+		// Find the player with the most kills.
+		for (int Player = 0; Player < Lvl.Players.size(); Player++)
+		{
+			if (Lvl.Players().get(Player).Kills > Lvl.Players().get(0).Kills)
+			{
+				PlayerWithMostKills = Player;
+			}
+		}
 
-                    // Search for a player that has the same score
-                    for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
-                    {
-                        if (PlayerScoreEqual != Winner)
-                        {
-                            // If another player has the same score
-                            if (Lvl.Players().get(PlayerScoreEqual).Kills != Lvl.Players().get(Winner).Kills)
-                            {
-                                // Tie !
-                                Tie = false;
-                            }
-                        }
-                    }
-                }
+		// Check if someone may have won. First check if the game is infinite.
+		if (NetContext.TimeLimit != 0 || NetContext.KillLimit != 0)
+		{
+			// Check if we have one of the two cases where the game would end
+			if (Game.TicksCount / FrameRate >= NetContext.GetTimeLimit() || Lvl.Players().get(PlayerWithMostKills).Kills >= NetContext.GetKillLimit())
+			{
+				// Check if GameMode is "FlagTag"
+				if (NetContext.GameMode == 2)
+				{
+					// Search for the player that had the flag for the longest time
+					for (int Player = 0; Player < Lvl.Players.size(); Player++)
+					{
+						// Search for player with most flag time
+						if (Lvl.Players().get(Player).FlagTime >= Lvl.Players().get(Winner).FlagTime)
+						{
+							Winner = Player;
 
-                // End the game
-                Cam.Menu.InGame = false;
+							// Search a player that has the same score
+							for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
+							{
+								// Don't test the winner against himself
+								if (PlayerScoreEqual != Winner)
+								{
+									if (Lvl.Players().get(PlayerScoreEqual).FlagTime != Lvl.Players().get(Winner).FlagTime)
+									{
+										Tie = false;
+									}
+								}
+							}
+						}
+					}
+				}
+				else	// A player wins when he has the most kills
+				{
+					// Get the player that has the most kills
+					Winner = PlayerWithMostKills;
 
-                // Someone wins. Tell if it's a tie.
-                if (Tie)
-                {
-                    Cam.Menu.NewMessageToShow("Game is a tie.");
-                }
-                else
-                {
-                    if (NetContext.View == Winner)
-                    {
-                        Cam.Menu.NewMessageToShow("You win!");
-                    }
-                    else
-                    {
-                        Cam.Menu.NewMessageToShow("The other player wins.");
-                    }
-                }
-            }
-        }
-    }
+					// Search for a player that has the same score
+					for (int PlayerScoreEqual = 0; PlayerScoreEqual < Lvl.Players.size(); PlayerScoreEqual++)
+					{
+						if (PlayerScoreEqual != Winner)
+						{
+							// If another player has the same score
+							if (Lvl.Players().get(PlayerScoreEqual).Kills != Lvl.Players().get(Winner).Kills)
+							{
+								// Tie !
+								Tie = false;
+							}
+						}
+					}
+				}
+
+				// End the game
+				Cam.Menu.InGame = false;
+
+				// Someone wins. Tell if it's a tie.
+				if (Tie)
+				{
+					Cam.Menu.NewMessageToShow("Game is a tie.");
+				}
+				else
+				{
+					if (NetContext.View == Winner)
+					{
+						Cam.Menu.NewMessageToShow("You win!");
+					}
+					else
+					{
+						Cam.Menu.NewMessageToShow("The other player wins.");
+					}
+				}
+			}
+		}
+	}
 }
