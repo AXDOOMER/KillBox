@@ -588,7 +588,7 @@ public class Player
 			}
 			else
 			{
-				System.out.println("ANGLE: " + HitWall.GetAngle());
+				//System.out.println("ANGLE: " + HitWall.GetAngle());
 
 				Clear = false;
 			}
