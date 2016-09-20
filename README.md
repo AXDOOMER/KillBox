@@ -8,3 +8,4 @@ Requirements:
 * Java 1.7 minimum
 * LWJGL 2.9.3 (included, do not use version 3)
 
+![killbox-mash](https://cloud.githubusercontent.com/assets/6194072/18691310/f8736958-7f60-11e6-83ef-8e27cc00bda9.jpg)
