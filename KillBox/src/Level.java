@@ -211,6 +211,7 @@ public class Level
 					int PosX = 0;
 					int PosY = 0;
 					int PosZ = 0;
+					int Light = 127;
 					short Angle = 0;	// Doesn't matter because the thing is a sprite
 					String Type = "";
 					boolean Impassable = true;
@@ -247,6 +248,10 @@ public class Level
 						{
 							Impassable = Boolean.parseBoolean(Line.substring(Line.indexOf("impassable: ") + 12, Line.indexOf(";")));
 						}
+						else if (Line.contains("light: "))
+						{
+							Light = Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";")));
+						}
 						else if (Line.contains("}"))
 						{
 							break;
@@ -265,7 +270,7 @@ public class Level
 					int PosX = 0;
 					int PosY = 0;
 					int PosZ = 0;
-					int Light = 0;
+					int Light = 127;
 					int Radius = 16;
 					int Height = 96;
 					int Health = 100;
