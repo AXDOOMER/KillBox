@@ -148,7 +148,7 @@ public class Level
 							}
 							else if (Line.contains("light: "))
 							{
-								Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 9, Line.indexOf(";"))));
+								Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";"))));
 							}
 						}
 

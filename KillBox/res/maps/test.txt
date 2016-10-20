@@ -739,4 +739,68 @@ thing:
 	angle: 0;
 }
 
+wall121:
+{
+	2sided: true;
+	impassable: true;
+	x: -500;
+	y: 630;
+	z: 128;
+	x: -532;
+	y: 630;
+	z: 128;
+	x: -532;
+	y: 630;
+	z: 0;
+	x: -500;
+	y: 630;
+	z: 0;
 
+	OffX: 0;
+	OffY: 0;
+	light: 128;
+}
+
+wall122:
+{
+	2sided: true;
+	impassable: true;
+	x: -532;
+	y: 630;
+	z: 128;
+	x: -564;
+	y: 630;
+	z: 128;
+	x: -564;
+	y: 630;
+	z: 0;
+	x: -532;
+	y: 630;
+	z: 0;
+
+	OffX: 0;
+	OffY: 0;
+	light: 64;
+}
+
+wall123:
+{
+	2sided: true;
+	impassable: true;
+	x: -564;
+	y: 630;
+	z: 128;
+	x: -596;
+	y: 630;
+	z: 128;
+	x: -596;
+	y: 630;
+	z: 0;
+	x: -564;
+	y: 630;
+	z: 0;
+
+	OffX: 0;
+	OffY: 0;
+	light: 0;
+}

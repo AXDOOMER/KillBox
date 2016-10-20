@@ -472,7 +472,9 @@ public class Camera
 				glPushMatrix();
 				{
 					// Apply color to polygons
-					glColor3f(1.0f, 1.0f, 1.0f);
+					glColor3f(1.0f * ((float)((int)Lvl.Planes.get(Plane).Light + 128) / 255),
+							1.0f * ((float)((int)Lvl.Planes.get(Plane).Light + 128) / 255),
+							1.0f * ((float)((int)Lvl.Planes.get(Plane).Light + 128) / 255));
 					// Draw polygons according to the camera position
 					glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 					glBegin(GL_QUADS);
@@ -517,7 +519,9 @@ public class Camera
 					glPushMatrix();
 					{
 						// Apply color to polygons
-						glColor3f(1.0f, 1.0f, 1.0f);
+						glColor3f(1.0f * ((float)((int)Lvl.Things.get(Thing).Light + 128) / 255),
+								1.0f * ((float)((int)Lvl.Things.get(Thing).Light + 128) / 255),
+								1.0f * ((float)((int)Lvl.Things.get(Thing).Light + 128) / 255));
 						// Draw polygons according to the camera position
 						glTranslatef(this.PosX(), this.PosY(), this.PosZ());
 						glBegin(GL_QUADS);
