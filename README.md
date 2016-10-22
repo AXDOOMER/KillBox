@@ -10,9 +10,9 @@ System requirements:
 * Your computer must support OpenGL. 
 
 ## How to run on Linux
-Install the latest Java for Oracle's website. 
-Go in the KillBox master directoy (which has GridLevelMaker and license.txt), then in the "KillBox" directory. 
-Copy the files from the "src" directory into the current directoy. 
+Install the latest Java from Oracle's website. 
+Go in the KillBox master directory (which has GridLevelMaker and license.txt), then in the "KillBox" directory. 
+Copy the files from the "src" directory into the current directory. 
 
 Compile using:
 ```
@@ -25,7 +25,7 @@ java -cp res/lwjgl.jar:res/lwjgl_util.jar:. -Djava.library.path="./res" Game
 ```
 
 ## Run on Windows:
-1. Go to your "KillBox" directory which contrains "res" and "src". 
+1. Go to your "KillBox" directory which contains "res" and "src". 
 2. Copy the files from "src" into the current directory. 
 3. Copy the files (not the folders) from the "res" directory into the current directory. 
 4. Run the batch file named "compile-and-run.bat". 
