@@ -1,4 +1,4 @@
-//Copyright (C) 2014-2016 Alexandre-Xavier Labonté-Lamoureux
+//Copyright (C) 2014-2017 Alexandre-Xavier Labonté-Lamoureux
 //Copyright (C) 2015 Francis Bourgault
 //
 //This program is free software: you can redistribute it and/or modify
@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.0";
-	String LastUpdate = "october 20th 2016 4:19PM";
+	String LastUpdate = "january 5th 2017 11:45PM";
 
 	public String Address = null;
 	public int GameMode = 0;
