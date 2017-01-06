@@ -178,6 +178,11 @@ public class Game
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
 
+			if (CheckParam(args, "-wireframe") >= 0)
+			{
+				HeadCamera.SetWireFrame(true);
+			}
+
 			// Key presses
 			boolean JustPressedSpyKey = false;
 

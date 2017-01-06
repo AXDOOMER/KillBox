@@ -50,6 +50,7 @@ public class Camera
 	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
+	private boolean WireFrame = false;
 
 	private boolean HasControl = false;
 	private boolean MenuKeyPressed = false;
@@ -131,6 +132,11 @@ public class Camera
 		this.Aspect = Aspect;
 		this.Near = Near;
 		this.Far = Far;
+	}
+
+	public void SetWireFrame(boolean b)
+	{
+		WireFrame = b;
 	}
 
 	public Player CurrentPlayer()
@@ -456,6 +462,13 @@ public class Camera
 
 		if (Lvl != null)
 		{
+			// Sets the wireframe mode if activated
+			if (WireFrame)
+			{
+				glPolygonMode(GL_FRONT, GL_LINE);
+				glPolygonMode(GL_BACK, GL_LINE);
+			}
+
 			// Draw world geometry (planes)
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
@@ -664,6 +677,13 @@ public class Camera
 
 			// Change the alpha for the sprites that are drawn on the screen
 			glAlphaFunc(GL_GREATER, 0.0f);
+
+			// Unsets the wireframe mode from the menu and HUD only if the wireframe mode was set
+			if (WireFrame)
+			{
+				glPolygonMode(GL_FRONT, GL_FILL);
+				glPolygonMode(GL_BACK, GL_FILL);
+			}
 
 			// If menu is Show
 			if(Menu.Active())
