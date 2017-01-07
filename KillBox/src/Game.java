@@ -180,7 +180,8 @@ public class Game
 
 			if (CheckParam(args, "-wireframe") >= 0)
 			{
-				HeadCamera.SetWireFrame(true);
+				HeadCamera.Menu.Wireframe(true);
+				HeadCamera.Menu.AddWireframeVideoOption();
 			}
 
 			// Key presses

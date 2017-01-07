@@ -104,7 +104,7 @@ public class Menu
 		// Attributes
 		private String ItemText; // Text for the MenuItem
 		private boolean Enabled; // Define whether it can be modify or not.
-		private boolean KeepActiveColor; // Define if the controler stay white despite being unable
+		private boolean KeepActiveColor; // Define if the controller stay white despite being unable
 		private double Occupied_Width; // Initialize on Draw. Tell how much large is the item
 
 		// Constants
@@ -129,7 +129,7 @@ public class Menu
 		}
 
 		// Parameterized constructor
-		public MenuItem(String Text, boolean Active,boolean Keep)
+		public MenuItem(String Text, boolean Active, boolean Keep)
 		{
 			// Initialize Parameters
 			ItemText(Text);
@@ -376,10 +376,10 @@ public class Menu
 			IsChecked.Bool(false);
 		}
 		// Parameterized constructor
-		public MenuItem_CheckBox(String Text, boolean Enabled,boolean Keep,Menu_Boolean Checked)
+		public MenuItem_CheckBox(String Text, boolean Enabled, boolean Keep, Menu_Boolean Checked)
 		{
 			// Calling MenuItem constructor to initialize inherited attribute
-			super(Text,Enabled,Keep);
+			super(Text, Enabled, Keep);
 			// Initialize Attribute
 			IsChecked = Checked;
 		}
@@ -3389,6 +3389,7 @@ public class Menu
 	Menu_Boolean GrabMouse; // Define if the game take mouse input or ignore them
 	Menu_Boolean EnableChat; // Define if the chat is active
 	Menu_Boolean Filtering; // Define if filtering is enable
+	Menu_Boolean Wireframe; // Define if wireframe mode is enable
 	// Radio
 	Menu_Integer SoundMode; // Define sound mode
 	// Slider
@@ -3475,6 +3476,9 @@ public class Menu
 
 		Filtering = new Menu_Boolean();
 		Filtering.Bool(true);
+
+		Wireframe = new Menu_Boolean();
+		Wireframe.Bool(false);
 
 		SoundMode = new Menu_Integer();
 		SoundMode.Int(0);
@@ -3569,6 +3573,7 @@ public class Menu
 		Video.add(new MenuItem_CheckBox("Fullscreen", true, false, Fullscreen));
 		Video.add(new MenuItem_CheckBox("Enable Filtering", true, false, Filtering));
 		Video.add(new MenuItem_NumberBox("View depth", true, false, ViewDepth, 5, 100, 5));
+		//Video.add(new MenuItem_CheckBox("Wireframes", true, false, Wireframe));
 
 		// Adding array to menu
 		Items.add(Game);
@@ -3576,6 +3581,11 @@ public class Menu
 		Items.add(Control);
 		Items.add(Sound);
 		Items.add(Video);
+	}
+
+	public void AddWireframeVideoOption() {
+		// The 4th menu item is supposed to be the video settings
+		Items.get(4).add(new MenuItem_CheckBox("Wireframes", true, false, Wireframe));
 	}
 
 	// Load image file into array at startup to avoid having to load font each time we need them
@@ -3683,6 +3693,12 @@ public class Menu
 		return Filtering.Bool();
 	}
 
+	// Get Wireframe value
+	public boolean Wireframe()
+	{
+		return Wireframe.Bool();
+	}
+
 	// Set Fullscreen value
 	public void Fullscreen(boolean Value)
 	{
@@ -3723,6 +3739,12 @@ public class Menu
 	public void Filtering(boolean Value)
 	{
 		Filtering.Bool(Value);
+	}
+
+	// Set Wireframe value
+	public void Wireframe(boolean Value)
+	{
+		Wireframe.Bool(Value);
 	}
 
 	// Set SoundMode value
