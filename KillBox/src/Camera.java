@@ -813,14 +813,32 @@ public class Camera
 				glEnable(GL_TEXTURE_2D);
 			}
 
-			// Check if mouse should be grabbed at the end so the mouse input is not destroyed
-			if (Menu.GrabMouse() && !Mouse.isGrabbed())
+			// If the player is playing (in-game), then enable the mouse. Else, don't.
+			if (!Menu.Active() && !HasControl)
 			{
-				Mouse.setGrabbed(true);
+				// Check if mouse should be grabbed lastly so the mouse input is not destroyed
+				if (Menu.GrabMouse() && !Mouse.isGrabbed() && Menu.InGame)
+				{
+					Mouse.setGrabbed(true);
+				}
+				else if (!Menu.GrabMouse() && Mouse.isGrabbed())
+				{
+					Mouse.setGrabbed(false);
+				}
 			}
-			else if (!Menu.GrabMouse() && Mouse.isGrabbed())
+			else if (Menu.Active() || !Menu.InGame)	// Never activate the mouse while there is a menu
 			{
-				Mouse.setGrabbed(false);
+				if (Mouse.isGrabbed())
+				{
+					Mouse.setGrabbed(false);
+				}
+			}
+			else if (!Menu.Active() && HasControl)	// If the menu is not active and the player is playing, make sure to grab if set.
+			{
+				if (Menu.GrabMouse() && !Mouse.isGrabbed())
+				{
+					Mouse.setGrabbed(true);
+				}
 			}
 
 			// This line must be after the things get drawn else they will be at an inaccurate angle when the player turns.
