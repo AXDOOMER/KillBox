@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	String GameVersion = "v2.0";
-	String LastUpdate = "january 5th 2017 11:45PM";
+	String LastUpdate = "january 7th 2017 6:37PM";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -3098,7 +3098,7 @@ public class Menu
 		final double TitleHeight = 10.25d; // Smaller = Bigger.
 		final Color WindowColor = new Color(160,160,160,255);
 		// Constructor
-		public MenuWindow_About(String Title, double Width,double Height)
+		public MenuWindow_About(String Title, double Width, double Height)
 		{
 			// Initialize super attribute
 			super(Title, Width, Height);
@@ -3112,6 +3112,7 @@ public class Menu
 			Column1.add(new MenuItem("", false, true)); // Spacer
 			Column1.add(new MenuItem("", false, true)); // Spacer
 			Column1.add(new MenuItem("Version:", false, true));
+			Column1.add(new MenuItem("License:", false, true));
 			Column1.add(new MenuItem("Last Update:", false, true));
 			Column1.add(new MenuItem("", false, true)); // Spacer
 
@@ -3121,6 +3122,7 @@ public class Menu
 			Column2.add(new MenuItem("Francis Bourgault", false, true)); // Spacer
 			Column2.add(new MenuItem("Andy Sergerie", false, true)); // Spacer
 			Column2.add(new MenuItem(GameVersion, false, true));
+			Column2.add(new MenuItem("GNU General Public License version 3", false, true));
 			Column2.add(new MenuItem(LastUpdate, false, true));
 			Column2.add(new MenuItem("Close", true, true));
 
@@ -3531,7 +3533,7 @@ public class Menu
 		Game.add(new MenuItem("Quit Game", true, false));
 		// Separator
 		//Game.add(new MenuItem_Dialog("Play Demo", true,false,"Choose a Demo","txt","Text File"));
-		MenuWindow_About AboutWin = new MenuWindow_About("About", 85, 45);
+		MenuWindow_About AboutWin = new MenuWindow_About("About", 85, 50);
 		Game.add(new MenuItem_Windows("About", true, false, AboutWin));
 		Game.add(new MenuItem("Exit", true, false));
 

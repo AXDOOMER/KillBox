@@ -32,6 +32,8 @@ public class Game
 		System.out.println("			KillBox v2.0");
 		System.out.println("			============");
 
+		System.out.println("This program is free software distributed under the GNU GPL version 3.");
+
 		// Nodes are computers where there is a player
 		int Nodes = 1;
 		String Demo = null;
