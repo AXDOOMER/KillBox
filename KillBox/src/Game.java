@@ -148,8 +148,16 @@ public class Game
 			// The game is all set up. Open the window.
 			try
 			{
-				Display.setDisplayMode(new DisplayMode(640, 480));
-				Display.setResizable(true);
+				if (CheckParam(args, "-fullscreen") >= 0)
+				{
+					Display.setDisplayMode(Display.getDesktopDisplayMode());
+					Display.setFullscreen(true);
+				}
+				else
+				{
+					Display.setDisplayMode(new DisplayMode(640, 480));
+					Display.setResizable(true);
+				}
 				Display.setTitle("KillBox");
 				Display.setVSyncEnabled(true);
 				Display.create();
