@@ -50,6 +50,7 @@ public class Camera
 	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
 	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
+	public boolean DisplayModeChanged = false;
 
 	private boolean HasControl = false;
 	private boolean MenuKeyPressed = false;
@@ -140,12 +141,14 @@ public class Camera
 
 	public void Render(Level Lvl, ArrayList<Player> Players)
 	{
-		if (Display.wasResized())
+		if (Display.wasResized() || DisplayModeChanged)
 		{
 			// Set the camera's properties
 			this.ChangeProperties(this.FOV, (float) Display.getWidth() / (float) Display.getHeight(), this.Near, this.Far);
 			// Set the view's canvas
 			glViewport(0, 0, Display.getWidth(), Display.getHeight());
+
+			DisplayModeChanged = false;
 		}
 
 		glClearColor(0.0f, 0.0f, 0.5f, 0.0f);   // RGBA background color

@@ -279,7 +279,26 @@ public class Game
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
 			{
 				TimeStart = System.currentTimeMillis();
+/*
+				if (HeadCamera.Menu.Fullscreen() && !(Display.getDisplayMode().getWidth() == Display.getDesktopDisplayMode().getWidth()))
+				{
+					// Changing to fullscreen
+					HeadCamera.DisplayModeChanged = true;
+					Display.setDisplayMode(Display.getDesktopDisplayMode());
+					Display.setFullscreen(true);
+					Display.setVSyncEnabled(true);
 
+				}
+				else if (!HeadCamera.Menu.Fullscreen() && (Display.getDisplayMode().getWidth() == Display.getDesktopDisplayMode().getWidth()))
+				{
+					// Changing to windowed mode
+					HeadCamera.DisplayModeChanged = true;
+					Display.setDisplayMode(new DisplayMode(640, 480));
+					Display.setFullscreen(false);
+					Display.setResizable(true);
+					Display.setVSyncEnabled(true);
+				}
+*/
 				// Get mouse sensitivity
 				HeadCamera.MouseSensitivity = (((float)HeadCamera.Menu.MouseSensitivity.Int())/100);
 				// Get sound volume
