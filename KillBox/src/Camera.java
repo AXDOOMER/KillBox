@@ -459,8 +459,7 @@ public class Camera
 			// Sets the wireframe mode if activated
 			if (Menu.Wireframe())
 			{
-				glPolygonMode(GL_FRONT, GL_LINE);
-				glPolygonMode(GL_BACK, GL_LINE);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			}
 
 			// Draw world geometry (planes)
@@ -675,8 +674,7 @@ public class Camera
 			// Unsets the wireframe mode from the menu and HUD only if the wireframe mode was set
 			if (Menu.Wireframe())
 			{
-				glPolygonMode(GL_FRONT, GL_FILL);
-				glPolygonMode(GL_BACK, GL_FILL);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 
 			// If menu is Show
