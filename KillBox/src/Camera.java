@@ -402,12 +402,19 @@ public class Camera
 		// Show/Hide menu
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !JustPressedMenuKey && (!Menu.HaveWindowActive() || !Menu.Locked()))
 		{
-			// Remove control to player
-			HasControl = !HasControl;
+			if (TestingMap)
+			{
+				Menu.ExitGame();
+			}
+			else
+			{
+				// Remove control to player
+				HasControl = !HasControl;
 
-			Menu.Active(!Menu.Active());
+				Menu.Active(!Menu.Active());
 
-			JustPressedMenuKey = true;
+				JustPressedMenuKey = true;
+			}
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
@@ -789,6 +796,7 @@ public class Camera
 					{
 						Menu.DrawTexture(Menu.TitleScreen, 0, 0, 100, 100);
 					}
+
 					if (!Menu.InGame && !Menu.IsServer && !Menu.IsClient && !Menu.MessageIsOnScreen())
 					{
 						if (!TestingMap)
@@ -796,7 +804,19 @@ public class Camera
 							Menu.DrawText("Press 'escape' to access the menu", 9, 50, 2, 2);
 						}
 					}
-					Menu.DrawText(Menu.GameVersion, 90, 0, 2, 2);
+
+					if (!TestingMap)
+					{
+						Menu.DrawText(Menu.GameVersion, 90, 0, 2, 2);
+					}
+				}
+
+				// Always display the debug info while testing the map
+				if (TestingMap)
+				{
+					Menu.DrawText("Angle:" + CurrentPlayer().GetDegreeAngle() + "'", 0, 4, 3, 3);
+					Menu.DrawText("X:" + CurrentPlayer().PosX(), 0, 0, 3, 3);
+					Menu.DrawText("Y:" + CurrentPlayer().PosY(), 50, 0, 3, 3);
 				}
 
 				// Draw a message if there is one
