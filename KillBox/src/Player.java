@@ -55,7 +55,7 @@ public class Player
 	final int DefaultViewZ = 42;
 	final int HeadOnFloor = 12;
 	int ViewZ = DefaultViewZ;
-	
+
 	public enum DamageIndicatorDirection
 	{
 		None, Front, Both, Left, Right, Back
@@ -164,15 +164,15 @@ public class Player
 		Command = Command + (char) ((int) Angle + 32768);
 		return Command;
 	}
-	
+
 	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
 	{
 		Emitter.PlaySound("hurt.wav", this);
 
 		float Angle = (float) Math.atan2(DmgSrcY, DmgSrcX);
-		
+
 		HealthChange(-Damage);
-		
+
 		if (Angle >= Math.PI / 4 && Angle >= -Math.PI / 4)
 		{
 			// It's at the player's right
@@ -243,24 +243,24 @@ public class Player
 				// Next!
 				continue;
 			}
-			
+
 			// Check if the coordinate is inside the player on the Z axis
-			if (CoordZ >= Lvl.Players().get(Player).PosZ() && 
-				CoordZ <= Lvl.Players().get(Player).PosZ() + 
+			if (CoordZ >= Lvl.Players().get(Player).PosZ() &&
+				CoordZ <= Lvl.Players().get(Player).PosZ() +
 				Lvl.Players().get(Player).Height)
 			{
 				// Now, check if it's inside the player's radius
 				float Distance = (float)Math.sqrt(
-						Math.pow(Lvl.Players().get(Player).PosX() - CoordX, 2) + 
+						Math.pow(Lvl.Players().get(Player).PosX() - CoordX, 2) +
 						Math.pow(Lvl.Players().get(Player).PosY() - CoordY, 2));
-				
+
 				if (Distance <= Lvl.Players().get(Player).Radius)
 				{
 					return Lvl.Players().get(Player);
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -444,34 +444,62 @@ public class Player
 		}
 	}
 
-	public void ExecuteForwardMove(byte Direction)
+	public void ExecuteMove(byte FrontDirection, byte SideDirection)
 	{
 		if (ShouldMove())
 		{
+			// Relative position for movement
 			float NewX = MoX;
 			float NewY = MoY;
 
-			if (Direction > 0)
+			// Frontal or backward movement
+			if (FrontDirection > 0)
 			{
 				if (Health > 0)
 				{
 					NewX = MoX + Acceleration * (float) Math.cos(GetRadianAngle());
 					NewY = MoY + Acceleration * (float) Math.sin(GetRadianAngle());
 				}
-
-				TryMove(NewX, NewY);
 			}
-			else if (Direction < 0)
+			else if (FrontDirection < 0)
 			{
 				if (Health > 0)
 				{
 					NewX = MoX - Acceleration * (float) Math.cos(GetRadianAngle());
 					NewY = MoY - Acceleration * (float) Math.sin(GetRadianAngle());
 				}
+			}
+			// Don't do frontmove when 'Direction' is equal to zero
 
+			// Lateral movement
+			float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
+
+			if (SideDirection > 0)
+			{
+				if (Health > 0)
+				{
+					NewX += MoX + Acceleration * (float) Math.cos(AdjustedAngle);
+					NewY += MoY + Acceleration * (float) Math.sin(AdjustedAngle);
+				}
+			}
+			else if (SideDirection < 0)
+			{
+				if (Health > 0)
+				{
+					NewX += MoX - Acceleration * (float) Math.cos(AdjustedAngle);
+					NewY += MoY - Acceleration * (float) Math.sin(AdjustedAngle);
+				}
+			}
+			// Don't sidemove when 'SideDirection' is equal to zero
+
+			// Change the position
+			float OldX = PosX;
+			float OldY = PosY;
+
+			if (FrontDirection != 0 || SideDirection != 0)
+			{
 				TryMove(NewX, NewY);
 			}
-			// Don't do anything when 'Direction' is equal to zero
 
 			// Flag so it is known that the player wants to move
 			HasMoved = true;
@@ -496,42 +524,6 @@ public class Player
 					Frame++;
 				}
 			}
-		}
-	}
-
-	public void ExecuteLateralMove(byte Direction)
-	{
-		if (ShouldMove())
-		{
-			float AdjustedAngle = GetRadianAngle() - (float) Math.PI / 2;
-
-			float NewX = MoX;
-			float NewY = MoY;
-
-			if (Direction > 0)
-			{
-				if (Health > 0)
-				{
-					NewX = MoX + Acceleration * (float) Math.cos(AdjustedAngle);
-					NewY = MoY + Acceleration * (float) Math.sin(AdjustedAngle);
-				}
-
-				TryMove(NewX, NewY);
-			}
-			else if (Direction < 0)
-			{
-				if (Health > 0)
-				{
-					NewX = MoX - Acceleration * (float) Math.cos(AdjustedAngle);
-					NewY = MoY - Acceleration * (float) Math.sin(AdjustedAngle);
-				}
-
-				TryMove(NewX, NewY);
-			}
-			// Don't do anything when 'Direction' is equal to zero
-
-			// Flag so it is known that the player wants to move
-			HasMoved = true;
 		}
 	}
 
@@ -588,14 +580,60 @@ public class Player
 			}
 			else
 			{
-				//System.out.println("ANGLE: " + HitWall.GetAngle());
+				// Slide against the wall (work in progress)
+/*				float atan = (float)Math.atan2(MoY(), MoX());
 
+				float cosaX = (float)Math.cos(atan);
+				float sinaY = (float)Math.sin(atan);
+
+				// HACK
+				if (NewX < 1 && NewX > -1)
+					NewX = 0.1f;
+				if (NewY < 1 && NewY > -1)
+					NewY = 0.1f;
+
+				NewX = (float)Math.abs(cosaX) * NewX;
+				NewY = (float)Math.abs(sinaY) * NewY;
+
+				//NewX /= 1.3;
+				//NewY /= 1.3;
+//
+//				if (NewX < 1 && NewX > -1)
+//					NewX = 0;
+//				if (NewY < 1 && NewY > -1)
+//					NewY = 0;
+//
+				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
+				{
+					if (Clear)
+					{
+						Clear = true;
+					}
+				}
+				else
+				{
+					int Iteration = 0;
+					while (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
+					{
+						System.out.println("STUCK!!! Iteration: " + Iteration++);
+						NewX /= 2;
+						NewY /= 2;
+
+						// This is a HACK so sliding works a bit on the Y axis
+						if (NewX < 1 && NewX > -1)
+							NewX = 0;
+						if (NewY < 1 && NewY > -1)
+							NewY = 0.1f;
+					}
+
+					Clear = true;
+				}*/
 				Clear = false;
 			}
 
 			if (!Clear)
 			{
-				// Divide movement, because we want to move less
+				// Divide movement, because we want to move less.
 				NewX /= 2;
 				NewY /= 2;
 				Clear = true;
@@ -1471,6 +1509,7 @@ public class Player
 		Tick++;
 	}
 
+	// Used to prevent the player from moving right after a respawn
 	public boolean ShouldMove()
 	{
 		return Tick >= MinTickBeforeCanMove;

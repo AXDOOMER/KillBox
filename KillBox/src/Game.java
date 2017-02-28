@@ -155,7 +155,7 @@ public class Game
 				}
 				else
 				{
-					Display.setDisplayMode(new DisplayMode(640, 480));
+					Display.setDisplayMode(new DisplayMode(1024, 768));
 					Display.setResizable(true);
 				}
 				Display.setTitle("KillBox");
@@ -430,8 +430,7 @@ public class Game
 						if (!HeadCamera.DemoMode || HeadCamera.TestingMap)
 						{
 							// Make the player move even if it's not a multiplayer game
-							Lvl.Players.get(View).ExecuteForwardMove(Lvl.Players.get(View).FrontMove);
-							Lvl.Players.get(View).ExecuteLateralMove(Lvl.Players.get(View).SideMove);
+							Lvl.Players.get(View).ExecuteMove(Lvl.Players.get(View).FrontMove, Lvl.Players.get(View).SideMove);
 							Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
 						}
 						else

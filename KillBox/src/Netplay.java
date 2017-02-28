@@ -731,8 +731,7 @@ public class Netplay
 					// Move the server(player1) first and then the client(player2)
 					for (int PlayerToMove = 0; PlayerToMove < Lvl.Players.size(); PlayerToMove++)
 					{
-						Lvl.Players.get(PlayerToMove).ExecuteForwardMove(Lvl.Players.get(PlayerToMove).FrontMove);
-						Lvl.Players.get(PlayerToMove).ExecuteLateralMove(Lvl.Players.get(PlayerToMove).SideMove);
+						Lvl.Players.get(PlayerToMove).ExecuteMove(Lvl.Players.get(PlayerToMove).FrontMove, Lvl.Players.get(PlayerToMove).SideMove);
 						Lvl.Players.get(PlayerToMove).ExecuteAngleTurn(Lvl.Players.get(PlayerToMove).AngleDiff);
 					}
 				}
