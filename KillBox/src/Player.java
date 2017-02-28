@@ -33,9 +33,9 @@ public class Player
 	Thing.Names[] OwnedWeapons = new Thing.Names[MaxOwnedWeapons];
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
-	int []MaxBulletsPerWeapon = {0, 10, 20, 30};
-	float []WeaponAccuracy = {0, 1 * (float)Math.PI / 180, 5 * (float)Math.PI / 180, 10 * (float)Math.PI / 180};
-	int []WeaponSpeed = {0, -1, 4, 2};
+	int[] MaxBulletsPerWeapon = {0, 10, 20, 30};
+	float[] WeaponAccuracy = {0, 1 * (float)Math.PI / 180, 5 * (float)Math.PI / 180, 10 * (float)Math.PI / 180};
+	int[] WeaponSpeed = {0, -1, 4, 2};
 	int WeaponTimeSinceLastShot = GetHighestWeaponSpeedFromArray() + 1;
 	int Bullets = MaxBulletsPerWeapon[1];
 	public boolean TriggerAlreadyPressed = false;
@@ -1544,7 +1544,7 @@ public class Player
 			{
 				DroppingWeapon = false;
 				RaisingWeapon = true;
-				System.err.println("The weapon went too far down during its reload animation.");
+				System.err.println((new java.util.Date()) + " The weapon went too far down during its reload animation.");
 			}
 		}
 		else if (RaisingWeapon)

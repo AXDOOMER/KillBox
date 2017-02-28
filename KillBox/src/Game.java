@@ -169,7 +169,7 @@ public class Game
 			}
 
 			// Sound (SFX)
-			Sound SndDriver = new Sound(CheckParam(args, "-pcs") >= 0, Lvl.Players, SoundMode);;
+			Sound SndDriver = new Sound(/*CheckParam(args, "-pcs") >= 0,*/ /*Lvl.Players,*/ SoundMode);
 
 			// Whoa! That's an ugly way to do things...
 			for (int Player = 0; Player < Nodes; Player++)
