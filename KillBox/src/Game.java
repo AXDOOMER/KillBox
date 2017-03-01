@@ -638,6 +638,11 @@ public class Game
 					Lvl.Players.get(Player).Shot = false;
 					Lvl.Players.get(Player).Reloading = false;
 
+					// Activating the no clipping cheat
+					if (CheckParam(args, "-noclip") >= 0)
+					{
+						Lvl.Players.get(Player).SetNoClipping(true);
+					}
 				}
 
 				if (NetplayInfo != null)
@@ -666,6 +671,11 @@ public class Game
 					// Timer for sleep
 					TimeEnd = System.currentTimeMillis();
 					long DeltaTime = TimeEnd - TimeStart;
+
+					if (CheckParam(args, "-showframetime") >= 0)
+					{
+						Display.setTitle(DeltaTime + " ms");
+					}
 
 					// Make sure the time is not negative
 					// We want to run the game as fast as possible

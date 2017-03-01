@@ -102,6 +102,7 @@ public class Player
 	Level Lvl = null;		// The player must know where he is
 	Random Randomizer = null;
 	final int MaxTriesBeforeFreeSpawnIsFound = 30;
+	boolean Ghost = false;
 
 	public Player(Level Lvl, Sound Output)
 	{
@@ -527,6 +528,12 @@ public class Player
 		}
 	}
 
+	// Is the player a ghost that can walk through walls?
+	public void SetNoClipping(boolean NoClipping)
+	{
+		Ghost = NoClipping;
+	}
+
 	// Try every type of collision.
 	public boolean TryMove(float NewX, float NewY)
 	{
@@ -540,47 +547,49 @@ public class Player
 		// Fuck it when the player repetitively can't move
 		int NumTests = 0;
 
-		while (Clear && NumTests < this.Radius() * 2)
+		if (!Ghost)
 		{
-			NumTests++;
+			while (Clear && NumTests < this.Radius() * 2)
+			{
+				NumTests++;
 
-			// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
-			if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
-			{
-				if (Clear)
+				// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
+				if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 				{
-					Clear = true;
+					if (Clear)
+					{
+						Clear = true;
+					}
 				}
-			}
-			else
-			{
-				Clear = false;
-			}
+				else
+				{
+					Clear = false;
+				}
 
-			// Player against thing collision
-			if (Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
-			{
-				if (Clear)
+				// Player against thing collision
+				if (Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
 				{
-					Clear = true;
+					if (Clear)
+					{
+						Clear = true;
+					}
 				}
-			}
-			else
-			{
-				Clear = false;
-			}
+				else
+				{
+					Clear = false;
+				}
 
-			// Player against wall collision
-			if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
-			{
-				if (Clear)
+				// Player against wall collision
+				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
 				{
-					Clear = true;
+					if (Clear)
+					{
+						Clear = true;
+					}
 				}
-			}
-			else
-			{
-				// Slide against the wall (work in progress)
+				else
+				{
+					// Slide against the wall (work in progress)
 /*				float atan = (float)Math.atan2(MoY(), MoX());
 
 				float cosaX = (float)Math.cos(atan);
@@ -628,15 +637,16 @@ public class Player
 
 					Clear = true;
 				}*/
-				Clear = false;
-			}
+					Clear = false;
+				}
 
-			if (!Clear)
-			{
-				// Divide movement, because we want to move less.
-				NewX /= 2;
-				NewY /= 2;
-				Clear = true;
+				if (!Clear)
+				{
+					// Divide movement, because we want to move less.
+					NewX /= 2;
+					NewY /= 2;
+					Clear = true;
+				}
 			}
 		}
 
