@@ -739,7 +739,7 @@ public class Player
 										Found = true;
 									}
 								}
-								if (Found == false)
+								if (!Found)
 								{
 									OwnedWeapons[3] = Thing.Names.Ak47;
 									ChangeWeapon(3);
@@ -757,7 +757,7 @@ public class Player
 										Found = true;
 									}
 								}
-								if (Found == false)
+								if (!Found)
 								{
 									OwnedWeapons[2] = Thing.Names.Tek9;
 									ChangeWeapon(2);
@@ -1578,41 +1578,26 @@ public class Player
 
 	public void ExecuteChangeWeapon()
 	{
-		//System.err.println(WeaponToSelect + "	" + SelectedWeapon);
-
 		if (DroppingWeapon)
 		{
 			WeaponHeight -= WeaponActionSpeed;
 
-			if (WeaponHeight == -DefaultViewZ)
+			if (WeaponHeight <= -DefaultViewZ)
 			{
 				DroppingWeapon = false;
 				RaisingWeapon = true;
-			}
-			else if (WeaponHeight < -DefaultViewZ)
-			{
-				DroppingWeapon = false;
-				RaisingWeapon = true;
-				System.err.println((new java.util.Date()) + " The weapon went too far down during its reload animation.");
 			}
 		}
 		else if (RaisingWeapon)
 		{
 			WeaponHeight += WeaponActionSpeed;
 
-			if (WeaponHeight == 0)
-			{
-				RaisingWeapon = false;
-				Reloading = false;
-			}
-			else if (WeaponHeight > 0)
+			if (WeaponHeight >= 0)
 			{
 				WeaponHeight = 0;
 				RaisingWeapon = false;
-				System.err.println("The weapon went too far up after its reload animation.");
+				Reloading = false;
 			}
-
-			Reloading = false;
 		}
 
 		if (RaisingWeapon && WeaponHeight <= -DefaultViewZ)

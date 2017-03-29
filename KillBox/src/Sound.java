@@ -43,14 +43,6 @@ public class Sound
 	ArrayList<Integer> SoundBuffers = new ArrayList<Integer>();
 	ArrayList<Integer> IntSources = new ArrayList<Integer>();
 
-	// How sound directions get calculated
-	// 'Bi' is two-dimensional, 'Three' is 3D and 'Doppler' is 3D + Doppler effect
-	public enum SoundModes
-	{
-		Bi, Three, Duppler
-	}
-	SoundModes SndMode = SoundModes.Bi;
-
 	public void CloseOpenAL()
 	{
 		// Don't just close. DESTROY!
@@ -62,7 +54,7 @@ public class Sound
 		this.Hear = Hear;
 	}
 
-	public Sound(/*ArrayList<Player> Listeners,*/ SoundModes Mode)
+	public Sound()
 	{
 		System.out.print("SFX initialisation");
 
@@ -76,14 +68,7 @@ public class Sound
 			e.printStackTrace();
 		}
 
-		if (Mode != null)
-		{
-			SndMode = Mode;
-		}
-		else
-		{
-			SndMode = SoundModes.Three;
-		}
+		System.out.println(".");
 	}
 
 	public void PlaySound(String Name, Player Emitter)
@@ -126,35 +111,28 @@ public class Sound
 			//Orientation of the listener. (first 3 elements are "at", second 3 are "up") */
 			FloatBuffer ListenerOri;
 
-			switch (SndMode)
-			{
-				case Bi:
-				case Three:
-				case Duppler:
-					// This is the stereo sound.
-					// TODO: Do the 3D sound and the 3D sound with the duppler effect
+			// This is the stereo sound. Play the sound according to the different parameters.
+			// TODO: Do the 3D sound and the 3D sound with the duppler effect
 
-					// Position of the source sound.
-					SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Emitter.PosX() / Attenuator, Emitter.PosY() / Attenuator, 0.0f }).rewind();
+			// Position of the source sound.
+			SourcePos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Emitter.PosX() / Attenuator, Emitter.PosY() / Attenuator, 0.0f }).rewind();
 
-					// Position of the listener.
-					ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX() / Attenuator, Hear.PosY() / Attenuator, 0.0f }).rewind();
+			// Position of the listener.
+			ListenerPos = (FloatBuffer)BufferUtils.createFloatBuffer(3).put(new float[] {Hear.PosX() / Attenuator, Hear.PosY() / Attenuator, 0.0f }).rewind();
 
-					// Orientation of the listener. (first 3 elements are "at" (nose), second 3 are "up" (hair top) )
-					ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
+			// Orientation of the listener. (first 3 elements are "at" (nose), second 3 are "up" (hair top) )
+			ListenerOri = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[]{(float)Math.cos(Hear.GetRadianAngle()), (float)Math.sin(Hear.GetRadianAngle()), 0.0f, 0.0f, 0.0f, 1.0f }).rewind();
 
-					// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
-					alSourcei(IntSources.get(SourceIndex), AL_SOURCE_RELATIVE, AL_FALSE);
-					alSourcei(IntSources.get(SourceIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-					alSource(IntSources.get(SourceIndex), AL_POSITION, SourcePos);
-					// AL_GAIN controls the volume
-					alSourcef(IntSources.get(SourceIndex), AL_GAIN, 1.0f * VolumeMultiplier);
+			// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
+			alSourcei(IntSources.get(SourceIndex), AL_SOURCE_RELATIVE, AL_FALSE);
+			alSourcei(IntSources.get(SourceIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
+			alSource(IntSources.get(SourceIndex), AL_POSITION, SourcePos);
+			// AL_GAIN controls the volume
+			alSourcef(IntSources.get(SourceIndex), AL_GAIN, 1.0f * VolumeMultiplier);
 
-					alListener(AL_POSITION, ListenerPos);
-					alListener(AL_ORIENTATION, ListenerOri);
-					alSourcePlay(IntSources.get(SourceIndex));
-					break;
-			}
+			alListener(AL_POSITION, ListenerPos);
+			alListener(AL_ORIENTATION, ListenerOri);
+			alSourcePlay(IntSources.get(SourceIndex));
 		}
 	}
 
@@ -210,11 +188,6 @@ public class Sound
 	private float ConvertAngle(float AngleRad)
 	{
 		return AngleRad * (float)(1.0f / Math.PI);
-	}
-
-	public void ChangeSoundMode(SoundModes Mode)
-	{
-		SndMode = Mode;
 	}
 
 	// Check is the sound file is cached. If not, cache the file. Returns false on failure.

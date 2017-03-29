@@ -36,8 +36,8 @@ public class Menu
 {
 	public boolean UserWantsToExit = false;
 
-	String GameVersion = "v2.0";
-	String LastUpdate = "january 7th 2017 6:37PM";
+	final String GameVersion = "v2.0";
+	final String LastUpdate = "march 28 2017 10:56PM";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -650,7 +650,7 @@ public class Menu
 			// Create all "Checkbox" in the table
 			for(int Radio = 0; Radio < RadioText.length; Radio++)
 			{
-				RadioButtons[Radio] = new MenuItem_RadioButton(RadioText[Radio],true,true, Radio == SelectedIndex.Int(), this,Radio);
+				RadioButtons[Radio] = new MenuItem_RadioButton(RadioText[Radio], true, true, Radio == SelectedIndex.Int(), this,Radio);
 			}
 
 			// Initialize CheckedIndex
@@ -746,7 +746,7 @@ public class Menu
 		}
 
 		// Get Draw width. Will not draw the item, only count how much width in px it takes.
-		public double GetDrawWidth(int GridWidth,int GridHeight,boolean WindowCoor,double AdditionalWidth)
+		public double GetDrawWidth(int GridWidth, int GridHeight, boolean WindowCoor, double AdditionalWidth)
 		{
 			double TotalWidthPixels = 0;
 
@@ -757,7 +757,7 @@ public class Menu
 			TotalWidthPixels = CircleRadiusPixels * 2 + MarginPixels;
 
 			// Return total width
-			return super.GetDrawWidth(GridWidth,GridHeight,WindowCoor,TotalWidthPixels);
+			return super.GetDrawWidth(GridWidth, GridHeight, WindowCoor, TotalWidthPixels);
 		}
 
 		// Draw RadioButton control and text
@@ -3384,12 +3384,10 @@ public class Menu
 	// Attribute for control
 	// Checkbox
 	Menu_Boolean Fullscreen; // Define if full screen or window
-	Menu_Boolean FreeLook; // Define if the use of free look is used
-	Menu_Boolean ShowMessage; // Define if message from chat are shown
+	Menu_Boolean AimingCursor; // Define if the use of free look is used
 	Menu_Boolean ShowHud; // Define if Hud is draw
 	Menu_Boolean ShowDebug; // Define if debug parameter are shown
 	Menu_Boolean GrabMouse; // Define if the game take mouse input or ignore them
-	Menu_Boolean EnableChat; // Define if the chat is active
 	Menu_Boolean Filtering; // Define if filtering is enable
 	Menu_Boolean Wireframe; // Define if wireframe mode is enable
 	// Radio
@@ -3397,8 +3395,6 @@ public class Menu
 	// Slider
 	Menu_Integer SFXVolume; // Define sound volume
 	Menu_Integer MouseSensitivity; // Define mouse sensitivity
-	// NumericUpDown
-	Menu_Integer ViewDepth; // Define Depth of view
 
 	// Attribute for menu
 	List<List<MenuItem>> Items;
@@ -3458,11 +3454,8 @@ public class Menu
 		Fullscreen = new Menu_Boolean();
 		Fullscreen.Bool(true);
 
-		FreeLook = new Menu_Boolean();
-		FreeLook.Bool(true);
-
-		ShowMessage = new Menu_Boolean();
-		ShowMessage.Bool(true);
+		AimingCursor = new Menu_Boolean();
+		AimingCursor.Bool(true);
 
 		ShowHud = new Menu_Boolean();
 		ShowHud.Bool(true);
@@ -3472,9 +3465,6 @@ public class Menu
 
 		GrabMouse = new Menu_Boolean();
 		GrabMouse.Bool(false);
-
-		EnableChat = new Menu_Boolean();
-		EnableChat.Bool(true);
 
 		Filtering = new Menu_Boolean();
 		Filtering.Bool(true);
@@ -3490,9 +3480,6 @@ public class Menu
 
 		MouseSensitivity = new Menu_Integer();
 		MouseSensitivity.Int(60);
-
-		ViewDepth = new Menu_Integer();
-		ViewDepth.Int(100);
 
 		// Loading all Font Texture
 		FontArray = new ArrayList<Texture>();
@@ -3540,8 +3527,7 @@ public class Menu
 		// Option Array
 		List<MenuItem> Option = new ArrayList<MenuItem>();
 		Option.add(new MenuItem("Option", true, false));
-		Option.add(new MenuItem_CheckBox("Use freelook", true, false, FreeLook));
-		Option.add(new MenuItem_CheckBox("Show messages", true, false, ShowMessage));
+		Option.add(new MenuItem_CheckBox("Show aiming cursor", true, false, AimingCursor));
 		Option.add(new MenuItem_CheckBox("Show HUD", true, false, ShowHud));
 		// Seperator
 		Option.add(new MenuItem_CheckBox("Show Debug", true, false, ShowDebug));
@@ -3550,23 +3536,30 @@ public class Menu
 		List<MenuItem> Control = new ArrayList<MenuItem>();
 		Control.add(new MenuItem("Control", true, false));
 		Control.add(new MenuItem_CheckBox("Grab mouse", true, false, GrabMouse));
-		Control.add(new MenuItem_CheckBox("Enable chat", true, false, EnableChat));
 		Control.add(new MenuItem_HorSlider("Mouse Sensitivity", true ,false, 0, 100, MouseSensitivity));
 
 		// Sound Array
 		List<MenuItem> Sound = new ArrayList<MenuItem>();
 		Sound.add(new MenuItem("Sound", true, false));
 		Sound.add(new MenuItem_HorSlider("SFX Volume", true, false, 0, 100, SFXVolume));
-		Sound.add(new MenuItem("Mode ",false, true));
-		String[] RadioText = new String[3];
-		RadioText[0] = "2D";
-		RadioText[1] = "3D";
-		RadioText[2] = "3D Doppler Effect";
-		MenuItem_RadioButtonGroup RadioGroup = new MenuItem_RadioButtonGroup(RadioText,SoundMode);
+		Sound.add(new MenuItem("Mode ", false, true));
+		String[] RadioText = new String[2];
+		RadioText[0] = "2D simple sound";
+		RadioText[1] = "3D Doppler Effect";
+		MenuItem_RadioButtonGroup RadioGroup = new MenuItem_RadioButtonGroup(RadioText, SoundMode);
+		// TODO: Remove the sound mode selection, since there will only be one. This is no longer saved in the config file.
 
 		for (int Radio = 0; Radio < RadioGroup.RadioButtons.length; Radio++)
 		{
-			Sound.add(RadioGroup.RadioButtons[Radio]);
+			if (RadioText[Radio] != null)
+			{
+				Sound.add(RadioGroup.RadioButtons[Radio]);
+			}
+			else
+			{
+				System.err.println("RadioText may have a bad size because an element is NULL (at index " + Radio + ")");
+				System.exit(1);
+			}
 		}
 
 		// Video Array
@@ -3574,7 +3567,6 @@ public class Menu
 		Video.add(new MenuItem("Video", true, false));
 		Video.add(new MenuItem_CheckBox("Fullscreen", true, false, Fullscreen));
 		Video.add(new MenuItem_CheckBox("Enable Filtering", true, false, Filtering));
-		Video.add(new MenuItem_NumberBox("View depth", true, false, ViewDepth, 5, 100, 5));
 		//Video.add(new MenuItem_CheckBox("Wireframes", true, false, Wireframe));
 
 		// Adding array to menu
@@ -3659,16 +3651,10 @@ public class Menu
 		return Fullscreen.Bool();
 	}
 
-	// Get FreeLook value
-	public boolean FreeLook()
+	// Get AimingCursor value
+	public boolean AimingCursor()
 	{
-		return FreeLook.Bool();
-	}
-
-	// Get ShowMessage value
-	public boolean ShowMessage()
-	{
-		return ShowMessage.Bool();
+		return AimingCursor.Bool();
 	}
 
 	// Get ShowDebug value
@@ -3681,12 +3667,6 @@ public class Menu
 	public boolean GrabMouse()
 	{
 		return GrabMouse.Bool();
-	}
-
-	// Get EnableChat value
-	public boolean EnableChat()
-	{
-		return EnableChat.Bool();
 	}
 
 	// Get Filtering value
@@ -3707,16 +3687,10 @@ public class Menu
 		Fullscreen.Bool(Value);
 	}
 
-	// Set FreeLook value
-	public void FreeLook(boolean Value)
+	// Set AimingCursor value
+	public void AimingCursor(boolean Value)
 	{
-		FreeLook.Bool(Value);
-	}
-
-	// Set ShowMessage value
-	public void ShowMessage(boolean Value)
-	{
-		ShowMessage.Bool(Value);
+		AimingCursor.Bool(Value);
 	}
 
 	// Set ShowDebug value
@@ -3729,12 +3703,6 @@ public class Menu
 	public void GrabMouse(boolean Value)
 	{
 		GrabMouse.Bool(Value);
-	}
-
-	// Set EnableChat value
-	public void EnableChat(boolean Value)
-	{
-		EnableChat.Bool(Value);
 	}
 
 	// Set Filtering value
@@ -3752,9 +3720,8 @@ public class Menu
 	// Set SoundMode value
 	public void SoundMode(int Mode)
 	{
-		// 0 = 2d
-		// 1 = 3d
-		// 2 = 3d + Doppler effect
+		// 0 = 2d (simple sound positioning)
+		// 1 = 3d + Doppler effect
 		SoundMode.Int(Mode);
 		MenuItem_RadioButton Radio = (MenuItem_RadioButton)Items.get(3).get(3);
 		if (SoundMode.Int() == 0)
@@ -3768,16 +3735,6 @@ public class Menu
 
 		Radio = (MenuItem_RadioButton)Items.get(3).get(4);
 		if (SoundMode.Int() == 1)
-		{
-			Radio.IsChecked(true);
-		}
-		else
-		{
-			Radio.IsChecked(false);
-		}
-
-		Radio = (MenuItem_RadioButton)Items.get(3).get(5);
-		if (SoundMode.Int() == 2)
 		{
 			Radio.IsChecked(true);
 		}
@@ -3804,17 +3761,8 @@ public class Menu
 		if (Sensibility >= 0 && Sensibility <= 100)
 		{
 			MouseSensitivity.Int(Sensibility);
-			MenuItem_HorSlider Slider = (MenuItem_HorSlider)Items.get(2).get(3);
+			MenuItem_HorSlider Slider = (MenuItem_HorSlider) Items.get(2).get(2);
 			Slider.CursorPos(MouseSensitivity.Int / Slider.SquareValue);
-		}
-	}
-
-	// Set ViewDepth value
-	public void ViewDepth(int Depth)
-	{
-		if (Depth >= 0 && Depth <= 100)
-		{
-			ViewDepth.Int(Depth);
 		}
 	}
 
@@ -3987,7 +3935,7 @@ public class Menu
 		for (int Item = 1;Item < Items.get(MenuBarCursor).size();Item++)
 		{
 			// Get width
-			double SubItemWidth = Items.get(MenuBarCursor).get(Item).GetDrawWidth(GridWidth(),GridHeight(),false,0);
+			double SubItemWidth = Items.get(MenuBarCursor).get(Item).GetDrawWidth(GridWidth(), GridHeight(), false, 0);
 
 			// Check if bigger than the biggest
 			if (SubItemWidth > BiggestSubItemWidth)

@@ -139,23 +139,8 @@ public class Camera
 		return Plyr;
 	}
 
-	public void Render(Level Lvl, ArrayList<Player> Players)
+	public void RunLogic(Level Lvl, ArrayList<Player> Players)
 	{
-		if (Display.wasResized() || DisplayModeChanged)
-		{
-			// Set the camera's properties
-			this.ChangeProperties(this.FOV, (float) Display.getWidth() / (float) Display.getHeight(), this.Near, this.Far);
-			// Set the view's canvas
-			glViewport(0, 0, Display.getWidth(), Display.getHeight());
-
-			DisplayModeChanged = false;
-		}
-
-		glClearColor(0.0f, 0.0f, 0.5f, 0.0f);   // RGBA background color
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer and the depth buffer
-		glLoadIdentity();
-		this.UseView(); // Rotation matrices for the view
-
 		// Grab mouse is controller by F1
 		if (Keyboard.isKeyDown(Keyboard.KEY_F1) && !JustPressedMouseGrabKey)
 		{
@@ -228,7 +213,8 @@ public class Camera
 				//CurrentPlayer().ForwardMove((byte) (MouseVertical / 5));
 
 				// If keys for opposite movements are held, don't do anything.
-				if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP)) && (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))))
+				if (!((Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
+						&& (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN))))
 				{
 					if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP))
 					{
@@ -282,7 +268,8 @@ public class Camera
 				}
 
 				// Right now, it can only shot like a pistol...
-				if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
+				if ((Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) ||
+						Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0))) && !JustPressedFireKey)
 				{
 					if (CurrentPlayer().Health > 0 && CurrentPlayer().Bullets > 0)
 					{
@@ -310,7 +297,8 @@ public class Camera
 						}
 					}
 				}
-				else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
+				else if (Keyboard.isKeyDown(Keyboard.KEY_RCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) ||
+						Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || (Mouse.isGrabbed() && Mouse.isButtonDown(0)))
 				{
 					JustPressedFireKey = true;
 					Plyr.TriggerAlreadyPressed = true;
@@ -444,6 +432,24 @@ public class Camera
 				MenuKeyPressed = false;
 			}
 		}
+	}
+
+	public void Render(Level Lvl, ArrayList<Player> Players)
+	{
+		if (Display.wasResized() || DisplayModeChanged)
+		{
+			// Set the camera's properties
+			this.ChangeProperties(this.FOV, (float) Display.getWidth() / (float) Display.getHeight(), this.Near, this.Far);
+			// Set the view's canvas
+			glViewport(0, 0, Display.getWidth(), Display.getHeight());
+
+			DisplayModeChanged = false;
+		}
+
+		glClearColor(0.0f, 0.0f, 0.5f, 0.0f);   // RGBA background color
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer and the depth buffer
+		glLoadIdentity();
+		this.UseView(); // Rotation matrices for the view
 
 		if (Menu.ShowDebug())
 		{
@@ -473,10 +479,12 @@ public class Camera
 			}
 
 			// Draw world geometry (planes)
+			Texture previousTexture = null;
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
-				if (Lvl.Planes.get(Plane).Reference != null)
+				if (Lvl.Planes.get(Plane).Reference != null && Lvl.Planes.get(Plane).Reference != previousTexture)
 				{
+					previousTexture = Lvl.Planes.get(Plane).Reference;
 					Lvl.Planes.get(Plane).Reference.Bind();
 				}
 
@@ -769,7 +777,7 @@ public class Camera
 					}
 
 					// Show the scores on the screen
-					if (Lvl.Players.size() > 1 && Menu.InGame == true)
+					if (Lvl.Players.size() > 1 && Menu.InGame)
 					{
 						if (Keyboard.isKeyDown(Keyboard.KEY_TAB))
 						{
@@ -777,7 +785,7 @@ public class Camera
 						}
 					}
 
-					if (Menu.FreeLook() && Plyr.CanShot())
+					if (Menu.AimingCursor() && Plyr.CanShot())
 					{
 						Menu.DrawTexture(Crosshair, 47, 46, 6, 8);
 					}
@@ -820,10 +828,7 @@ public class Camera
 				}
 
 				// Draw a message if there is one
-				if (Menu.ShowMessage.Bool())
-				{
-					Menu.DrawMessage();
-				}
+				Menu.DrawMessage();
 
 				// Draw all element
 				glFlush();
@@ -838,7 +843,7 @@ public class Camera
 			if (!Menu.Active() && !HasControl)
 			{
 				// Check if mouse should be grabbed lastly so the mouse input is not destroyed
-				if (Menu.GrabMouse() && !Mouse.isGrabbed() && Menu.InGame)
+				if (Menu.GrabMouse() && !Mouse.isGrabbed() && (Menu.InGame || TestingMap))
 				{
 					Mouse.setGrabbed(true);
 				}
@@ -847,7 +852,7 @@ public class Camera
 					Mouse.setGrabbed(false);
 				}
 			}
-			else if (Menu.Active() || !Menu.InGame)	// Never activate the mouse while there is a menu
+			else if (Menu.Active() || !Menu.InGame && !TestingMap)	// Never activate the mouse while there is a menu
 			{
 				if (Mouse.isGrabbed())
 				{

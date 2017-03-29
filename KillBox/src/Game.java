@@ -21,6 +21,7 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class Game
 {
@@ -42,6 +43,7 @@ public class Game
 		String ConfigFileName = "default.cfg";
 		boolean InGame = false;
 		String DefaultMap = "demo.txt";
+		HashMap<String, Integer> Parameters = new HashMap<String, Integer>();
 
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
@@ -50,20 +52,27 @@ public class Game
 		Netplay NetplayInfo = null;
 		NetplayInfo.FrameRate = FrameRate;
 
-		System.out.print("Enter a level's name (including the extension): ");
-		BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
+		// Populate the parameters list
+		for (int i = 0; i < args.length; i++)
+		{
+			Parameters.put(args[i].toLowerCase(), i);
+		}
+
+		//System.out.print("Enter a level's name (including the extension): ");
+		//BufferedReader Reader = new BufferedReader(new InputStreamReader(System.in));
 
 		long TimeStart = System.currentTimeMillis();
 		long TimeEnd = System.currentTimeMillis();
+		long DeltaTime = 1;
 
 		try
 		{
 			Lvl = new Level(/*Reader.readLine()*/ /*"res/test.txt"*/);
 
 			// Continues here if a the level is found and loaded (no exception)
-			if (CheckParam(args, "-playdemo") >= 0)
+			if (Parameters.containsKey("-playdemo"))
 			{
-				Demo = args[CheckParam(args, "-playdemo") + 1];
+				Demo = args[Parameters.get("-playdemo") + 1];
 
 				if (Demo.charAt(0) == '-')
 				{
@@ -73,13 +82,13 @@ public class Game
 			}
 
 			// Check if we specify the number of players. It will be a normal game.
-			if (CheckParam(args, "-nodes") >= 0 && Demo == null)
+			if (Parameters.containsKey("-nodes") && Demo == null)
 			{
 				try
 				{
-					Nodes = Integer.parseInt(args[CheckParam(args, "-nodes") + 1]);
+					Nodes = Integer.parseInt(args[Parameters.get("-nodes") + 1]);
 
-					if (Nodes < 1 || Nodes > 16)
+					if (Nodes < 1 || Nodes > 4)
 					{
 						Nodes = 2;
 					}
@@ -98,13 +107,13 @@ public class Game
 			}
 
 			// Check if the player sent an IP. He wants to join the game!
-			if (CheckParam(args, "-connect") >= 0)
+			if (Parameters.containsKey("-connect"))
 			{
 				String HostIP = null;
 
 				try
 				{
-					HostIP = args[CheckParam(args, "-connect") + 1];
+					HostIP = args[Parameters.get("-connect") + 1];
 					System.out.println("Host IP : " + HostIP);
 				}
 				catch (Exception e)
@@ -124,38 +133,17 @@ public class Game
 				InGame = true;
 			}
 
-			// Select sound mode
-			Sound.SoundModes SoundMode = null;
-			if (CheckParam(args, "-sound") >= 0)
-			{
-				if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("2d"))
-				{
-					// Sound will be bi-dimensional
-					SoundMode = Sound.SoundModes.Bi;
-				}
-				else if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("3d"))
-				{
-					// Sound will be in 3D
-					SoundMode = Sound.SoundModes.Three;
-				}
-				else if (args[CheckParam(args, "-sound") + 1].equalsIgnoreCase("doppler"))
-				{
-					// Sound will be in 3D with the doppler effect
-					SoundMode = Sound.SoundModes.Duppler;
-				}
-			}
-
 			// The game is all set up. Open the window.
 			try
 			{
-				if (CheckParam(args, "-fullscreen") >= 0)
+				if (Parameters.containsKey("-fullscreen"))
 				{
 					Display.setDisplayMode(Display.getDesktopDisplayMode());
 					Display.setFullscreen(true);
 				}
 				else
 				{
-					Display.setDisplayMode(new DisplayMode(1024, 768));
+					Display.setDisplayMode(new DisplayMode(640, 480));
 					Display.setResizable(true);
 				}
 				Display.setTitle("KillBox");
@@ -169,7 +157,7 @@ public class Game
 			}
 
 			// Sound (SFX)
-			Sound SndDriver = new Sound(/*CheckParam(args, "-pcs") >= 0,*/ /*Lvl.Players,*/ SoundMode);
+			Sound SndDriver = new Sound();
 
 			// Whoa! That's an ugly way to do things...
 			for (int Player = 0; Player < Nodes; Player++)
@@ -177,7 +165,7 @@ public class Game
 				Lvl.Players.add(new Player(Lvl, SndDriver));
 			}
 
-			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, (float) Display.getWidth() / (float) Display.getHeight(), 0.1f, 65536f);
+			Camera HeadCamera = new Camera(Lvl.Players.get(View), 90, 640f/480f, 0.1f, 8192f);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);   // Gives the control over the player
 			HeadCamera.Menu.InGame = InGame;
 			HeadCamera.Menu.SetSoundOut(SndDriver);
@@ -188,7 +176,7 @@ public class Game
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_DEPTH_TEST);    // CLEANUP PLEASE!!!
 
-			if (CheckParam(args, "-wireframe") >= 0)
+			if (Parameters.containsKey("-wireframe"))
 			{
 				HeadCamera.Menu.Wireframe(true);
 				HeadCamera.Menu.AddWireframeVideoOption();
@@ -199,17 +187,14 @@ public class Game
 
 			//Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
-			// Load the configuration file
-			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
-
 			// Change the texture filter for the walls and other types of surface
-			if (CheckParam(args, "-near") >= 0)
+			if (Parameters.containsKey("-near"))
 			{
 				// Doesn't do anything, but is here in case the default is changed.
 				HeadCamera.Menu.Filtering(false);
 				WallsFilter = GL_NEAREST;
 			}
-			else if (CheckParam(args, "-bi") >= 0)
+			else if (Parameters.containsKey("-bi"))
 			{
 				// This is bilinear filtering
 				HeadCamera.Menu.Filtering(true);
@@ -228,14 +213,18 @@ public class Game
 				}
 			}
 
-			if (CheckParam(args, "-level") >= 0)
+			if (Parameters.containsKey("-level"))
 			{
 				// Change the default level
-				DefaultMap = args[CheckParam(args, "-level") + 1];
+				DefaultMap = args[Parameters.get("-level") + 1];
+			}
+
+			if (Parameters.containsKey("-test"))
+			{
 				HeadCamera.TestingMap = true;
 			}
 
-			if (CheckParam(args, "-demo") >= 0)
+			if (Parameters.containsKey("-demo"))
 			{
 				HeadCamera.DemoMode = true;
 				DefaultMap = "demo.txt";
@@ -256,7 +245,7 @@ public class Game
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
 
-			if (NetplayInfo != null)
+			if (NetplayInfo != null && !Parameters.containsKey("-showframetime"))
 			{
 				if (NetplayInfo.Server != null)
 				{
@@ -279,7 +268,7 @@ public class Game
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
 			{
 				TimeStart = System.currentTimeMillis();
-/*
+
 				if (HeadCamera.Menu.Fullscreen() && !(Display.getDisplayMode().getWidth() == Display.getDesktopDisplayMode().getWidth()))
 				{
 					// Changing to fullscreen
@@ -295,28 +284,14 @@ public class Game
 					HeadCamera.DisplayModeChanged = true;
 					Display.setDisplayMode(new DisplayMode(640, 480));
 					Display.setFullscreen(false);
-					Display.setResizable(true);
+					Display.setResizable(true);		// FIXME: This is broken for some reason (LWJGL's fault?)
 					Display.setVSyncEnabled(true);
 				}
-*/
+
 				// Get mouse sensitivity
 				HeadCamera.MouseSensitivity = (((float)HeadCamera.Menu.MouseSensitivity.Int())/100);
 				// Get sound volume
 				SndDriver.VolumeMultiplier = ((float)(HeadCamera.Menu.SFXVolume.Int()))/100;
-
-				// Get sound mode
-				if (HeadCamera.Menu.SoundMode.Int() == 0)
-				{
-					SndDriver.SndMode = SoundMode.Bi;
-				}
-				else if (HeadCamera.Menu.SoundMode.Int() == 1)
-				{
-					SndDriver.SndMode = SoundMode.Three;
-				}
-				else
-				{
-					SndDriver.SndMode = SoundMode.Duppler;
-				}
 
 				// Give the right hear to the right players
 				if (NetplayInfo != null)
@@ -324,8 +299,20 @@ public class Game
 					SndDriver.SetNewListener(Lvl.Players.get(NetplayInfo.View));
 				}
 
-				// Draw the screen
-				HeadCamera.Render(Lvl, Lvl.Players);
+				// Run game logic then draw the screen
+				HeadCamera.RunLogic(Lvl, Lvl.Players);
+				if (!Parameters.containsKey("-frameskip"))
+				{
+					HeadCamera.Render(Lvl, Lvl.Players);
+				}
+				else
+				{
+					if (DeltaTime < 1000 / FrameRate)
+					{
+						HeadCamera.Render(Lvl, Lvl.Players);
+					}
+				}
+
 
 				if (HeadCamera.Menu.InGame)
 				{
@@ -344,7 +331,8 @@ public class Game
 					// Check if we're in a multiplayer game
 					if (Nodes > 1)
 					{
-						if (CheckParam(args, "-fakenet") < 0)
+						// FIXME: fakenet still requires a network game to be started and it will freeze
+						if (!Parameters.containsKey("-fakenet"))
 						{
 							// Empty the command that's gonna be sent over the network
 							NetplayInfo.PlayerCommand.Reset();
@@ -421,7 +409,10 @@ public class Game
 				}
 				else // Single player
 				{
-					Display.setTitle("KillBox");	// In single player mode, use this window title.
+					if (!Parameters.containsKey("-showframetime"))
+					{
+						Display.setTitle("KillBox");    // In single player mode, use this window title.
+					}
 
 					if (TicksCount > 1)
 					{
@@ -479,10 +470,14 @@ public class Game
 					// Game is not started. Start one using the menu.
 					if (HeadCamera.Menu.IsServer)
 					{
-						Display.setTitle("KillBox (Server)");
+						if (!Parameters.containsKey("-showframetime"))
+						{
+							Display.setTitle("KillBox (Server)");
+						}
 						Nodes = 2;
 
-						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode, HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
+						NetplayInfo = new Netplay(Nodes, HeadCamera.Menu.GameMode,
+								HeadCamera.Menu.TimeLimit, HeadCamera.Menu.KillLimit, HeadCamera.Menu.Map);
 						if (!NetplayInfo.ServerSocketIsNull())
 						{
 							Lvl = new Level();
@@ -536,7 +531,8 @@ public class Game
 							{
 								if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
 								{
-									System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+									System.err.println("Can't find a free spot to spawn player "
+											+ (Player + 1) + ". Your map may not have enough of them.");
 									System.exit(1);
 								}
 							}
@@ -551,7 +547,10 @@ public class Game
 					}
 					else if (HeadCamera.Menu.IsClient)
 					{
-						Display.setTitle("KillBox (Client)");
+						if (!Parameters.containsKey("-showframetime"))
+						{
+							Display.setTitle("KillBox (Client)");
+						}
 						String IpAddress = HeadCamera.Menu.Address;
 						Nodes = 2;
 						NetplayInfo = new Netplay(Nodes, IpAddress);
@@ -622,7 +621,8 @@ public class Game
 						{
 							if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
 							{
-								System.err.println("Can't find a free spot to spawn player " + (Player + 1) + ". Your map may not have enough of them.");
+								System.err.println("Can't find a free spot to spawn player "
+										+ (Player + 1) + ". Your map may not have enough of them.");
 								System.exit(1);
 							}
 						}
@@ -639,7 +639,7 @@ public class Game
 					Lvl.Players.get(Player).Reloading = false;
 
 					// Activating the no clipping cheat
-					if (CheckParam(args, "-noclip") >= 0)
+					if (Parameters.containsKey("-noclip"))
 					{
 						Lvl.Players.get(Player).SetNoClipping(true);
 					}
@@ -655,7 +655,7 @@ public class Game
 					}
 				}
 
-				if (CheckParam(args, "-gc") >= 0)
+				if (Parameters.containsKey("-gc"))
 				{
 					// Asks for the garbage collector every 5 seconds.
 					// Java may choose not to do the garbage collection anyway.
@@ -670,11 +670,11 @@ public class Game
 				{
 					// Timer for sleep
 					TimeEnd = System.currentTimeMillis();
-					long DeltaTime = TimeEnd - TimeStart;
+					DeltaTime = TimeEnd - TimeStart;
 
-					if (CheckParam(args, "-showframetime") >= 0)
+					if (Parameters.containsKey("-showframetime") && DeltaTime != 0)
 					{
-						Display.setTitle(DeltaTime + " ms");
+						Display.setTitle(DeltaTime + "ms (" + 1000/DeltaTime + "FPS)");
 					}
 
 					// Make sure the time is not negative
@@ -716,60 +716,37 @@ public class Game
 		}
 	}
 
-	public static int CheckParam(String[] ArgsList, String Arg)
-	{
-		for (int i = 0; i < ArgsList.length; i++)
-		{
-			if (ArgsList[i].equalsIgnoreCase(Arg))
-			{
-				return i;
-			}
-		}
-
-		return -1;
-	}
-
 	public static void LoadConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
 	{
 		// Load the config file and assign every value to their respective variables
+		BufferedReader ConfigFile = null;
 
 		try
 		{
+			HashMap<String, String> Map = new HashMap<String, String>();
+
 			MenuSystem.Active(true);
 			// Load the file
-			BufferedReader ConfigFile = new BufferedReader(new FileReader("res/" + Name));
+			ConfigFile = new BufferedReader(new FileReader("res/" + Name));
 
 			// Load the user's settings in the same order that they were saved.
-			MenuSystem.FreeLook(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.ShowMessage(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.ShowHud.Bool(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.ShowDebug(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-
-			MenuSystem.GrabMouse(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.EnableChat(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.MouseSensibility(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.SFXVolume(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-
-			String SoundMode = (ConfigFile.readLine()).split("\t", 2)[1].trim();
-			if (SoundMode.equals("3d+"))
+			String Line;
+			while ((Line = ConfigFile.readLine()) != null)
 			{
-				MenuSystem.SoundMode(2);
-			}
-			else if (SoundMode.equals("3d"))
-			{
-				MenuSystem.SoundMode(1);
-			}
-			else
-			{
-				MenuSystem.SoundMode(0);
+				Map.put(Line.split("\t", 2)[0].trim().toLowerCase(),
+						Line.split("\t", 2)[1].trim().toLowerCase());
 			}
 
-			MenuSystem.Fullscreen(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.Filtering(Boolean.parseBoolean((ConfigFile.readLine()).split("\t", 2)[1].trim()));
-			MenuSystem.ViewDepth(Integer.parseInt((ConfigFile.readLine()).split("\t", 2)[1].trim()));
+			MenuSystem.AimingCursor(Boolean.parseBoolean(Map.get("use_freelook")));
+			MenuSystem.ShowHud.Bool(Boolean.parseBoolean(Map.get("show_hud")));
+			MenuSystem.ShowDebug(Boolean.parseBoolean(Map.get("show_debug")));
 
-			MenuSystem.Active(false);
+			MenuSystem.GrabMouse(Boolean.parseBoolean(Map.get("grab_mouse")));
+			MenuSystem.MouseSensibility(Integer.parseInt(Map.get("mouse_sensitivity")));
+			MenuSystem.SFXVolume(Integer.parseInt(Map.get("sfx_volume")));
 
+			MenuSystem.Fullscreen(Boolean.parseBoolean(Map.get("fullscreen")));
+			MenuSystem.Filtering(Boolean.parseBoolean(Map.get("enable_filtering")));
 		}
 		catch (FileNotFoundException fnfe)
 		{
@@ -783,51 +760,49 @@ public class Game
 		{
 			System.err.println("Error while reading the value of an item from the configuration file.");
 		}
+		catch (NumberFormatException nfe)
+		{
+			System.err.println("A setting from the configuration file is invalid or missing.");
+		}
 
+		if (ConfigFile != null)
+		{
+			try
+			{
+				ConfigFile.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		MenuSystem.Active(false);
 	}
 
 	public static void SaveConfigFile(String Name, Menu MenuSystem, Sound SoundSystem)
 	{
 		// Save the configuration variables in a specific order in a config file
+		PrintWriter ConfigFile = null;
 
 		try
 		{
 			// Writer for the config file
-			PrintWriter ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("res/" + Name)));
+			ConfigFile = new PrintWriter(new BufferedWriter(new FileWriter("res/" + Name)));
 
 			// Double tabs
 			final String Spacing = "\t\t";
 
-			ConfigFile.println("use_freelook" + Spacing + MenuSystem.FreeLook.Bool());
-			ConfigFile.println("show_messages" + Spacing + MenuSystem.ShowMessage.Bool());
+			ConfigFile.println("use_freelook" + Spacing + MenuSystem.AimingCursor.Bool());
 			ConfigFile.println("show_hud" + Spacing + MenuSystem.ShowHud.Bool());
 			ConfigFile.println("show_debug" + Spacing + MenuSystem.ShowDebug());
 
 			ConfigFile.println("grab_mouse" + Spacing + MenuSystem.GrabMouse.Bool());
-			ConfigFile.println("enable_chat" + Spacing + MenuSystem.EnableChat.Bool());
 			ConfigFile.println("mouse_sensitivity" + Spacing + MenuSystem.MouseSensitivity.Int());
 
 			ConfigFile.println("sfx_volume" + Spacing + MenuSystem.SFXVolume.Int());
 
-			// Can be '2d', '3d' or '3d+'.
-			if (SoundSystem.SndMode == Sound.SoundModes.Bi)
-			{
-				ConfigFile.println("sound_mode" + Spacing + "2d");
-			}
-			else if (SoundSystem.SndMode == Sound.SoundModes.Three)
-			{
-				ConfigFile.println("sound_mode" + Spacing + "3d");
-			}
-			else
-			{
-				ConfigFile.println("sound_mode" + Spacing + "3d+");
-			}
-
 			ConfigFile.println("fullscreen" + Spacing + MenuSystem.Fullscreen.Bool());
 			ConfigFile.println("enable_filtering" + Spacing + MenuSystem.Filtering.Bool());
-			ConfigFile.println("view_depth" + Spacing + MenuSystem.ViewDepth.Int());
-
-			ConfigFile.close();
 		}
 		catch (FileNotFoundException fnfe)
 		{
@@ -837,6 +812,11 @@ public class Game
 		catch (IOException ioe)
 		{
 			System.err.println("File error.");
+		}
+
+		if (ConfigFile != null)
+		{
+			ConfigFile.close();
 		}
 	}
 }

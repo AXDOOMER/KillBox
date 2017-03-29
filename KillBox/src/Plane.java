@@ -71,19 +71,6 @@ public class Plane
 		return TextureName;
 	}
 
-    /*public void SetReferenceByName(String TextureName)
-	{
-        Texture Textures = new Texture();
-
-        for (int i = 0; i < Textures.GetTextureList().size(); i++)
-        {
-            if (Textures.GetTextureList().get(i).Name().equals(TextureName))
-            {
-                this.Reference = Textures.GetTextureList().get(i);
-            }
-        }
-    }*/
-
 	public void SetTextureName(String TextureName)
 	{
 		this.TextureName = TextureName;

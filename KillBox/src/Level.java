@@ -42,6 +42,7 @@ public class Level
 		Filter = PlaneFilter;
 		ShortestWall = Integer.MAX_VALUE;
 		String Line = "";
+		long loadingStart = System.currentTimeMillis();
 
 		try
 		{
@@ -55,24 +56,6 @@ public class Level
 					// It's a comment. Get another line.
 					continue;
 				}
-
-				//Serious business
-				int Position = Line.length();
-				char[] Find = {':', ';', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-				// Find first of
-				for (int i = 0; i < 12; i++)
-				{
-					int Temp = Line.indexOf(Find[i]);
-
-					if (Temp < Position && Temp != -1)
-					{
-						Position = Temp;
-					}
-				}
-
-				String Content = Line.substring(0, Position);
-				String id;
-				int Number;
 
 				if (Line.contains("level:"))
 				{
@@ -203,6 +186,7 @@ public class Level
 						}
 					}
 
+					// FIXME: Remove on of these?
 					Things.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 					Spawns.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 				}
@@ -359,6 +343,8 @@ public class Level
 			System.err.println("The error occurred on the following line: \"" + Line + "\"");
 			System.exit(1);
 		}
+
+		System.out.println("Level of " + (Planes.size() + Things.size()) + " elements loaded in " + (System.currentTimeMillis() - loadingStart) + "ms");
 	}
 
 	// This method will load a texture. It will find it using the specified path.
@@ -432,7 +418,7 @@ public class Level
 			}
 		}
 	}
-	
+
 	// Get the players list
 	public ArrayList<Player> Players()
 	{
