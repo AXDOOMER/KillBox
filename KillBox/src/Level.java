@@ -186,8 +186,6 @@ public class Level
 						}
 					}
 
-					// FIXME: Remove on of these?
-					Things.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 					Spawns.add(new Thing("Spawn", PosX, PosY, PosZ, Angle));
 				}
 				else if (Line.contains("thing"))
@@ -344,7 +342,7 @@ public class Level
 			System.exit(1);
 		}
 
-		System.out.println("Level of " + (Planes.size() + Things.size()) + " elements loaded in " + (System.currentTimeMillis() - loadingStart) + "ms");
+		System.out.println("Level of " + (Planes.size() + Things.size() + Spawns.size()) + " elements loaded in " + (System.currentTimeMillis() - loadingStart) + "ms");
 	}
 
 	// This method will load a texture. It will find it using the specified path.
