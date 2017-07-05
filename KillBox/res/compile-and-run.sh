@@ -7,7 +7,7 @@ fi
 
 javac ../src/*.java -cp lwjgl.jar:lwjgl_util.jar
 cd ..
-java -Djava.library.path=res -cp res/lwjgl.jar:res/lwjgl_util.jar:src/ Game
+java -Djava.library.path=res -cp res/lwjgl.jar:res/lwjgl_util.jar:src/ Game $@
 cd src
 #jar cfe KillBox.jar Game *.class
 cd ../res
