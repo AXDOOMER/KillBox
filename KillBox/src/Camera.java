@@ -18,6 +18,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
@@ -478,11 +479,11 @@ public class Camera
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			}
 
-			// Draw world geometry (planes)
+			// Draw world geometry (planes, which are also walls, slopes, etc.)
 			Texture previousTexture = null;
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
-				if (Lvl.Planes.get(Plane).Reference != null && Lvl.Planes.get(Plane).Reference != previousTexture)
+				if (previousTexture == null || !Lvl.Planes.get(Plane).Name().equalsIgnoreCase(previousTexture.Name()))
 				{
 					previousTexture = Lvl.Planes.get(Plane).Reference;
 					Lvl.Planes.get(Plane).Reference.Bind();

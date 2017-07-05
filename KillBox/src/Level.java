@@ -20,6 +20,8 @@ import static org.lwjgl.opengl.GL11.*;  // GL_NEAREST
 
 public class Level
 {
+	private final boolean DEBUG = true;
+
 	String Name = "Unknown";
 	String Sky;
 	String Fog = "black";
@@ -35,7 +37,7 @@ public class Level
 	ArrayList<Thing> Spawns = new ArrayList<Thing>();
 
 	// Keep an ordered list of textures that have been loaded previously for the level
-	private static ArrayList<Texture> Textures = new ArrayList<Texture>();
+	private static HashMap<String, Texture> Textures = new HashMap<String, Texture>();
 
 	public void LoadLevel(String LvlName, int PlaneFilter)
 	{
@@ -347,46 +349,27 @@ public class Level
 
 	// This method will load a texture. It will find it using the specified path.
 	// It checks if the texture has already been loaded and the name is case-sensitive.
-	// If a texture is not already loaded, it will create a new texture and add it to the list.
+	// If a texture is not already loaded, it will do so.
 	// Else, it will return the reference to the texture that has already been loaded.
 	// If the texture can't be loaded, it will return 'NULL'.
 	private Texture LoadTexture(String Path)
 	{
 		// Add texture to the list if it's not already loaded.
-		// Search through the texture list. They are in the alphabetical order of the file names.
-		int Search = 0;
 		String Name = Path.substring(Path.lastIndexOf('/') + 1);
-		Texture NewTexture = null;
 
-		while (Search >= 0 && Search < Textures.size())
+		// Test if the texture is already there and assign it
+		Texture NewTexture = Textures.get(Name);
+
+		/*if (DEBUG)
 		{
-			// Check if the texture name at this position is the same as the new texture
-			boolean Same = Textures.get(Search).Name().equals(Name);
+			System.out.println("Texture " + Name + " is " + NewTexture);
+		}*/
 
-			if (!Same)
-			{
-				// Increase the search index because this is not the good texture.
-				Search++;
-			}
-			else
-			{
-				// Take the reference to the texture that's already there.
-				NewTexture = Textures.get(Search);
-				Search = -1;
-			}
-		}
-
-		if (Search > 0)
+		// If the texture is not there, then it will be 'null'.
+		if (NewTexture == null)
 		{
-			// Add it there. Since the index of 'Search' is an element after the required position, one is subtracted.
 			NewTexture = new Texture("res/" + Path, Filter);
-			Textures.add(Search - 1, NewTexture);
-		}
-		else if (Search == 0)
-		{
-			// It's the only element, so it must be the first element.
-			NewTexture = new Texture("res/" + Path, Filter);
-			Textures.add(NewTexture);
+			Textures.put(Name, new Texture("res/" + Path, Filter));
 		}
 
 		return NewTexture;
