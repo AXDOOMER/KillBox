@@ -482,7 +482,13 @@ public class Camera
 			Texture previousTexture = null;
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
-				if (Lvl.Planes.get(Plane).Reference != null && Lvl.Planes.get(Plane).Reference != previousTexture)
+				if (Lvl.Planes.get(Plane).Reference == null)
+				{
+					// This skips invisible textures
+					continue;
+				}
+
+				if (Lvl.Planes.get(Plane).Reference != previousTexture)
 				{
 					previousTexture = Lvl.Planes.get(Plane).Reference;
 					Lvl.Planes.get(Plane).Reference.Bind();
