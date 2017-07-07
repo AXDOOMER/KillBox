@@ -55,6 +55,8 @@ public class Game
 		// Populate the parameters list
 		for (int i = 0; i < args.length; i++)
 		{
+			// Parameter arguments are also added, but since we access them directly from 'args', 
+			// they are not lowercased. This way, we don't need to do any special treatment here. 
 			Parameters.put(args[i].toLowerCase(), i);
 		}
 
@@ -213,15 +215,36 @@ public class Game
 				}
 			}
 
-			if (Parameters.containsKey("-level"))
-			{
-				// Change the default level
-				DefaultMap = args[Parameters.get("-level") + 1];
-			}
-
 			if (Parameters.containsKey("-test"))
 			{
 				HeadCamera.TestingMap = true;
+
+				// Parse the command line parameter to see if the user has specified a level to test
+				if (Parameters.get("-test") + 1 < args.length && args[Parameters.get("-test") + 1].charAt(0) != '-')
+				{
+					// Change the default level
+					DefaultMap = args[Parameters.get("-test") + 1];
+				}
+			}
+
+			if (Parameters.containsKey("-level"))
+			{
+				// Parse the command line parameter to avoid mistakes
+				if (Parameters.get("-level") + 1 >= args.length)
+				{
+					System.out.println("Error: Nothing specified after the parameter '-level'");
+					System.exit(1);
+				}
+				else if (args[Parameters.get("-level") + 1].charAt(0) == '-')
+				{
+					System.out.println("Error: The argument given to the parameter '-level' starts with a '-'");
+					System.exit(1);
+				}
+				else
+				{
+					// Change the default level
+					DefaultMap = args[Parameters.get("-level") + 1];
+				}
 			}
 
 			if (Parameters.containsKey("-demo"))
@@ -672,7 +695,7 @@ public class Game
 					TimeEnd = System.currentTimeMillis();
 					DeltaTime = TimeEnd - TimeStart;
 
-					if (Parameters.containsKey("-showframetime") && DeltaTime != 0)
+					if ((Parameters.containsKey("-showframetime") || Parameters.containsKey("-showframerate")) && DeltaTime != 0)
 					{
 						Display.setTitle(DeltaTime + "ms (" + 1000/DeltaTime + "FPS)");
 					}
