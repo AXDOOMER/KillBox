@@ -47,7 +47,7 @@ public class Texture
 		}
 		catch (IOException e)
 		{
-			System.out.println("ERROR! Couldn't find '" + Path + "' when tried to load a texture.");
+			System.err.println("ERROR! Couldn't find texture to load: " + Path);
 			e.printStackTrace();
 			System.exit(1);
 		}
