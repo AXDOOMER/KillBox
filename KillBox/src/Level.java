@@ -354,35 +354,37 @@ public class Level
 	{
 		// Add texture to the list if it's not already loaded.
 		// Search through the texture list. They are in the alphabetical order of the file names.
-		int Search = 0;
+		int SearchIndex = 0;
 		String Name = Path.substring(Path.lastIndexOf('/') + 1);
 		Texture NewTexture = null;
 
-		while (Search >= 0 && Search < Textures.size())
+		while (SearchIndex >= 0 && SearchIndex < Textures.size())
 		{
 			// Check if the texture name at this position is the same as the new texture
-			boolean Same = Textures.get(Search).Name().equals(Name);
+			boolean Same = Textures.get(SearchIndex).Name().equals(Name);
 
 			if (!Same)
 			{
 				// Increase the search index because this is not the good texture.
-				Search++;
+				SearchIndex++;
 			}
 			else
 			{
 				// Take the reference to the texture that's already there.
-				NewTexture = Textures.get(Search);
-				Search = -1;
+				NewTexture = Textures.get(SearchIndex);
+				SearchIndex = -1;
 			}
 		}
 
-		if (Search > 0)
+		System.out.println("Texture " + Name + " is " + NewTexture);	// Texture loading for debug
+
+		if (SearchIndex > 0)
 		{
 			// Add it there. Since the index of 'Search' is an element after the required position, one is subtracted.
 			NewTexture = new Texture("res/" + Path, Filter);
-			Textures.add(Search - 1, NewTexture);
+			Textures.add(SearchIndex - 1, NewTexture);
 		}
-		else if (Search == 0)
+		else if (SearchIndex == 0)
 		{
 			// It's the only element, so it must be the first element.
 			NewTexture = new Texture("res/" + Path, Filter);
