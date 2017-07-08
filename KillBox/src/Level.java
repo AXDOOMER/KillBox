@@ -337,7 +337,7 @@ public class Level
 		catch (Exception e)
 		{
 			System.err.println("Failed to load the following level: " + LvlName);
-			System.err.println("The must be a syntax error in the file (missing closing accolade, colon, semicolon, etc.)");
+			System.err.println("There must be a syntax error in the file (missing closing brace, colon, semicolon, etc.)");
 			System.err.println("The error occurred on the following line: \"" + Line + "\"");
 			System.exit(1);
 		}
@@ -376,7 +376,7 @@ public class Level
 			}
 		}
 
-		System.out.println("Texture " + Name + " is " + NewTexture);	// Texture loading for debug
+		//System.out.println("Texture " + Name + " is " + NewTexture);	// Texture loading for debug
 
 		if (SearchIndex > 0)
 		{

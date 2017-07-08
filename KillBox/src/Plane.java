@@ -21,9 +21,9 @@ public class Plane
 
 	public String TextureName = "";
 	Texture Reference;
-	boolean TwoSided = true;   // The texture is only drawn on the front side of the plane.
-	boolean Impassable = true;  // Player can't walk through the plane. They are clipped.
-	byte Light = 127;             // Amount of light on the texture
+	boolean TwoSided = true;		// The texture is only drawn on the front side of the plane.
+	boolean Impassable = true;		// Player can't walk through the plane. They are clipped.
+	byte Light = 127;				// Amount of light on the texture
 
 	// Colorization of the texture.
 	byte Red = 0;
