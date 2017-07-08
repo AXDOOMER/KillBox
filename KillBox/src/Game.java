@@ -48,6 +48,7 @@ public class Game
 		// The frame rate and the time limit to execute a frame
 		final int FrameRate = 30;
 		final double TimeFrameLimit = (1 / (double)FrameRate) * 1000;
+		boolean ShowFrameRate = false;
 
 		Netplay NetplayInfo = null;
 		NetplayInfo.FrameRate = FrameRate;
@@ -66,6 +67,7 @@ public class Game
 		long TimeStart = System.currentTimeMillis();
 		long TimeEnd = System.currentTimeMillis();
 		long DeltaTime = 1;
+		ShowFrameRate = (Parameters.containsKey("-frametime") || Parameters.containsKey("-framerate"));
 
 		try
 		{
@@ -268,7 +270,7 @@ public class Game
 			// Load the texture "sprites" that will be used to represent the players in the game
 			Lvl.Players.get(0).LoadSprites();
 
-			if (NetplayInfo != null && !Parameters.containsKey("-showframetime"))
+			if (NetplayInfo != null && !ShowFrameRate)
 			{
 				if (NetplayInfo.Server != null)
 				{
@@ -432,7 +434,7 @@ public class Game
 				}
 				else // Single player
 				{
-					if (!Parameters.containsKey("-showframetime"))
+					if (!ShowFrameRate)
 					{
 						Display.setTitle("KillBox");    // In single player mode, use this window title.
 					}
@@ -695,7 +697,7 @@ public class Game
 					TimeEnd = System.currentTimeMillis();
 					DeltaTime = TimeEnd - TimeStart;
 
-					if ((Parameters.containsKey("-showframetime") || Parameters.containsKey("-showframerate")) && DeltaTime != 0)
+					if (ShowFrameRate && DeltaTime != 0)
 					{
 						Display.setTitle(DeltaTime + "ms (" + 1000/DeltaTime + "FPS)");
 					}
