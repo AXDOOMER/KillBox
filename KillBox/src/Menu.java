@@ -265,55 +265,7 @@ public class Menu
 
 					// Get int value of char
 					int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
-					int TextureIndex = 0;
-					// Check if number
-					if(CharValue >= Char0Index && CharValue <= Char9Index)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - Char0Index;
-					}
-					// Check if letter
-					else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - CharAIndex + 10;
-					}
-					else if (CharValue == CharAsteriskIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 40;
-					}
-					else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 41;
-					}
-					else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 42;
-					}
-					// Special character
-					else if (CharValue == CharMinusIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 44;
-					}
-					else if (CharValue == ChaPeriodIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 36;
-					}
-					else if(CharValue == CharColonIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 37;
-					}
-					else // Character is not defined. Write '?' instead.
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 48;
-					}
+					int TextureIndex = GetTextureIndexForChar(CharValue);
 
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
@@ -781,7 +733,7 @@ public class Menu
 			double CircleTan;
 
 			// Change color to black
-			glColor4f(0.0f,0.0f,0.0f,1.0f);
+			glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 
 			// Disable so that the border are draw below the circle
 			glDisable(GL_DEPTH_TEST);
@@ -1167,8 +1119,8 @@ public class Menu
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			// Convert variable to Gl
-			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(),true,GridWidth,GridHeight, WindowColor);
-			double PosYGL = ConvertPxToGL(PosY,false,GridWidth,GridHeight, WindowColor);
+			double PosXGL = ConvertPxToGL(PosX + Occupied_Width(), true, GridWidth, GridHeight, WindowColor);
+			double PosYGL = ConvertPxToGL(PosY, false, GridWidth, GridHeight, WindowColor);
 			double BorderXGL = ConvertPxToGL(BorderX, true, GridWidth, GridHeight, WindowColor);
 			double BorderYGL = ConvertPxToGL(BorderY, false, GridWidth, GridHeight, WindowColor);
 			double MarginGL = ConvertPercentToGL(MarginPercent, true, GridWidth, GridHeight, WindowColor);
@@ -1206,30 +1158,7 @@ public class Menu
 
 				// Get int value of char
 				int CharValue = (String.valueOf(TextInside().charAt(Image)).toUpperCase()).charAt(0);
-				int TextureIndex = 0;
-				// Check if number
-				if(CharValue >= Char0Index && CharValue <= Char9Index)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - Char0Index;
-				}
-				// Check if letter
-				else if(CharValue >= CharAIndex && CharValue <= CharZIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - CharAIndex + 10;
-				}
-				// Special character
-				else if (CharValue == ChaPeriodIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 36;
-				}
-				else if(CharValue == CharColonIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 37;
-				}
+				int TextureIndex = GetTextureIndexForChar(CharValue);
 
 				// Initialize and Bind Texture
 				FontArray.get(TextureIndex).Bind();
@@ -1739,83 +1668,7 @@ public class Menu
 				}
 				else
 				{
-					// Check if it's a number
-					if (CharValue >= Char0Index && CharValue <= Char9Index)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - Char0Index;
-					}
-					else if (CharValue == CharCommercialAIndex)
-					{
-						TextureIndex = 10;
-					}
-					// Check if letter
-					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - CharAIndex + 10;
-					}
-					// Special character
-					else if (CharValue == ChaPeriodIndex || CharValue == CharCommaIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 36;
-					}
-					else if (CharValue == CharColonIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 37;
-					}
-					else if (CharValue == CharUnderScoreIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 38;
-					}
-					else if (CharValue == CharApostropheIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 39;
-					}
-					else if (CharValue == CharAsteriskIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 40;
-					}
-					else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 41;
-					}
-					else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 42;
-					}
-					else if (CharValue == CharPlusIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 43;
-					}
-					else if (CharValue == CharMinusIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 44;
-					}
-					else if (CharValue == CharNumberIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 45;
-					}
-					else if (CharValue == CharExclamationIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 46;
-					}
-					else // Character not define. Write ?.
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 47;
-					}
+					TextureIndex = GetTextureIndexForChar(CharValue);
 
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
@@ -2397,30 +2250,7 @@ public class Menu
 
 					// Get int value of char
 					int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
-					int TextureIndex = 0;
-					// Check if number
-					if (CharValue >= Char0Index && CharValue <= Char9Index)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - Char0Index;
-					}
-					// Check if letter
-					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - CharAIndex + 10;
-					}
-					// Special character
-					else if (CharValue == ChaPeriodIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 36;
-					}
-					else if (CharValue == CharColonIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 37;
-					}
+					int TextureIndex = GetTextureIndexForChar(CharValue);
 
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
@@ -2892,30 +2722,7 @@ public class Menu
 
 					// Get int value of char
 					int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
-					int TextureIndex = 0;
-					// Check if number
-					if (CharValue >= Char0Index && CharValue <= Char9Index)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - Char0Index;
-					}
-					// Check if letter
-					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - CharAIndex + 10;
-					}
-					// Special character
-					else if (CharValue == ChaPeriodIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 36;
-					}
-					else if (CharValue == CharColonIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 37;
-					}
+					int TextureIndex = GetTextureIndexForChar(CharValue);
 
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
@@ -3191,30 +2998,7 @@ public class Menu
 
 					// Get int value of char
 					int CharValue = (String.valueOf(Text.charAt(Letter)).toUpperCase()).charAt(0);
-					int TextureIndex = 0;
-					// Check if number
-					if (CharValue >= Char0Index && CharValue <= Char9Index)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - Char0Index;
-					}
-					// Check if letter
-					else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = CharValue - CharAIndex + 10;
-					}
-					// Special character
-					else if (CharValue == ChaPeriodIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 36;
-					}
-					else if (CharValue == CharColonIndex)
-					{
-						// Initialize Texture Index in font List
-						TextureIndex = 37;
-					}
+					int TextureIndex = GetTextureIndexForChar(CharValue);
 
 					// Initialize and Bind Texture
 					FontArray.get(TextureIndex).Bind();
@@ -3621,6 +3405,7 @@ public class Menu
 		Texture TextureExclamation = new Texture((Folder + "/" + "EXCLAMATIONMARK" + ".png"),GL_NEAREST);
 		Texture TexturePercent = new Texture((Folder + "/" + "PERCENT" + ".png"),GL_NEAREST);
 		Texture TextureQuestion = new Texture((Folder + "/" + "QUESTIONMARK" + ".png"),GL_NEAREST);
+		Texture TextureBullet = new Texture((Folder + "/" + "BULLET" + ".png"),GL_NEAREST);
 
 		FontList.add(TexturePeriod);
 		FontList.add(TextureColon);
@@ -3635,6 +3420,88 @@ public class Menu
 		FontList.add(TextureExclamation);
 		FontList.add(TexturePercent);
 		FontList.add(TextureQuestion);
+		FontList.add(TextureBullet);
+	}
+
+	// Gets the texture index for the corresponding char value
+	private int GetTextureIndexForChar(int CharValue)
+	{
+		int TextureIndex = 0;
+
+		// Check if number
+		if (CharValue >= Char0Index && CharValue <= Char9Index)
+		{
+			TextureIndex = CharValue - Char0Index;
+		}
+		else if (CharValue == CharCommercialAIndex)
+		{
+			TextureIndex = 10;
+		}
+		// Check if letter
+		else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
+		{
+			TextureIndex = CharValue - CharAIndex + 10;
+		}
+		// Special characters
+		else if (CharValue == ChaPeriodIndex || CharValue == CharCommaIndex)
+		{
+			TextureIndex = 36;
+		}
+		else if (CharValue == CharColonIndex)
+		{
+			TextureIndex = 37;
+		}
+		else if (CharValue == CharUnderScoreIndex)
+		{
+			TextureIndex = 38;
+		}
+		else if (CharValue == CharApostropheIndex)
+		{
+			TextureIndex = 39;
+		}
+		else if (CharValue == CharAsteriskIndex)
+		{
+			TextureIndex = 40;
+		}
+		else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
+		{
+			TextureIndex = 41;
+		}
+		else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
+		{
+			TextureIndex = 42;
+		}
+		else if (CharValue == CharPlusIndex)
+		{
+			TextureIndex = 43;
+		}
+		else if (CharValue == CharMinusIndex)
+		{
+			TextureIndex = 44;
+		}
+		else if (CharValue == CharNumberIndex)
+		{
+			TextureIndex = 45;
+		}
+		else if (CharValue == CharExclamationIndex)
+		{
+			TextureIndex = 46;
+		}
+		else if (CharValue == CharPercentIndex)
+		{
+			TextureIndex = 47;
+		}
+		else if (CharValue == CharQuestionIndex)
+		{
+			TextureIndex = 48;
+		}
+		else
+		{
+			// Character not defined. Display a bullet instead.
+			TextureIndex = 49;
+		}
+
+		return TextureIndex;
 	}
 
 	// Set locked value
@@ -4461,87 +4328,7 @@ public class Menu
 			}
 			else
 			{
-				// Check if number
-				if (CharValue >= Char0Index && CharValue <= Char9Index)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - Char0Index;
-				}
-				else if (CharValue == CharCommercialAIndex)
-				{
-					TextureIndex = 10;
-				}
-				// Check if letter
-				else if (CharValue >= CharAIndex && CharValue <= CharZIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = CharValue - CharAIndex + 10;
-				}
-				// Special character
-				else if (CharValue == ChaPeriodIndex || CharValue == CharCommaIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 36;
-				}
-				else if (CharValue == CharColonIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 37;
-				}
-				else if (CharValue == CharUnderScoreIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 38;
-				}
-				else if (CharValue == CharApostropheIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 39;
-				}
-				else if (CharValue == CharAsteriskIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 40;
-				}
-				else if (CharValue == CharLeftParaIndex || CharValue == CharLeftSquareIndex || CharValue == CharLeftBraceIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 41;
-				}
-				else if (CharValue == CharRightParaIndex || CharValue == CharRightSquareIndex || CharValue == CharRightBraceIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 42;
-				}
-				else if (CharValue == CharPlusIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 43;
-				}
-				else if (CharValue == CharMinusIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 44;
-				}
-				else if (CharValue == CharNumberIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 45;
-				}
-				else if (CharValue == CharExclamationIndex)
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 46;
-				}
-				else if (CharValue == CharPercentIndex)
-				{
-					TextureIndex = 47;
-				}
-				else // Character not define. Write ?.
-				{
-					// Initialize Texture Index in font List
-					TextureIndex = 48;
-				}
+				TextureIndex = GetTextureIndexForChar(CharValue);
 
 				// Initialize and Bind Texture
 				Texture Image = FontArray.get(TextureIndex);
