@@ -47,8 +47,8 @@ public class Camera
 
 	public Texture CurrentTexture = null;
 	private Texture Crosshair = new Texture("res/sprites/crosshair.png", Game.WallsFilter);
-	public final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
-	public final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
+	private final int[] TextXcoords = {0, 1, 1, 0};    // CLEAN ME
+	private final int[] TextYcoords = {1, 1, 0, 0};    // CLEAN ME
 	public boolean TextureFiltered = false;
 	public boolean DisplayModeChanged = false;
 
@@ -478,7 +478,7 @@ public class Camera
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			}
 
-			// Draw world geometry (planes)
+			// Draw world geometry (planes that make up the static world)
 			Texture previousTexture = null;
 			for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 			{
