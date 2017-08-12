@@ -191,6 +191,9 @@ public class Game
 
 			//Mouse.setGrabbed(true);     // Grab the mouse when the game has started.
 
+			// Load the configuration file
+			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
+
 			// Change the texture filter for the walls and other types of surface
 			if (Parameters.containsKey("-near"))
 			{
@@ -285,9 +288,6 @@ public class Game
 			// Deactivate de menu and give back the control to the player
 			//HeadCamera.Menu.Active(false);
 			HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
-
-			// Load the configuration file
-			LoadConfigFile(ConfigFileName, HeadCamera.Menu, SndDriver);
 
 			// The main game loop
 			while (!Display.isCloseRequested() && !HeadCamera.Menu.UserWantsToExit)
@@ -697,7 +697,8 @@ public class Game
 					TimeEnd = System.currentTimeMillis();
 					DeltaTime = TimeEnd - TimeStart;
 
-					if (ShowFrameRate && DeltaTime != 0)
+					// Update every two frames to make it a little bit more readable
+					if (ShowFrameRate && TicksCount % 2 == 0 && DeltaTime != 0)
 					{
 						Display.setTitle(DeltaTime + "ms (" + 1000/DeltaTime + "FPS)");
 					}
