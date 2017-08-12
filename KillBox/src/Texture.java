@@ -84,7 +84,13 @@ public class Texture
 	public String Name()
 	{
 		// Return the texture's name
-		return this.Name;
+		return Name;
+	}
+
+	public int Id()
+	{
+		// Return the texture id
+		return Id;
 	}
 
 	public int Width()

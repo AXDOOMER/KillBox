@@ -26,13 +26,27 @@ public class Level
 	int Visibility = 0;
 	int Filter = GL_NEAREST;
 	public float ShortestWall = Integer.MAX_VALUE;	// Arbitrary value
+	final int BlockSize = 256;
 
+	// Coordinate of origin used to find blockmap coordinates
+	int BlockStartX = Integer.MAX_VALUE;
+	int BlockStartY = Integer.MAX_VALUE;
+
+	// Map geometry and its stuff that's found in it
 	ArrayList<Plane> Planes = new ArrayList<Plane>();
 	ArrayList<Thing> Things = new ArrayList<Thing>();
 	ArrayList<Player> Players = new ArrayList<Player>();
 
 	// Small list that keeps references on spawns only
 	ArrayList<Thing> Spawns = new ArrayList<Thing>();
+
+	// Blocks of planes for faster collision detection
+	// TODO: Let's make it a serializable object that can handle Checksuming and space partitioning
+	ArrayList<ArrayList<Plane>> Blocks = new ArrayList<ArrayList<Plane>>();
+
+	// Checksum of the text file from where level originally came from.
+	// Used to know if the previous level dump should be used for faster loading time.
+	private long Checksum;	//https://dzone.com/articles/get-md5-hash-few-lines-java
 
 	// Keep an ordered list of textures that have been loaded previously for the level
 	private static ArrayList<Texture> Textures = new ArrayList<Texture>();
@@ -96,11 +110,15 @@ public class Level
 						}
 						else if (Line.contains("x: "))
 						{
-							Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";"))));
+							int PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
+							Planes.get(Planes.size() - 1).AddVertex(PosX);
+							if (PosX < BlockStartX) { BlockStartX = PosX; };
 						}
 						else if (Line.contains("y: "))
 						{
-							Planes.get(Planes.size() - 1).AddVertex(Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";"))));
+							int PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
+							Planes.get(Planes.size() - 1).AddVertex(PosY);
+							if (PosY < BlockStartY) { BlockStartY = PosY; };
 						}
 						else if (Line.contains("z: "))
 						{
@@ -125,13 +143,16 @@ public class Level
 							Planes.get(Planes.size() - 1).SetTextureName(Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";")));
 							// The following line loads the textures if it needs to and sets a reference to it inside the plane.
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/" + Planes.get(Planes.size() - 1).TextureName));
-							NameIsSet = true;
+							NameIsSet = true;	//TODO: Remove this and exit with an error if there is no texture set
 						}
 						else if (Line.contains("light: "))
 						{
 							Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";"))));
 						}
 					}
+
+					// Calculate the coordinates for a vector
+					Planes.get(Planes.size() - 1).ComputeCoordinates();
 
 					// Calculate the plane's flat size
 					Planes.get(Planes.size() - 1).FlatLength = Planes.get(Planes.size() - 1).CalculateMaxFlatLength();
@@ -209,10 +230,12 @@ public class Level
 						else if (Line.contains("x: "))
 						{
 							PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
+							if (PosX < BlockStartX) { BlockStartX = PosX; };
 						}
 						else if (Line.contains("y: "))
 						{
 							PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
+							if (PosY < BlockStartY) { BlockStartY = PosY; };
 						}
 						else if (Line.contains("z: "))
 						{
@@ -246,7 +269,7 @@ public class Level
 
 					Things.add(new Thing(Type, PosX, PosY, PosZ));
 				}
-				else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))
+				else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))	//TODO: This should be made a regular thing
 				{
 					String Sprite = "";
 					int PosX = 0;

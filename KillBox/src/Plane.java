@@ -19,8 +19,11 @@ public class Plane
 {
 	ArrayList<Float> Vertices = new ArrayList<Float>();
 
+	// Coordinates for walls that are square and straight up vertical
+	float[] Coordinates = new float[4];
+
 	public String TextureName = "";
-	Texture Reference;
+	Texture Reference;				// TODO: Implement a comparable so planes can be sort in order of texture id
 	boolean TwoSided = true;		// The texture is only drawn on the front side of the plane.
 	boolean Impassable = true;		// Player can't walk through the plane. They are clipped.
 	byte Light = 127;				// Amount of light on the texture
@@ -33,6 +36,10 @@ public class Plane
 	// 2-Dimensional length
 	float FlatLength = 0;
 
+	// Check for bullet collision? For horizontal floors and ceilings, this should always be false.
+	boolean BlocksBullets = true;	// TODO: Add this setting to the level loader
+	byte MayBlockPlayers = -1;		// -1 is not set, 0 is false, 1 is true.
+
 	public void SetReference(Texture Reference)
 	{
 		this.Reference = Reference;
@@ -42,6 +49,17 @@ public class Plane
 	public ArrayList<Float> Vertices()
 	{
 		return Vertices;
+	}
+
+	// Get vectors (edges of the polygon that can be used for 2D collsion detection)
+	public float[][] Vectors()
+	{
+		int vectors = 0;
+
+		// TODO: Implementation
+
+		// Return x1, y1, x2, y2 for a number of vectors
+		return new float[vectors][4];
 	}
 
 	public int NumberOfVertices()
@@ -54,16 +72,14 @@ public class Plane
 		return Vertices.size() / 3;
 	}
 
+	public int GetTextureId()
+	{
+		return Reference.Id();
+	}
+
 	public void Bind()
 	{
-		if (Reference != null)
-		{
-			Reference.Bind();
-		}
-		else
-		{
-			System.out.println("ERROR: Plane has texture name '" + TextureName + "', but the reference is '" + Reference + "'.");
-		}
+		Reference.Bind();
 	}
 
 	public String Name()
@@ -71,9 +87,9 @@ public class Plane
 		return TextureName;
 	}
 
-	public void SetTextureName(String TextureName)
+	public void SetTextureName(String Name)
 	{
-		this.TextureName = TextureName;
+		TextureName = Name;
 	}
 
 	public void Lightning(int Light)
@@ -133,6 +149,36 @@ public class Plane
 		return Float.NaN;
 	}
 
+	public void ComputeCoordinates()
+	{
+		if (Vertices.size() >= 9)
+		{
+			// Find how the plane is placed in the environment
+			float StartX = Vertices().get(0);
+			float StartY = Vertices().get(1);
+
+			float EndX = Vertices().get(3);
+			float EndY = Vertices().get(4);
+
+			// Get another point if both are above each other.
+			if (StartX == EndX && StartY == EndY)
+			{
+				EndX = Vertices().get(6);
+				EndY = Vertices().get(7);
+			}
+
+			Coordinates[0] = StartX;
+			Coordinates[1] = StartY;
+			Coordinates[2] = EndX;
+			Coordinates[3] = EndY;
+		}
+		else
+		{
+			System.err.println("Error in Plane::ComputerCoordinates()");
+			System.exit(1);
+		}
+	}
+
 	// Max distance from one vertex to another (X and Y)
 	public float CalculateMaxFlatLength()
 	{
@@ -155,6 +201,56 @@ public class Plane
 		return MaxFlatLengthFound;
 	}
 
+	public boolean CanBlock()
+	{
+		// Check if this plane may block players
+		if (MayBlockPlayers == 0)
+		{
+			return false;
+		}
+		else if (MayBlockPlayers == 1)
+		{
+			return true;
+		}
+		else
+		{
+			// Assume it can't block at first
+			MayBlockPlayers = 0;
+
+			// Check if this plane may block players
+			float Highest = Vertices().get(2);
+			float Lowest = Vertices().get(2);
+			for (int Point = 5; Point < Vertices().size(); Point += 3)
+			{
+				if (Vertices().get(Point) < Lowest)
+				{
+					Lowest = Vertices().get(Point);
+				}
+				else if (Vertices().get(Point) > Highest)
+				{
+					Highest = Vertices().get(Point);
+				}
+			}
+
+			// Check if the player would be able to touch the plane
+			if (Lowest >= 56 && Highest >= 56)	// TODO: Remove magic numbers
+			{
+				// The wall is far above the player
+				return CanBlock();
+			}
+			else if (Lowest <= 0 && Highest <= 0)
+			{
+				// The wall is below the player
+				return CanBlock();
+			}
+			else
+			{
+				MayBlockPlayers = 1;
+				return CanBlock();
+			}
+		}
+	}
+
 	public void AddVertex(float Vertex)
 	{
 		Vertices.add(Vertex);
@@ -167,7 +263,7 @@ public class Plane
 
 	public boolean TwoSided()
 	{
-		return this.TwoSided;
+		return TwoSided;
 	}
 
 	public void TwoSided(boolean IsTwoSided)
@@ -177,7 +273,7 @@ public class Plane
 
 	public boolean Impassable()
 	{
-		return this.Impassable;
+		return Impassable;
 	}
 
 	public void Impassable(boolean IsImpassable)

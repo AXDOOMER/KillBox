@@ -50,7 +50,7 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40/8;	// BUG: At lower speed (e.g.: 10), the player does not move toward the good angle. (NOTICE: May be solved now)
+	final int MaxWalkSpeed = 40/8;
 	final int MaxRunSpeed = 70/8;
 	final int DefaultViewZ = 42;
 	final int HeadOnFloor = 12;
@@ -70,16 +70,14 @@ public class Player
 	final int Radius = 16;
 	final int Height = 56;
 	int MaxHealth = 100;
-	int Health = MaxHealth;	// The player's life condition
-	int Armor = 100;	// Recharging Energy Shield
-	byte ArmorClass = 0;
+	int Health = MaxHealth;
 
 	// Scores
 	int Kills = 0;
 	int Deaths = 0;
 	int FlagTime = 0;
 	int Hits = 0;
-	int Missed = 0;
+	int Misses = 0;
 
 	byte FrontMove = 0;
 	byte SideMove = 0;
@@ -418,7 +416,7 @@ public class Player
 			}
 
 			// Bullet missed
-			Missed++;
+			Misses++;
 		}
 
 		return null;
@@ -554,40 +552,19 @@ public class Player
 				NumTests++;
 
 				// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
-				if (Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
-				{
-					if (Clear)
-					{
-						Clear = true;
-					}
-				}
-				else
+				if (!Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 				{
 					Clear = false;
 				}
 
 				// Player against thing collision
-				if (Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
-				{
-					if (Clear)
-					{
-						Clear = true;
-					}
-				}
-				else
+				if (!Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
 				{
 					Clear = false;
 				}
 
 				// Player against wall collision
-				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
-				{
-					if (Clear)
-					{
-						Clear = true;
-					}
-				}
-				else
+				if (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
 				{
 					// Slide against the wall (work in progress)
 /*				float atan = (float)Math.atan2(MoY(), MoX());
@@ -849,205 +826,70 @@ public class Player
 		// Test collision against each planes
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
-			// Add a function to the plane to see if it is valid instead
-			if (Lvl.Planes.get(Plane).Vertices().size() >= 8 /*&& Lvl.Planes.get(Plane).GetAngle() != Float.NaN*/)
+			// May be a floor or a straight ceiling, so don't care.
+			if (!Lvl.Planes.get(Plane).CanBlock())
 			{
-				// Find how the plane is placed in the environment
-				float StartX = Lvl.Planes.get(Plane).Vertices().get(0);
-				float StartY = Lvl.Planes.get(Plane).Vertices().get(1);
-				float StartZ = Lvl.Planes.get(Plane).Vertices().get(2);
+				continue;
+			}
 
-				float EndX = Lvl.Planes.get(Plane).Vertices().get(3);
-				float EndY = Lvl.Planes.get(Plane).Vertices().get(4);
-				float EndZ = Lvl.Planes.get(Plane).Vertices().get(5);
+			// Get the vector
+			float StartX = Lvl.Planes.get(Plane).Coordinates[0];
+			float StartY = Lvl.Planes.get(Plane).Coordinates[1];
+			float EndX = Lvl.Planes.get(Plane).Coordinates[2];
+			float EndY = Lvl.Planes.get(Plane).Coordinates[3];
 
-				// Find another point. Can't find the direction of a wall if points are above each other.
-				if (StartX == EndX && StartY == EndY)
+			// Test the distance to one vertex and if there is a possibility that the player can hit the wall
+			float WallLength = Lvl.Planes.get(Plane).FlatLength;
+			float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
+
+			// Plane is close, so check if the player has hit it while moving.
+			if (DistanceToOneWallVertex <= WallLength + RadiusToUse)
+			{
+				// Get the orthogonal vector, so invert the usage of 'sin' and 'cos' here. 
+				float OrthPlayerStartX = NewX + (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerStartY = NewY + (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerEndX = NewX - (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerEndY = NewY - (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+
+				// Cramer's rule, inspiration taken from here: https://stackoverflow.com/a/1968345
+				float WallDiffX = EndX - StartX;    // Vector's X from (0,0)
+				float WallDiffY = EndY - StartY;    // Vector's Y from (0,0)
+				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;
+				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;
+
+				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+
+				// Check if a collision is detected (Also checking if equals to see if it's touching an endpoint)
+				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
 				{
-					EndX = Lvl.Planes.get(Plane).Vertices().get(6);
-					EndY = Lvl.Planes.get(Plane).Vertices().get(7);
-				}
+					// Collision detected
+					float CollX = StartX + (PointPlayerOrth * WallDiffX);
+					float CollY = StartY + (PointPlayerOrth * WallDiffY);
 
-				// We'd like to have the opposite Z so we know the height of the wall
-				if (StartZ == EndZ)
-				{
-					EndZ = Lvl.Planes.get(Plane).Vertices().get(8);
-				}
+					float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
 
-				// May be a floor or a straight ceiling, so don't care.
-				if (StartZ == EndZ)
-				{
-					continue;
-				}
-
-				// Test the distance to one vertex and if there is a possibility that the player can hit the wall
-				float WallLength = Lvl.Planes.get(Plane).FlatLength;
-				float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
-
-				if (DistanceToOneWallVertex <= WallLength + RadiusToUse * 2)
-				{
-					// Check if the wall is above or under the player so he can't enter in collision with it
-					if (Lvl.Planes.get(Plane).Vertices().get(2).equals(Lvl.Planes.get(Plane).Vertices().get(5)) &&
-							Lvl.Planes.get(Plane).Vertices().get(5).equals(Lvl.Planes.get(Plane).Vertices().get(8)))
-					{
-						// Still equal? Must be a floor or a ceiling.
-						if (StartZ <= this.PosZ() || StartZ >= this.PosZ() + this.Height())
-						{
-							// There is no collision. Skip to next wall for the checks.
-							continue;
-						}
-					}
-					else if (StartZ != EndZ)
-					{
-						float Lowest = Lvl.Planes.get(Plane).Vertices().get(2);
-						float Highest = Lvl.Planes.get(Plane).Vertices().get(2);
-
-						// Check each Z coordinate to get the highest and the lowest Z of a vertex
-						for (int Point = 2; Point < Lvl.Planes.get(Plane).Vertices().size(); Point += 3)
-						{
-							if (Lvl.Planes.get(Plane).Vertices().get(Point) < Lowest)
-							{
-								Lowest = Lvl.Planes.get(Plane).Vertices().get(Point);
-							}
-							else if (Lvl.Planes.get(Plane).Vertices().get(Point) > Highest)
-							{
-								Highest = Lvl.Planes.get(Plane).Vertices().get(Point);
-							}
-						}
-
-						// Compare to the player
-						if (Lowest >= this.PosZ() + this.Height() && Highest >= this.PosZ() + this.Height())
-						{
-							// The wall is far above the player
-							continue;
-						}
-						else if (Lowest <= this.PosZ() && Highest <= this.PosZ())
-						{
-							// The wall is below above the player
-							continue;
-						}
-					}
-
-					// Fix what the next algorithm is going to miss (exactly vertical or horizontal walls)
-					// Test for a vertical wall
-					if (StartX == EndX)
-					{
-						// Test if player is close enough for a collision
-						if (Math.abs(StartX - NewX) <= RadiusToUse)
-						{
-							// Now test if the player stands within the wall's vertical range
-							if (StartY < EndY)
-							{
-								if (StartY <= NewY && EndY >= NewY)
-								{
-									// Collision!
-									return Lvl.Planes.get(Plane);
-								}
-							}
-							else if (StartY > EndY)
-							{
-								if (StartY >= NewY && EndY <= NewY)
-								{
-									// Collision!
-									return Lvl.Planes.get(Plane);
-								}
-							}
-							else
-							{
-								System.out.println("Collision with a 0-length wall!");
-							}
-						}
-					}
-					// Test for an horizontal wall
-					if (StartY == EndY)
-					{
-						// Test if player is close enough for a collision
-						if (Math.abs(StartY - NewY) <= RadiusToUse)
-						{
-							// Now test if the player stands within the wall's horizontal range
-							if (StartX < EndX)
-							{
-								if (StartX <= NewX && EndX >= NewX)
-								{
-									// Collision!
-									return Lvl.Planes.get(Plane);
-								}
-							}
-							else if (StartX > EndX)
-							{
-								if (StartX >= NewX && EndX <= NewX)
-								{
-									// Collision!
-									return Lvl.Planes.get(Plane);
-								}
-							}
-							else
-							{
-								System.out.println("Collision with a 0-length wall!");
-							}
-						}
-					}
-
-					// Find the orthogonal vector (Invert X and Y, then set a negative Y)
-					float OrthX = EndY;        // The opposite is 'StartX'
-					float OrthY = -EndX;    // The opposite is 'StartY'
-					float OrthAngle = (float) Math.atan2(StartY - OrthY, StartX - OrthX);
-
-					float OrthPlayerStartX = NewX - (float) Math.cos(OrthAngle) * RadiusToUse;
-					float OrthPlayerStartY = NewY - (float) Math.sin(OrthAngle) * RadiusToUse;
-
-					float OrthPlayerEndX = NewX + (float) Math.cos(OrthAngle) * RadiusToUse;
-					float OrthPlayerEndY = NewY + (float) Math.sin(OrthAngle) * RadiusToUse;
-
-					// Cramer's rule --> source: https://books.google.ca/books?id=lRUj-nhQRu8C&pg=PA844&lpg=PA844&dq=cramer%27s+rule+windows+game&source=bl&ots=7xD9_FJ72z&sig=GL9uIZvhbQX8buR6UZlxgtVOGYU&hl=en&sa=X&ved=0CB4Q6AEwAWoVChMIqeiE75SyyAIVAxceCh0E2Q-X#v=onepage&q=cramer's%20rule%20windows%20game&f=false
-					// https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1201356#1201356
-					// get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
-					float WallDiffX = EndX - StartX;    // Vector's X from (0,0)
-					float WallDiffY = EndY - StartY;    // Vector's Y from (0,0)
-					float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;    // Vector's X orthogonal to the wall for the player from (0,0)
-					float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;    // Vector's Y orthogonal to the wall for the player from (0,0)
-
-					float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-					float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-
-					// Check if a collision is detected
-					if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
-					{
-						// Collision detected
-						float CollX = StartX + (PointPlayerOrth * WallDiffX);
-						float CollY = StartY + (PointPlayerOrth * WallDiffY);
-
-						float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
-
-						if (Distance <= RadiusToUse)
-						{
-							//System.err.println(Distance);
-
-							return Lvl.Planes.get(Plane);
-						}
-					}
-
-					// Check for a collision on the edge of a wall
-					float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
 					if (Distance <= RadiusToUse)
 					{
 						return Lvl.Planes.get(Plane);
 					}
-					else
-					{
-						Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
+				}
 
-						if (Distance <= RadiusToUse)
-						{
-							return Lvl.Planes.get(Plane);
-						}
+				// Check for a collision on the edge of a wall (using the radius of the player to the endpoints)
+				float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
+				if (Distance <= RadiusToUse)
+				{
+					return Lvl.Planes.get(Plane);
+				}
+				else
+				{
+					Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
+
+					if (Distance <= RadiusToUse)
+					{
+						return Lvl.Planes.get(Plane);
 					}
 				}
-			}
-			else
-			{
-				System.err.println("Plane " + Plane + " does not have enough vertices to be a plane. (" + Lvl.Planes.get(Plane).Vertices().size() + ")");
-				System.exit(1);
 			}
 		}
 
@@ -1391,7 +1233,7 @@ public class Player
 		Deaths = 0;
 		FlagTime = 0;
 		Hits = 0;
-		Missed = 0;
+		Misses = 0;
 
 		// Reset other properties
 		ResetPlayerForRespawn();

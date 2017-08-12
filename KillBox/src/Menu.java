@@ -37,7 +37,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	final String GameVersion = "v2.0";
-	final String LastUpdate = "July 29 2017 3:59PM";
+	final String LastUpdate = "August 11 2017 23:42PM";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -4270,11 +4270,11 @@ public class Menu
 
 			if (Players.get(Player).Hits > 0)
 			{
-				int HitPercentage = (int) ((float) Players.get(Player).Hits * 100 / (Players.get(Player).Hits + Players.get(Player).Missed));
+				int HitPercentage = (int) ((float) Players.get(Player).Hits * 100 / (Players.get(Player).Hits + Players.get(Player).Misses));
 				PlayerHits = HitPercentage + "%";
 			}
 
-			//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Missed;
+			//PlayerHits = "  " + Lvl.Players.get(Player).Hits + " " + Lvl.Players.get(Player).Misses;
 
 			DrawText(PlayerScore + "        " + PlayerHits, 10, Players.size() * 4 - Player * 7 + 50, 2, 2);
 		}

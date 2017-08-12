@@ -491,6 +491,7 @@ public class Camera
 				if (Lvl.Planes.get(Plane).Reference != previousTexture)
 				{
 					previousTexture = Lvl.Planes.get(Plane).Reference;
+					// Texture switches must be minimized as it is very expensive
 					Lvl.Planes.get(Plane).Reference.Bind();
 				}
 
