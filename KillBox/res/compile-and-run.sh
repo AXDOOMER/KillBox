@@ -1,9 +1,7 @@
 #!/bin/bash
 
-if [ $(basename $(pwd)) != "res" ]; then
-echo "This script is meant to be executed from the *res* directoy."
-exit
-fi
+# Set the current working directory to the directory of the script
+cd $(dirname "$0")
 
 # Compile the source files and execute only if successful
 if javac ../src/*.java -cp lwjgl.jar:lwjgl_util.jar; then
