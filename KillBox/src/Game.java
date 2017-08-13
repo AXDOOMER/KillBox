@@ -656,17 +656,21 @@ public class Game
 
 				for (int Player = 0; Player < Lvl.Players.size(); Player++)
 				{
-					// BUG: Cheap fix player strafing not reset. FUCK!
+					// Fix for player variables that are not reset
 					Lvl.Players.get(Player).SideMove = 0;
 					Lvl.Players.get(Player).FrontMove = 0;
 					Lvl.Players.get(Player).AngleDiff = 0;
 					Lvl.Players.get(Player).Shot = false;
 					Lvl.Players.get(Player).Reloading = false;
+				}
 
+				// No clipping (ghost), available when the player is alone only.
+				if (Lvl.Players.size() == 1)
+				{
 					// Activating the no clipping cheat
 					if (Parameters.containsKey("-noclip"))
 					{
-						Lvl.Players.get(Player).SetNoClipping(true);
+						Lvl.Players.get(0).SetNoClipping(true);
 					}
 				}
 

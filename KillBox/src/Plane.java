@@ -23,7 +23,7 @@ public class Plane
 	float[] Coordinates = new float[4];
 
 	public String TextureName = "";
-	Texture Reference;				// TODO: Implement a comparable so planes can be sort in order of texture id
+	Texture Reference;
 	boolean TwoSided = true;		// The texture is only drawn on the front side of the plane.
 	boolean Impassable = true;		// Player can't walk through the plane. They are clipped.
 	byte Light = 127;				// Amount of light on the texture

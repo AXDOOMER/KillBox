@@ -258,13 +258,13 @@ public class Camera
 						}
 					}
 				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+				if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && CurrentPlayer().Ghost)
 				{
-					//CurrentPlayer().MoveUp();
+					CurrentPlayer().MoveUp();
 				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL))
+				if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && CurrentPlayer().Ghost)
 				{
-					//CurrentPlayer().MoveDown();
+					CurrentPlayer().MoveDown();
 				}
 
 				// Right now, it can only shot like a pistol...
@@ -348,7 +348,7 @@ public class Camera
 			}
 		}
 
-		// Update things
+		// Update things (corpses, blood, etc.)
 		Lvl.UpdateLevel();
 
 		// If menu is lock

@@ -644,15 +644,8 @@ public class Player
 			//MoY += (float)Math.sin(PushAngle);
 		}
 
-		// Move to the new position
-		if (HitWall == null)
-		{
-			Move(Float.NaN);
-		}
-		else
-		{
-			Move(HitWall.GetAngle());
-		}
+		// Move to the new position. This also limits the player's speed.
+		Move();
 
 		return Clear;
 	}
@@ -770,7 +763,7 @@ public class Player
 		{
 			if (Lvl.Players().get(Player) == this)
 			{
-				// Next!
+				// Don't collide with self.
 				continue;
 			}
 
@@ -842,10 +835,10 @@ public class Player
 			float WallLength = Lvl.Planes.get(Plane).FlatLength;
 			float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
 
-			// Plane is close, so check if the player has hit it while moving.
+			// If the plane is close, it can possibly be collided with.
 			if (DistanceToOneWallVertex <= WallLength + RadiusToUse)
 			{
-				// Get the orthogonal vector, so invert the usage of 'sin' and 'cos' here. 
+				// Get the orthogonal vector, so invert the use of 'sin' and 'cos' here. 
 				float OrthPlayerStartX = NewX + (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
 				float OrthPlayerStartY = NewY + (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
 				float OrthPlayerEndX = NewX - (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
@@ -857,8 +850,9 @@ public class Player
 				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;
 				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;
 
-				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
-				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / (-PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY);
+				float Denominator = -PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY;
+				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / Denominator;
+				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / Denominator;
 
 				// Check if a collision is detected (Also checking if equals to see if it's touching an endpoint)
 				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
@@ -883,8 +877,8 @@ public class Player
 				}
 				else
 				{
+					// Second endpoint
 					Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
-
 					if (Distance <= RadiusToUse)
 					{
 						return Lvl.Planes.get(Plane);
@@ -893,79 +887,16 @@ public class Player
 			}
 		}
 
-		// The player doesn't deviate. Its movement is not divergent. Return nothing.
+		// No wall was hit
 		return null;
-	}
-
-	// Searches for the floor that is under the player
-	public float AdjustPlayerHeightToFloor()
-	{
-		// Check for floors
-
-		// When it is found, change the player's Z.
-
-		// Else, estimate.
-		PosZ(FindClosestVertexZ());
-
-		// Return the player's position. That's unnecessary.
-		return PosZ();
-	}
-
-	public float LimitPlayerSpeedX(float DirX)
-	{
-		// Test if the player is moving too fast
-		float Velocity = 0;
-		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
-		{
-			//float MovementDirection = (float) Math.atan2(MoY(), MoX());
-
-			//float X = Math.abs((float) Math.sin(MovementDirection));
-
-			float Factor = Velocity / MaxRunSpeed;
-
-			return MoX / Factor;    // X factor
-		}
-
-		return DirX;
-	}
-
-	public float LimitPlayerSpeedY(float DirY)
-	{
-		// Test if the player is moving too fast
-		float Velocity = 0;
-		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
-		{
-			//float MovementDirection = (float) Math.atan2(MoY(), MoX());
-
-			//float Y = Math.abs((float) Math.cos(MovementDirection));
-
-			float Factor = Velocity / MaxRunSpeed;
-
-			return MoY / Factor;    // Y factor
-		}
-
-		return DirY;
 	}
 
 	public void LimitPlayerSpeed()
 	{
 		// Test if the player is moving too fast
-		float Velocity = 0;
-		if ((Velocity = (float)Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2))) > MaxRunSpeed)
+		float Velocity = (float) Math.sqrt(Math.pow(MoX(), 2) + Math.pow(MoY(), 2));
+		if (Velocity > MaxRunSpeed)
 		{
-			float MovementDirection = (float)Math.atan2(MoY(), MoX());
-
-			// Fix movement direction so we use a system that is compatible with our other angles
-			/*if (MovementDirection < 0)
-			{
-				 MovementDirection += Math.PI * 2;
-			}*/
-
-			// Fraction of the movement for each directions
-
-			//float X = Math.abs((float)Math.sin(MovementDirection));
-			//float Y = Math.abs((float)Math.cos(MovementDirection));
-
 			float Factor = Velocity / MaxRunSpeed;
 
 			float MaxX = MoX / Factor;	// X factor
@@ -1004,44 +935,13 @@ public class Player
 	}
 
 	// Bastard method
-	public void Move(float Angle)
+	public void Move()
 	{
 		// Max sure the player's speed is not bigger than the maximum allowed
 		LimitPlayerSpeed();
 
-		if (Float.isNaN(Angle))
-		{
-			PosX += MoX();
-			PosY += MoY();
-		}
-		else
-		{
-			// Supposed to make the player slide along the wall
-
-			// Change the position according to the direction of the movement, because a wall was hit.
-			/*float PlayerAngle = this.GetRadianAngle();
-
-			// Make the angle positive if it is negative
-			if (PlayerAngle < 0)
-			{
-				PlayerAngle = PlayerAngle + (float)Math.PI * 2;
-			}
-
-			if ((Angle - PlayerAngle < Math.PI / 2 || Angle - PlayerAngle < 3 * Math.PI / 2) &&
-					(Angle - PlayerAngle > -Math.PI / 2 || Angle - PlayerAngle > 3 * Math.PI / 2))
-			{
-				PosX += Math.cos(Angle);
-				PosY += Math.sin(Angle);
-			}
-			else
-			{
-				PosX += Math.cos(Angle + Math.PI);
-				PosY += Math.sin(Angle + Math.PI);
-			}
-
-			System.out.println("ANGLE SHARED: " + Angle + "	PLAYER ANGLE: " + PlayerAngle + "	CALC: " + (Angle - PlayerAngle));
-			*/
-		}
+		PosX += MoX();
+		PosY += MoY();
 
 		// Reset
 		HasMoved = false;
@@ -1182,47 +1082,6 @@ public class Player
 		{
 			MoZ = MoZ * 2;
 		}
-	}
-
-	public float FindClosestVertexZ()
-	{
-		float FoundZ = PosZ();
-		float SmallestDistance = -1;
-
-		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
-		{
-			for (int Vertex = 0; Vertex < Lvl.Planes.get(Plane).Vertices.size(); Vertex += 3)
-			{
-				float TempDistance = (float)Math.sqrt(
-						Math.pow(Math.abs(PosX() - Lvl.Planes.get(Plane).Vertices.get(Vertex)), 2) +
-						Math.pow(Math.abs(PosY() - Lvl.Planes.get(Plane).Vertices.get(Vertex + 1)), 2));
-
-				if (SmallestDistance < 0)
-				{
-					// When it's not set, set it to something.
-					SmallestDistance = TempDistance;
-					// Set new Z height
-					FoundZ = Lvl.Planes.get(Plane).Vertices.get(Vertex + 2);
-				}
-				else
-				{
-					if (TempDistance <= SmallestDistance)
-					{
-						SmallestDistance = TempDistance;
-
-						// Set it to the lowest height
-						if (FoundZ > Lvl.Planes.get(Plane).Vertices.get(Vertex + 2))
-						{
-							FoundZ = Lvl.Planes.get(Plane).Vertices.get(Vertex + 2);
-						}
-					}
-				}
-
-			}
-		}
-
-		// The function returns something, but nobody really cares.
-		return FoundZ;
 	}
 
 	// Game starts for player

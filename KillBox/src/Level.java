@@ -20,17 +20,8 @@ import static org.lwjgl.opengl.GL11.*;  // GL_NEAREST
 
 public class Level
 {
-	String Name = "Unknown";
-	String Sky;
-	String Fog = "black";
-	int Visibility = 0;
-	int Filter = GL_NEAREST;
-	public float ShortestWall = Integer.MAX_VALUE;	// Arbitrary value
-	final int BlockSize = 256;
-
-	// Coordinate of origin used to find blockmap coordinates
-	int BlockStartX = Integer.MAX_VALUE;
-	int BlockStartY = Integer.MAX_VALUE;
+	int Filter;
+	public float ShortestWall;
 
 	// Map geometry and its stuff that's found in it
 	ArrayList<Plane> Planes = new ArrayList<Plane>();
@@ -40,14 +31,6 @@ public class Level
 	// Small list that keeps references on spawns only
 	ArrayList<Thing> Spawns = new ArrayList<Thing>();
 
-	// Blocks of planes for faster collision detection
-	// TODO: Let's make it a serializable object that can handle Checksuming and space partitioning
-	ArrayList<ArrayList<Plane>> Blocks = new ArrayList<ArrayList<Plane>>();
-
-	// Checksum of the text file from where level originally came from.
-	// Used to know if the previous level dump should be used for faster loading time.
-	private long Checksum;	//https://dzone.com/articles/get-md5-hash-few-lines-java
-
 	// Keep an ordered list of textures that have been loaded previously for the level
 	private static ArrayList<Texture> Textures = new ArrayList<Texture>();
 
@@ -55,7 +38,7 @@ public class Level
 	{
 		Filter = PlaneFilter;
 		ShortestWall = Integer.MAX_VALUE;
-		String Line = "";
+		String Line = null;
 		long loadingStart = System.currentTimeMillis();
 
 		try
@@ -67,38 +50,13 @@ public class Level
 			{
 				if (Line.length() < 2 || Line.charAt(0) == '#')
 				{
-					// It's a comment. Get another line.
+					// It's an empty line or it's a comment. Get another line.
 					continue;
 				}
 
-				if (Line.contains("level:"))
-				{
-					while (!Line.contains("}"))
-					{
-						Line = LevelFile.readLine();
-
-						if (Line.contains("{"))
-						{
-							continue;
-						}
-						else if (Line.contains("name: "))
-						{
-							Name = Line.substring(Line.indexOf("name: ") + 6, Line.indexOf(";"));
-						}
-						else if (Line.contains("fog: "))
-						{
-							Fog = Line.substring(Line.indexOf("fog: ") + 5, Line.indexOf(";"));
-						}
-						else if (Line.contains("sky: "))
-						{
-							Sky = Line.substring(Line.indexOf("sky: ") + 5, Line.indexOf(";"));
-						}
-					}
-				}
-				else if (Line.contains("wall") || Line.contains("floor") || Line.contains("ceiling") || Line.contains("plane") || Line.contains("slope"))
+				if (Line.contains("wall") || Line.contains("floor") || Line.contains("ceiling") || Line.contains("plane") || Line.contains("slope"))
 				{
 					Planes.add(new Plane());
-					boolean NameIsSet = false;
 
 					while (!Line.contains("}"))
 					{
@@ -112,13 +70,11 @@ public class Level
 						{
 							int PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
 							Planes.get(Planes.size() - 1).AddVertex(PosX);
-							if (PosX < BlockStartX) { BlockStartX = PosX; };
 						}
 						else if (Line.contains("y: "))
 						{
 							int PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
 							Planes.get(Planes.size() - 1).AddVertex(PosY);
-							if (PosY < BlockStartY) { BlockStartY = PosY; };
 						}
 						else if (Line.contains("z: "))
 						{
@@ -143,7 +99,6 @@ public class Level
 							Planes.get(Planes.size() - 1).SetTextureName(Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";")));
 							// The following line loads the textures if it needs to and sets a reference to it inside the plane.
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/" + Planes.get(Planes.size() - 1).TextureName));
-							NameIsSet = true;	//TODO: Remove this and exit with an error if there is no texture set
 						}
 						else if (Line.contains("light: "))
 						{
@@ -159,11 +114,6 @@ public class Level
 					if (Planes.get(Planes.size() - 1).FlatLength < ShortestWall && Planes.get(Planes.size() - 1).FlatLength != 0)
 					{
 						ShortestWall = Planes.get(Planes.size() - 1).FlatLength;
-					}
-
-					if (!NameIsSet)
-					{
-						Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/DOOR9_1.bmp"));
 					}
 				}
 				else if (Line.contains("spawn"))
@@ -230,12 +180,10 @@ public class Level
 						else if (Line.contains("x: "))
 						{
 							PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
-							if (PosX < BlockStartX) { BlockStartX = PosX; };
 						}
 						else if (Line.contains("y: "))
 						{
 							PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
-							if (PosY < BlockStartY) { BlockStartY = PosY; };
 						}
 						else if (Line.contains("z: "))
 						{
@@ -368,22 +316,18 @@ public class Level
 		System.out.println("Level of " + (Planes.size() + Things.size() + Spawns.size()) + " elements loaded in " + (System.currentTimeMillis() - loadingStart) + "ms");
 	}
 
-	// This method will load a texture. It will find it using the specified path.
-	// It checks if the texture has already been loaded and the name is case-sensitive.
-	// If a texture is not already loaded, it will create a new texture and add it to the list.
-	// Else, it will return the reference to the texture that has already been loaded.
-	// If the texture can't be loaded, it will return 'NULL'.
+	// This method will load a texture from the image specified in the path.
+	// The name is case-sensitive and duplicates are no loaded again.
 	private Texture LoadTexture(String Path)
 	{
-		// Add texture to the list if it's not already loaded.
-		// Search through the texture list. They are in the alphabetical order of the file names.
 		int SearchIndex = 0;
 		String Name = Path.substring(Path.lastIndexOf('/') + 1);
 		Texture NewTexture = null;
 
+		// Search through the texture list. Add texture to the list if it's not already loaded.
 		while (SearchIndex >= 0 && SearchIndex < Textures.size())
 		{
-			// Check if the texture name at this position is the same as the new texture
+			// Check if the texture name at this position is the same as the new texture.
 			boolean Same = Textures.get(SearchIndex).Name().equals(Name);
 
 			if (!Same)
@@ -417,14 +361,14 @@ public class Level
 		return NewTexture;
 	}
 
-	// Multi-thing cooperative system
-	public void UpdateLevel(/*ArrayList<Plane> Planes, ArrayList<Thing> Things*/)
+	// Update the things!
+	public void UpdateLevel()
 	{
 		// Nice article:  http://blog.noctua-software.com/entity-references.html
 		for (int Thing = 0; Thing < Things.size(); Thing++)
 		{
 			// Give a change to every thing to update itself
-			if (!Things.get(Thing).Update(/*Planes, Things*/))
+			if (!Things.get(Thing).Update())
 			{
 				Things.remove(Thing);
 			}
