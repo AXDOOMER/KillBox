@@ -22,7 +22,7 @@ public class Plane
 	// Coordinates for walls that are square and straight up vertical
 	float[] Coordinates = new float[4];
 
-	public String TextureName = "";
+	public String TextureName;
 	Texture Reference;
 	boolean TwoSided = true;		// The texture is only drawn on the front side of the plane.
 	boolean Impassable = true;		// Player can't walk through the plane. They are clipped.
@@ -37,7 +37,7 @@ public class Plane
 	float FlatLength = 0;
 
 	// Check for bullet collision? For horizontal floors and ceilings, this should always be false.
-	boolean BlocksBullets = true;	// TODO: Add this setting to the level loader
+	boolean BlocksBullets = true;	// Bullet will pass through when this is false
 	byte MayBlockPlayers = -1;		// -1 is not set, 0 is false, 1 is true.
 
 	public void SetReference(Texture Reference)

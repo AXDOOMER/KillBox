@@ -455,12 +455,16 @@ public class Netplay
 		catch (SocketTimeoutException sto)
 		{
 			System.out.println("Other player may have disconnected or connection was interrupted.");
-			sto.printStackTrace();
 			return false;
 		}
-		catch (Exception e)
+		catch (SocketException se)
 		{
-			e.printStackTrace();
+			System.out.println("The other player has disconnected.");
+			return false;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
 			return false;
 		}
 

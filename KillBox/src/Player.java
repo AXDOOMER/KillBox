@@ -407,7 +407,7 @@ public class Player
 							}
 						}
 					}
-					else if (CheckWallCollision(TravelX, TravelY, BulletRadius) != null)
+					else if (CheckWallCollision(TravelX, TravelY, BulletRadius, true) != null)
 					{
 						// A wall was hit.
 						break;
@@ -564,7 +564,7 @@ public class Player
 				}
 
 				// Player against wall collision
-				if (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
+				if (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
 				{
 					// Slide against the wall (work in progress)
 /*				float atan = (float)Math.atan2(MoY(), MoX());
@@ -589,7 +589,7 @@ public class Player
 //				if (NewY < 1 && NewY > -1)
 //					NewY = 0;
 //
-				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
+				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
 				{
 					if (Clear)
 					{
@@ -599,7 +599,7 @@ public class Player
 				else
 				{
 					int Iteration = 0;
-					while (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius())))
+					while (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
 					{
 						System.out.println("STUCK!!! Iteration: " + Iteration++);
 						NewX /= 2;
@@ -814,13 +814,13 @@ public class Player
 	}
 
 	// Check for collision against walls
-	public Plane CheckWallCollision(float NewX, float NewY, float RadiusToUse)
+	public Plane CheckWallCollision(float NewX, float NewY, float RadiusToUse, boolean IsBullet)
 	{
 		// Test collision against each planes
 		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
 		{
 			// May be a floor or a straight ceiling, so don't care.
-			if (!Lvl.Planes.get(Plane).CanBlock())
+			if (!Lvl.Planes.get(Plane).CanBlock() || (IsBullet && !Lvl.Planes.get(Plane).BlocksBullets))
 			{
 				continue;
 			}
@@ -924,14 +924,18 @@ public class Player
 		{
 			LastFrame = 0;
 			Frame = 0;
+			MoX = 0;
+			MoY = 0;
 		}
 		else
 		{
 			LastFrame++;
 		}
 
-		TryMove(MoX, MoY);
-
+		if (MoX != 0 || MoY != 0)
+		{
+			TryMove(MoX, MoY);
+		}
 	}
 
 	// Bastard method

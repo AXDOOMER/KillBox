@@ -295,26 +295,20 @@ plane0017
 	z: 0;
 }
 
-palmtree
+thing:
 {
-	impassable: true;
-	sprite: nyar40.png;
-	radius: 24;
-	light: 255;
+	type: palmtree;
 	x: -896;
 	y: 386;
 	z: 0;
 }
 
-smallpalmtree
+thing:
 {
-	texture: palm_tree_PNG2494.png;
-	light: 255;
-	radius: 32;
+	type: smallpalmtree;
 	x: -640;
 	y: 128;
 	z: 0;
-	impassable: true;
 }
 
 spawn:

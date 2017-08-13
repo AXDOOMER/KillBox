@@ -5651,9 +5651,10 @@ wall_forblock_x15_y7_bottom:
 
 wall_forblock_x24_y7_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -448;
 	z: 0;
@@ -5670,9 +5671,10 @@ wall_forblock_x24_y7_left:
 
 wall_forblock_x24_y7_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -448;
 	z: 0;
@@ -5689,9 +5691,10 @@ wall_forblock_x24_y7_top:
 
 wall_forblock_x24_y7_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -512;
 	z: 0;
@@ -5708,9 +5711,10 @@ wall_forblock_x24_y7_right:
 
 wall_forblock_x24_y7_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -512;
 	z: 0;
@@ -6496,9 +6500,10 @@ wall_forblock_x15_y8_bottom:
 
 wall_forblock_x24_y8_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -512;
 	z: 0;
@@ -6515,9 +6520,10 @@ wall_forblock_x24_y8_left:
 
 wall_forblock_x24_y8_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -512;
 	z: 0;
@@ -6534,9 +6540,10 @@ wall_forblock_x24_y8_top:
 
 wall_forblock_x24_y8_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -576;
 	z: 0;
@@ -6553,9 +6560,10 @@ wall_forblock_x24_y8_right:
 
 wall_forblock_x24_y8_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -576;
 	z: 0;
@@ -9232,9 +9240,10 @@ wall_forblock_x6_y13_bottom:
 
 wall_forblock_x12_y13_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -832;
 	z: 0;
@@ -9251,9 +9260,10 @@ wall_forblock_x12_y13_left:
 
 wall_forblock_x12_y13_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -832;
 	z: 0;
@@ -9270,9 +9280,10 @@ wall_forblock_x12_y13_top:
 
 wall_forblock_x12_y13_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -896;
 	z: 0;
@@ -9289,9 +9300,10 @@ wall_forblock_x12_y13_right:
 
 wall_forblock_x12_y13_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -896;
 	z: 0;
@@ -9308,9 +9320,10 @@ wall_forblock_x12_y13_bottom:
 
 wall_forblock_x28_y13_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -832;
 	z: 0;
@@ -9327,9 +9340,10 @@ wall_forblock_x28_y13_left:
 
 wall_forblock_x28_y13_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -832;
 	z: 0;
@@ -9346,9 +9360,10 @@ wall_forblock_x28_y13_top:
 
 wall_forblock_x28_y13_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -896;
 	z: 0;
@@ -9365,9 +9380,10 @@ wall_forblock_x28_y13_right:
 
 wall_forblock_x28_y13_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -896;
 	z: 0;
@@ -9554,9 +9570,10 @@ thing:
 
 wall_forblock_x12_y14_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -896;
 	z: 0;
@@ -9573,9 +9590,10 @@ wall_forblock_x12_y14_left:
 
 wall_forblock_x12_y14_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -896;
 	z: 0;
@@ -9592,9 +9610,10 @@ wall_forblock_x12_y14_top:
 
 wall_forblock_x12_y14_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -960;
 	z: 0;
@@ -9611,9 +9630,10 @@ wall_forblock_x12_y14_right:
 
 wall_forblock_x12_y14_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -960;
 	z: 0;
@@ -9630,9 +9650,10 @@ wall_forblock_x12_y14_bottom:
 
 wall_forblock_x16_y14_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1024;
 	y: -896;
 	z: 0;
@@ -9649,9 +9670,10 @@ wall_forblock_x16_y14_left:
 
 wall_forblock_x16_y14_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1088;
 	y: -896;
 	z: 0;
@@ -9668,9 +9690,10 @@ wall_forblock_x16_y14_top:
 
 wall_forblock_x16_y14_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1088;
 	y: -960;
 	z: 0;
@@ -9687,9 +9710,10 @@ wall_forblock_x16_y14_right:
 
 wall_forblock_x16_y14_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1024;
 	y: -960;
 	z: 0;
@@ -9706,9 +9730,10 @@ wall_forblock_x16_y14_bottom:
 
 wall_forblock_x28_y14_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -896;
 	z: 0;
@@ -9725,9 +9750,10 @@ wall_forblock_x28_y14_left:
 
 wall_forblock_x28_y14_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -896;
 	z: 0;
@@ -9744,9 +9770,10 @@ wall_forblock_x28_y14_top:
 
 wall_forblock_x28_y14_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -960;
 	z: 0;
@@ -9763,9 +9790,10 @@ wall_forblock_x28_y14_right:
 
 wall_forblock_x28_y14_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -960;
 	z: 0;
@@ -9934,9 +9962,10 @@ wall_forblock_x6_y15_bottom:
 
 wall_forblock_x12_y15_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -960;
 	z: 0;
@@ -9953,9 +9982,10 @@ wall_forblock_x12_y15_left:
 
 wall_forblock_x12_y15_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -960;
 	z: 0;
@@ -9972,9 +10002,10 @@ wall_forblock_x12_y15_top:
 
 wall_forblock_x12_y15_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -1024;
 	z: 0;
@@ -9991,9 +10022,10 @@ wall_forblock_x12_y15_right:
 
 wall_forblock_x12_y15_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -1024;
 	z: 0;
@@ -10010,9 +10042,10 @@ wall_forblock_x12_y15_bottom:
 
 wall_forblock_x24_y15_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -960;
 	z: 0;
@@ -10029,9 +10062,10 @@ wall_forblock_x24_y15_left:
 
 wall_forblock_x24_y15_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -960;
 	z: 0;
@@ -10048,9 +10082,10 @@ wall_forblock_x24_y15_top:
 
 wall_forblock_x24_y15_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1600;
 	y: -1024;
 	z: 0;
@@ -10067,9 +10102,10 @@ wall_forblock_x24_y15_right:
 
 wall_forblock_x24_y15_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1536;
 	y: -1024;
 	z: 0;
@@ -10086,9 +10122,10 @@ wall_forblock_x24_y15_bottom:
 
 wall_forblock_x28_y15_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -960;
 	z: 0;
@@ -10105,9 +10142,10 @@ wall_forblock_x28_y15_left:
 
 wall_forblock_x28_y15_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -960;
 	z: 0;
@@ -10124,9 +10162,10 @@ wall_forblock_x28_y15_top:
 
 wall_forblock_x28_y15_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -1024;
 	z: 0;
@@ -10143,9 +10182,10 @@ wall_forblock_x28_y15_right:
 
 wall_forblock_x28_y15_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -1024;
 	z: 0;
@@ -10314,9 +10354,10 @@ wall_forblock_x6_y16_bottom:
 
 wall_forblock_x12_y16_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -1024;
 	z: 0;
@@ -10333,9 +10374,10 @@ wall_forblock_x12_y16_left:
 
 wall_forblock_x12_y16_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -1024;
 	z: 0;
@@ -10352,9 +10394,10 @@ wall_forblock_x12_y16_top:
 
 wall_forblock_x12_y16_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 832;
 	y: -1088;
 	z: 0;
@@ -10371,9 +10414,10 @@ wall_forblock_x12_y16_right:
 
 wall_forblock_x12_y16_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 768;
 	y: -1088;
 	z: 0;
@@ -10390,9 +10434,10 @@ wall_forblock_x12_y16_bottom:
 
 wall_forblock_x18_y16_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1152;
 	y: -1024;
 	z: 0;
@@ -10409,9 +10454,10 @@ wall_forblock_x18_y16_left:
 
 wall_forblock_x18_y16_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1216;
 	y: -1024;
 	z: 0;
@@ -10428,9 +10474,10 @@ wall_forblock_x18_y16_top:
 
 wall_forblock_x18_y16_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1216;
 	y: -1088;
 	z: 0;
@@ -10447,9 +10494,10 @@ wall_forblock_x18_y16_right:
 
 wall_forblock_x18_y16_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1152;
 	y: -1088;
 	z: 0;
@@ -10466,9 +10514,10 @@ wall_forblock_x18_y16_bottom:
 
 wall_forblock_x28_y16_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -1024;
 	z: 0;
@@ -10485,9 +10534,10 @@ wall_forblock_x28_y16_left:
 
 wall_forblock_x28_y16_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -1024;
 	z: 0;
@@ -10504,9 +10554,10 @@ wall_forblock_x28_y16_top:
 
 wall_forblock_x28_y16_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1856;
 	y: -1088;
 	z: 0;
@@ -10523,9 +10574,10 @@ wall_forblock_x28_y16_right:
 
 wall_forblock_x28_y16_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1792;
 	y: -1088;
 	z: 0;
@@ -15111,9 +15163,10 @@ wall_forblock_x17_y24_bottom:
 
 wall_forblock_x18_y24_left:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1152;
 	y: -1536;
 	z: 0;
@@ -15130,9 +15183,10 @@ wall_forblock_x18_y24_left:
 
 wall_forblock_x18_y24_top:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1216;
 	y: -1536;
 	z: 0;
@@ -15149,9 +15203,10 @@ wall_forblock_x18_y24_top:
 
 wall_forblock_x18_y24_right:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1216;
 	y: -1600;
 	z: 0;
@@ -15168,9 +15223,10 @@ wall_forblock_x18_y24_right:
 
 wall_forblock_x18_y24_bottom:
 {
-	2sided: false;
+	2sided: true;
 	impassable: true;
 	texture: cut-half_haystraw.png;
+	blockbullets: false;
 	x: 1152;
 	y: -1600;
 	z: 0;

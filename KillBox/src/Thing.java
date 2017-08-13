@@ -41,7 +41,7 @@ public class Thing
 	{
 		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47, Tek9,
 		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
-		Blood, DeadPlayer, Flag, Unknown, Custom
+		Blood, DeadPlayer, Flag, PalmTree, SmallPalmTree, Unknown, Custom
 	}
 
 	Names Type;
@@ -104,14 +104,9 @@ public class Thing
 			this.Angle = (short)((float)Angle * 91.022222222222222222222222222222);//(byte)(Angle * 1.40625);
 
 		}
-		catch (IllegalArgumentException iae)
+		catch (Exception ex)
 		{
-			System.err.println("Map thing has a bad type: " + Type);
-		}
-		catch (Exception e)
-		{
-			// Should be done before we create the object
-			System.err.println("Map thing failed to be determined over its type: " + e.toString()/*getMessage*/);
+			System.err.println("An exception occured when constructing a 'thing' object of type " + Type + ": " + ex.getMessage());
 		}
 	}
 
@@ -131,6 +126,14 @@ public class Thing
 			else if (Type.equals("flag"))
 			{
 				Type = "Flag";
+			}
+			else if (Type.equals("palmtree"))
+			{
+				Type = "PalmTree";
+			}
+			else if (Type.equals("smallpalmtree"))
+			{
+				Type = "SmallPalmTree";
 			}
 
 			Names Value = Names.valueOf(Type);
@@ -290,6 +293,22 @@ public class Thing
 					CanBePickedUp = false;
 					Sprite = new Texture("res/player/PLAYH0.png", TextureFilter);
 					break;
+				case PalmTree:
+					Radius = 24;
+					Height = 96;
+					Health = 100;
+					Impassable = true;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "nyar40.png", TextureFilter);
+					break;
+				case SmallPalmTree:
+					Radius = 32;
+					Height = 96;
+					Health = 100;
+					Impassable = true;
+					CanBePickedUp = false;
+					Sprite = new Texture(ResPath + "palm_tree_PNG2494.png", TextureFilter);
+					break;
 
 				default:
 					Radius = 0;
@@ -305,30 +324,16 @@ public class Thing
 			PosZ = Z;
 
 		}
-		catch (IllegalArgumentException iae)
+		catch (Exception ex)
 		{
-			System.err.println("Map thing has a bad type: " + Type);
-		}
-		catch (Exception e)
-		{
-			// Should be done before we create the object
-			System.err.println("Map thing failed to be determined over its type: " + e.toString()/*getMessage*/);
+			System.err.println("An exception occured when constructing a 'thing' object of type " + Type + ": " + ex.getMessage());
 		}
 	}
 
-	public boolean Update(/*ArrayList<Plane> Planes, ArrayList<Thing> Things*/)
+	public boolean Update()
 	{
 		switch (Type)
 		{
-			case Barrel:
-				UpdateBarrel();
-				break;
-			case Bullet:
-				UpdateBullet();
-				break;
-			case Plasma:
-				UpdatePlasma();
-				break;
 			case Blood:
 				Fall();
 
@@ -416,21 +421,6 @@ public class Thing
 		PosZ = PosZ - MoZ;
 	}
 
-	public void UpdateBarrel()
-	{
-
-	}
-
-	public void UpdateBullet()
-	{
-
-	}
-
-	public void UpdatePlasma()
-	{
-
-	}
-
 	public void Place(float X, float Y, float Z, byte Angle)
 	{
 		PosX = X;
@@ -472,16 +462,6 @@ public class Thing
 	public float PosZ()
 	{
 		return PosZ;
-	}
-
-	public void MakesNoise(String Sound)
-	{
-		this.Sound = Sound;
-	}
-
-	public String Noise()
-	{
-		return Sound;
 	}
 
 	public int Height()

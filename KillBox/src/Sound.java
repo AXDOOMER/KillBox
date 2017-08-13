@@ -23,7 +23,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import static org.lwjgl.openal.AL10.*;
-import static org.lwjgl.openal.AL10.alGenBuffers;
 
 import org.lwjgl.util.WaveData;
 

@@ -26,9 +26,7 @@ import org.lwjgl.BufferUtils;
 
 public class Texture
 {
-	//public static Texture MyTexture = new Texture("DOOR9_1.png", GL_NEAREST);   // temp for test
-
-	private String Name = "Stuff/DOOR9_1.png";
+	private String Name;
 
 	private int Id;
 	private int Width;
@@ -63,8 +61,8 @@ public class Texture
 			Data[i] = A << 24 | B << 16 | G << 8 | R;
 		}
 
-		int Id = glGenTextures();
-		glBindTexture(GL_TEXTURE_2D, Id);
+		int TextureId = glGenTextures();
+		glBindTexture(GL_TEXTURE_2D, TextureId);
 
 		// Gives the filter to the texture (Can be GL_NEAREST or GL_LINEAR)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, Filter);
@@ -77,8 +75,8 @@ public class Texture
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Buffer);
 
-		this.Id = Id;
-		this.Name = Path.substring(Path.lastIndexOf('/') + 1);
+		Id = TextureId;
+		Name = Path.substring(Path.lastIndexOf('/') + 1);
 	}
 
 	public String Name()

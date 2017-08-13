@@ -100,10 +100,22 @@ public class Level
 							// The following line loads the textures if it needs to and sets a reference to it inside the plane.
 							Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/" + Planes.get(Planes.size() - 1).TextureName));
 						}
+						else if (Line.contains("blockbullets: "))
+						{
+							if ((Line.substring(Line.indexOf("blockbullets: ") + 14, Line.indexOf(";"))).equals("false"))
+							{
+								Planes.get(Planes.size() - 1).BlocksBullets = false;
+							}
+						}
 						else if (Line.contains("light: "))
 						{
 							Planes.get(Planes.size() - 1).Lightning(Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";"))));
 						}
+					}
+
+					if (Planes.get(Planes.size() - 1).TextureName == null)
+					{
+						Planes.get(Planes.size() - 1).SetReference(LoadTexture("textures/DOOR9_1.bmp"));
 					}
 
 					// Calculate the coordinates for a vector
@@ -150,10 +162,6 @@ public class Level
 						else if (Line.contains("}"))
 						{
 							break;
-						}
-						else
-						{
-							System.out.println("Invalid property: " + Line);
 						}
 					}
 
@@ -209,89 +217,9 @@ public class Level
 						{
 							break;
 						}
-						else
-						{
-							System.out.println("Invalid property: " + Line);
-						}
 					}
 
 					Things.add(new Thing(Type, PosX, PosY, PosZ));
-				}
-				else if (Line.contains("palmtree") || Line.contains("smallpalmtree"))	//TODO: This should be made a regular thing
-				{
-					String Sprite = "";
-					int PosX = 0;
-					int PosY = 0;
-					int PosZ = 0;
-					int Light = 127;
-					int Radius = 16;
-					int Height = 96;
-					int Health = 100;
-					boolean Impassable = true;
-
-					while (!Line.contains("}"))
-					{
-						Line = LevelFile.readLine();
-
-						if (Line.contains("{"))
-						{
-							continue;
-						}
-						else if (Line.contains("texture: "))
-						{
-							Sprite = Line.substring(Line.indexOf("texture: ") + 9, Line.indexOf(";"));
-						}
-						else if (Line.contains("sprite: "))
-						{
-							Sprite = Line.substring(Line.indexOf("sprite: ") + 8, Line.indexOf(";"));
-						}
-						else if (Line.contains("x: "))
-						{
-							PosX = Integer.parseInt(Line.substring(Line.indexOf("x: ") + 3, Line.indexOf(";")));
-						}
-						else if (Line.contains("y: "))
-						{
-							PosY = Integer.parseInt(Line.substring(Line.indexOf("y: ") + 3, Line.indexOf(";")));
-						}
-						else if (Line.contains("z: "))
-						{
-							PosZ = Integer.parseInt(Line.substring(Line.indexOf("z: ") + 3, Line.indexOf(";")));
-						}
-						else if (Line.contains("light: "))
-						{
-							Light = Integer.parseInt(Line.substring(Line.indexOf("light: ") + 7, Line.indexOf(";")));
-						}
-						else if (Line.contains("radius: "))
-						{
-							Radius = Integer.parseInt(Line.substring(Line.indexOf("radius: ") + 8, Line.indexOf(";")));
-						}
-						else if (Line.contains("height: "))
-						{
-							Height = Integer.parseInt(Line.substring(Line.indexOf("height: ") + 8, Line.indexOf(";")));
-						}
-						else if (Line.contains("health: "))
-						{
-							Health = Integer.parseInt(Line.substring(Line.indexOf("health: ") + 8, Line.indexOf(";")));
-						}
-						else if (Line.contains("impassable: "))
-						{
-							Impassable = Boolean.parseBoolean(Line.substring(Line.indexOf("impassable: ") + 12, Line.indexOf(";")));
-						}
-						else if (Line.contains("}"))
-						{
-							break;
-						}
-						else
-						{
-							System.err.println("Invalid property: " + Line);
-						}
-					}
-
-					Things.add(new Thing("res/sprites/" + Sprite, PosX, PosY, PosZ, Light, Radius, Height, Health));
-				}
-				else
-				{
-					System.err.println("Unknown data: " + Line);
 				}
 			}
 		}
@@ -307,9 +235,7 @@ public class Level
 		}
 		catch (Exception e)
 		{
-			System.err.println("Failed to load the following level: " + LvlName);
-			System.err.println("There must be a syntax error in the file (missing closing brace, colon, semicolon, etc.)");
-			System.err.println("The error occurred on the following line: \"" + Line + "\"");
+			System.err.println("An error occurred on the following line: " + Line);
 			System.exit(1);
 		}
 
