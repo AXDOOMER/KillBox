@@ -17,17 +17,15 @@
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -1545,7 +1543,7 @@ public class Menu
 	final class MenuItem_ComboBox extends MenuItem
 	{
 		// Attribute
-		List<String> Items;
+		ArrayList<String> Items;
 		int ItemsIndex;
 
 		// Constant
@@ -1556,7 +1554,7 @@ public class Menu
 		final int MaxLength = 15;
 
 		// Constructor
-		public MenuItem_ComboBox(String Text, boolean Enabled, boolean Keep, List<String> ItemsText)
+		public MenuItem_ComboBox(String Text, boolean Enabled, boolean Keep, ArrayList<String> ItemsText)
 		{
 			// Initialize super attribute
 			super(Text, Enabled, Keep);
@@ -1912,7 +1910,7 @@ public class Menu
 	class MenuWindows_NewGame extends MenuWindows
 	{
 		// Attribute
-		List<List<MenuItem>> Items = new ArrayList<List<MenuItem>>();
+		ArrayList<ArrayList<MenuItem>> Items = new ArrayList<ArrayList<MenuItem>>();
 
 		//Menu_Boolean RecordDemo;
 		Menu_Integer GameMode;
@@ -2000,27 +1998,25 @@ public class Menu
 			RowCursor = 1;
 
 			// Add item to window
-			List<String> Maps = new ArrayList<String>();
-			// Load all map from map folder
+			ArrayList<String> Maps = new ArrayList<String>();
+
+			// Load every map from the res/maps folder
 			try
 			{
-				List<File> FilesInFolder = Files.walk(Paths.get("res/maps/"))
-						.filter(Files::isRegularFile)
-						.map(Path::toFile)
-						.collect(Collectors.toList());
+				ArrayList<String> FilesInFolder = new ArrayList<String>(Arrays.asList((new File("res/maps/")).list()));
 
 				for (int Map = 0; Map < FilesInFolder.size(); Map++)
 				{
-					Maps.add(FilesInFolder.get(Map).getName().substring(0, FilesInFolder.get(Map).getName().indexOf(".")));
+					Maps.add(FilesInFolder.get(Map).substring(0, FilesInFolder.get(Map).indexOf(".")));
 				}
 			}
-			catch (IOException ex)
+			catch (Exception ex)
 			{
-				System.out.println("Error while loading file from maps folder");
+				System.err.println("Error while loading file(s) from res/maps folder.");
 			}
 
 			// Column with GameMode Radio buttons, Record Demo Checkbox, KillLimit and Connect Button
-			List<MenuItem> Column1 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column1 = new ArrayList<MenuItem>();
 			Column1.add(new MenuItem("GameMode", false, true));
 			Column1.add(RadioGroup.RadioButtons[0]);
 			Column1.add(RadioGroup.RadioButtons[1]);
@@ -2035,7 +2031,7 @@ public class Menu
 			Column1.add(new MenuItem("Start", true, false));
 
 			// Column with Image ("special Texture"), Save as TextBox, TimeLimit and close button
-			List<MenuItem> Column2 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column2 = new ArrayList<MenuItem>();
 			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem("", false, false)); // Spacer
 			Column2.add(new MenuItem("", false, false)); // Spacer
@@ -2487,7 +2483,7 @@ public class Menu
 	class MenuWindows_JoinGame extends MenuWindows
 	{
 		// Attribute
-		List<List<MenuItem>> Items;
+		ArrayList<ArrayList<MenuItem>> Items;
 
 		int RowCursor;
 		int ColumnCursor;
@@ -2506,7 +2502,7 @@ public class Menu
 			super(Title, Width, Height);
 
 			// Initialize Items array
-			Items = new ArrayList<List<MenuItem>>();
+			Items = new ArrayList<ArrayList<MenuItem>>();
 
 			// Initialize cursor
 			RowCursor = 0;
@@ -2528,12 +2524,12 @@ public class Menu
 			PosTextBox[1] = 0;
 
 			// Initialize first column
-			List<MenuItem> Column1 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column1 = new ArrayList<MenuItem>();
 			Column1.add(new MenuItem_TextBox("Ip", true, false));
 			Column1.add(new MenuItem("Connect", true, false));
 
 			// Initialize second column
-			List<MenuItem> Column2 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column2 = new ArrayList<MenuItem>();
 			Column2.add(new MenuItem("", false, false));
 			Column2.add(new MenuItem("Close", true, false));
 
@@ -2899,7 +2895,7 @@ public class Menu
 	class MenuWindow_About extends MenuWindows
 	{
 		// Attribute
-		List<List<MenuItem>> Items;
+		ArrayList<ArrayList<MenuItem>> Items;
 
 		// Constant
 		final double TitleHeight = 10.25d; // Smaller = Bigger.
@@ -2911,10 +2907,10 @@ public class Menu
 			super(Title, Width, Height);
 
 			// Add text item to window
-			Items = new ArrayList<List<MenuItem>>();
+			Items = new ArrayList<ArrayList<MenuItem>>();
 
 			// Column 1
-			List<MenuItem> Column1 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column1 = new ArrayList<MenuItem>();
 			Column1.add(new MenuItem("Developer:", false, true));
 			Column1.add(new MenuItem("", false, true)); // Spacer
 			Column1.add(new MenuItem("", false, true)); // Spacer
@@ -2924,7 +2920,7 @@ public class Menu
 			Column1.add(new MenuItem("", false, true)); // Spacer
 
 			// Column 2
-			List<MenuItem> Column2 = new ArrayList<MenuItem>();
+			ArrayList<MenuItem> Column2 = new ArrayList<MenuItem>();
 			Column2.add(new MenuItem("Alexandre-Xavier Labonte-Lamoureux", false, true));
 			Column2.add(new MenuItem("Francis Bourgault", false, true)); // Spacer
 			Column2.add(new MenuItem("Andy Sergerie", false, true)); // Spacer
@@ -3181,14 +3177,14 @@ public class Menu
 	Menu_Integer MouseSensitivity; // Define mouse sensitivity
 
 	// Attribute for menu
-	List<List<MenuItem>> Items;
+	ArrayList<ArrayList<MenuItem>> Items;
 
 	private boolean Active = false;		// Show or hide the menu
 	private int MenuBarCursor = 0; // Cursor of menu bar
 	private int SubMenuCursor = 0; // Sub menu cursor
 	private boolean Locked; // Define whether the cursor can move or not
-	public List<Texture> FontArray; // Font for the menu
-	public List<Texture> SpecialImageArray; // Image for gamemode and other special image
+	public ArrayList<Texture> FontArray; // Font for the menu
+	public ArrayList<Texture> SpecialImageArray; // Image for gamemode and other special image
 	private boolean ExitWindow = false; // Use when exiting window to ignore lock
 
 	int[] PosQuit; // Define where the MenuItem with QuitGame function is
@@ -3292,10 +3288,10 @@ public class Menu
 		PosExit[1] = 5;
 
 		// Initialize array of array
-		Items = new ArrayList<List<MenuItem>>();
+		Items = new ArrayList<ArrayList<MenuItem>>();
 
 		// Game array
-		List<MenuItem> Game = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> Game = new ArrayList<MenuItem>();
 		Game.add(new MenuItem("Game", true, false));
 		MenuWindows_NewGame GameWin = new MenuWindows_NewGame("New Game", 55, 67);
 		Game.add(new MenuItem_Windows("New Game", true, false, GameWin));
@@ -3309,7 +3305,7 @@ public class Menu
 		Game.add(new MenuItem("Exit", true, false));
 
 		// Option Array
-		List<MenuItem> Option = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> Option = new ArrayList<MenuItem>();
 		Option.add(new MenuItem("Option", true, false));
 		Option.add(new MenuItem_CheckBox("Show aiming cursor", true, false, AimingCursor));
 		Option.add(new MenuItem_CheckBox("Show HUD", true, false, ShowHud));
@@ -3317,13 +3313,13 @@ public class Menu
 		Option.add(new MenuItem_CheckBox("Show Debug", true, false, ShowDebug));
 
 		// Control Array
-		List<MenuItem> Control = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> Control = new ArrayList<MenuItem>();
 		Control.add(new MenuItem("Control", true, false));
 		Control.add(new MenuItem_CheckBox("Grab mouse", true, false, GrabMouse));
 		Control.add(new MenuItem_HorSlider("Mouse Sensitivity", true , false, 0, 100, MouseSensitivity));
 
 		// Sound Array
-		List<MenuItem> Sound = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> Sound = new ArrayList<MenuItem>();
 		Sound.add(new MenuItem("Sound", true, false));
 		Sound.add(new MenuItem_HorSlider("SFX Volume", true, false, 0, 100, SFXVolume));
 		Sound.add(new MenuItem("Mode ", false, true));
@@ -3347,7 +3343,7 @@ public class Menu
 		}
 
 		// Video Array
-		List<MenuItem> Video = new ArrayList<MenuItem>();
+		ArrayList<MenuItem> Video = new ArrayList<MenuItem>();
 		Video.add(new MenuItem("Video", true, false));
 		Video.add(new MenuItem_CheckBox("Fullscreen", true, false, Fullscreen));
 		Video.add(new MenuItem_CheckBox("Enable Filtering", true, false, Filtering));
@@ -3367,7 +3363,7 @@ public class Menu
 	}
 
 	// Load image file into array at startup to avoid having to load font each time we need them
-	private void LoadFont(String Folder, List<Texture> FontList)
+	private void LoadFont(String Folder, ArrayList<Texture> FontList)
 	{
 		// Loading number
 		for (char Number = Char0Index; Number <= Char9Index; Number++)

@@ -17,14 +17,10 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.ServerSocket;
 
 public class Netplay
 {
-	public static int FrameRate = 30;  // Fuck you, that's why!
+	public static int FrameRate = Game.FrameRate;
 
 	public class NetCommand
 	{

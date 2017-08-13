@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
-import java.io.*;   // File Object
+import java.io.File;
 
 import org.lwjgl.BufferUtils;
 

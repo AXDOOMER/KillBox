@@ -14,7 +14,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;  // GL_NEAREST
 

@@ -27,6 +27,7 @@ public class Game
 {
 	static int TicksCount = 0;
 	static int WallsFilter = GL_NEAREST;
+	final static int FrameRate = 30;
 
 	public static void main(String[] args)
 	{
@@ -46,7 +47,6 @@ public class Game
 		HashMap<String, Integer> Parameters = new HashMap<String, Integer>();
 
 		// The frame rate and the time limit to execute a frame
-		final int FrameRate = 30;
 		final double TimeFrameLimit = (1 / (double)FrameRate) * 1000;
 		boolean ShowFrameRate = false;
 
