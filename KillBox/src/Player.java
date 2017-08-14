@@ -68,7 +68,7 @@ public class Player
 	final int Acceleration = 50/8;
 	final int Deceleration = 2;
 	final int Radius = 16;
-	final int Height = 56;
+	final static int Height = 56;
 	int MaxHealth = 100;
 	int Health = MaxHealth;
 
@@ -312,8 +312,8 @@ public class Player
 			Bullets--;
 
 			float Step = 4;        // Incremental steps at which the bullet checks for collision
-			float BulletRadius = Step;
-			int MaxChecks = 2048;        // Max check for the reach of a bullet
+			final float BulletRadius = 4;	// When smaller than 4, bullets can pass between walls junctions
+			final int MaxChecks = 2048;        // Max check for the reach of a bullet
 			Shot = true;    // Set shot property tot he player so it's transmitted over the network
 			JustShot = true;    // Set to true so the gun fire is displayed in the camera
 
@@ -350,10 +350,7 @@ public class Player
 				TravelY = this.PosY();
 
 				// Use bigger steps for walls
-				if (Step <= 4)
-				{
-					Step *= 2;
-				}
+				Step = 8;
 
 				// Move the bullet and check for collision
 				for (int Point = 0; Point < MaxChecks; Point++)

@@ -35,7 +35,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	final String GameVersion = "v2.0";
-	final String LastUpdate = "August 12 2017 8:44PM";
+	final String LastUpdate = "August 12 2017 19:58";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -2007,7 +2007,12 @@ public class Menu
 
 				for (int Map = 0; Map < FilesInFolder.size(); Map++)
 				{
-					Maps.add(FilesInFolder.get(Map).substring(0, FilesInFolder.get(Map).indexOf(".")));
+					String Name = FilesInFolder.get(Map).substring(0, FilesInFolder.get(Map).indexOf("."));
+					// They are not regular maps. They shouldn't be visible to regular players.
+					if (!Name.equals("demo") && !Name.equals("test"))
+					{
+						Maps.add(Name);
+					}
 				}
 			}
 			catch (Exception ex)

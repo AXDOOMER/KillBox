@@ -201,6 +201,7 @@ public class Plane
 		return MaxFlatLengthFound;
 	}
 
+	// This code assumes that the player stays at the same height forever
 	public boolean CanBlock()
 	{
 		// Check if this plane may block players
@@ -233,7 +234,7 @@ public class Plane
 			}
 
 			// Check if the player would be able to touch the plane
-			if (Lowest >= 56 && Highest >= 56)	// TODO: Remove magic numbers
+			if (Lowest >= Player.Height && Highest >= Player.Height)
 			{
 				// The wall is far above the player
 				return CanBlock();
@@ -241,6 +242,11 @@ public class Plane
 			else if (Lowest <= 0 && Highest <= 0)
 			{
 				// The wall is below the player
+				return CanBlock();
+			}
+			else if (Lowest == Highest)
+			{
+				// It's flat, every point on that plane has a equal height.
 				return CanBlock();
 			}
 			else
