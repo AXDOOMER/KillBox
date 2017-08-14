@@ -789,10 +789,12 @@ public class Game
 		catch (NullPointerException npe)
 		{
 			System.err.println("Error while reading the value of an item from the configuration file.");
+			System.exit(1);
 		}
 		catch (NumberFormatException nfe)
 		{
 			System.err.println("A setting from the configuration file is invalid or missing.");
+			System.exit(1);
 		}
 
 		if (ConfigFile != null)

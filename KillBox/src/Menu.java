@@ -35,7 +35,7 @@ public class Menu
 	public boolean UserWantsToExit = false;
 
 	final String GameVersion = "v2.0";
-	final String LastUpdate = "August 12 2017 19:58";
+	final String LastUpdate = "August 12 2017 20:27";
 
 	public String Address = null;
 	public int GameMode = 0;
@@ -3237,7 +3237,7 @@ public class Menu
 	{
 		// Initialize attribute for control
 		Fullscreen = new Menu_Boolean();
-		Fullscreen.Bool(true);
+		Fullscreen.Bool(false);
 
 		AimingCursor = new Menu_Boolean();
 		AimingCursor.Bool(true);
@@ -3246,10 +3246,10 @@ public class Menu
 		ShowHud.Bool(true);
 
 		ShowDebug = new Menu_Boolean();
-		ShowDebug.Bool(true);
+		ShowDebug.Bool(false);
 
 		GrabMouse = new Menu_Boolean();
-		GrabMouse.Bool(false);
+		GrabMouse.Bool(true);
 
 		Filtering = new Menu_Boolean();
 		Filtering.Bool(true);
