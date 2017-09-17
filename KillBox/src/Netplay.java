@@ -663,7 +663,7 @@ public class Netplay
 
 		Lvl.Players.get(Number).JustSpawned = false;
 
-		// Change weapon 1
+		// Change weapon
 		Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
 		Lvl.Players.get(Number).ExecuteChangeWeapon();
 		OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
@@ -705,7 +705,7 @@ public class Netplay
 
 		Lvl.Players.get(View).JustSpawned = false;
 
-		// Change weapon 1
+		// Change weapon
 		Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
 		Lvl.Players.get(View).ExecuteChangeWeapon();
 		PlayerCommand.Actions -= PlayerCommand.Actions;

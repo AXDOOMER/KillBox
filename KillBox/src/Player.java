@@ -25,8 +25,8 @@ public class Player
 	float PosZ;	// Height, do not mix with Y.
 	short Angle = 8192;	// Angles, from -16384 to 16383.
 
-	// Weapon
-	final int MaxOwnedWeapons = 10;
+	// Weapon (there are three weapons)
+	final int MaxOwnedWeapons = 4;	// Weapon 0 is the index sent over the network when there's no weapon change.
 	int SelectedWeapon = 1;
 	int WeaponToSelect = 1;
 	int WeaponToUse = 1;
@@ -34,9 +34,9 @@ public class Player
 	Texture SelectedWeaponSprite;
 	Texture GunFire;
 	int[] MaxBulletsPerWeapon = {0, 10, 20, 30};
-	float[] WeaponAccuracy = {0, 1 * (float)Math.PI / 180, 5 * (float)Math.PI / 180, 10 * (float)Math.PI / 180};
+
 	int[] WeaponSpeed = {0, -1, 4, 2};
-	int WeaponTimeSinceLastShot = GetHighestWeaponSpeedFromArray() + 1;
+	int WeaponTimeSinceLastShot = 5;	// Must larger than the biggest number of WeaponSpeed[]
 	int Bullets = MaxBulletsPerWeapon[1];
 	public boolean TriggerAlreadyPressed = false;
 
@@ -99,7 +99,7 @@ public class Player
 	Sound Emitter = null;	// Must get the already initialized SndDriver
 	Level Lvl = null;		// The player must know where he is
 	Random Randomizer = null;
-	final int MaxTriesBeforeFreeSpawnIsFound = 30;
+	final int MaxTriesBeforeFreeSpawnIsFound = 10;
 	boolean Ghost = false;
 
 	public Player(Level Lvl, Sound Output)
@@ -120,20 +120,6 @@ public class Player
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
-	}
-
-	public int GetHighestWeaponSpeedFromArray()
-	{
-		int Max = 0;
-		for (int Index = 0; Index < WeaponSpeed.length; Index++)
-		{
-			if (WeaponSpeed[Index] > Max)
-			{
-				Max = WeaponSpeed[Index];
-			}
-		}
-
-		return Max;
 	}
 
 	public void LoadSprites()
@@ -698,15 +684,7 @@ public class Player
 							// If it wasn't impassable, then may be it can be picked up.
 							if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Ak47))
 							{
-								boolean Found = false;
-								for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
-								{
-									if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Ak47))
-									{
-										Found = true;
-									}
-								}
-								if (!Found)
+								if (OwnedWeapons[3] == null)
 								{
 									OwnedWeapons[3] = Thing.Names.Ak47;
 									ChangeWeapon(3);
@@ -716,15 +694,7 @@ public class Player
 							}
 							else if (Lvl.Things.get(Thingie).Type.equals(Thing.Names.Tek9))
 							{
-								boolean Found = false;
-								for (int Weapon = 0; Weapon < MaxOwnedWeapons; Weapon++)
-								{
-									if (OwnedWeapons[Weapon] != null && OwnedWeapons[Weapon].equals(Thing.Names.Tek9))
-									{
-										Found = true;
-									}
-								}
-								if (!Found)
+								if (OwnedWeapons[2] == null)
 								{
 									OwnedWeapons[2] = Thing.Names.Tek9;
 									ChangeWeapon(2);
@@ -1018,39 +988,6 @@ public class Player
 		Health = Health + Change;
 	}
 
-	public int GetDamageDoneBySelectedWeapon()
-	{
-		if (SelectedWeapon > 0)
-		{
-			if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Pistol))
-			{
-				return 10;
-			}
-			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Tek9))
-			{
-				return 5;
-			}
-			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Ak47))
-			{
-				return 15;
-			}
-			else
-			{
-				System.err.println("Player->GetDamageDoneBySelectedWeapon() says unknown weapon selected.");
-				System.exit(1);
-			}
-
-			return 10;
-		}
-		else
-		{
-			System.err.println("Player->GetDamageDoneBySelectedWeapon() says no weapon selected.");
-			System.exit(1);
-		}
-
-		return 0;
-	}
-
 	public void Place(float NewX, float NewY, float NewZ, short Angle)
 	{
 		PosX = NewX;
@@ -1247,7 +1184,8 @@ public class Player
 				{
 					if (OwnedWeapons[Weapon] != null)
 					{
-						// Only load the weapon texture if the player changed weapon. Else, no need to reload it again.
+						// Only load the weapon texture if the player changed weapon.
+						// Else, no need to reload it again.
 						if (Weapon != SelectedWeapon && Weapon != WeaponToSelect)
 						{
 							WeaponToUse = Weapon;
@@ -1342,6 +1280,19 @@ public class Player
 				DroppingWeapon = true;
 			}
 		}
+	}
+
+	public boolean IsWeaponOwned(Thing.Names Weapon)
+	{
+		for (int MyWeapon = 0; MyWeapon < MaxOwnedWeapons; MyWeapon++)
+		{
+			if (OwnedWeapons[MyWeapon] == Weapon)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public boolean JustShot()

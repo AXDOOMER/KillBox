@@ -86,7 +86,7 @@ public class Thing
 					Radius = 16;
 					Health = 1000;
 					Height = 56;
-					Sprite = null; //new Texture("res/spawn/spawn1.png", TextureFilter);
+					Sprite = null;
 					break;
 
 				default:

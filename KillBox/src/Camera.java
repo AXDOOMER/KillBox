@@ -321,19 +321,15 @@ public class Camera
 				// Change weapon
 				if (Keyboard.isKeyDown(Keyboard.KEY_1))
 				{
-					CurrentPlayer().WeaponToUse = 1;
+					CurrentPlayer().WeaponToUse = 1;	// Pistol
 				}
 				else if (Keyboard.isKeyDown(Keyboard.KEY_2))
 				{
-					CurrentPlayer().WeaponToUse = 2;
+					CurrentPlayer().WeaponToUse = 2;	// Tek9
 				}
 				else if (Keyboard.isKeyDown(Keyboard.KEY_3))
 				{
-					CurrentPlayer().WeaponToUse = 3;
-				}
-				else if (Keyboard.isKeyDown(Keyboard.KEY_4))
-				{
-					CurrentPlayer().WeaponToUse = 4;
+					CurrentPlayer().WeaponToUse = 3;	// Ak47
 				}
 			}
 		}
@@ -533,11 +529,7 @@ public class Camera
 			for (int Thing = 0; Thing < Lvl.Things.size(); Thing++)
 			{
 				// Only check for the first five weapons
-				if (Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[1] ||
-					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[2] ||
-					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[3] ||
-					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[4] ||
-					Lvl.Things.get(Thing).Type == CurrentPlayer().OwnedWeapons[5])
+				if (Plyr.IsWeaponOwned(Lvl.Things.get(Thing).Type))
 				{
 					// Don't draw the weapon on the map if it's owned
 					continue;
