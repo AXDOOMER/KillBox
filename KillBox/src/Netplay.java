@@ -548,12 +548,12 @@ public class Netplay
 			Lvl.Players.get(View).ReloadWeapon();
 			PlayerCommand.Actions -= 1000;
 		}
-		// Command to shot
+		// Command to shoot
 		if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
 		{
 			if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
 			{
-				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, Lvl.Players.get(View).GetWeaponDamage());
 			}
 			else if (Lvl.Players.get(View).JustSpawned)
 			{
@@ -578,7 +578,7 @@ public class Netplay
 
 		Lvl.Players.get(View).JustSpawned = false;
 
-		// Change weapon 1
+		// Change weapon
 		Lvl.Players.get(View).ChangeWeapon(PlayerCommand.Actions);
 		Lvl.Players.get(View).ExecuteChangeWeapon();
 		PlayerCommand.Actions -= PlayerCommand.Actions;
@@ -594,7 +594,7 @@ public class Netplay
 		{
 			if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
 			{
-				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, Lvl.Players.get(Number).GetWeaponDamage());
 			}
 			else if (Lvl.Players.get(Number).JustSpawned)
 			{
@@ -619,7 +619,7 @@ public class Netplay
 
 		Lvl.Players.get(Number).JustSpawned = false;
 
-		// Change weapon 1
+		// Change weapon
 		Lvl.Players.get(Number).ChangeWeapon(OtherPlayersCommand.get(Player).Actions);
 		Lvl.Players.get(Number).ExecuteChangeWeapon();
 		OtherPlayersCommand.get(Player).Actions -= OtherPlayersCommand.get(Player).Actions;
@@ -638,7 +638,7 @@ public class Netplay
 		{
 			if (Lvl.Players.get(Number).Health > 0 && !Lvl.Players.get(Number).JustSpawned)
 			{
-				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, 10);
+				Lvl.Players.get(Number).HitScan(Lvl.Players.get(Number).GetRadianAngle(), 0, Lvl.Players.get(Number).GetWeaponDamage());
 			}
 			else if (Lvl.Players.get(Number).JustSpawned)
 			{
@@ -676,12 +676,12 @@ public class Netplay
 			Lvl.Players.get(View).ReloadWeapon();
 			PlayerCommand.Actions -= 1000;
 		}
-		// Command to shot
+		// Command to shoot
 		if (PlayerCommand.Actions / 100 == 1 || PlayerCommand.Actions / 100 == 11) // Do my command first
 		{
 			if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
 			{
-				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, 10);
+				Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, Lvl.Players.get(View).GetWeaponDamage());
 			}
 			else if (Lvl.Players.get(View).JustSpawned)
 			{

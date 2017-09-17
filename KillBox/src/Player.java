@@ -35,10 +35,11 @@ public class Player
 	Texture GunFire;
 	int[] MaxBulletsPerWeapon = {0, 10, 20, 30};
 
-	int[] WeaponSpeed = {0, -1, 4, 2};
-	int WeaponTimeSinceLastShot = 5;	// Must larger than the biggest number of WeaponSpeed[]
+	int[] WeaponSpeed = {0, -1, 2, 3};
+	int WeaponTimeSinceLastShot = 5;	// Must be larger than the biggest number of WeaponSpeed[]
 	int Bullets = MaxBulletsPerWeapon[1];
 	public boolean TriggerAlreadyPressed = false;
+	final int BulletFeedbackForce = 10;
 
 	int Action = 0;
 	int Tick = 0;
@@ -55,12 +56,6 @@ public class Player
 	final int DefaultViewZ = 42;
 	final int HeadOnFloor = 12;
 	int ViewZ = DefaultViewZ;
-
-	public enum DamageIndicatorDirection
-	{
-		None, Front, Both, Left, Right, Back
-	}
-	DamageIndicatorDirection Damages = DamageIndicatorDirection.None;
 
 	final int Rotations = 8;
 	static public ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
@@ -143,46 +138,13 @@ public class Player
 		}
 	}
 
-	public String BuildNetCmd()
-	{
-		String Command = "";        //#!*/
-		Command = Command + (char) ((int) Angle + 32768);
-		return Command;
-	}
-
 	public void DamageSelf(int Damage, float DmgSrcX, float DmgSrcY)
 	{
 		Emitter.PlaySound("hurt.wav", this);
 
-		float Angle = (float) Math.atan2(DmgSrcY, DmgSrcX);
+		Push(BulletFeedbackForce, (float)Math.atan2(this.PosY() - DmgSrcY, this.PosX() - DmgSrcX));
 
 		HealthChange(-Damage);
-
-		if (Angle >= Math.PI / 4 && Angle >= -Math.PI / 4)
-		{
-			// It's at the player's right
-			Damages = DamageIndicatorDirection.Right;
-		}
-		else if (Angle >= Math.PI - Math.PI / 4 && Angle >= -Math.PI - Math.PI / 4)
-		{
-			// It's at the player's left
-			Damages = DamageIndicatorDirection.Left;
-		}
-		else if (Angle <= -Math.PI - Math.PI / 4 && Angle <= -Math.PI / 4)
-		{
-			// It's at the player's back
-			Damages = DamageIndicatorDirection.Back;
-		}
-		else if (Angle >= Math.PI / 4 && Angle <= Math.PI - Math.PI / 4)
-		{
-			// It's at the player's front
-			Damages = DamageIndicatorDirection.Front;
-		}
-		else
-		{
-			// Unknown
-			Damages = DamageIndicatorDirection.None;
-		}
 	}
 
 	// For the network code only
@@ -918,10 +880,11 @@ public class Player
 		HasMoved = false;
 	}
 
-	public void Throw(int Thrust, short Direction)
+	// Push player
+	public void Push(int Force, float Direction)
 	{
-		MoX += Thrust * Math.cos(Direction * (float) Math.PI * 2 / 32768);
-		MoY += Thrust * Math.sin(Direction * (float) Math.PI * 2 / 32768);
+		MoX += Force * Math.cos(Direction);
+		MoY += Force * Math.sin(Direction);
 	}
 
 	public float GetRadianAngle()
@@ -986,6 +949,35 @@ public class Player
 	{
 		// Apply damages to the player
 		Health = Health + Change;
+	}
+
+	public int GetWeaponDamage()
+	{
+		if (SelectedWeapon > 0 && SelectedWeapon < MaxOwnedWeapons)
+		{
+			if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Pistol))
+			{
+				return 14;
+			}
+			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Tek9))
+			{
+				return 7;
+			}
+			else if (OwnedWeapons[SelectedWeapon].equals(Thing.Names.Ak47))
+			{
+				return 10;
+			}
+			else
+			{
+				System.err.println("Unknown weapon selected: " + OwnedWeapons[SelectedWeapon].name());
+			}
+		}
+		else
+		{
+			System.err.println("Invalid weapon selected: " + SelectedWeapon);
+		}
+
+		return 0;
 	}
 
 	public void Place(float NewX, float NewY, float NewZ, short Angle)
