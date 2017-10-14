@@ -270,9 +270,6 @@ public class Game
 				}
 			}
 
-			// Load the texture "sprites" that will be used to represent the players in the game
-			Lvl.Players.get(0).LoadSprites();
-
 			if (NetplayInfo != null && !ShowFrameRate)
 			{
 				if (NetplayInfo.Server != null)

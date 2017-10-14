@@ -115,9 +115,16 @@ public class Player
 
 		// Create a reference to the pseudo random number generator
 		Randomizer = new Random();
+
+		// Load the textures that will be used as sprites to represent the players in the game
+		if (WalkFrames.size() == 0)
+		{
+			// This populates the static array
+			LoadSprites();
+		}
 	}
 
-	public void LoadSprites()
+	private void LoadSprites()
 	{
 		// Load Sprites for the Players
 		final int LastFrame = 'G';
