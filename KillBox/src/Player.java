@@ -187,6 +187,13 @@ public class Player
 			return 0;
 		}
 	}
+
+	// Will calculate a distance and compare it to a length. This method avoids doing a square root.
+	private boolean CompareDistanceToLength(float DiffX, float DiffY, float Length)
+	{
+		return Math.pow(DiffX, 2) + Math.pow(DiffY, 2) <= Length * Length;
+	}
+
 	// Check if this coordinate is inside a player then return this player
 	public Player PointInPlayer(float CoordX, float CoordY, float CoordZ)
 	{
@@ -204,11 +211,9 @@ public class Player
 				Lvl.Players().get(Player).Height)
 			{
 				// Now, check if it's inside the player's radius
-				float Distance = (float)Math.sqrt(
-						Math.pow(Lvl.Players().get(Player).PosX() - CoordX, 2) +
-						Math.pow(Lvl.Players().get(Player).PosY() - CoordY, 2));
-
-				if (Distance <= Lvl.Players().get(Player).Radius)
+				if (CompareDistanceToLength(Lvl.Players().get(Player).PosX() - CoordX,
+					Lvl.Players().get(Player).PosY() - CoordY,
+					Lvl.Players().get(Player).Radius))
 				{
 					return Lvl.Players().get(Player);
 				}
@@ -622,13 +627,10 @@ public class Player
 				continue;
 			}
 
-			// Distance calculation for the 2D collision test
-			float Distance = (float) Math.sqrt(
-					Math.pow(NewX - Lvl.Things.get(Thingie).PosX(), 2) +
-							Math.pow(NewY - Lvl.Things.get(Thingie).PosY(), 2));
-
-			// Test 2D collision
-			if (Distance <= this.Radius() + Lvl.Things.get(Thingie).Radius())
+			// Test 2D collision using the distance
+			if (CompareDistanceToLength(NewX - Lvl.Things.get(Thingie).PosX(),
+				NewY - Lvl.Things.get(Thingie).PosY(),
+				this.Radius() + Lvl.Things.get(Thingie).Radius()))
 			{
 				// Test the Z axis. Both players have the same height.
 				if (Math.abs(this.PosZ() - Lvl.Things.get(Thingie).PosZ()) <= Height())
@@ -641,7 +643,8 @@ public class Player
 						{
 							// Collision! Return the angle toward the other player.
 
-							float Glide = (float) Math.atan2(Lvl.Things.get(Thingie).PosY() - PosY + NewY, Lvl.Things.get(Thingie).PosX() - PosX + NewX);
+							float Glide = (float)Math.atan2(Lvl.Things.get(Thingie).PosY() - PosY + NewY,
+															Lvl.Things.get(Thingie).PosX() - PosX + NewX);
 
 							return Glide - GetRadianAngle();
 						}
@@ -709,19 +712,18 @@ public class Player
 				continue;
 			}
 
-			float Distance = (float)Math.sqrt(
-					Math.pow(NewX - Lvl.Players().get(Player).PosX(), 2) +
-							Math.pow(NewY - Lvl.Players().get(Player).PosY(), 2));
-
 			// Test 2D collision
-			if (Distance <= this.Radius() + Lvl.Players().get(Player).Radius())
+			if (CompareDistanceToLength(NewX - Lvl.Players().get(Player).PosX(),
+				NewY - Lvl.Players().get(Player).PosY(),
+				this.Radius() + Lvl.Players().get(Player).Radius()))
 			{
 				// Test the Z axis. Both players have the same height.
 				if (Math.abs(this.PosZ() - Lvl.Players().get(Player).PosZ()) <= Height())
 				{
 					// Collision! Return the angle toward the other player.
 
-					float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY, Lvl.Players().get(Player).PosX() - PosX + NewX);
+					float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY,
+													Lvl.Players().get(Player).PosX() - PosX + NewX);
 
 					return Glide - GetRadianAngle();
 
@@ -769,10 +771,9 @@ public class Player
 
 			// Test the distance to one vertex and if there is a possibility that the player can hit the wall
 			float WallLength = Lvl.Planes.get(Plane).FlatLength;
-			float DistanceToOneWallVertex = (float)Math.sqrt(Math.pow(StartX - NewX, 2) + Math.pow(StartY - NewY, 2));
 
 			// If the plane is close, it can possibly be collided with.
-			if (DistanceToOneWallVertex <= WallLength + RadiusToUse)
+			if (CompareDistanceToLength(StartX - NewX, StartY - NewY, WallLength + RadiusToUse))
 			{
 				// Get the orthogonal vector, so invert the use of 'sin' and 'cos' here. 
 				float OrthPlayerStartX = NewX + (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
@@ -797,25 +798,21 @@ public class Player
 					float CollX = StartX + (PointPlayerOrth * WallDiffX);
 					float CollY = StartY + (PointPlayerOrth * WallDiffY);
 
-					float Distance = (float) Math.sqrt(Math.pow(NewX - CollX, 2) + Math.pow(NewY - CollY, 2));
-
-					if (Distance <= RadiusToUse)
+					if (CompareDistanceToLength(NewX - CollX, NewY - CollY, RadiusToUse))
 					{
 						return Lvl.Planes.get(Plane);
 					}
 				}
 
 				// Check for a collision on the edge of a wall (using the radius of the player to the endpoints)
-				float Distance = (float) Math.sqrt(Math.pow(NewX - StartX, 2) + Math.pow(NewY - StartY, 2));
-				if (Distance <= RadiusToUse)
+				if (CompareDistanceToLength(NewX - StartX, NewY - StartY, RadiusToUse))
 				{
 					return Lvl.Planes.get(Plane);
 				}
 				else
 				{
 					// Second endpoint
-					Distance = (float) Math.sqrt(Math.pow(NewX - EndX, 2) + Math.pow(NewY - EndY, 2));
-					if (Distance <= RadiusToUse)
+					if (CompareDistanceToLength(NewX - EndX, NewY - EndY, RadiusToUse))
 					{
 						return Lvl.Planes.get(Plane);
 					}
@@ -1097,9 +1094,9 @@ public class Player
 		{
 			if (MustBeFree)
 			{
-				float Distance = (float) Math.sqrt(Math.pow(Lvl.Players.get(Player).PosX() - X, 2) + Math.pow(Lvl.Players.get(Player).PosY() - Y, 2));
-
-				if (Distance <= this.Radius() * 2 && Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
+				if (CompareDistanceToLength(Lvl.Players.get(Player).PosX() - X,
+					Lvl.Players.get(Player).PosY() - Y, this.Radius() * 2) &&
+					Math.abs(Lvl.Players.get(Player).PosZ() - Z) <= this.Height())
 				{
 					FreeSpace = false;
 				}

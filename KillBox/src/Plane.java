@@ -189,11 +189,12 @@ public class Plane
 		{
 			for (int PointToTestAgainst = 0; PointToTestAgainst < NumberOfTest; PointToTestAgainst++)
 			{
-				float Distance = (float)Math.sqrt(Math.pow(Vertices.get(Point * 3) - Vertices.get(PointToTestAgainst * 3), 2) + Math.pow(Vertices.get(Point * 3 + 1) - Vertices.get(PointToTestAgainst * 3 + 1), 2));
+				float Distance = (float)Math.pow(Vertices.get(Point * 3) - Vertices.get(PointToTestAgainst * 3), 2) +
+								(float)Math.pow(Vertices.get(Point * 3 + 1) - Vertices.get(PointToTestAgainst * 3 + 1), 2);
 
-				if (Distance > MaxFlatLengthFound)
+				if (Distance > MaxFlatLengthFound * MaxFlatLengthFound)
 				{
-					MaxFlatLengthFound = Distance;
+					MaxFlatLengthFound = (float)Math.sqrt(Distance);
 				}
 			}
 		}
