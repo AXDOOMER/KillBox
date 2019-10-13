@@ -149,9 +149,13 @@ public class Player
 	{
 		Emitter.PlaySound("hurt.wav", this);
 
-		Push(BulletFeedbackForce, (float)Math.atan2(this.PosY() - DmgSrcY, this.PosX() - DmgSrcX));
-
 		HealthChange(-Damage);
+
+		// Don't move the player if dead
+		if (Health > 0)
+		{
+			Push(BulletFeedbackForce, (float)Math.atan2(this.PosY() - DmgSrcY, this.PosX() - DmgSrcX));
+		}
 	}
 
 	// For the network code only
