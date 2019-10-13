@@ -536,6 +536,7 @@ public class Game
 
 							// The game will start, don't need this anymore. Reset to default value.
 							HeadCamera.Menu.IsServer = false;
+							HeadCamera.DemoMode = false;
 
 							// Create more players if there is not enough for every nodes
 							for (int Player = Lvl.Players.size(); Player < Nodes; Player++)
@@ -590,6 +591,8 @@ public class Game
 
 							HeadCamera.Menu.InGame = true;
 							TicksCount = 0;
+
+							HeadCamera.DemoMode = false;
 
 							Lvl = new Level();
 
