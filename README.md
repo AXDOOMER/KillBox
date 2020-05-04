@@ -4,13 +4,13 @@
 ![Code Size](https://img.shields.io/github/languages/code-size/axdoomer/killbox.svg?style=flat)
 ![License](https://img.shields.io/github/license/axdoomer/killbox.svg?style=flat&logo=gnu)
 
-A simple FPS game that uses LWJGL. It is a Java rewrite of FPS_test from C++. It is distributed under the GNU GPL v3. 
+A multiplayer FPS game that I made with friends during college (2015) using [LWJGL](http://lwjgl.org/). It is distributed under the GNU GPL v3. 
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6194072/15656520/3929f0be-2676-11e6-80ac-94b115237652.jpg)
 
 System requirements: 
-* Java 1.7 (JRE and JDK)
-* The latest version of LWJGL version 2 (not version 3). LWJGL 2.9.3 is included. 
+* Java 1.7 (JRE and JDK).
+* The latest version of [LWJGL version 2](http://legacy.lwjgl.org/) (not version 3). LWJGL 2.9.3 is included. 
 * Your computer must support OpenGL. 
 
 ## How to run on Linux
