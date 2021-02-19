@@ -39,8 +39,7 @@ public class Thing
 
 	public enum Names
 	{
-		Barrel, StimPack, MediPack, Chaingun, Pistol, AmmoClip, AmmoBox, Ak47, Tek9,
-		Shells, ShellBox, Rocket, RocketBox, Cells, Bullet, Plasma, Spawn,
+		Pistol, Ak47, Tek9, Spawn,
 		Blood, DeadPlayer, Flag, PalmTree, SmallPalmTree, Unknown, Custom
 	}
 
@@ -141,38 +140,6 @@ public class Thing
 
 			switch (Value)
 			{
-				case Barrel:
-					Radius = 16;
-					Health = 25;
-					Height = 24;
-					Impassable = true;
-					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Barrel.png", TextureFilter);
-					break;
-				case StimPack:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "StimPack.png", TextureFilter);
-					break;
-				case MediPack:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "MediPack.png", TextureFilter);
-					break;
-				case Chaingun:
-					Health = 10;
-					Radius = 16;
-					Height = 24;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Chaingun.png", TextureFilter);
-					break;
 				case Ak47:
 					Health = 10;
 					Radius = 16;
@@ -196,78 +163,6 @@ public class Thing
 					Impassable = false;
 					CanBePickedUp = true;
 					Sprite = new Texture(ResPath + "Pistol.png", TextureFilter);
-					break;
-				case AmmoClip:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "AmmoClip.png", TextureFilter);
-					break;
-				case AmmoBox:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "AmmoBox.png", TextureFilter);
-					break;
-				case Shells:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Shells.png", TextureFilter);
-					break;
-				case ShellBox:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "ShellBox.png", TextureFilter);
-					break;
-				case Rocket:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Rocket.png", TextureFilter);
-					break;
-				case RocketBox:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "RocketBox.png", TextureFilter);
-					break;
-				case Cells:
-					Radius = 16;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = true;
-					Sprite = new Texture(ResPath + "Cells.png", TextureFilter);
-					break;
-				case Bullet:
-					Radius = 8;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Bullet.png", TextureFilter);
-					break;
-				case Plasma:
-					Radius = 12;
-					Height = 24;
-					Health = 10;
-					Impassable = false;
-					CanBePickedUp = false;
-					Sprite = new Texture(ResPath + "Plasma.png", TextureFilter);
 					break;
 				case Flag:
 					Radius = 16;
