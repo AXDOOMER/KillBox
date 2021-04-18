@@ -13,7 +13,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -51,8 +54,7 @@ public class Player
 	float MoZ = 0;
 	boolean HasMoved = false;
 
-	final int MaxWalkSpeed = 40/8;
-	final int MaxRunSpeed = 70/8;
+	final int MaxRunSpeed = 70/4;
 	final int DefaultViewZ = 42;
 	final int HeadOnFloor = 12;
 	int ViewZ = DefaultViewZ;
@@ -60,8 +62,8 @@ public class Player
 	final int Rotations = 8;
 	static public ArrayList<Texture> WalkFrames = new ArrayList<Texture>();
 
-	final int Acceleration = 50/8;
-	final int Deceleration = 2;
+	final float Acceleration = 50/4;
+	final float Deceleration = 0.1f;
 	final int Radius = 16;
 	final static int Height = 56;
 	int MaxHealth = 100;
@@ -154,7 +156,8 @@ public class Player
 		// Don't move the player if dead
 		if (Health > 0)
 		{
-			Push(BulletFeedbackForce, (float)Math.atan2(this.PosY() - DmgSrcY, this.PosX() - DmgSrcX));
+			// Commented out because it's broken with the new collision detection code
+			//Push(BulletFeedbackForce, (float)Math.atan2(this.PosY() - DmgSrcY, this.PosX() - DmgSrcX));
 		}
 	}
 
@@ -196,6 +199,11 @@ public class Player
 	private boolean CompareDistanceToLength(float DiffX, float DiffY, float Length)
 	{
 		return Math.pow(DiffX, 2) + Math.pow(DiffY, 2) <= Length * Length;
+	}
+
+	private float Distance(float DiffX, float DiffY)
+	{
+		return (float)Math.sqrt(Math.pow(DiffX, 2) + Math.pow(DiffY, 2));
 	}
 
 	// Check if this coordinate is inside a player then return this player
@@ -452,13 +460,14 @@ public class Player
 			}
 			// Don't sidemove when 'SideDirection' is equal to zero
 
-			// Change the position
-			float OldX = PosX;
-			float OldY = PosY;
-
 			if (FrontDirection != 0 || SideDirection != 0)
 			{
-				TryMove(NewX, NewY);
+				// Do it in two steps because the player moves way too fast and can cross walls
+				// Also, doing X and Y separately avoid weird wall gliding
+				TryMove(NewX / 2, 0);
+				TryMove(0, NewY / 2);
+				TryMove(NewX / 2, 0);
+				TryMove(0, NewY / 2);
 			}
 
 			// Flag so it is known that the player wants to move
@@ -493,122 +502,105 @@ public class Player
 		Ghost = NoClipping;
 	}
 
-	// Try every type of collision.
-	public boolean TryMove(float NewX, float NewY)
+	public class CollisionDistanceComparator implements Comparator<CollisionInfo> {
+		@Override
+		public int compare(CollisionInfo o1, CollisionInfo o2) {
+			return Float.compare(o1.Distance, o2.Distance);
+		}
+	}
+
+	Point2D PlayerToPushCollisionReact(float PlayX, float PlayY, float PushX, float PushY, float radii)
 	{
-		float Current = (float)Math.atan2(MoY(), MoX());
-		// Should return the current angle if it's possible to move, else return another...
+		float EPSILON = 1.00f;	// To avoid still touching the player once pushed out of it, push it away by 105%.
 
-		boolean Clear = true;	// Can move
-		float PushAngle = Float.NaN;
-		Plane HitWall = null;
+		float distance = (float)Math.sqrt(Math.pow(PlayX - PushX, 2) + Math.pow(PlayY - PushY, 2));
 
+		if (distance < radii)
+		{
+			float angle = (float)Math.atan2(PlayY - PushY, PlayX - PushX);
+
+			PlayX += (radii - distance) * Math.cos(angle) * EPSILON;
+			PlayY += (radii - distance) * Math.sin(angle) * EPSILON;
+
+			return new Point2D.Float(PlayX, PlayY);	// New position
+		}
+
+		// Same position as before
+		return null;
+	}
+
+	public Point2D ManageWallCollision(float NewX, float NewY) {
+		ArrayList<CollisionInfo> CIAL = CheckWallCollision2(NewX + PosX(), NewY + PosY(), this.Radius(), false);
+
+		// First element will be the closest collision
+		Collections.sort(CIAL, new CollisionDistanceComparator());
+
+		if (CIAL.size() > 0) {
+			// Push player out of collided object
+			Point2D pt = PlayerToPushCollisionReact(NewX + PosX(), NewY + PosY(), CIAL.get(0).CollX, CIAL.get(0).CollY, this.Radius());
+			return pt;
+		}
+
+		return null;
+	}
+
+	// Try every type of collision.
+	public void TryMove(float NewX, float NewY)
+	{
 		// Fuck it when the player repetitively can't move
 		int NumTests = 0;
 
+		MoX = 0;
+		MoY = 0;
+
 		if (!Ghost)
 		{
-			while (Clear && NumTests < this.Radius() * 2)
+			while (NumTests < 5)
 			{
-				NumTests++;
+				Point2D pt;
 
-				// Player against player collision. (Note: if(Float.NaN==Float.NaN) doesn't work)
-				if (!Float.isNaN(PushAngle = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
+				// Player against player collision.
+				if (null != (pt = CheckPlayerToPlayerCollision(NewX + PosX(), NewY + PosY())))
 				{
-					Clear = false;
+					NewX = (float)pt.getX() - PosX();
+					NewY = (float)pt.getY() - PosY();
 				}
 
-				// Player against thing collision
-				if (!Float.isNaN(PushAngle = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
+				MoX = NewX;
+				MoY = NewY;
+
+				if (null != (pt = CheckPlayerToThingsCollision(NewX + PosX(), NewY + PosY())))
 				{
-					Clear = false;
+					NewX = (float)pt.getX() - PosX();
+					NewY = (float)pt.getY() - PosY();
 				}
 
-				// Player against wall collision
-				if (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
+				MoX = NewX;
+				MoY = NewY;
+
+				if (null != (pt = ManageWallCollision(NewX, NewY)))
 				{
-					// Slide against the wall (work in progress)
-/*				float atan = (float)Math.atan2(MoY(), MoX());
+					NewX = (float)pt.getX() - PosX();
+					NewY = (float)pt.getY() - PosY();
 
-				float cosaX = (float)Math.cos(atan);
-				float sinaY = (float)Math.sin(atan);
-
-				// HACK
-				if (NewX < 1 && NewX > -1)
-					NewX = 0.1f;
-				if (NewY < 1 && NewY > -1)
-					NewY = 0.1f;
-
-				NewX = (float)Math.abs(cosaX) * NewX;
-				NewY = (float)Math.abs(sinaY) * NewY;
-
-				//NewX /= 1.3;
-				//NewY /= 1.3;
-//
-//				if (NewX < 1 && NewX > -1)
-//					NewX = 0;
-//				if (NewY < 1 && NewY > -1)
-//					NewY = 0;
-//
-				if (null == (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
-				{
-					if (Clear)
-					{
-						Clear = true;
-					}
+					MoX = NewX;
+					MoY = NewY;
 				}
 				else
 				{
-					int Iteration = 0;
-					while (null != (HitWall = CheckWallCollision(NewX + PosX(), NewY + PosY(), this.Radius(), false)))
-					{
-						System.out.println("STUCK!!! Iteration: " + Iteration++);
-						NewX /= 2;
-						NewY /= 2;
+					MoX = NewX;
+					MoY = NewY;
 
-						// This is a HACK so sliding works a bit on the Y axis
-						if (NewX < 1 && NewX > -1)
-							NewX = 0;
-						if (NewY < 1 && NewY > -1)
-							NewY = 0.1f;
-					}
-
-					Clear = true;
-				}*/
-					Clear = false;
+					// done!
+					break;
 				}
 
-				if (!Clear)
-				{
-					// Divide movement, because we want to move less.
-					NewX /= 2;
-					NewY /= 2;
-					Clear = true;
-				}
+				NumTests++;
 			}
-		}
-
-		// Set corrected momentum that will be used to get the new possible position
-		if (Clear)
-		{
-			MoX = NewX;
-			MoY = NewY;
-		}
-		else if (!Float.isNaN(PushAngle))
-		{
-			// Try to push the player
-			// If the player is already in another player, he's already fucked.
-
-			// TO-DO: Make the player slide against the other's sides [DEVIATE THE MOMENTUM!!!]
-
-			//MoX += (float)Math.cos(PushAngle);
-			//MoY += (float)Math.sin(PushAngle);
 		}
 
 		// Move to the new position. This also limits the player's speed.
 		Move();
-
-		return Clear;
 	}
 
 	public int Frame()
@@ -617,7 +609,7 @@ public class Player
 	}
 
 	// Check collision against things
-	public float CheckPlayerToThingsCollision(float NewX, float NewY)
+	public Point2D CheckPlayerToThingsCollision(float NewX, float NewY)
 	{
 		for (int Thingie = 0; Thingie < Lvl.Things.size(); Thingie++)
 		{
@@ -645,12 +637,12 @@ public class Player
 						// If the thing becomes invisible, it can't block.
 						if (Lvl.Things.get(Thingie).Sprite != null)
 						{
-							// Collision! Return the angle toward the other player.
+							// Collision! Return the point where the colliding object is push out.
+							Point2D pt = PlayerToPushCollisionReact(NewX , NewY,
+									Lvl.Things.get(Thingie).PosX(), Lvl.Things.get(Thingie).PosY(),  this.Radius() + Lvl.Things.get(Thingie).Radius());
 
-							float Glide = (float)Math.atan2(Lvl.Things.get(Thingie).PosY() - PosY + NewY,
-															Lvl.Things.get(Thingie).PosX() - PosX + NewX);
+							return pt;
 
-							return Glide - GetRadianAngle();
 						}
 					}
 					else
@@ -696,11 +688,27 @@ public class Player
 		}
 
 		// If there is no collision, don't return anything.
-		return Float.NaN;
+		return null;
+	}
+
+	public class CollisionInfo
+	{
+		CollisionInfo(float x, float y, float d, float r)
+		{
+			CollX = x;
+			CollY = y;
+			Distance = d;
+			Radius = r;
+		}
+
+		public float CollX;
+		public float CollY;
+		public float Distance = 0;
+		public float Radius = 0;
 	}
 
 	// Check collision against other players
-	public float CheckPlayerToPlayerCollision(float NewX, float NewY)
+	public Point2D CheckPlayerToPlayerCollision(float NewX, float NewY)
 	{
 		for (int Player = 0; Player < Lvl.Players().size(); Player++)
 		{
@@ -718,41 +726,23 @@ public class Player
 
 			// Test 2D collision
 			if (CompareDistanceToLength(NewX - Lvl.Players().get(Player).PosX(),
-				NewY - Lvl.Players().get(Player).PosY(),
-				this.Radius() + Lvl.Players().get(Player).Radius()))
+					NewY - Lvl.Players().get(Player).PosY(),
+					this.Radius() + Lvl.Players().get(Player).Radius()))
 			{
 				// Test the Z axis. Both players have the same height.
 				if (Math.abs(this.PosZ() - Lvl.Players().get(Player).PosZ()) <= Height())
 				{
-					// Collision! Return the angle toward the other player.
+					// Collision! Return the point where the colliding object is push out.
+					Point2D pt = PlayerToPushCollisionReact(NewX , NewY,
+							Lvl.Players().get(Player).PosX(), Lvl.Players().get(Player).PosY(),  this.Radius() + Lvl.Players().get(Player).Radius());
 
-					float Glide = (float)Math.atan2(Lvl.Players().get(Player).PosY() - PosY + NewY,
-													Lvl.Players().get(Player).PosX() - PosX + NewX);
-
-					return Glide - GetRadianAngle();
-
-/*
-					// To the right
-					if (Diff > 0)
-					{
-						Glide += Math.PI / 2;
-						return Glide;
-					}
-					else if (Diff < 0)	// To the right
-					{
-						Glide -= Math.PI / 2;
-						return Glide;
-					}
-
-					// Don't do anything
-					return Float.NaN;
-*/
+					return pt;
 				}
 			}
 		}
 
 		// If there is no collision, don't return anything.
-		return Float.NaN;
+		return null;
 	}
 
 	// Check for collision against walls
@@ -779,7 +769,7 @@ public class Player
 			// If the plane is close, it can possibly be collided with.
 			if (CompareDistanceToLength(StartX - NewX, StartY - NewY, WallLength + RadiusToUse))
 			{
-				// Get the orthogonal vector, so invert the use of 'sin' and 'cos' here. 
+				// Get the orthogonal vector, so invert the use of 'sin' and 'cos' here.
 				float OrthPlayerStartX = NewX + (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
 				float OrthPlayerStartY = NewY + (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
 				float OrthPlayerEndX = NewX - (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
@@ -828,6 +818,86 @@ public class Player
 		return null;
 	}
 
+	// Check for collision against walls
+	public ArrayList<CollisionInfo> CheckWallCollision2(float NewX, float NewY, float RadiusToUse, boolean IsBullet)
+	{
+		ArrayList<CollisionInfo> CIAL = new ArrayList<CollisionInfo>();
+
+		// Test collision against each planes
+		for (int Plane = 0; Plane < Lvl.Planes.size(); Plane++)
+		{
+			// May be a floor or a straight ceiling, so don't care.
+			if (!Lvl.Planes.get(Plane).CanBlock() || (IsBullet && !Lvl.Planes.get(Plane).BlocksBullets))
+			{
+				continue;
+			}
+
+			// Get the vector
+			float StartX = Lvl.Planes.get(Plane).Coordinates[0];
+			float StartY = Lvl.Planes.get(Plane).Coordinates[1];
+			float EndX = Lvl.Planes.get(Plane).Coordinates[2];
+			float EndY = Lvl.Planes.get(Plane).Coordinates[3];
+
+			// Test the distance to one vertex and if there is a possibility that the player can hit the wall
+			float WallLength = Lvl.Planes.get(Plane).FlatLength;
+
+			// If the plane is close, it can possibly be collided with.
+			if (CompareDistanceToLength(StartX - NewX, StartY - NewY, WallLength + RadiusToUse))
+			{
+				// Get the orthogonal vector, so invert the use of 'sin' and 'cos' here.
+				float OrthPlayerStartX = NewX + (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerStartY = NewY + (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerEndX = NewX - (float) Math.sin(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+				float OrthPlayerEndY = NewY - (float) Math.cos(Lvl.Planes.get(Plane).GetAngle()) * RadiusToUse;
+
+				// Cramer's rule, inspiration taken from here: https://stackoverflow.com/a/1968345
+				float WallDiffX = EndX - StartX;    // Vector's X from (0,0)
+				float WallDiffY = EndY - StartY;    // Vector's Y from (0,0)
+				float PlayerWallOrthDiffX = OrthPlayerEndX - OrthPlayerStartX;
+				float PlayerWallOrthDiffY = OrthPlayerEndY - OrthPlayerStartY;
+
+				float Denominator = -PlayerWallOrthDiffX * WallDiffY + WallDiffX * PlayerWallOrthDiffY;
+				float PointWall = (-WallDiffY * (StartX - OrthPlayerStartX) + WallDiffX * (StartY - OrthPlayerStartY)) / Denominator;
+				float PointPlayerOrth = (PlayerWallOrthDiffX * (StartY - OrthPlayerStartY) - PlayerWallOrthDiffY * (StartX - OrthPlayerStartX)) / Denominator;
+
+				// Check if a collision is detected (Also checking if equals to see if it's touching an endpoint)
+				if (PointWall >= 0 && PointWall <= 1 && PointPlayerOrth >= 0 && PointPlayerOrth <= 1)
+				{
+					// Collision detected
+					float CollX = StartX + (PointPlayerOrth * WallDiffX);
+					float CollY = StartY + (PointPlayerOrth * WallDiffY);
+
+					if (CompareDistanceToLength(NewX - CollX, NewY - CollY, RadiusToUse))
+					{
+						float dist = Distance(NewX - CollX, NewY - CollY);
+						CIAL.add(new CollisionInfo(CollX, CollY, dist, this.Radius));
+						continue;
+					}
+				}
+
+				// Check for a collision on the edge of a wall (using the radius of the player to the endpoints)
+				if (CompareDistanceToLength(NewX - StartX, NewY - StartY, RadiusToUse))
+				{
+					float dist = Distance(NewX - StartX, NewY - StartY);
+					CIAL.add(new CollisionInfo(StartX, StartY, dist, this.Radius));
+					continue;
+				}
+				else
+				{
+					// Second endpoint
+					if (CompareDistanceToLength(NewX - EndX, NewY - EndY, RadiusToUse))
+					{
+						float dist = Distance(NewX - EndX, NewY - EndY);
+						CIAL.add(new CollisionInfo(EndX, EndY, dist, this.Radius));
+						continue;
+					}
+				}
+			}
+		}
+
+		return CIAL;
+	}
+
 	public void LimitPlayerSpeed()
 	{
 		// Test if the player is moving too fast
@@ -846,18 +916,8 @@ public class Player
 
 	public void Friction()
 	{
-		// Constant deceleration
-		if (MoX != 0)
-		{
-			MoX /= Deceleration;
-		}
-		if (MoY != 0)
-		{
-			MoY /= Deceleration;
-		}
-
 		// Restore current frame to zero because the player is not moving or not moving enough
-		if (MoX < 1 && MoX > -1 && MoY < 1 && MoY > -1)
+		if (MoX < 0.2 && MoX > -0.2 && MoY < 0.2 && MoY > -0.2)
 		{
 			LastFrame = 0;
 			Frame = 0;
@@ -871,7 +931,12 @@ public class Player
 
 		if (MoX != 0 || MoY != 0)
 		{
-			TryMove(MoX, MoY);
+			// Do it in two steps because the player moves way too fast and can cross walls
+			// Also, doing X and Y separately avoid weird wall gliding
+			TryMove(MoX / 2, 0);
+			TryMove(0, MoY / 2);
+			TryMove(MoX / 2, 0);
+			TryMove(0, MoY / 2);
 		}
 	}
 

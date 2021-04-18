@@ -311,6 +311,22 @@ thing:
 	z: 0;
 }
 
+thing:
+{
+	type: palmtree;
+	x: -990;
+	y: 400;
+	z: 0;
+}
+
+thing:
+{
+	type: smallpalmtree;
+	x: -530;
+	y: 128;
+	z: 0;
+}
+
 spawn:
 {
 	x: -700;
