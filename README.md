@@ -8,34 +8,43 @@ A multiplayer FPS game that I made with friends during college (2015) using [LWJ
 
 ![alt tag](https://cloud.githubusercontent.com/assets/6194072/15656520/3929f0be-2676-11e6-80ac-94b115237652.jpg)
 
-System requirements: 
-* Java 1.7 (JRE and JDK).
-* The latest version of [LWJGL version 2](http://legacy.lwjgl.org/) (not version 3). LWJGL 2.9.3 is included. 
-* Your computer must support OpenGL. 
+System requirements:
+* To **run the pre-built JAR**: Java 11 or later (JRE is sufficient).
+* To **build from source**: Java 17–26 (Gradle 9.x requirement; JDK required).
+* Your computer must support OpenGL.
+* LWJGL 3 is fetched automatically by Gradle — no manual download needed.
 
-## How to run on Linux
-Install the latest Java from Oracle's website. 
-Go in the KillBox master directory (which has GridLevelMaker and license.txt), then in the "KillBox" directory. 
-Copy the files from the "src" directory into the current directory. 
+## Building and running
 
-Compile using:
-```
-javac *.java -cp res/lwjgl.jar:res/lwjgl_util.jar
-```
+The project uses Gradle. The wrapper script (`gradlew`) is included, so no Gradle installation is required.
 
-Launch the game using:
-```
-java -cp res/lwjgl.jar:res/lwjgl_util.jar:. -Djava.library.path="./res" Game
+### Linux and macOS
+
+From the `KillBox/` directory (the one that contains `build.gradle`):
+
+```sh
+./gradlew run
 ```
 
-Alternatively, use the script `compile-and-run.sh` that's located in the `res` folder.
+On macOS, GLFW requires the main thread, so the JVM flag `-XstartOnFirstThread` is applied automatically by the build script.
 
-## Run on Windows
-1. Go to your "KillBox" directory which contains "res" and "src". 
-2. Copy the files from "src" into the current directory. 
-3. Copy the files (not the folders) from the "res" directory into the current directory. 
-4. Run the batch file named "compile-and-run.bat". 
-5. If it doesn't work, make sure that "java" and "javac" are in your PATH, then try step 4 again. 
+### Windows
+
+```bat
+gradlew.bat run
+```
+
+### Pre-built JAR
+
+Download `KillBox.jar` from the latest CI build and run it:
+
+```sh
+# Linux / Windows
+java -jar KillBox.jar
+
+# macOS
+java -XstartOnFirstThread -jar KillBox.jar
+```
 
 # Screenshots
 ###### KillBox running on Ubuntu MATE (map: Citadel)

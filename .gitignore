@@ -47,3 +47,10 @@ Temporary Items
 .apdisk
 
 
+# Gradle build artifacts
+.gradle/
+build/
+
+# Downloaded LWJGL native JARs – fetched automatically by Gradle
+KillBox/res/lwjgl3/
+

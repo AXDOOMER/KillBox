@@ -1,0 +1,140 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def lwjglVersion = '3.3.6'
+
+// --- Platform detection -------------------------------------------------------
+def osName = System.getProperty('os.name').toLowerCase()
+def arch   = System.getProperty('os.arch').toLowerCase()
+
+def lwjglNatives
+if (osName.contains('mac')) {
+    lwjglNatives = arch.contains('aarch64') ? 'natives-macos-arm64' : 'natives-macos'
+} else if (osName.contains('linux')) {
+    lwjglNatives = arch.contains('aarch64') ? 'natives-linux-arm64' : 'natives-linux'
+} else if (osName.contains('win')) {
+    lwjglNatives = 'natives-windows'
+} else {
+    throw new GradleException("Unsupported OS: ${osName}")
+}
+
+// --- Generated sources --------------------------------------------------------
+def generatedSrcDir = layout.buildDirectory.dir('generated/source')
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src', generatedSrcDir]
+        }
+    }
+}
+
+// --- Dependencies -------------------------------------------------------------
+
+// Separate configuration to collect all-platform natives for the fat JAR
+configurations.create('allNatives')
+
+dependencies {
+    // LWJGL BOM controls all module versions
+    implementation platform("org.lwjgl:lwjgl-bom:${lwjglVersion}")
+
+    implementation 'org.lwjgl:lwjgl'
+    implementation 'org.lwjgl:lwjgl-glfw'
+    implementation 'org.lwjgl:lwjgl-openal'
+    implementation 'org.lwjgl:lwjgl-opengl'
+
+    // Current-platform natives for the normal 'run' task
+    runtimeOnly "org.lwjgl:lwjgl::${lwjglNatives}"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::${lwjglNatives}"
+    runtimeOnly "org.lwjgl:lwjgl-openal::${lwjglNatives}"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::${lwjglNatives}"
+}
+
+// All-platform natives for the fat JAR.
+// Use a for loop (not .each{}) to stay compatible with Gradle 9 Groovy DSL.
+for (String m in ['lwjgl', 'lwjgl-glfw', 'lwjgl-openal', 'lwjgl-opengl']) {
+    for (String n in ['natives-macos-arm64', 'natives-macos',
+                      'natives-linux',       'natives-linux-arm64',
+                      'natives-windows']) {
+        dependencies.add('allNatives', "org.lwjgl:${m}:${lwjglVersion}:${n}")
+    }
+}
+
+// --- Java compatibility -------------------------------------------------------
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+// --- Application entry point --------------------------------------------------
+application {
+    mainClass = 'Game'
+    // macOS requires GLFW to run on the first thread
+    if (osName.contains('mac')) {
+        applicationDefaultJvmArgs = ['-XstartOnFirstThread']
+    }
+}
+
+// Allow the game to find its 'res/' directory when run via Gradle
+tasks.named('run').configure {
+    workingDir = projectDir
+}
+
+// --- Auto-generate BuildInfo.java at compile time ----------------------------
+tasks.register('generateBuildInfo') {
+    group = 'build'
+    description = 'Generates BuildInfo.java with the current build date'
+    outputs.dir(generatedSrcDir)
+    doLast {
+        def date = new Date().format("MMMM d yyyy", TimeZone.getTimeZone('UTC'))
+        def file = generatedSrcDir.get().file('BuildInfo.java').asFile
+        file.parentFile.mkdirs()
+        file.text = """\
+// Auto-generated at build time — do not edit
+public class BuildInfo {
+    public static final String VERSION    = "v3.0";
+    public static final String BUILD_DATE = "${date}";
+}
+"""
+    }
+}
+
+tasks.named('compileJava').configure {
+    dependsOn 'generateBuildInfo'
+}
+
+// --- Fat JAR: bundle all platform natives for distribution -------------------
+//
+// Usage:
+//   Windows / Linux : java -jar KillBox.jar
+//   macOS           : java -XstartOnFirstThread -jar KillBox.jar
+//                     (GLFW requires the main thread on macOS)
+//
+tasks.register('fatJar', Jar) {
+    group = 'build'
+    description = 'Assembles a self-contained JAR with natives for all platforms'
+    archiveFileName = 'KillBox.jar'
+    manifest {
+        attributes 'Main-Class': 'Game'
+    }
+    // Game classes (compiled output)
+    from sourceSets.main.output
+    // LWJGL class JARs, extracted
+    from({
+        configurations.runtimeClasspath
+            .filter { it.isFile() }
+            .collect { zipTree(it) }
+    })
+    // All-platform native libraries, extracted
+    from({
+        configurations.allNatives.collect { zipTree(it) }
+    })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+

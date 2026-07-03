@@ -31,8 +31,8 @@ public class Menu
 {
 	public boolean UserWantsToExit = false;
 
-	final String GameVersion = "v2.0";
-	final String LastUpdate = "April 18 2021 01:47";
+	final String GameVersion = BuildInfo.VERSION;
+	final String LastUpdate  = BuildInfo.BUILD_DATE;
 
 	public String Address = null;
 	public int GameMode = 0;
