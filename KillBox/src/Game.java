@@ -13,11 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.*;
@@ -154,7 +149,7 @@ public class Game
 				Display.setVSyncEnabled(true);
 				Display.create();
 			}
-			catch (LWJGLException ex)
+			catch (RuntimeException ex)
 			{
 				System.out.println("Error while creating the Display: ");
 				ex.printStackTrace();

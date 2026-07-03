@@ -14,22 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.File;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.openal.AL;
-import static org.lwjgl.openal.AL10.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
-import org.lwjgl.util.WaveData;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
+import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.openal.ALC10.*;
 
 public class Sound
 {
 	final int Attenuator = 25; // A smaller value makes the players further
 	int IntSource;
+
+	private long alcDevice;
+	private long alcContext;
 
 	public float VolumeMultiplier = 1.0f;
 	final int MaxSounds = 60;
@@ -45,7 +52,9 @@ public class Sound
 	public void CloseOpenAL()
 	{
 		// Don't just close. DESTROY!
-		AL.destroy();
+		alcMakeContextCurrent(0);
+		alcDestroyContext(alcContext);
+		alcCloseDevice(alcDevice);
 	}
 
 	public void SetNewListener(Player Hear)
@@ -59,10 +68,15 @@ public class Sound
 
 		try
 		{
-			AL.create();
+			alcDevice = alcOpenDevice((ByteBuffer) null);
+			if (alcDevice == 0) throw new RuntimeException("Failed to open default OpenAL device");
+			ALCCapabilities alcCapabilities = ALC.createCapabilities(alcDevice);
+			alcContext = alcCreateContext(alcDevice, (java.nio.IntBuffer) null);
+			alcMakeContextCurrent(alcContext);
+			AL.createCapabilities(alcCapabilities);
 			IntSource = alGenSources();
 		}
-		catch (LWJGLException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -125,12 +139,12 @@ public class Sound
 			// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 			alSourcei(IntSources.get(SourceIndex), AL_SOURCE_RELATIVE, AL_FALSE);
 			alSourcei(IntSources.get(SourceIndex), AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-			alSource(IntSources.get(SourceIndex), AL_POSITION, SourcePos);
+			alSourcefv(IntSources.get(SourceIndex), AL_POSITION, SourcePos);
 			// AL_GAIN controls the volume
 			alSourcef(IntSources.get(SourceIndex), AL_GAIN, 1.0f * VolumeMultiplier);
 
-			alListener(AL_POSITION, ListenerPos);
-			alListener(AL_ORIENTATION, ListenerOri);
+			alListenerfv(AL_POSITION, ListenerPos);
+			alListenerfv(AL_ORIENTATION, ListenerOri);
 			alSourcePlay(IntSources.get(SourceIndex));
 		}
 	}
@@ -172,14 +186,14 @@ public class Sound
 			alSourceStop(IntSource);
 			// Get the sound from a Player and the source will be at its X,Y,Z using its velocity.
 			alSourcei(IntSource, AL_BUFFER, SoundBuffers.get(SoundBuffersIndex));
-			alSource(IntSource, AL_POSITION, SourcePos);
-			alSource(IntSource, AL_VELOCITY, SourceVel);
+			alSourcefv(IntSource, AL_POSITION, SourcePos);
+			alSourcefv(IntSource, AL_VELOCITY, SourceVel);
 			// AL_GAIN controls the volume
 			alSourcef(IntSource, AL_GAIN, 0.3f * VolumeMultiplier);
 
-			alListener(AL_POSITION, ListenerPos);
-			alListener(AL_VELOCITY, ListenerVel);
-			alListener(AL_ORIENTATION, ListenerOri);
+			alListenerfv(AL_POSITION, ListenerPos);
+			alListenerfv(AL_VELOCITY, ListenerVel);
+			alListenerfv(AL_ORIENTATION, ListenerOri);
 			alSourcePlay(IntSource);
 		}
 	}
@@ -196,11 +210,38 @@ public class Sound
 		{
 			try
 			{
-				// Load the sound, create a buffer and save the filename.
-				WaveData Data  = WaveData.create(new BufferedInputStream(new FileInputStream("res/sounds/" + File)));
+				// Load the WAV file using javax.sound.sampled
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("res/sounds/" + File));
+				AudioFormat srcFmt = audioStream.getFormat();
+
+				// Ensure we have signed little-endian 16-bit PCM
+				if (srcFmt.isBigEndian() && srcFmt.getSampleSizeInBits() == 16) {
+					AudioFormat pcmFmt = new AudioFormat(
+							srcFmt.getEncoding(),
+							srcFmt.getSampleRate(),
+							16,
+							srcFmt.getChannels(),
+							srcFmt.getChannels() * 2,
+							srcFmt.getSampleRate(),
+							false);
+					audioStream = AudioSystem.getAudioInputStream(pcmFmt, audioStream);
+					srcFmt = pcmFmt;
+				}
+
+				byte[] audioBytes = audioStream.readAllBytes();
+				audioStream.close();
+
+				ByteBuffer audioBuffer = ByteBuffer.allocateDirect(audioBytes.length);
+				audioBuffer.put(audioBytes);
+				audioBuffer.flip();
+
+				int alFmt = srcFmt.getChannels() == 1
+						? (srcFmt.getSampleSizeInBits() == 8 ? AL_FORMAT_MONO8   : AL_FORMAT_MONO16)
+						: (srcFmt.getSampleSizeInBits() == 8 ? AL_FORMAT_STEREO8 : AL_FORMAT_STEREO16);
+				int sampleRate = (int) srcFmt.getSampleRate();
+
 				int Buffer = alGenBuffers();
-				alBufferData(Buffer, Data.format, Data.data, Data.samplerate);
-				Data.dispose();
+				alBufferData(Buffer, alFmt, audioBuffer, sampleRate);
 
 				if (!LoadedFiles.contains(File))
 				{
