@@ -16,11 +16,12 @@
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
-import java.io.File;
 
 import org.lwjgl.BufferUtils;
 
@@ -37,7 +38,11 @@ public class Texture
 		int[] Pixels = null;
 		try
 		{
-			BufferedImage Image = ImageIO.read(new File(Path));
+			InputStream imageStream = Texture.class.getClassLoader().getResourceAsStream(Path);
+			if (imageStream == null) {
+				imageStream = new FileInputStream(Path);
+			}
+			BufferedImage Image = ImageIO.read(imageStream);
 			Width = Image.getWidth();
 			Height = Image.getHeight();
 			Pixels = new int[Width * Height];

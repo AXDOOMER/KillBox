@@ -43,8 +43,12 @@ public class Level
 
 		try
 		{
-			// Load from file
-			BufferedReader LevelFile = new BufferedReader(new FileReader(LvlName));
+			// Load from classloader (works in fat JAR) with filesystem fallback
+			InputStream mapStream = Level.class.getClassLoader().getResourceAsStream(LvlName);
+			if (mapStream == null) {
+				mapStream = new FileInputStream(LvlName);
+			}
+			BufferedReader LevelFile = new BufferedReader(new InputStreamReader(mapStream));
 
 			while ((Line = LevelFile.readLine()) != null)
 			{

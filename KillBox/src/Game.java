@@ -26,8 +26,9 @@ public class Game
 
 	public static void main(String[] args)
 	{
-		System.out.println("			KillBox " + BuildInfo.VERSION + " (" + BuildInfo.BUILD_DATE + ")");
-		System.out.println("			============");
+		String header = "KillBox " + BuildInfo.VERSION;
+		System.out.println("			" + header);
+		System.out.println("			" + "=".repeat(header.length()));
 
 		System.out.println("This program is free software distributed under the GNU GPL version 3.");
 

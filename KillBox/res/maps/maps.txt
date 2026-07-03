@@ -1,0 +1,6 @@
+citadel
+corridors
+field
+houses
+manor
+temple

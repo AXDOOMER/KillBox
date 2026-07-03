@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -211,7 +213,11 @@ public class Sound
 			try
 			{
 				// Load the WAV file using javax.sound.sampled
-				AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File("res/sounds/" + File));
+				InputStream rawStream = Sound.class.getClassLoader().getResourceAsStream("res/sounds/" + File);
+				if (rawStream == null) {
+					rawStream = new FileInputStream("res/sounds/" + File);
+				}
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(rawStream));
 				AudioFormat srcFmt = audioStream.getFormat();
 
 				// Ensure we have signed little-endian 16-bit PCM

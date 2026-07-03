@@ -135,6 +135,14 @@ tasks.register('fatJar', Jar) {
     from({
         configurations.allNatives.collect { zipTree(it) }
     })
+    // Game assets — include only the content folders and icon files;
+    // exclude old LWJGL 2 binaries, scripts, archives, and generated configs.
+    from('res') {
+        into('res')
+        include 'maps/**', 'player/**', 'smallchars/**', 'sounds/**',
+                'sprites/**', 'textures/**', 'weapons/**',
+                '*.png', '*.ico'
+    }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

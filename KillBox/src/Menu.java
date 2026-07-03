@@ -15,7 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -2014,7 +2017,29 @@ public class Menu
 			}
 			catch (Exception ex)
 			{
-				System.err.println("Error while loading file(s) from res/maps folder.");
+				// Filesystem listing failed (e.g. running from a JAR).
+				// Fall back to the bundled map manifest.
+				try
+				{
+					InputStream mapList = Menu.class.getClassLoader().getResourceAsStream("res/maps/maps.txt");
+					if (mapList != null)
+					{
+						BufferedReader reader = new BufferedReader(new InputStreamReader(mapList));
+						String mapName;
+						while ((mapName = reader.readLine()) != null)
+						{
+							mapName = mapName.trim();
+							if (!mapName.isEmpty())
+							{
+								Maps.add(mapName);
+							}
+						}
+					}
+				}
+				catch (Exception ex2)
+				{
+					System.err.println("Error while loading file(s) from res/maps folder.");
+				}
 			}
 
 			// Column with GameMode Radio buttons, Record Demo Checkbox, KillLimit and Connect Button
