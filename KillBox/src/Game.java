@@ -32,6 +32,9 @@ public class Game
 
 		System.out.println("This program is free software distributed under the GNU GPL version 3.");
 
+		// Bot instance — non-null only during an active vs-Bot game
+		Bot bot = null;
+
 		// Nodes are computers where there is a player
 		int Nodes = 1;
 		String Demo = null;
@@ -344,14 +347,104 @@ public class Game
 					}
 
 					// Look for a winner and end the game if needed
-					NetplayInfo.TestEndGame(NetplayInfo, Lvl, HeadCamera);
+					if (NetplayInfo != null)
+					{
+						NetplayInfo.TestEndGame(NetplayInfo, Lvl, HeadCamera);
+					}
 
-					// Check if we're in a multiplayer game
+					// Check if we're in a multiplayer or bot game
 					if (Nodes > 1)
 					{
 						// FIXME: fakenet still requires a network game to be started and it will freeze
 						if (!Parameters.containsKey("-fakenet"))
 						{
+							if (bot != null)
+							{
+								// ---- BOT GAME: drive AI and process both players' actions ----
+
+								bot.update(Lvl.Players);
+
+								int botIdx = 1;
+								Player botPlayer = Lvl.Players.get(botIdx);
+
+								// Execute bot movement
+								botPlayer.ExecuteMove(botPlayer.FrontMove, botPlayer.SideMove);
+								botPlayer.ExecuteAngleTurn(botPlayer.AngleDiff);
+								botPlayer.ExecuteChangeWeapon();
+
+								// Execute human player movement
+								Lvl.Players.get(View).ExecuteMove(Lvl.Players.get(View).FrontMove, Lvl.Players.get(View).SideMove);
+								Lvl.Players.get(View).ExecuteAngleTurn(Lvl.Players.get(View).AngleDiff);
+								Lvl.Players.get(View).ChangeWeapon(Lvl.Players.get(View).WeaponToUse);
+								Lvl.Players.get(View).ExecuteChangeWeapon();
+
+								// Process human shot
+								if (Lvl.Players.get(View).Shot)
+								{
+									if (Lvl.Players.get(View).Health > 0 && !Lvl.Players.get(View).JustSpawned)
+									{
+										Lvl.Players.get(View).HitScan(Lvl.Players.get(View).GetRadianAngle(), 0, Lvl.Players.get(View).GetWeaponDamage());
+									}
+									else if (Lvl.Players.get(View).JustSpawned)
+									{
+										Lvl.Players.get(View).JustSpawned = false;
+									}
+									else if (Lvl.Players.get(View).Health <= 0)
+									{
+										if (Lvl.Players.get(View).ViewZ == Lvl.Players.get(View).HeadOnFloor)
+										{
+											if (!Lvl.Players.get(View).SpawnAtRandomSpot(true))
+											{
+												System.err.println("Can't find a free spot to respawn.");
+												System.exit(1);
+											}
+										}
+									}
+								}
+								Lvl.Players.get(View).JustSpawned = false;
+
+								// Process bot shot
+								if (botPlayer.Shot)
+								{
+									if (botPlayer.Health > 0 && !botPlayer.JustSpawned)
+									{
+										botPlayer.HitScan(botPlayer.GetRadianAngle(), 0, botPlayer.GetWeaponDamage());
+									}
+									else if (botPlayer.JustSpawned)
+									{
+										botPlayer.JustSpawned = false;
+									}
+								}
+
+								// Bot auto-respawn — checked unconditionally because bot.update()
+								// returns early when dead and never sets Shot.
+								if (botPlayer.Health <= 0 && botPlayer.ViewZ == botPlayer.HeadOnFloor)
+								{
+									if (!botPlayer.SpawnAtRandomSpot(true))
+									{
+										System.err.println("Can't find a free spot to respawn the bot.");
+									}
+								}
+								botPlayer.JustSpawned = false;
+
+								// Reload if requested
+								if (Lvl.Players.get(View).Reloading) { Lvl.Players.get(View).ReloadWeapon(); }
+								if (botPlayer.Reloading)             { botPlayer.ReloadWeapon(); }
+
+								// Reset per-tick input state
+								for (int Player = 0; Player < Lvl.Players.size(); Player++)
+								{
+									Lvl.Players.get(Player).WeaponToUse = 0;
+									Lvl.Players.get(Player).SideMove    = 0;
+									Lvl.Players.get(Player).FrontMove   = 0;
+									Lvl.Players.get(Player).AngleDiff   = 0;
+									Lvl.Players.get(Player).Shot        = false;
+									Lvl.Players.get(Player).Reloading   = false;
+								}
+							}
+							else
+							{
+							// ---- NETWORK GAME: existing communication code ----
 							// Empty the command that's gonna be sent over the network
 							NetplayInfo.PlayerCommand.Reset();
 							for (int Player = 0; Player < NetplayInfo.OtherPlayersCommand.size(); Player++)
@@ -388,6 +481,7 @@ public class Game
 								Lvl.Players.get(Player).Shot = false;
 								Lvl.Players.get(Player).Reloading = false;
 							}
+							} // end else (network game)
 						}
 					}
 
@@ -400,11 +494,11 @@ public class Game
 						{
 							View = (View + 1) % Lvl.Players.size();
 
-							if (View == NetplayInfo.View)
+							if (NetplayInfo != null && View == NetplayInfo.View)
 							{
 								Control = true;
 							}
-							else
+							else if (bot == null)
 							{
 								Control = false;
 							}
@@ -427,6 +521,13 @@ public class Game
 				}
 				else // Single player
 				{
+					// Reset bot state when returning to the menu after a bot game
+					if (bot != null)
+					{
+						bot = null;
+						Nodes = 1;
+					}
+
 					if (!ShowFrameRate)
 					{
 						Display.setTitle("KillBox");    // In single player mode, use this window title.
@@ -647,6 +748,72 @@ public class Game
 								System.exit(1);
 							}
 						}
+					}
+					else if (HeadCamera.Menu.IsBotGame)
+					{
+						// ---- BOT GAME STARTUP (no network) ----
+						if (!Parameters.containsKey("-showframetime"))
+						{
+							Display.setTitle("KillBox (vs Bot)");
+						}
+						Nodes = 2;
+
+						// Minimal Netplay holds game conditions (needed by TestEndGame)
+						NetplayInfo = new Netplay(
+								HeadCamera.Menu.GameMode,
+								HeadCamera.Menu.TimeLimit,
+								HeadCamera.Menu.KillLimit);
+
+						Lvl = new Level();
+
+						for (int Player = 0; Player < Nodes; Player++)
+						{
+							Lvl.Players.add(new Player(Lvl, SndDriver));
+
+							if (HeadCamera.Menu.GameMode == 1)
+							{
+								Lvl.Players.get(Player).MaxHealth = 1;
+								Lvl.Players.get(Player).Health    = 1;
+							}
+							else
+							{
+								Lvl.Players.get(Player).MaxHealth = 100;
+								Lvl.Players.get(Player).Health    = 100;
+							}
+						}
+
+						SndDriver.SetNewListener(Lvl.Players.get(View));
+
+						Lvl.LoadLevel("res/maps/" + HeadCamera.Menu.Map + ".txt", WallsFilter);
+						HeadCamera.Menu.InGame = true;
+						TicksCount = 0;
+						HeadCamera.DemoMode = false;
+
+						if (HeadCamera.Menu.GameMode != 2)
+						{
+							Lvl.RemoveTypeOfThingsFromLevel(Thing.Names.Flag);
+						}
+
+						HeadCamera.Menu.IsBotGame = false;
+
+						// Spawn both players
+						Random RandBot = new Random();
+						RandBot.Reset();
+
+						for (int Player = 0; Player < Lvl.Players.size(); Player++)
+						{
+							if (!Lvl.Players.get(Player).SpawnAtRandomSpot(false))
+							{
+								System.err.println("Can't find a free spot to spawn player "
+										+ (Player + 1) + ". Your map may not have enough spawn points.");
+								System.exit(1);
+							}
+						}
+
+						// Create the bot for player index 1 (human is always index 0)
+						bot = new Bot(Lvl.Players.get(1), Lvl, HeadCamera.Menu.GameMode);
+
+						HeadCamera.ChangePlayer(Lvl.Players.get(View), true);
 					}
 				}
 

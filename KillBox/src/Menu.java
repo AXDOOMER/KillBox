@@ -43,6 +43,7 @@ public class Menu
 	public int KillLimit = 0;
 	public boolean IsServer = false;
 	public boolean IsClient = false;
+	public boolean IsBotGame = false;
 	public boolean InGame = false;
 	public String Map = "";
 
@@ -1916,6 +1917,7 @@ public class Menu
 		Menu_Integer GameMode;
 		Menu_Integer TimeLimit;
 		Menu_Integer KillLimit;
+		Menu_Boolean IsBotOption;
 
 		int RowCursor;
 		int ColumnCursor;
@@ -1958,6 +1960,9 @@ public class Menu
 			KillLimit = new Menu_Integer();
 			KillLimit.Int(25);
 
+			IsBotOption = new Menu_Boolean();
+			IsBotOption.Bool(false);
+
 			// Initialize radio Text
 			String[] RadioText = new String[3];
 			RadioText[0] = "Free for all";
@@ -1969,7 +1974,7 @@ public class Menu
 			// Initialize position of Start and Close
 			PosStart = new int[2];
 			PosStart[0] = 0;
-			PosStart[1] = 9;
+			PosStart[1] = 10;   // +1 row for the vs-Bot checkbox
 
 			PosClose = new int[2];
 			PosClose[0] = 1;
@@ -1991,7 +1996,7 @@ public class Menu
 
 			PosComboBox = new int[2];
 			PosComboBox[0] = 0;
-			PosComboBox[1] = 6;
+			PosComboBox[1] = 7;   // shifted down by 1 due to vs-Bot checkbox
 
 			// Initialize cursor
 			ColumnCursor = 0;
@@ -2051,6 +2056,7 @@ public class Menu
 			Column1.add(new MenuItem("", false, false)); // Spacer
 			//Column1.add(new MenuItem_CheckBox("Record Demo", true, false, RecordDemo));
 			//Column1.add(new MenuItem_TextBox("Demo Name", true, false));
+			Column1.add(new MenuItem_CheckBox("vs Bot", true, false, IsBotOption));
 			Column1.add(new MenuItem_NumberBox("Kill Limit", true, false, KillLimit, 1, 50, 1));
 			Column1.add(new MenuItem_ComboBox("Map:", true, false, Maps));
 			Column1.add(new MenuItem_Dialog("Browse a Map", true, false, "Choose a Map", "txt", "Text File"));
@@ -2384,9 +2390,12 @@ public class Menu
 						CloseWindow = true;
 						Active = false;
 
-						// Message saying it's waiting for other players
-						NewMessageToShow("Waiting for other players...");
-						MessageTime = MaxMessageTime - 1;
+						// Show an appropriate message
+						if (!Menu.this.IsBotGame)
+						{
+							NewMessageToShow("Waiting for other players...");
+							MessageTime = MaxMessageTime - 1;
+						}
 					}
 					else if (ColumnCursor == PosClose[0] && RowCursor == PosClose[1]) // Close
 					{
@@ -2503,7 +2512,19 @@ public class Menu
 
 			// Get Map name
 			Map = ((MenuItem_ComboBox)Items.get(PosComboBox[0]).get(PosComboBox[1])).CurrentItem();
-			IsServer = true;
+
+			if (IsBotOption.Bool())
+			{
+				// Bot game — no network server needed
+				Menu.this.IsBotGame = true;
+				IsServer = false;
+			}
+			else
+			{
+				// Human opponent — start a network server
+				IsServer = true;
+				Menu.this.IsBotGame = false;
+			}
 		}
 	}
 
@@ -3320,7 +3341,7 @@ public class Menu
 		// Game array
 		ArrayList<MenuItem> Game = new ArrayList<MenuItem>();
 		Game.add(new MenuItem("Game", true, false));
-		MenuWindows_NewGame GameWin = new MenuWindows_NewGame("New Game", 55, 67);
+		MenuWindows_NewGame GameWin = new MenuWindows_NewGame("New Game", 55, 74);
 		Game.add(new MenuItem_Windows("New Game", true, false, GameWin));
 		MenuWindows_JoinGame JoinWin = new MenuWindows_JoinGame("Join Game", 50, 17);
 		Game.add(new MenuItem_Windows("Join Game", true, false, JoinWin));
@@ -4044,9 +4065,10 @@ public class Menu
 	{
 		// Quit playing
 		this.Active(false);
-		IsClient = false;
-		IsServer = false;
-		InGame = false;
+		IsClient  = false;
+		IsServer  = false;
+		IsBotGame = false;
+		InGame    = false;
 	}
 
 	// Close app

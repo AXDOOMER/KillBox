@@ -162,6 +162,16 @@ public class Netplay
 
 	private String Separator = ";";
 
+	/** Constructor for a local bot game — no network sockets are created. */
+	public Netplay(int gameMode, int timeLimit, int killLimit)
+	{
+		this.Nodes     = 2;
+		this.GameMode  = gameMode;
+		this.TimeLimit = timeLimit;
+		this.KillLimit = killLimit;
+		this.View      = 0;   // human is always index 0
+	}
+
 	// Constructor for the clients
 	public Netplay(int Nodes, String IpAddress)
 	{
